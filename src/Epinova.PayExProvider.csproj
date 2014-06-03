@@ -61,6 +61,7 @@
     <Compile Include="Facades\Order.cs" />
     <Compile Include="IoC\PayExRegistry.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="PayExPaymentGateway.cs" />
     <Compile Include="PayExResult\TransactionResult.cs" />
     <Compile Include="PayExResult\InitializeResult.cs" />
     <Compile Include="PayExResult\ResultBase.cs" />
