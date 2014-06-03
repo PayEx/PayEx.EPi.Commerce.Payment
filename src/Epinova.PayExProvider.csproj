@@ -11,6 +11,8 @@
     <AssemblyName>Epinova.PayExProvider</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\kondomeriet-commerce\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,10 +32,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPiServer">
+      <HintPath>..\packages\EPiServer.CMS.Core.7.0.586.16\lib\net40\EPiServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPiServer.Events">
+      <HintPath>..\packages\EPiServer.Framework.7.0.859.16\lib\net40\EPiServer.Events.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,10 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IHasher.cs" />
     <Compile Include="Contracts\IOrderFacade.cs" />
     <Compile Include="Contracts\IPaymentManager.cs" />
     <Compile Include="Contracts\IResultParser.cs" />
+    <Compile Include="Contracts\ISettings.cs" />
     <Compile Include="Facades\Order.cs" />
+    <Compile Include="IoC\PayExRegistry.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="PayExResult\TransactionResult.cs" />
     <Compile Include="PayExResult\InitializeResult.cs" />
     <Compile Include="PayExResult\ResultBase.cs" />
@@ -55,14 +71,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Services\PaymentManager.cs" />
+    <Compile Include="PaymentManager.cs" />
     <Compile Include="PayExResult\ResultParser.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Util\HashUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Service References\PxOrder\Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -83,10 +102,9 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

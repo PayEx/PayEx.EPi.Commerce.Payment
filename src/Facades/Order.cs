@@ -1,5 +1,6 @@
 ﻿
 using Epinova.PayExProvider.Contracts;
+using Epinova.PayExProvider.Models;
 
 namespace Epinova.PayExProvider.Facades
 {
@@ -12,12 +13,11 @@ namespace Epinova.PayExProvider.Facades
             _client = new PxOrder.PxOrderSoapClient();
         }
 
-        public string Initialize(long accountNumber, string purchaseOperation, long price, string priceArgList, string currency, int vat, string orderId, string productNumber, string description,
-            string clientIpAddress, string clientIdentifier, string additionalValues, string externalId, string returnUrl, string view, string agreementRef, string cancelUrl, string clientLanguage, string hash)
+        public string Initialize(Payment payment, string hash)
         {
-            return _client.Initialize8(accountNumber, purchaseOperation, price, priceArgList, currency, vat, orderId,
-                                      productNumber, description, clientIpAddress, clientIdentifier, additionalValues,
-                                      externalId, returnUrl, view, agreementRef, cancelUrl, clientLanguage, hash);
+            return _client.Initialize8(payment.AccountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId,
+                                      payment.ProductNumber, payment.Description, payment.ClientIpAddress, payment.ClientIdentifier, payment.AdditionalValues,
+                                      string.Empty, payment.ReturnUrl, payment.View, payment.AgreementRef, payment.CancelUrl, payment.ClientLanguage, hash);
         }
 
         public string Complete(long accountNumber, string orderRef, string hash)
