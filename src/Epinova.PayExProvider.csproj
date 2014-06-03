@@ -42,13 +42,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IOrderFacade.cs" />
+    <Compile Include="Contracts\IPaymentManager.cs" />
+    <Compile Include="Contracts\IResultParser.cs" />
     <Compile Include="Facades\Order.cs" />
+    <Compile Include="PayExResult\TransactionResult.cs" />
+    <Compile Include="PayExResult\InitializeResult.cs" />
+    <Compile Include="PayExResult\ResultBase.cs" />
+    <Compile Include="PayExResult\TransactionStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\PxOrder\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Services\PaymentManager.cs" />
+    <Compile Include="PayExResult\ResultParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -74,6 +82,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
