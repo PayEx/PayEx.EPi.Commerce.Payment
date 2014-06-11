@@ -1,4 +1,4 @@
-﻿using Epinova.PayExProvider.PayExResult;
+﻿using Epinova.PayExProvider.Payment;
 
 namespace Epinova.PayExProvider.Contracts
 {

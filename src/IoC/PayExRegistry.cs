@@ -1,7 +1,8 @@
-﻿using Epinova.PayExProvider.Contracts;
+﻿using Epinova.PayExProvider.Commerce;
+using Epinova.PayExProvider.Contracts;
+using Epinova.PayExProvider.Contracts.Commerce;
 using Epinova.PayExProvider.Facades;
-using Epinova.PayExProvider.PayExResult;
-using Epinova.PayExProvider.Util;
+using Epinova.PayExProvider.Payment;
 using StructureMap.Configuration.DSL;
 
 namespace Epinova.PayExProvider.IoC
@@ -10,7 +11,10 @@ namespace Epinova.PayExProvider.IoC
     {
         public PayExRegistry()
         {
-            For<IHasher>().Use<HashUtil>();
+            For<ILogger>().Use<Logger>();
+            For<IOrderNote>().Use<OrderNote>();
+            For<IPurchaseOrder>().Use<PurchaseOrder>();
+            For<IHasher>().Use<Hash>();
             For<IOrderFacade>().Use<Order>();
             For<IPaymentManager>().Use<PaymentManager>();
             For<IResultParser>().Use<ResultParser>();

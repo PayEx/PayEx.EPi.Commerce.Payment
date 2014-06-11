@@ -5,7 +5,7 @@ namespace Epinova.PayExProvider.Contracts
 {
     public interface IOrderFacade
     {
-        string Initialize(Payment payment, string hash);
+        string Initialize(PaymentInformation payment, string hash);
 
         string Complete(long accountNumber, string orderRef, string hash);
 

@@ -1,6 +1,6 @@
 ﻿using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Models;
-using Epinova.PayExProvider.PayExResult;
+using Epinova.PayExProvider.Payment;
 
 namespace Epinova.PayExProvider
 {
@@ -19,7 +19,7 @@ namespace Epinova.PayExProvider
             _resultParser = resultParser;
         }
 
-        public string Initialize(Payment payment)
+        public string Initialize(PaymentInformation payment)
         {
             payment.AddSettings(_settings);
 

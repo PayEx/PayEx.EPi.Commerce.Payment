@@ -21,6 +21,18 @@ namespace Epinova.PayExProvider
         [PlugInProperty(Description = "PayEx Purchase Operation (ex: SALE/AUTHORIZATION)", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string PurchaseOperation { get; set; }
 
+        [PlugInProperty(Description = "Title for ordernote created after authorization", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        public string AuthorizationNoteTitle { get; set; }
+
+        [PlugInProperty(Description = "Message prefix for ordernote created after authorization", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        public string AuthorizationNoteMessage { get; set; }
+
+        [PlugInProperty(Description = "Title for ordernote created after capture", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        public string CaptureNoteTitle { get; set; }
+
+        [PlugInProperty(Description = "Message prefix for ordernote created after capture", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        public string CaptureNoteMessage { get; set; }
+
         private Settings()
         {
             PlugInSettings.SettingsChanged += BroadcastToAllServers;

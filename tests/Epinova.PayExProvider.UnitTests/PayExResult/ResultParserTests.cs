@@ -1,5 +1,5 @@
 ﻿using System;
-using Epinova.PayExProvider.PayExResult;
+using Epinova.PayExProvider.Payment;
 using NUnit.Framework;
 
 namespace Epinova.PayExProvider.UnitTests.PayExResult

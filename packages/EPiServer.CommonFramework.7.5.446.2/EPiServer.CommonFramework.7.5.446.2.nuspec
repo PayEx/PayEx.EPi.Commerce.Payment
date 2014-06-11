@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>EPiServer.CommonFramework</id>
+    <version>7.5.446.2</version>
+    <authors>EPiServer AB</authors>
+    <owners>EPiServer AB</owners>
+    <licenseUrl>http://www.episerver.com/eula/</licenseUrl>
+    <projectUrl>http://www.episerver.com/add-on-store/EPiServer-Relate/</projectUrl>
+    <iconUrl>http://www.episerver.com/Framework/Styles/Images/Products/Integration.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>EPiServer Common Framework Assemblies</description>
+    <releaseNotes>This package is identical to 7.5.446.1, but specifying EPiServer dependencies with a wider version range to support compatible updates of those packages.</releaseNotes>
+    <tags>EPiServer CommonFramework</tags>
+    <dependencies>
+      <dependency id="EPiServer.Framework" version="[7.5.1000, 8.0.0.0)" />
+    </dependencies>
+  </metadata>
+</package>

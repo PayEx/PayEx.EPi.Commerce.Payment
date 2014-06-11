@@ -13,7 +13,7 @@ namespace Epinova.PayExProvider.Facades
             _client = new PxOrder.PxOrderSoapClient();
         }
 
-        public string Initialize(Payment payment, string hash)
+        public string Initialize(PaymentInformation payment, string hash)
         {
             return _client.Initialize8(payment.AccountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId,
                                       payment.ProductNumber, payment.Description, payment.ClientIpAddress, payment.ClientIdentifier, payment.AdditionalValues,

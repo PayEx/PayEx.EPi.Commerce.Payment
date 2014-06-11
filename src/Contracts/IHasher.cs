@@ -5,7 +5,7 @@ namespace Epinova.PayExProvider.Contracts
 {
     public interface IHasher
     {
-        string Create(Payment payment);
+        string Create(PaymentInformation payment);
         string Create(long accountNumber, string orderRef, string encryptionKey);
 
         string Create(long accountNumber, int transactionNumber, long amount, string orderId, int vatAmount,
