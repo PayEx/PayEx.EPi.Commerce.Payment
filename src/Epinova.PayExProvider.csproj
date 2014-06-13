@@ -349,6 +349,13 @@
     <Compile Include="Commerce\CartStatus.cs" />
     <Compile Include="Commerce\OrderNote.cs" />
     <Compile Include="Commerce\PurchaseOrder.cs" />
+    <Compile Include="ConfigurePayment.ascx.cs">
+      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfigurePayment.ascx.designer.cs">
+      <DependentUpon>ConfigurePayment.ascx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Contracts\Commerce\IOrderNote.cs" />
     <Compile Include="Contracts\Commerce\IPurchaseOrder.cs" />
     <Compile Include="Contracts\IHasher.cs" />
@@ -361,6 +368,7 @@
     <Compile Include="IoC\PayExRegistry.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\PaymentInformation.cs" />
+    <Compile Include="PayExPayment.cs" />
     <Compile Include="PayExPaymentGateway.cs" />
     <Compile Include="Payment\TransactionResult.cs" />
     <Compile Include="Payment\InitializeResult.cs" />
@@ -403,7 +411,11 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ConfigurePayment.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

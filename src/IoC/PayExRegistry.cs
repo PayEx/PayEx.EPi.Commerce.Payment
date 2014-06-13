@@ -1,4 +1,5 @@
-﻿using Epinova.PayExProvider.Commerce;
+﻿using System.Web;
+using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Contracts.Commerce;
 using Epinova.PayExProvider.Facades;
@@ -19,6 +20,7 @@ namespace Epinova.PayExProvider.IoC
             For<IPaymentManager>().Use<PaymentManager>();
             For<IResultParser>().Use<ResultParser>();
             For<ISettings>().Use<Settings>();
+            For<HttpContextBase>().Use(() => new HttpContextWrapper(HttpContext.Current));
         }
     }
 }
