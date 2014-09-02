@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
+using Mediachase.Commerce.Orders;
+
+namespace Epinova.PayExProvider
+{
+    internal static class CartHelper
+    {
+        private const string CurrentCartKey = "CurrentCart";
+        private const string CurrentContextKey = "CurrentContext";
+
+        /// <summary>
+        /// Uses parameterized thread to update the cart instance id otherwise will get an "workflow already existed" exception.
+        /// Passes the cart and the current HttpContext as parameter in call back function to be able to update the instance id and also can update the HttpContext.Current if needed.
+        /// </summary>
+        /// <param name="cart">The cart to update.</param>
+        /// <remarks>
+        /// This method is used internal for payment methods which has redirect standard for processing payment e.g: PayPal, DIBS
+        /// </remarks>
+        internal static void UpdateCartInstanceId(Cart cart)
+        {
+            ParameterizedThreadStart threadStart = UpdateCartCallbackFunction;
+            var thread = new Thread(threadStart);
+            var cartInfo = new Hashtable();
+            cartInfo[CurrentCartKey] = cart;
+            cartInfo[CurrentContextKey] = HttpContext.Current;
+            thread.Start(cartInfo);
+            thread.Join();
+        }
+
+        /// <summary>
+        /// Callback function for updating the cart. Before accept all changes of the cart, update the HttpContext.Current if it is null somehow.
+        /// </summary>
+        /// <param name="cartArgs">The cart agruments for updating.</param>
+        private static void UpdateCartCallbackFunction(object cartArgs)
+        {
+            var cartInfo = cartArgs as Hashtable;
+            if (cartInfo == null || !cartInfo.ContainsKey(CurrentCartKey))
+            {
+                return;
+            }
+
+            var cart = cartInfo[CurrentCartKey] as Cart;
+            if (cart != null)
+            {
+                cart.InstanceId = Guid.NewGuid();
+                if (HttpContext.Current == null && cartInfo.ContainsKey(CurrentContextKey))
+                {
+                    HttpContext.Current = cartInfo[CurrentContextKey] as HttpContext;
+                }
+                try
+                {
+                    cart.AcceptChanges();
+                }
+                catch (System.Exception ex)
+                {
+                    //TODO
+                }
+            }
+        }
+    }
+}

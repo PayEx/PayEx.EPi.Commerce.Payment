@@ -24,11 +24,20 @@ namespace Epinova.PayExProvider.Models
         public string ClientLanguage { get; private set; }
         public string EncryptionKey { get; private set; }
 
-        public PaymentInformation(long price, string priceArgList, string currency, int vat, string orderId, string productNumber, string description, string clientIpAddress, string clientIdentifier,
+        public PaymentInformation(decimal price, string priceArgList, string currency, int vat, string orderId, string productNumber, string description, string clientIpAddress, string clientIdentifier,
             string additionalValues, string returnUrl, string view, string agreementRef, string cancelUrl, string clientLanguage)
         {
-            Price = price;
-            PriceArgList = priceArgList;
+            if (!string.IsNullOrWhiteSpace(priceArgList))
+            {
+                Price = 0;
+                PriceArgList = string.Format(priceArgList, Price);
+            }
+            else
+            {
+                Price = (long)(price * 100);
+                PriceArgList = string.Empty;
+            }
+
             Currency = currency;
             Vat = vat;
             OrderId = orderId;
@@ -44,7 +53,7 @@ namespace Epinova.PayExProvider.Models
             ClientLanguage = clientLanguage;
         }
 
-        public void AddSettings(ISettings settings)
+        public void AddSettings(IPayExSettings settings)
         {
             AccountNumber = settings.AccountNumber;
             PurchaseOperation = settings.PurchaseOperation;

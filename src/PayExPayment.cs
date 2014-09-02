@@ -108,12 +108,14 @@ namespace Epinova.PayExProvider
             : base(PayExPaymentMetaClass)
         {
             PaymentType = PaymentType.Other;
+            ImplementationClass = GetType().AssemblyQualifiedName;
         }
 
         protected PayExPayment(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
             PaymentType = PaymentType.Other;
+            ImplementationClass = GetType().AssemblyQualifiedName;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Epinova.PayExProvider.Payment
     {
         public string Create(PaymentInformation payment)
         {
-            var stringToHash = string.Concat(payment.AccountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId, payment.OrderId,
+            var stringToHash = string.Concat(payment.AccountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId, payment.ProductNumber,
                                 payment.Description, payment.ClientIpAddress, payment.ClientIdentifier, payment.AdditionalValues, payment.ReturnUrl, payment.View,
                                 payment.AgreementRef, payment.CancelUrl, payment.ClientLanguage, payment.EncryptionKey);
 

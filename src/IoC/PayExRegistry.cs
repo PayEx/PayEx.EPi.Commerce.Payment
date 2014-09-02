@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using System;
 using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Contracts.Commerce;
@@ -10,8 +10,9 @@ namespace Epinova.PayExProvider.IoC
 {
     public class PayExRegistry : Registry
     {
-        public PayExRegistry()
+        public PayExRegistry(Func<IPayExSettings> payExSettingsInstance)
         {
+            For<IPayExSettings>().Use(payExSettingsInstance);
             For<ILogger>().Use<Logger>();
             For<IOrderNote>().Use<OrderNote>();
             For<IPurchaseOrder>().Use<PurchaseOrder>();
@@ -19,8 +20,6 @@ namespace Epinova.PayExProvider.IoC
             For<IOrderFacade>().Use<Order>();
             For<IPaymentManager>().Use<PaymentManager>();
             For<IResultParser>().Use<ResultParser>();
-            For<ISettings>().Use<Settings>();
-            For<HttpContextBase>().Use(() => new HttpContextWrapper(HttpContext.Current));
         }
     }
 }

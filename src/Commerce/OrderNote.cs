@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.Core.Logging;
+using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Contracts.Commerce;
 using Mediachase.Commerce.Orders;
 
@@ -21,7 +21,7 @@ namespace Epinova.PayExProvider.Commerce
             List<Mediachase.Commerce.Orders.OrderNote> orderNotes = orderNoteCollection.Where(o => o.Title.Equals(title, StringComparison.OrdinalIgnoreCase)).ToList();
             if (!orderNotes.Any())
             {
-                _logger.ErrorFormat("Could not find ordernote with title:{0}", title);
+                _logger.LogError(string.Format("Could not find ordernote with title:{0}", title));
                 return null;
             }
 
@@ -29,7 +29,7 @@ namespace Epinova.PayExProvider.Commerce
 
             if (string.IsNullOrWhiteSpace(orderNote.Detail))
             {
-                _logger.ErrorFormat("Ordernote with OrderNoteId:{0} has no Details", orderNote.OrderNoteId);
+                _logger.LogError(string.Format("Ordernote with OrderNoteId:{0} has no Details", orderNote.OrderNoteId));
                 return null;
             }
 
@@ -39,11 +39,11 @@ namespace Epinova.PayExProvider.Commerce
                 int transactionId;
                 if (Int32.TryParse(detailValues[1], out transactionId))
                     return transactionId;
-                _logger.ErrorFormat("Could not parse transaction Id for order with OrderNoteId:{0}. Attempted to parse:{1}", orderNote.OrderNoteId, detailValues[1]);
+                _logger.LogError(string.Format("Could not parse transaction Id for order with OrderNoteId:{0}. Attempted to parse:{1}", orderNote.OrderNoteId, detailValues[1]));
             }
             else
             {
-                _logger.ErrorFormat("Detail for order with OrderNoteId:{0} has the incorrect format:{1}", orderNote.OrderNoteId, orderNote.Detail);
+                _logger.LogError(string.Format("Detail for order with OrderNoteId:{0} has the incorrect format:{1}", orderNote.OrderNoteId, orderNote.Detail));
             }
             return null;
         }

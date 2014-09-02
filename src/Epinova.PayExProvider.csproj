@@ -32,9 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\AjaxControlToolkit.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30930.28736, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\kondomeriet-commerce\packages\Castle.Core.3.2.2\lib\net45\Castle.Core.dll</HintPath>
@@ -68,21 +68,21 @@
       <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CommonFramework.7.5.446.2\lib\net40\DotNetOpenAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EPiServer">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.ApplicationModules">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Framework.7.7.0\lib\net40\EPiServer.ApplicationModules.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.ApplicationModules, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Framework.7.13.1\lib\net40\EPiServer.ApplicationModules.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.BaseLibrary">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.BaseLibrary.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.BaseLibrary, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.BaseLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Business.Commerce">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\EPiServer.Business.Commerce.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Business.Commerce, Version=7.10.3.184, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\EPiServer.Business.Commerce.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Common.Cache">
       <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CommonFramework.7.5.446.2\lib\net40\EPiServer.Common.Cache.dll</HintPath>
@@ -120,9 +120,9 @@
       <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CommonFramework.7.5.446.2\lib\net40\EPiServer.Common.Framework.Impl.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EPiServer.Common.Gadgets">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\EPiServer.Common.Gadgets.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Common.Gadgets, Version=7.5.394.2, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\EPiServer.Common.Gadgets.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Common.Security">
       <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CommonFramework.7.5.446.2\lib\net40\EPiServer.Common.Security.dll</HintPath>
@@ -140,61 +140,61 @@
       <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CommonFramework.7.5.446.2\lib\net40\EPiServer.Common.Web.Authorization.Multiplexing.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EPiServer.Configuration">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.Configuration.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Configuration, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Data">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Framework.7.7.0\lib\net40\EPiServer.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Data, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Framework.7.13.1\lib\net40\EPiServer.Data.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Data.Cache">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Framework.7.7.0\lib\net40\EPiServer.Data.Cache.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Data.Cache, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Framework.7.13.1\lib\net40\EPiServer.Data.Cache.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Enterprise">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.Enterprise.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Enterprise, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.Enterprise.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Events">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Framework.7.7.0\lib\net40\EPiServer.Events.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Events, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Framework.7.13.1\lib\net40\EPiServer.Events.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Framework">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Framework.7.7.0\lib\net40\EPiServer.Framework.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Framework, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Framework.7.13.1\lib\net40\EPiServer.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.ImageLibrary">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.ImageLibrary.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.ImageLibrary, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.ImageLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Implementation">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.Implementation.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Implementation, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.Implementation.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Licensing">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Framework.7.7.0\lib\net40\EPiServer.Licensing.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Licensing, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Framework.7.13.1\lib\net40\EPiServer.Licensing.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.LinkAnalyzer">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.LinkAnalyzer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.LinkAnalyzer, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.LinkAnalyzer.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Shell">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Framework.7.7.0\lib\net40\EPiServer.Shell.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Shell, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Framework.7.13.1\lib\net40\EPiServer.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Web.WebControls">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.Web.WebControls.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.Web.WebControls, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.Web.WebControls.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.WorkflowFoundation">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.WorkflowFoundation.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.WorkflowFoundation, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.WorkflowFoundation.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.XForms">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CMS.Core.7.7.0\lib\net40\EPiServer.XForms.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EPiServer.XForms, Version=7.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.CMS.Core.7.13.1\lib\net40\EPiServer.XForms.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\kondomeriet-commerce\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -204,9 +204,12 @@
       <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CommonFramework.7.5.446.2\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LitS3">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\LitS3.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="LitS3, Version=0.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\LitS3.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\kondomeriet-commerce\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
@@ -215,85 +218,85 @@
       <HintPath>..\..\kondomeriet-commerce\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Mediachase.BusinessFoundation">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.BusinessFoundation.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.BusinessFoundation, Version=7.10.3.184, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.BusinessFoundation.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.BusinessFoundation.Data">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.BusinessFoundation.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.BusinessFoundation.Data, Version=7.10.3.184, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.BusinessFoundation.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Commerce.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Commerce, Version=7.10.3.184, Culture=neutral, PublicKeyToken=6e58b501b34abce3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Marketing.Validators">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Commerce.Marketing.Validators.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Commerce.Marketing.Validators, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Marketing.Validators.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Plugins.Payment">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Commerce.Plugins.Payment.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Commerce.Plugins.Payment, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Plugins.Payment.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Plugins.Shipping">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Commerce.Plugins.Shipping.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Commerce.Plugins.Shipping, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Plugins.Shipping.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Website">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Commerce.Website.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Commerce.Website, Version=7.10.3.184, Culture=neutral, PublicKeyToken=6e58b501b34abce3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Website.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Workflow">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Commerce.Workflow.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Commerce.Workflow, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Workflow.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Workflow.Activities">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Commerce.Workflow.Activities.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Commerce.Workflow.Activities, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Workflow.Activities.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.DataProvider">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.DataProvider.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.DataProvider, Version=7.10.3.184, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.DataProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.FileUploader">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.FileUploader.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.FileUploader, Version=7.10.3.184, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.FileUploader.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Library.AmazonProviders">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Library.AmazonProviders.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Library.AmazonProviders, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Library.AmazonProviders.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.MetaDataPlus">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.MetaDataPlus.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.MetaDataPlus, Version=7.10.3.184, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.MetaDataPlus.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Search">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Search.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Search, Version=7.10.3.184, Culture=neutral, PublicKeyToken=6e58b501b34abce3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Search.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Search.Extensions">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Search.Extensions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Search.Extensions, Version=7.10.3.184, Culture=neutral, PublicKeyToken=6e58b501b34abce3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Search.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Search.LuceneSearchProvider">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.Search.LuceneSearchProvider.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.Search.LuceneSearchProvider, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Search.LuceneSearchProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.SqlDataProvider">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.SqlDataProvider.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.SqlDataProvider, Version=7.10.3.184, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.SqlDataProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.WebConsoleLib">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Mediachase.WebConsoleLib.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Mediachase.WebConsoleLib, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.WebConsoleLib.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.Common">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>True</Private>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebForms">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>True</Private>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -306,9 +309,9 @@
       <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.CommonFramework.7.5.446.2\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nsoftware.IBizPay">
-      <HintPath>..\..\kondomeriet-commerce\packages\EPiServer.Commerce.Core.7.7.2\lib\net40\nsoftware.IBizPay.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="nsoftware.IBizPay, Version=4.1.3575.0, Culture=neutral, PublicKeyToken=cdc168f89cffe9cf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\nsoftware.IBizPay.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
@@ -346,6 +349,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartHelper.cs" />
     <Compile Include="Commerce\CartStatus.cs" />
     <Compile Include="Commerce\OrderNote.cs" />
     <Compile Include="Commerce\PurchaseOrder.cs" />
@@ -363,7 +367,7 @@
     <Compile Include="Contracts\IOrderFacade.cs" />
     <Compile Include="Contracts\IPaymentManager.cs" />
     <Compile Include="Contracts\IResultParser.cs" />
-    <Compile Include="Contracts\ISettings.cs" />
+    <Compile Include="Contracts\IPayExSettings.cs" />
     <Compile Include="Facades\Order.cs" />
     <Compile Include="IoC\PayExRegistry.cs" />
     <Compile Include="Logger.cs" />
@@ -382,7 +386,7 @@
     </Compile>
     <Compile Include="PaymentManager.cs" />
     <Compile Include="Payment\ResultParser.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="PayExSettings.cs" />
     <Compile Include="Payment\Hash.cs" />
   </ItemGroup>
   <ItemGroup>
