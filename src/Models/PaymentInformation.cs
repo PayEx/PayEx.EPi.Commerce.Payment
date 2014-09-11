@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Epinova.PayExProvider.Contracts;
 
 namespace Epinova.PayExProvider.Models
@@ -27,14 +28,15 @@ namespace Epinova.PayExProvider.Models
         public PaymentInformation(decimal price, string priceArgList, string currency, int vat, string orderId, string productNumber, string description, string clientIpAddress, string clientIdentifier,
             string additionalValues, string returnUrl, string view, string agreementRef, string cancelUrl, string clientLanguage)
         {
+            long lowestUnitPrice = FormatPrice(price);
             if (!string.IsNullOrWhiteSpace(priceArgList))
             {
                 Price = 0;
-                PriceArgList = string.Format(priceArgList, Price);
+                PriceArgList = string.Format(priceArgList, lowestUnitPrice);
             }
             else
             {
-                Price = (long)(price * 100);
+                Price = lowestUnitPrice;
                 PriceArgList = string.Empty;
             }
 
@@ -46,7 +48,7 @@ namespace Epinova.PayExProvider.Models
             ClientIpAddress = clientIpAddress;
             ClientIdentifier = clientIdentifier;
             AdditionalValues = additionalValues;
-            ReturnUrl = returnUrl;
+            ReturnUrl = string.Format(returnUrl, orderId);
             View = view;
             AgreementRef = agreementRef;
             CancelUrl = cancelUrl;
@@ -58,6 +60,12 @@ namespace Epinova.PayExProvider.Models
             AccountNumber = settings.AccountNumber;
             PurchaseOperation = settings.PurchaseOperation;
             EncryptionKey = settings.EncryptionKey;
+        }
+
+        private long FormatPrice(decimal price)
+        {
+            decimal rounded = Math.Round(price, MidpointRounding.AwayFromZero);
+            return (long)(rounded * 100);
         }
     }
 }

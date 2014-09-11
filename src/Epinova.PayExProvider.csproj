@@ -371,6 +371,9 @@
     <Compile Include="Facades\Order.cs" />
     <Compile Include="IoC\PayExRegistry.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\PayExAddress.cs" />
+    <Compile Include="Models\OrderLine.cs" />
     <Compile Include="Models\PaymentInformation.cs" />
     <Compile Include="PayExPayment.cs" />
     <Compile Include="PayExPaymentGateway.cs" />

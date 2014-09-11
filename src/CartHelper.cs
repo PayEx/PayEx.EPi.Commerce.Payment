@@ -1,12 +1,20 @@
-﻿using System;
+﻿using Epinova.PayExProvider.Models;
+using Epinova.PayExProvider.Payment;
+using EPiServer;
+using EPiServer.Commerce.Catalog.ContentTypes;
+using EPiServer.Commerce.Catalog.Linking;
+using EPiServer.Core;
+using EPiServer.ServiceLocation;
+using Mediachase.Commerce.Catalog;
+using Mediachase.Commerce.Orders;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
-using Mediachase.Commerce.Orders;
+using Mediachase.Commerce.Orders.Dto;
+using Mediachase.Commerce.Orders.Managers;
 
 namespace Epinova.PayExProvider
 {
@@ -14,6 +22,8 @@ namespace Epinova.PayExProvider
     {
         private const string CurrentCartKey = "CurrentCart";
         private const string CurrentContextKey = "CurrentContext";
+        private const string VatAmount = "LineItemVatAmount";
+        private const string VatPercentage = "LineItemVatPercentage";
 
         /// <summary>
         /// Uses parameterized thread to update the cart instance id otherwise will get an "workflow already existed" exception.
@@ -63,6 +73,94 @@ namespace Epinova.PayExProvider
                     //TODO
                 }
             }
+        }
+
+        public static PayExAddress OrderAddress(Cart cart, PaymentInformation payment, InitializeResult result)
+        {
+            PayExAddress payexAddress = new PayExAddress(payment.AccountNumber, result.OrderRef.ToString(), payment.EncryptionKey);
+
+            if (cart == null || cart.OrderForms == null || !cart.OrderForms.Any())
+                return payexAddress;
+
+            OrderForm orderForm = cart.OrderForms[0];
+
+            OrderAddress billingAddress = cart.OrderAddresses.FirstOrDefault(x => x.Name == orderForm.BillingAddressId);
+            if (billingAddress != null)
+                payexAddress.BillingAddress.Populate(billingAddress);
+
+            if (orderForm.Shipments != null && orderForm.Shipments.Any() && orderForm.Shipments[0] != null)
+            {
+                OrderAddress shippingAddress = cart.OrderAddresses.FirstOrDefault(x => x.Name == orderForm.Shipments[0].ShippingAddressId);
+                if (shippingAddress != null)
+                    payexAddress.ShippingAddress.Populate(shippingAddress);
+            }
+
+            return payexAddress;
+        }
+
+        public static List<OrderLine> OrderLines(Cart cart, PaymentInformation payment, InitializeResult result)
+        {
+            List<OrderLine> orderLines = new List<OrderLine>();
+
+            if (cart == null || cart.OrderForms == null || !cart.OrderForms.Any())
+                return orderLines;
+
+            OrderForm orderForm = cart.OrderForms[0];
+            if (orderForm == null || orderForm.LineItems == null || !orderForm.LineItems.Any())
+                return orderLines;
+
+            foreach (LineItem lineItem in orderForm.LineItems)
+            {
+                orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), lineItem.CatalogEntryId, GetProductName(lineItem.CatalogEntryId), (int)lineItem.Quantity,
+                    lineItem.ExtendedPrice, GetVatAmount(lineItem), GetVatPercentage(lineItem), payment.EncryptionKey));
+            }
+
+            foreach (Shipment shipment in orderForm.Shipments)
+            {
+                orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), string.Empty, GetShippingMethodName(shipment), 1,
+                    cart.ShippingTotal, 0, 0, payment.EncryptionKey));
+            }
+            return orderLines;
+        }
+
+        private static string GetProductName(string variantCode)
+        {
+            var referenceConverter = ServiceLocator.Current.GetInstance<ReferenceConverter>();
+            var linksRepository = ServiceLocator.Current.GetInstance<ILinksRepository>();
+            ContentReference variantReference = referenceConverter.GetContentLink(variantCode);
+            IEnumerable<Relation> relationsByTarget = linksRepository.GetRelationsByTarget(variantReference).Where(x => x is ProductVariation).ToList();
+
+            if (!relationsByTarget.Any())
+                return null;
+
+            Relation relation = relationsByTarget.First();
+            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            return contentLoader.Get<ProductContent>(relation.Source).DisplayName;
+        }
+
+        private static decimal GetVatAmount(LineItem lineItem)
+        {
+            var vatObject = lineItem[VatAmount];
+            if (vatObject != null)
+                return (decimal)vatObject;
+            return 0;
+        }
+
+        private static decimal GetVatPercentage(LineItem lineItem)
+        {
+            var vatPercentObject = lineItem[VatPercentage];
+            if (vatPercentObject != null)
+                return (decimal)vatPercentObject;
+            return 0;
+        }
+
+        private static string GetShippingMethodName(Shipment shipment)
+        {
+            ShippingMethodDto.ShippingMethodRow shippingMethodRow = ShippingManager.GetShippingMethod(shipment.ShippingMethodId)
+                .ShippingMethod.Single(s => s.ShippingMethodId == shipment.ShippingMethodId);
+            if (shippingMethodRow != null)
+                return shippingMethodRow.DisplayName;
+            return "Frakt";
         }
     }
 }

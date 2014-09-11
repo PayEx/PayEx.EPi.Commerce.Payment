@@ -13,5 +13,6 @@ namespace Epinova.PayExProvider.Contracts
         string PaymentCancelUrl { get; }
         string PaymentReturnUrl { get; }
         string UserAgentFormat { get; }
+        string DescriptionFormat { get; }
     }
 }

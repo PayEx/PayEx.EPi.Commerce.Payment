@@ -1,17 +1,19 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
 using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Contracts.Commerce;
 using Epinova.PayExProvider.Models;
 using EPiServer.Globalization;
-using log4net;
 using Mediachase.Commerce;
 using Mediachase.Commerce.Core;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Dto;
+using Mediachase.Commerce.Orders.Managers;
 using Mediachase.Commerce.Plugins.Payment;
 using System;
-using Mediachase.Commerce.Website;
+using System.Web;
+using Mediachase.Commerce.Security;
+using Mediachase.Data.Provider;
 using PurchaseOrder = Mediachase.Commerce.Orders.PurchaseOrder;
 
 namespace Epinova.PayExProvider
@@ -98,6 +100,9 @@ namespace Epinova.PayExProvider
             if (!payment.TransactionType.Equals(TransactionType.Authorization.ToString(), StringComparison.OrdinalIgnoreCase))
                 return true;
 
+            if (cart != null && cart.Status == CartStatus.PaymentComplete.ToString())
+                return true; // return true because this shopping cart has been paid already on PayEx
+
             if (cart == null)
                 return false;
 
@@ -113,9 +118,55 @@ namespace Epinova.PayExProvider
             }
         }
 
-        private string GenerateOrderNumber(int orderGroupId) //TODO
+        public bool ProcessSuccessfulTransaction(string orderNumber, string orderRef, Cart cart)
         {
-            string str = new Random().Next(100, 999).ToString();
+            string transactionNumber = _paymentManager.Complete(orderRef);
+            if (string.IsNullOrWhiteSpace(transactionNumber))
+                return false;
+
+            using (TransactionScope scope = new TransactionScope())
+            {
+                cart.Status = CartStatus.PaymentComplete.ToString();
+
+                // Change status of payments to processed. 
+                // It must be done before execute workflow to ensure payments which should mark as processed.
+                // To avoid get errors when executed workflow.
+                foreach (OrderForm orderForm in cart.OrderForms)
+                {
+                    foreach (Mediachase.Commerce.Orders.Payment payment in orderForm.Payments)
+                    {
+                        if (payment != null)
+                        {
+                            PaymentStatusManager.ProcessPayment(payment);
+                        }
+                    }
+                }
+
+                // Execute CheckOutWorkflow with parameter to ignore running process payment activity again.
+                var isIgnoreProcessPayment = new Dictionary<string, object>();
+                isIgnoreProcessPayment.Add("IsIgnoreProcessPayment", true);
+                OrderGroupWorkflowManager.RunWorkflow(cart, OrderGroupWorkflowManager.CartCheckOutWorkflowName, true, isIgnoreProcessPayment);
+
+                // Save changes
+                cart.OrderNumberMethod = c => orderRef;
+                PurchaseOrder purchaseOrder = cart.SaveAsPurchaseOrder(); 
+
+                Mediachase.Commerce.Orders.OrderNote captureNote = _orderNote.Create(SecurityContext.Current.CurrentUserId, string.Concat(PayExSettings.Instance.AuthorizationNoteMessage, transactionNumber),
+                 PayExSettings.Instance.AuthorizationNoteTitle, PayExSettings.Instance.AuthorizationNoteTitle);
+
+                purchaseOrder.OrderNotes.Add(captureNote);
+
+                cart.Delete();
+                cart.AcceptChanges();
+                purchaseOrder.AcceptChanges();
+                scope.Complete();
+            }
+            return true;
+        }
+
+        private string GenerateOrderNumber(int orderGroupId)
+        {
+            string str = new Random().Next(1000, 9999).ToString();
             return string.Format("{0}{1}", orderGroupId, str);
         }
 
@@ -195,7 +246,11 @@ namespace Epinova.PayExProvider
         {
             var orderNumber = GenerateOrderNumber(cart.OrderGroupId);
             cart.OrderNumberMethod = c => orderNumber;
+
+            payment.OrderNumber = orderNumber;
             CartHelper.UpdateCartInstanceId(cart);
+
+            payment.Description = string.Format(payment.Description, orderNumber);
 
             PaymentInformation paymentInformation = new PaymentInformation(
                 cart.Total, PriceArgsList, cart.BillingCurrency, _vat,
@@ -203,7 +258,7 @@ namespace Epinova.PayExProvider
                 payment.ClientUserAgent, AdditionalValues, payment.ReturnUrl, DefaultView, payment.AgreementReference,
                 payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName);
 
-            string redirectUrl = _paymentManager.Initialize(paymentInformation);
+            string redirectUrl = _paymentManager.Initialize(cart, paymentInformation);
             if (!string.IsNullOrWhiteSpace(redirectUrl))
             {
                 HttpContext.Current.Response.Redirect(redirectUrl, true);

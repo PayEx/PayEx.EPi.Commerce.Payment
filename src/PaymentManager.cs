@@ -2,6 +2,8 @@
 using Epinova.PayExProvider.Facades;
 using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Payment;
+using Mediachase.Commerce.Orders;
+using System.Collections.Generic;
 
 namespace Epinova.PayExProvider
 {
@@ -18,7 +20,7 @@ namespace Epinova.PayExProvider
             _resultParser = new ResultParser();
         }
 
-        public string Initialize(PaymentInformation payment)
+        public string Initialize(Cart cart, PaymentInformation payment)
         {
             payment.AddSettings(PayExSettings.Instance);
 
@@ -28,11 +30,15 @@ namespace Epinova.PayExProvider
             InitializeResult result = _resultParser.ParseInitializeXml(xmlResult);
 
             if (result.Success)
+            {
+                AddOrderLineItems(cart, payment, result);
+                AddOrderAddress(cart, payment, result);
                 return result.ReturnUrl;
+            }
             return null;
         }
 
-        public string CompleteOrder(string orderRef)
+        public string Complete(string orderRef)
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.Complete(PayExSettings.Instance.AccountNumber, orderRef, hash);
@@ -53,6 +59,23 @@ namespace Epinova.PayExProvider
             if (result.Success && result.TransactionStatus == TransactionStatus.Capture)
                 return result.TransactionNumber;
             return null;
+        }
+
+        private void AddOrderAddress(Cart cart, PaymentInformation payment, InitializeResult initializeResult)
+        {
+            PayExAddress address = CartHelper.OrderAddress(cart, payment, initializeResult);
+            string hash = _hasher.Create(address);
+            string result = _orderFacade.AddOrderAddress(address, hash);
+        }
+
+        private void AddOrderLineItems(Cart cart, PaymentInformation payment, InitializeResult initializeResult)
+        {
+            List<OrderLine> orderlines = CartHelper.OrderLines(cart, payment, initializeResult);
+            foreach (OrderLine orderline in orderlines)
+            {
+                string hash = _hasher.Create(orderline);
+                string result = _orderFacade.AddOrderLine(orderline, hash);
+            }
         }
     }
 }

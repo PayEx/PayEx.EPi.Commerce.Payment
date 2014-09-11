@@ -16,6 +16,30 @@ namespace Epinova.PayExProvider.Payment
             return CreateHash(stringToHash);
         }
 
+        public string Create(OrderLine orderLine)
+        {
+            var stringToHash = string.Concat(orderLine.AccountNumber, orderLine.OrderRef, orderLine.ItemNumber, orderLine.Description, orderLine.Description2, orderLine.Description3,
+                orderLine.Description4, orderLine.Description5, orderLine.Quantity, orderLine.Amount, orderLine.VatAmount, orderLine.VatPercentage, orderLine.EncryptionKey);
+
+            return CreateHash(stringToHash);
+        }
+
+        public string Create(PayExAddress address)
+        {
+            var stringToHash = string.Concat(address.AccountNumber, address.OrderRef, address.BillingAddress.FirstName,
+                address.BillingAddress.LastName, address.BillingAddress.Line1,
+                address.BillingAddress.Line2, address.BillingAddress.Line3, address.BillingAddress.PostCode,
+                address.BillingAddress.City, address.BillingAddress.State, address.BillingAddress.Country,
+                address.BillingAddress.CountryCode, address.BillingAddress.Email, address.BillingAddress.Phone,
+                address.BillingAddress.Mobile, address.ShippingAddress.FirstName, address.ShippingAddress.LastName,
+                address.ShippingAddress.Line1, address.ShippingAddress.Line2, address.ShippingAddress.Line3,
+                address.ShippingAddress.PostCode, address.ShippingAddress.City, address.ShippingAddress.State,
+                address.ShippingAddress.Country, address.ShippingAddress.CountryCode, address.ShippingAddress.Email,
+                address.ShippingAddress.Phone, address.ShippingAddress.Mobile, address.EncryptionKey);
+
+            return CreateHash(stringToHash);
+        }
+
         public string Create(long accountNumber, string orderRef, string encryptionKey)
         {
             var stringToHash = string.Concat(accountNumber, orderRef, encryptionKey);

@@ -42,6 +42,9 @@ namespace Epinova.PayExProvider
         [PlugInProperty(Description = "User Agent format", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string UserAgentFormat { get; set; }
 
+        [PlugInProperty(Description = "PayEx description format", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        public string DescriptionFormat { get; set; }
+
         private PayExSettings()
         {
             PlugInSettings.SettingsChanged += BroadcastToAllServers;
