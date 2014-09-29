@@ -20,7 +20,7 @@ namespace Epinova.PayExProvider
             _resultParser = new ResultParser();
         }
 
-        public string Initialize(Cart cart, PaymentInformation payment)
+        public string Initialize(Cart cart, PaymentInformation payment, out string orderRef)
         {
             payment.AddSettings(PayExSettings.Instance);
 
@@ -33,8 +33,10 @@ namespace Epinova.PayExProvider
             {
                 AddOrderLineItems(cart, payment, result);
                 AddOrderAddress(cart, payment, result);
+                orderRef = result.OrderRef.ToString();
                 return result.ReturnUrl;
             }
+            orderRef = string.Empty;
             return null;
         }
 

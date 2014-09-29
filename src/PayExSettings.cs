@@ -45,6 +45,9 @@ namespace Epinova.PayExProvider
         [PlugInProperty(Description = "PayEx description format", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string DescriptionFormat { get; set; }
 
+        [PlugInProperty(Description = "PayEx callback IP-address", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        public string PayExCallbackIpAddress { get; set; }
+
         private PayExSettings()
         {
             PlugInSettings.SettingsChanged += BroadcastToAllServers;

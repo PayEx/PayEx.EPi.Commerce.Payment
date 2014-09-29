@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Epinova.PayExProvider.Models
 {
     public class OrderLine
@@ -32,10 +34,16 @@ namespace Epinova.PayExProvider.Models
             Description4 = string.Empty;
             Description5 = string.Empty;
             Quantity = quantity;
-            Amount = (int) (amount*100);
+            Amount = FormatPrice(amount);
             VatAmount = (int) (vatAmount*100);
             VatPercentage = (int)(vatPercentage * 100);
             EncryptionKey = encryptionKey;
+        }
+
+        private int FormatPrice(decimal price)
+        {
+            decimal rounded = Math.Round(price, MidpointRounding.AwayFromZero);
+            return (int)(rounded * 100);
         }
     }
 }

@@ -14,5 +14,6 @@ namespace Epinova.PayExProvider.Contracts
         string PaymentReturnUrl { get; }
         string UserAgentFormat { get; }
         string DescriptionFormat { get; }
+        string PayExCallbackIpAddress { get;}
     }
 }

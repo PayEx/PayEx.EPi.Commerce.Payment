@@ -32,6 +32,18 @@ namespace Epinova.PayExProvider
             }
         }
 
+        public string PayExOrderRef
+        {
+            get
+            {
+                return GetString("PayExOrderRef");
+            }
+            set
+            {
+                this["PayExOrderRef"] = value;
+            }
+        }
+
         public string Description
         {
             get
