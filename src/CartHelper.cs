@@ -1,21 +1,15 @@
 ﻿using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Payment;
 using Epinova.PayExProvider.Price;
-using EPiServer;
-using EPiServer.Commerce.Catalog.ContentTypes;
-using EPiServer.Commerce.Catalog.Linking;
-using EPiServer.Core;
-using EPiServer.ServiceLocation;
-using Mediachase.Commerce.Catalog;
 using Mediachase.Commerce.Orders;
+using Mediachase.Commerce.Orders.Dto;
+using Mediachase.Commerce.Orders.Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web;
-using Mediachase.Commerce.Orders.Dto;
-using Mediachase.Commerce.Orders.Managers;
 
 namespace Epinova.PayExProvider
 {
@@ -111,7 +105,7 @@ namespace Epinova.PayExProvider
 
             foreach (LineItem lineItem in orderForm.LineItems)
             {
-                orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), lineItem.CatalogEntryId, GetProductName(lineItem.CatalogEntryId), (int)lineItem.Quantity,
+                orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), lineItem.CatalogEntryId, lineItem.DisplayName, (int)lineItem.Quantity,
                     priceFormatter.RoundToInt(lineItem.ExtendedPrice), GetVatAmount(lineItem), GetVatPercentage(lineItem), payment.EncryptionKey));
             }
 
@@ -121,21 +115,6 @@ namespace Epinova.PayExProvider
                     priceFormatter.RoundToInt(cart.ShippingTotal), 0, 0, payment.EncryptionKey));
             }
             return orderLines;
-        }
-
-        private static string GetProductName(string variantCode)
-        {
-            var referenceConverter = ServiceLocator.Current.GetInstance<ReferenceConverter>();
-            var linksRepository = ServiceLocator.Current.GetInstance<ILinksRepository>();
-            ContentReference variantReference = referenceConverter.GetContentLink(variantCode);
-            IEnumerable<Relation> relationsByTarget = linksRepository.GetRelationsByTarget(variantReference).Where(x => x is ProductVariation).ToList();
-
-            if (!relationsByTarget.Any())
-                return null;
-
-            Relation relation = relationsByTarget.First();
-            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-            return contentLoader.Get<ProductContent>(relation.Source).DisplayName;
         }
 
         private static decimal GetVatAmount(LineItem lineItem)

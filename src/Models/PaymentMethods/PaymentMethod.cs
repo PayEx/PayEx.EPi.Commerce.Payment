@@ -1,5 +1,7 @@
 ﻿
 using System;
+using Epinova.PayExProvider.Contracts;
+using EPiServer.BaseLibrary.Search;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Dto;
 
@@ -7,12 +9,24 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 {
     public abstract class PaymentMethod
     {
-        public PayExPayment Payment { get; set; }
+        public IPayExPayment Payment { get; set; }
         public bool IsCart { get { return OrderGroup is Cart; } }
         public bool IsPurchaseOrder { get { return OrderGroup is PurchaseOrder; } }
         public PurchaseOrder PurchaseOrder { get { return OrderGroup as PurchaseOrder; } }
         public Cart Cart { get { return OrderGroup as Cart; } }
         public PaymentMethodDto PaymentMethodDto { get; private set; }
+
+        private int _orderGroupId;
+        public int OrderGroupId
+        {
+            get
+            {
+                if (_orderGroupId <= 0)
+                    _orderGroupId = OrderGroup.Id;
+                return _orderGroupId;
+            }
+            set { _orderGroupId = value; }
+        }
 
         private OrderGroup OrderGroup { get; set; }
         private string TransactionType { get; set; }
@@ -39,6 +53,11 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
             {
                 return TransactionTypeEquals(Mediachase.Commerce.Orders.TransactionType.Authorization);
             }
+        }
+
+        public PaymentMethod()
+        {
+            
         }
 
         public PaymentMethod(Mediachase.Commerce.Orders.Payment payment)

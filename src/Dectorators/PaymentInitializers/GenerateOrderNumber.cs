@@ -17,10 +17,12 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl)
         {
             if (string.IsNullOrWhiteSpace(orderNumber))
-                orderNumber = Generate(currentPayment.Cart.OrderGroupId);
+                orderNumber = Generate(currentPayment.OrderGroupId);
 
             currentPayment.Payment.OrderNumber = orderNumber;
-            currentPayment.Payment.Description = string.Format(currentPayment.Payment.Description, orderNumber);
+
+            if (!string.IsNullOrWhiteSpace(currentPayment.Payment.Description))
+                currentPayment.Payment.Description = string.Format(currentPayment.Payment.Description, orderNumber);
 
             return _initializer.Initialize(currentPayment, orderNumber, returnUrl);
         }

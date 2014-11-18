@@ -12,9 +12,9 @@ namespace Epinova.PayExProvider.Factories
         {
             if (payment is CreditCard)
             {
-                return new InitializePayment(
-                    new RedirectUser(), 
-                    new PriceFormatter(), new PaymentManager(), new ParameterReader(), new CartActions(new Logger()));
+                return new GenerateOrderNumber(
+                    new InitializePayment(
+                    new RedirectUser(), new PriceFormatter(), new PaymentManager(), new ParameterReader(), new CartActions(new Logger())));
             }
             return null;
         }

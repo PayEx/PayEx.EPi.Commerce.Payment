@@ -1,4 +1,5 @@
-﻿using Epinova.PayExProvider.Contracts;
+﻿using System;
+using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Contracts.Commerce;
 using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Models.PaymentMethods;
@@ -41,7 +42,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
 
         private PaymentInformation CreateModel(PaymentMethod currentPayment, string orderNumber)
         {
-            string additionalValues = string.Empty;
+            string additionalValues = FormatAdditionalValues(currentPayment);
             string priceArgsList = _parameterReader.GetPriceArgsList(currentPayment.PaymentMethodDto);
             int vat = _parameterReader.GetVat(currentPayment.PaymentMethodDto);
             string defaultView = _parameterReader.GetDefaultView(currentPayment.PaymentMethodDto);
@@ -53,19 +54,19 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
                currentPayment.Payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName);
         }
 
-        //private string FormatAdditionalValues(PayExPayment payment)
-        //{
-        //    if (string.IsNullOrWhiteSpace(AdditionalValues))
-        //        return string.Empty;
+        private string FormatAdditionalValues(PaymentMethod currentPayment)
+        {
+            string additionalValues = _parameterReader.GetAdditionalValues(currentPayment.PaymentMethodDto);
+            if (string.IsNullOrWhiteSpace(additionalValues))
+                return string.Empty;
 
-        //    string additional = AdditionalValues;
-        //    additional = string.Concat(additional, string.Format("&INVOICE_CUSTOMERID={0}", payment.CustomerId));
+            additionalValues = string.Concat(additionalValues, string.Format("&INVOICE_CUSTOMERID={0}", currentPayment.Payment.CustomerId));
 
-        //    DateTime sixDaysForward = payment.Created.AddDays(6);
-        //    additional = string.Concat(additional,
-        //        string.Format("&INVOICE_DUEDATE={0}",
-        //            new DateTime(sixDaysForward.Year, sixDaysForward.Month, sixDaysForward.Day).ToString("yyyy-MM-dd")));
-        //    return additional;
-        //}
+            DateTime sixDaysForward = currentPayment.Payment.Created.AddDays(6);
+            additionalValues = string.Concat(additionalValues,
+                string.Format("&INVOICE_DUEDATE={0}",
+                    new DateTime(sixDaysForward.Year, sixDaysForward.Month, sixDaysForward.Day).ToString("yyyy-MM-dd")));
+            return additionalValues;
+        }
     }
 }

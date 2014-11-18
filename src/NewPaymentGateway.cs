@@ -36,8 +36,6 @@ namespace Epinova.PayExProvider
                 return false;
             }
 
-            //_currentPaymentMethodId = payment.PaymentMethodId;
-
             if (currentPayment.IsPurchaseOrder)
             {
                 // when user click complete order in commerce manager the transaction type will be Capture
@@ -81,17 +79,6 @@ namespace Epinova.PayExProvider
             IPaymentInitializer paymentInitializer = _paymentInitializerFactory.Create(currentPayment);
             PaymentInitializeResult result = paymentInitializer.Initialize(currentPayment, null, null);
             return result.Success;
-            //try
-            //{
-            //    _logger.LogDebug(string.Format("Begin InitializePayment for cart with ID:{0}", cart.Id));
-            //    return InitializePayment(cart, payment as PayExPayment);
-            //}
-            //catch (Exception e)
-            //{
-            //    _logger.LogError("Error when initializing PayEx payment request", e);
-            //    return false;
-            //}
-            return true;
         }
     }
 }

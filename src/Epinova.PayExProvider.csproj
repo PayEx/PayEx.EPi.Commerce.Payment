@@ -279,6 +279,7 @@
     <Compile Include="Contracts\ILogger.cs" />
     <Compile Include="Contracts\IOrderFacade.cs" />
     <Compile Include="Contracts\IParameterReader.cs" />
+    <Compile Include="Contracts\IPayExPayment.cs" />
     <Compile Include="Contracts\IPaymentInitializer.cs" />
     <Compile Include="Contracts\IPaymentManager.cs" />
     <Compile Include="Contracts\IPaymentMethodFactory.cs" />

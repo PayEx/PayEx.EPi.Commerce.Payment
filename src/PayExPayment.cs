@@ -1,4 +1,5 @@
-﻿using Mediachase.Commerce.Orders;
+﻿using Epinova.PayExProvider.Contracts;
+using Mediachase.Commerce.Orders;
 using Mediachase.MetaDataPlus.Configurator;
 using System;
 using System.Runtime.Serialization;
@@ -6,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Epinova.PayExProvider
 {
     [Serializable]
-    public class PayExPayment : Mediachase.Commerce.Orders.Payment
+    public class PayExPayment : Mediachase.Commerce.Orders.Payment, IPayExPayment
     {
         private static MetaClass _metaClass;
 
