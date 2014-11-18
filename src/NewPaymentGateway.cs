@@ -1,6 +1,7 @@
 ﻿using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Factories;
+using Epinova.PayExProvider.Models;
 using Mediachase.Commerce.Plugins.Payment;
 using System.Web;
 using PaymentMethod = Epinova.PayExProvider.Models.PaymentMethods.PaymentMethod;
@@ -11,11 +12,13 @@ namespace Epinova.PayExProvider
     {
         private readonly ILogger _logger;
         private readonly IPaymentMethodFactory _paymentMethodFactory;
+        private readonly IPaymentInitializerFactory _paymentInitializerFactory;
 
         public NewPaymentGateway()
         {
             _logger = new Logger();
             _paymentMethodFactory = new PaymentMethodFactory();
+            _paymentInitializerFactory = new PaymentInitializerFactory();
         }
 
         public override bool ProcessPayment(Mediachase.Commerce.Orders.Payment payment, ref string message)
@@ -75,6 +78,9 @@ namespace Epinova.PayExProvider
             if (currentPayment.Cart.Status == CartStatus.PaymentComplete.ToString())
                 return true; // return true because this shopping cart has been paid already on PayEx
 
+            IPaymentInitializer paymentInitializer = _paymentInitializerFactory.Create(currentPayment);
+            PaymentInitializeResult result = paymentInitializer.Initialize(currentPayment, null, null);
+            return result.Success;
             //try
             //{
             //    _logger.LogDebug(string.Format("Begin InitializePayment for cart with ID:{0}", cart.Id));

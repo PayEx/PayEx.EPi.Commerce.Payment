@@ -267,17 +267,17 @@ namespace Epinova.PayExProvider
                 payment.ClientUserAgent, additionalValues, payment.ReturnUrl, DefaultView, payment.AgreementReference,
                 payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName);
 
-            string orderRef;
-            string redirectUrl = _paymentManager.Initialize(cart, paymentInformation, out orderRef);
-            payment.PayExOrderRef = orderRef;
+           // string orderRef;
+           //// string redirectUrl = _paymentManager.Initialize(cart, paymentInformation, out orderRef);
+           // payment.PayExOrderRef = orderRef;
 
-            CartHelper.UpdateCartInstanceId(cart);
+            //CartHelper.UpdateCartInstanceId(cart);
 
-            if (!string.IsNullOrWhiteSpace(redirectUrl))
-            {
-                HttpContext.Current.Response.Redirect(redirectUrl, true);
-                return true;
-            }
+            //if (!string.IsNullOrWhiteSpace(redirectUrl))
+            //{
+            //    HttpContext.Current.Response.Redirect(redirectUrl, true);
+            //    return true;
+            //}
 
             return false;
         }

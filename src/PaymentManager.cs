@@ -20,24 +20,18 @@ namespace Epinova.PayExProvider
             _resultParser = new ResultParser();
         }
 
-        public string Initialize(Cart cart, PaymentInformation payment, out string orderRef)
+        public InitializeResult Initialize(Cart cart, PaymentInformation payment)
         {
-            payment.AddSettings(PayExSettings.Instance);
-
             string hash = _hasher.Create(payment);
             string xmlResult = _orderFacade.Initialize(payment, hash);
 
             InitializeResult result = _resultParser.ParseInitializeXml(xmlResult);
+            if (!result.Success)
+                return null;
 
-            if (result.Success)
-            {
-                AddOrderLineItems(cart, payment, result);
-                AddOrderAddress(cart, payment, result);
-                orderRef = result.OrderRef.ToString();
-                return result.ReturnUrl;
-            }
-            orderRef = string.Empty;
-            return null;
+            AddOrderLineItems(cart, payment, result);
+            AddOrderAddress(cart, payment, result);
+            return result;
         }
 
         public CompleteResult Complete(string orderRef)

@@ -1,8 +1,9 @@
 ﻿using System;
+using Epinova.PayExProvider.Contracts;
 
 namespace Epinova.PayExProvider.Price
 {
-    public class PriceFormatter
+    public class PriceFormatter : IPriceFormatter
     {
         public int RoundToInt(decimal price)
         {

@@ -51,9 +51,10 @@ namespace Epinova.PayExProvider.Models
             AgreementRef = agreementRef;
             CancelUrl = cancelUrl;
             ClientLanguage = clientLanguage;
+            AddSettings(PayExSettings.Instance);
         }
 
-        public void AddSettings(IPayExSettings settings)
+        private void AddSettings(IPayExSettings settings)
         {
             AccountNumber = settings.AccountNumber;
             PurchaseOperation = settings.PurchaseOperation;
