@@ -277,9 +277,11 @@
     <Compile Include="Contracts\ILogger.cs" />
     <Compile Include="Contracts\IOrderFacade.cs" />
     <Compile Include="Contracts\IPaymentManager.cs" />
+    <Compile Include="Contracts\IPaymentMethodFactory.cs" />
     <Compile Include="Contracts\IResultParser.cs" />
     <Compile Include="Contracts\IPayExSettings.cs" />
     <Compile Include="Facades\Order.cs" />
+    <Compile Include="Factories\PaymentMethodFactory.cs" />
     <Compile Include="IoC\PayExRegistry.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\Address.cs" />
@@ -287,6 +289,9 @@
     <Compile Include="Models\PayExAddress.cs" />
     <Compile Include="Models\OrderLine.cs" />
     <Compile Include="Models\PaymentInformation.cs" />
+    <Compile Include="Models\PaymentMethods\CreditCard.cs" />
+    <Compile Include="Models\PaymentMethods\PaymentMethod.cs" />
+    <Compile Include="NewPaymentGateway.cs" />
     <Compile Include="PayExPayment.cs" />
     <Compile Include="PayExPaymentGateway.cs" />
     <Compile Include="Payment\TransactionErrorCode.cs" />
