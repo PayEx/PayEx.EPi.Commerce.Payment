@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Contracts.Commerce;
 using Epinova.PayExProvider.Models;
+using Epinova.PayExProvider.Payment;
+using Epinova.PayExProvider.Price;
 using EPiServer.Globalization;
-using Mediachase.Commerce;
-using Mediachase.Commerce.Core;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Dto;
 using Mediachase.Commerce.Orders.Managers;
 using Mediachase.Commerce.Plugins.Payment;
 using System;
 using System.Web;
-using Mediachase.Commerce.Security;
 using Mediachase.Data.Provider;
 using PurchaseOrder = Mediachase.Commerce.Orders.PurchaseOrder;
 
@@ -26,8 +24,9 @@ namespace Epinova.PayExProvider
         private string _defaultView;
         private int _vat;
         private readonly ILogger _logger;
-        private readonly IOrderNote _orderNote;
         private readonly IPaymentManager _paymentManager;
+        private readonly PriceFormatter _priceFormatter;
+        private readonly IPayExSettings _settings;
         private Guid _currentPaymentMethodId;
 
         public const string VatParameter = "Vat";
@@ -38,8 +37,9 @@ namespace Epinova.PayExProvider
         public PayExPaymentGateway()
         {
             _logger = new Logger();
-            _orderNote = new Commerce.OrderNote(_logger);
             _paymentManager = new PaymentManager();
+            _priceFormatter = new PriceFormatter();
+            _settings = PayExSettings.Instance;
         }
 
         public override bool ProcessPayment(Mediachase.Commerce.Orders.Payment payment, ref string message)
@@ -49,7 +49,7 @@ namespace Epinova.PayExProvider
                 _logger.LogWarning("HttpContent.Current is null");
                 return false;
             }
-           
+
             if (!(payment is PayExPayment))
             {
                 _logger.LogError("Only PayExPayments can be used with the PayExPaymentGateway");
@@ -64,25 +64,18 @@ namespace Epinova.PayExProvider
                 // when user click complete order in commerce manager the transaction type will be Capture
                 if (payment.TransactionType.Equals(TransactionType.Capture.ToString(), StringComparison.OrdinalIgnoreCase))
                 {
+                    PurchaseOrder purchaseOrder = payment.Parent.Parent as PurchaseOrder;
                     try
                     {
-                        //int? transactionId = _orderNote.FindTransactionIdByTitle(purchaseOrder.OrderNotes, PayExSettings.Instance.AuthorizationNoteTitle);
-                        //if (transactionId == null)
-                        //{
-                        //    message = "Could not get PayEx Transaction Id from purchase order notes";
-                        //    return false;
-                        //}
+                        if (IsInvoicePayment(payment as PayExPayment))
+                            return true;
 
-                        //_logger.LogDebug(string.Format("Begin CapturePayment for purchaseOrder with ID:{0} and TransactionID:{1}", purchaseOrder.Id, transactionId.Value));
-                        //bool captured = CapturePayment(purchaseOrder, transactionId.Value);
-                        //message = transactionId.ToString();
-
-                        //return captured;
-                        return true;
+                        _logger.LogDebug(string.Format("Begin CapturePayment for purchaseOrder with ID:{0}", purchaseOrder.Id));
+                        return CapturePayment(purchaseOrder, payment as PayExPayment);
                     }
                     catch (Exception e)
                     {
-                        _logger.LogError("Errror when completing order", e);
+                        _logger.LogError(string.Format("Error in CapturePayment for purchaseOrder with ID:{0}", purchaseOrder.Id), e);
                         return false;
                     }
                 }
@@ -119,12 +112,16 @@ namespace Epinova.PayExProvider
             }
         }
 
-        public bool ProcessSuccessfulTransaction(string orderNumber, string orderRef, Cart cart)
+        public bool ProcessSuccessfulTransaction(PayExPayment payExPayment, string orderNumber, string orderRef, Cart cart, out TransactionErrorCode? error)
         {
-            string transactionNumber = _paymentManager.Complete(orderRef);
-            if (string.IsNullOrWhiteSpace(transactionNumber))
+            CompleteResult completeResult = _paymentManager.Complete(orderRef);
+            if (completeResult.Error || string.IsNullOrWhiteSpace(completeResult.TransactionNumber))
+            {
+                error = completeResult.ErrorCode;
                 return false;
+            }
 
+            error = null;
             try
             {
                 using (TransactionScope scope = new TransactionScope())
@@ -150,18 +147,16 @@ namespace Epinova.PayExProvider
                         isIgnoreProcessPayment);
 
                     cart.OrderNumberMethod = c => orderNumber;
+                    payExPayment.AuthorizationCode = completeResult.TransactionNumber;
+                    payExPayment.AcceptChanges();
                     PurchaseOrder purchaseOrder = cart.SaveAsPurchaseOrder();
-
-                    Mediachase.Commerce.Orders.OrderNote captureNote =
-                        _orderNote.Create(SecurityContext.Current.CurrentUserId,
-                            string.Concat(PayExSettings.Instance.AuthorizationNoteMessage, transactionNumber),
-                            PayExSettings.Instance.AuthorizationNoteTitle, PayExSettings.Instance.AuthorizationNoteTitle);
-
-                    purchaseOrder.OrderNotes.Add(captureNote);
 
                     cart.Delete();
                     cart.AcceptChanges();
+
+                    purchaseOrder.OrderForms[0]["PaymentMethodCode"] = completeResult.PaymentMethod;
                     purchaseOrder.AcceptChanges();
+
                     scope.Complete();
                 }
             }
@@ -173,10 +168,11 @@ namespace Epinova.PayExProvider
             return true;
         }
 
-        private string GenerateOrderNumber(int orderGroupId)
+        private bool IsInvoicePayment(PayExPayment payment)
         {
-            string str = new Random().Next(1000, 9999).ToString();
-            return string.Format("{0}{1}", orderGroupId, str);
+            return
+                Payment.PaymentMethod.FindByPaymentMethodId(payment.PaymentMethodId)
+                    .SystemKeyword.Contains(_settings.InvoiceKeyword);
         }
 
         /// <summary>
@@ -190,7 +186,6 @@ namespace Epinova.PayExProvider
                 if (_payment == null)
                 {
                     _payment = Mediachase.Commerce.Orders.Managers.PaymentManager.GetPaymentMethod(_currentPaymentMethodId);
-                    //_payment = Mediachase.Commerce.Orders.Managers.PaymentManager.GetPaymentMethodBySystemName("PayEx", SiteContext.Current.LanguageName);
                 }
                 return _payment;
             }
@@ -252,18 +247,24 @@ namespace Epinova.PayExProvider
             throw new ArgumentNullException("Parameter named " + name + " for PayEx payment cannot be null");
         }
 
+        private string GenerateOrderNumber(int orderGroupId)
+        {
+            string str = new Random().Next(1000, 9999).ToString();
+            return string.Format("{0}{1}", orderGroupId, str);
+        }
+
         private bool InitializePayment(Cart cart, PayExPayment payment)
         {
             var orderNumber = GenerateOrderNumber(cart.OrderGroupId);
-            cart.OrderNumberMethod = c => orderNumber;
 
             payment.OrderNumber = orderNumber;
             payment.Description = string.Format(payment.Description, orderNumber);
+            string additionalValues = FormatAdditionalValues(payment);
 
             PaymentInformation paymentInformation = new PaymentInformation(
-                cart.Total, PriceArgsList, cart.BillingCurrency, Vat,
+                _priceFormatter.RoundToLong(cart.Total), PriceArgsList, cart.BillingCurrency, Vat,
                 orderNumber, payment.ProductNumber, payment.Description, payment.ClientIpAddress,
-                payment.ClientUserAgent, AdditionalValues, payment.ReturnUrl, DefaultView, payment.AgreementReference,
+                payment.ClientUserAgent, additionalValues, payment.ReturnUrl, DefaultView, payment.AgreementReference,
                 payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName);
 
             string orderRef;
@@ -281,25 +282,40 @@ namespace Epinova.PayExProvider
             return false;
         }
 
-        private bool CapturePayment(PurchaseOrder purchaseOrder, int transactionId)
+        private bool CapturePayment(PurchaseOrder purchaseOrder, Mediachase.Commerce.Orders.Payment payExPayment)
         {
-            long amount = (long)(purchaseOrder.Total * 100);
-            string orderId = purchaseOrder.TrackingNumber.Replace("PO", "");
-            var useDefaultVat = purchaseOrder.MarketId == MarketId.Default;
-            var vat = 0;//useDefaultVat ? PayExSettings.Instance.VAT : 0;
+            int transactionId;
+            if (!int.TryParse(payExPayment.AuthorizationCode, out transactionId))
+            {
+                _logger.LogWarning(string.Format("Could not get PayEx Transaction Id from purchase order with ID: {0}", purchaseOrder.Id));
+                return false;
+            }
 
-            string transactionNumber = _paymentManager.Capture(transactionId, amount, orderId, vat, string.Empty);
+            long amount = _priceFormatter.RoundToLong(payExPayment.Amount);
+            string transactionNumber = _paymentManager.Capture(transactionId, amount, purchaseOrder.TrackingNumber, Vat, string.Empty);
 
             if (!string.IsNullOrWhiteSpace(transactionNumber))
             {
-                Mediachase.Commerce.Orders.OrderNote captureNote = _orderNote.Create(new Guid(), string.Concat(PayExSettings.Instance.CaptureNoteMessage, transactionNumber),
-                    PayExSettings.Instance.CaptureNoteTitle, PayExSettings.Instance.CaptureNoteTitle);
-
-                purchaseOrder.OrderNotes.Add(captureNote);
-                purchaseOrder.AcceptChanges();
+                payExPayment.ValidationCode = transactionNumber;
+                payExPayment.AcceptChanges();
                 return true;
             }
             return false;
+        }
+
+        private string FormatAdditionalValues(PayExPayment payment)
+        {
+            if (string.IsNullOrWhiteSpace(AdditionalValues))
+                return string.Empty;
+
+            string additional = AdditionalValues;
+            additional = string.Concat(additional, string.Format("&INVOICE_CUSTOMERID={0}", payment.CustomerId));
+
+            DateTime sixDaysForward = payment.Created.AddDays(6);
+            additional = string.Concat(additional,
+                string.Format("&INVOICE_DUEDATE={0}",
+                    new DateTime(sixDaysForward.Year, sixDaysForward.Month, sixDaysForward.Day).ToString("yyyy-MM-dd")));
+            return additional;
         }
     }
 }

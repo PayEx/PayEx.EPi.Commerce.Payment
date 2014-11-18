@@ -39,28 +39,45 @@ namespace Epinova.PayExProvider.Payment
         {
             string errorCode = GetErrorCode(xml);
             string description = GetDescription(xml);
+            TransactionStatus status = GetTransactionStatus(xml);
 
-            bool success = errorCode.Equals(SuccessCode) && description.Equals(SuccessCode);
+            bool success = errorCode.Equals(SuccessCode) && description.Equals(SuccessCode) && status != TransactionStatus.Failure;
 
             TransactionResult result = new TransactionResult(success);
 
             if (success)
             {
-                result.TransactionStatus = GetTransactionStatus(xml);
+                result.TransactionStatus = status;
                 result.TransactionNumber = GetTransactionNumber(xml);
+                result.PaymentMethod = GetPaymentMethod(xml);
             }
             else
             {
                 result.ErrorCode = errorCode;
                 result.Description = description;
+                result.TransactionStatus = status;
+                result.TransactionErrorCode = GetTransactionErrorCode(xml);
             }
 
             return result;
         }
 
+        private string GetPaymentMethod(string xml)
+        {
+            return ParseXml(xml, "/payex/paymentMethod");
+        }
+
         private string GetTransactionNumber(string xml)
         {
             return ParseXml(xml, "/payex/transactionNumber");
+        }
+
+        private TransactionErrorCode GetTransactionErrorCode(string xml)
+        {
+            string transactionErrorCode = ParseXml(xml, "/payex/errorDetails/transactionErrorCode");
+            if (transactionErrorCode.Equals("CardNotAcceptedForThisPurchase"))
+                return TransactionErrorCode.CardNotAcceptedForThisPurchase;
+            return TransactionErrorCode.Other;
         }
 
         private string GetRedirectUrl(string xml)
@@ -90,6 +107,8 @@ namespace Epinova.PayExProvider.Payment
                 return TransactionStatus.Authorize;
             if (transactionStatus.Equals("6"))
                 return TransactionStatus.Capture;
+            if (transactionStatus.Equals("5"))
+                return TransactionStatus.Failure;
             return TransactionStatus.Other;
         }
 

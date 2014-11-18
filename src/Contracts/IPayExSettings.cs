@@ -6,14 +6,12 @@ namespace Epinova.PayExProvider.Contracts
         long AccountNumber { get; }
         string PurchaseOperation { get; }
         string EncryptionKey { get; }
-        string AuthorizationNoteTitle { get; }
-        string AuthorizationNoteMessage { get;}
-        string CaptureNoteTitle { get; }
-        string CaptureNoteMessage { get; }
         string PaymentCancelUrl { get; }
         string PaymentReturnUrl { get; }
         string UserAgentFormat { get; }
         string DescriptionFormat { get; }
-        string PayExCallbackIpAddress { get;}
+        string PayExCallbackIpAddress { get; }
+        string SystemKeywordPrefix { get; }
+        string InvoiceKeyword { get; }
     }
 }

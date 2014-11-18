@@ -19,7 +19,7 @@ namespace Epinova.PayExProvider.Models
         public int VatPercentage { get; private set; }
         public string EncryptionKey { get; private set; }
 
-        public OrderLine(long accountNumber, string orderRef, string itemNumber, string description, int quantity, decimal amount, decimal vatAmount, decimal vatPercentage, string encryptionKey)
+        public OrderLine(long accountNumber, string orderRef, string itemNumber, string description, int quantity, int price, decimal vatAmount, decimal vatPercentage, string encryptionKey)
         {
             AccountNumber = accountNumber;
             OrderRef = orderRef;
@@ -34,16 +34,10 @@ namespace Epinova.PayExProvider.Models
             Description4 = string.Empty;
             Description5 = string.Empty;
             Quantity = quantity;
-            Amount = FormatPrice(amount);
+            Amount = price;
             VatAmount = (int) (vatAmount*100);
             VatPercentage = (int)(vatPercentage * 100);
             EncryptionKey = encryptionKey;
-        }
-
-        private int FormatPrice(decimal price)
-        {
-            decimal rounded = Math.Round(price, MidpointRounding.AwayFromZero);
-            return (int)(rounded * 100);
         }
     }
 }

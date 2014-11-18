@@ -116,6 +116,18 @@ namespace Epinova.PayExProvider
             }
         }
 
+        public string CustomerId
+        {
+            get
+            {
+                return GetString("CustomerId");
+            }
+            set
+            {
+                this["CustomerId"] = value;
+            }
+        }
+
         public string AgreementReference
         {
             get

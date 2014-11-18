@@ -14,7 +14,6 @@ namespace Epinova.PayExProvider.IoC
         {
             For<IPayExSettings>().Use(payExSettingsInstance);
             For<ILogger>().Use<Logger>();
-            For<IOrderNote>().Use<OrderNote>();
             For<IPurchaseOrder>().Use<PurchaseOrder>();
             For<IHasher>().Use<Hash>();
             For<IOrderFacade>().Use<Order>();

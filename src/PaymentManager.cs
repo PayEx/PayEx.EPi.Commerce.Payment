@@ -40,15 +40,15 @@ namespace Epinova.PayExProvider
             return null;
         }
 
-        public string Complete(string orderRef)
+        public CompleteResult Complete(string orderRef)
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.Complete(PayExSettings.Instance.AccountNumber, orderRef, hash);
 
             TransactionResult result = _resultParser.ParseTransactionXml(xmlResult);
             if (result.Success && result.TransactionStatus == TransactionStatus.Authorize)
-                return result.TransactionNumber;
-            return null;
+                return new CompleteResult(result.TransactionNumber, result.PaymentMethod);
+            return new CompleteResult(result.TransactionNumber, result.PaymentMethod, result.TransactionErrorCode);
         }
 
         public string Capture(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues)

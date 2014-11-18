@@ -21,18 +21,6 @@ namespace Epinova.PayExProvider
         [PlugInProperty(Description = "PayEx Purchase Operation (ex: SALE/AUTHORIZATION)", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string PurchaseOperation { get; set; }
 
-        [PlugInProperty(Description = "Title for ordernote created after authorization", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string AuthorizationNoteTitle { get; set; }
-
-        [PlugInProperty(Description = "Message prefix for ordernote created after authorization", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string AuthorizationNoteMessage { get; set; }
-
-        [PlugInProperty(Description = "Title for ordernote created after capture", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string CaptureNoteTitle { get; set; }
-
-        [PlugInProperty(Description = "Message prefix for ordernote created after capture", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string CaptureNoteMessage { get; set; }
-
         [PlugInProperty(Description = "Payment Cancel URL", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string PaymentCancelUrl { get; set; }
 
@@ -47,6 +35,12 @@ namespace Epinova.PayExProvider
 
         [PlugInProperty(Description = "PayEx callback IP-address", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string PayExCallbackIpAddress { get; set; }
+
+        [PlugInProperty(Description = "Payment system keyword prefix", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        public string SystemKeywordPrefix { get; set; }
+
+        [PlugInProperty(Description = "Invoice system keyword", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        public string InvoiceKeyword { get; set; }
 
         private PayExSettings()
         {

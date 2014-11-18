@@ -1,5 +1,6 @@
 ﻿using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Payment;
+using Epinova.PayExProvider.Price;
 using EPiServer;
 using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.Catalog.Linking;
@@ -22,8 +23,6 @@ namespace Epinova.PayExProvider
     {
         private const string CurrentCartKey = "CurrentCart";
         private const string CurrentContextKey = "CurrentContext";
-        private const string VatAmount = "LineItemVatAmount";
-        private const string VatPercentage = "LineItemVatPercentage";
 
         /// <summary>
         /// Uses parameterized thread to update the cart instance id otherwise will get an "workflow already existed" exception.
@@ -101,6 +100,7 @@ namespace Epinova.PayExProvider
         public static List<OrderLine> OrderLines(Cart cart, PaymentInformation payment, InitializeResult result)
         {
             List<OrderLine> orderLines = new List<OrderLine>();
+            PriceFormatter priceFormatter = new PriceFormatter();
 
             if (cart == null || cart.OrderForms == null || !cart.OrderForms.Any())
                 return orderLines;
@@ -112,13 +112,13 @@ namespace Epinova.PayExProvider
             foreach (LineItem lineItem in orderForm.LineItems)
             {
                 orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), lineItem.CatalogEntryId, GetProductName(lineItem.CatalogEntryId), (int)lineItem.Quantity,
-                    lineItem.ExtendedPrice, GetVatAmount(lineItem), GetVatPercentage(lineItem), payment.EncryptionKey));
+                    priceFormatter.RoundToInt(lineItem.ExtendedPrice), GetVatAmount(lineItem), GetVatPercentage(lineItem), payment.EncryptionKey));
             }
 
             foreach (Shipment shipment in orderForm.Shipments)
             {
                 orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), string.Empty, GetShippingMethodName(shipment), 1,
-                    cart.ShippingTotal, 0, 0, payment.EncryptionKey));
+                    priceFormatter.RoundToInt(cart.ShippingTotal), 0, 0, payment.EncryptionKey));
             }
             return orderLines;
         }
@@ -140,7 +140,7 @@ namespace Epinova.PayExProvider
 
         private static decimal GetVatAmount(LineItem lineItem)
         {
-            var vatObject = lineItem[VatAmount];
+            var vatObject = lineItem["LineItemVatAmount"];
             if (vatObject != null)
                 return (decimal)vatObject;
             return 0;
@@ -148,7 +148,7 @@ namespace Epinova.PayExProvider
 
         private static decimal GetVatPercentage(LineItem lineItem)
         {
-            var vatPercentObject = lineItem[VatPercentage];
+            var vatPercentObject = lineItem["LineItemVatPercentage"];
             if (vatPercentObject != null)
                 return (decimal)vatPercentObject;
             return 0;

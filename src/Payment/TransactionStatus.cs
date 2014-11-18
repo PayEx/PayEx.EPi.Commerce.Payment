@@ -5,6 +5,7 @@ namespace Epinova.PayExProvider.Payment
     {
         Authorize = 3,
         Capture = 6,
+        Failure = 5,
         Other
     }
 }
