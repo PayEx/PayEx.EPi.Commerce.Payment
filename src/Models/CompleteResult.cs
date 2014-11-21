@@ -9,6 +9,7 @@ namespace Epinova.PayExProvider.Models
 
         public string TransactionNumber { get; private set; }
         public string PaymentMethod { get; private set; }
+        public bool GetTransactionDetails { get; set; }
         public TransactionErrorCode? ErrorCode { get; private set; }
 
         public CompleteResult(string transactionNumber, string paymentMethod)
@@ -16,6 +17,14 @@ namespace Epinova.PayExProvider.Models
             TransactionNumber = transactionNumber;
             PaymentMethod = paymentMethod;
         }
+
+        public CompleteResult(string transactionNumber, string paymentMethod, bool getTransactionDetails)
+        {
+            TransactionNumber = transactionNumber;
+            PaymentMethod = paymentMethod;
+            GetTransactionDetails = getTransactionDetails;
+        }
+
 
         public CompleteResult(string transactionNumber, string paymentMethod, TransactionErrorCode errorCode)
         {

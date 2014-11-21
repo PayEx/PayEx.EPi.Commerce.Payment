@@ -40,6 +40,12 @@ namespace Epinova.PayExProvider.Payment
             return CreateHash(stringToHash);
         }
 
+        public string Create(long accountNumber, int transactionNumber, string encryptionKey)
+        {
+            var stringToHash = string.Concat(accountNumber, transactionNumber, encryptionKey);
+            return CreateHash(stringToHash);
+        }
+
         public string Create(long accountNumber, string orderRef, string encryptionKey)
         {
             var stringToHash = string.Concat(accountNumber, orderRef, encryptionKey);

@@ -12,5 +12,7 @@ namespace Epinova.PayExProvider.Contracts
 
         string Capture(long accountNumber, int transactionNumber, long amount, string orderId, int vatAmount,
             string additionalValues, string hash);
+
+        string GetTransactionDetails(long accountNumber, int transactionNumber, string hash);
     }
 }

@@ -273,7 +273,7 @@ namespace Epinova.PayExProvider.PxOrder {
                     string clientLanguage, 
                     string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Initialize", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Complete", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string Initialize(
                     long accountNumber, 
@@ -294,7 +294,7 @@ namespace Epinova.PayExProvider.PxOrder {
                     string externalID, 
                     string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Initialize", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Complete", ReplyAction="*")]
         System.Threading.Tasks.Task<string> InitializeAsync(
                     long accountNumber, 
                     string orderType, 

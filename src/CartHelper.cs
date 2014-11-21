@@ -94,8 +94,6 @@ namespace Epinova.PayExProvider
         public static List<OrderLine> OrderLines(Cart cart, PaymentInformation payment, InitializeResult result)
         {
             List<OrderLine> orderLines = new List<OrderLine>();
-            PriceFormatter priceFormatter = new PriceFormatter();
-
             if (cart == null || cart.OrderForms == null || !cart.OrderForms.Any())
                 return orderLines;
 
@@ -106,13 +104,13 @@ namespace Epinova.PayExProvider
             foreach (LineItem lineItem in orderForm.LineItems)
             {
                 orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), lineItem.CatalogEntryId, lineItem.DisplayName, (int)lineItem.Quantity,
-                    priceFormatter.RoundToInt(lineItem.ExtendedPrice), GetVatAmount(lineItem), GetVatPercentage(lineItem), payment.EncryptionKey));
+                    lineItem.ExtendedPrice.RoundToInt(), GetVatAmount(lineItem), GetVatPercentage(lineItem), payment.EncryptionKey));
             }
 
             foreach (Shipment shipment in orderForm.Shipments)
             {
                 orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), string.Empty, GetShippingMethodName(shipment), 1,
-                    priceFormatter.RoundToInt(cart.ShippingTotal), 0, 0, payment.EncryptionKey));
+                    cart.ShippingTotal.RoundToInt(), 0, 0, payment.EncryptionKey));
             }
             return orderLines;
         }

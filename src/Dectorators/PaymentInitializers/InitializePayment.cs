@@ -4,6 +4,7 @@ using Epinova.PayExProvider.Contracts.Commerce;
 using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Models.PaymentMethods;
 using Epinova.PayExProvider.Payment;
+using Epinova.PayExProvider.Price;
 using EPiServer.Globalization;
 
 namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
@@ -11,15 +12,13 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
     public class InitializePayment : IPaymentInitializer
     {
         private readonly IPaymentInitializer _paymentInitializer;
-        private readonly IPriceFormatter _priceFormatter;
         private readonly IPaymentManager _paymentManager;
         private readonly IParameterReader _parameterReader;
         private readonly ICartActions _cartActions;
 
-        public InitializePayment(IPaymentInitializer paymentInitializer, IPriceFormatter priceFormatter, IPaymentManager paymentManager, IParameterReader parameterReader, ICartActions cartActions)
+        public InitializePayment(IPaymentInitializer paymentInitializer, IPaymentManager paymentManager, IParameterReader parameterReader, ICartActions cartActions)
         {
             _paymentInitializer = paymentInitializer;
-            _priceFormatter = priceFormatter;
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
             _cartActions = cartActions;
@@ -48,7 +47,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
             string defaultView = _parameterReader.GetDefaultView(currentPayment.PaymentMethodDto);
 
             return new PaymentInformation(
-               _priceFormatter.RoundToLong(currentPayment.Cart.Total), priceArgsList, currentPayment.Cart.BillingCurrency, vat,
+               currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, vat,
                orderNumber, currentPayment.Payment.ProductNumber, currentPayment.Payment.Description, currentPayment.Payment.ClientIpAddress,
                currentPayment.Payment.ClientUserAgent, additionalValues, currentPayment.Payment.ReturnUrl, defaultView, currentPayment.Payment.AgreementReference,
                currentPayment.Payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName);

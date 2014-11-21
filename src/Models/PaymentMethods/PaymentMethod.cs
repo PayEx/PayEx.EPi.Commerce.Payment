@@ -1,7 +1,5 @@
-﻿
-using System;
+﻿using System;
 using Epinova.PayExProvider.Contracts;
-using EPiServer.BaseLibrary.Search;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Dto;
 
@@ -67,6 +65,10 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
             Payment = payment as PayExPayment;
             PaymentMethodDto = Mediachase.Commerce.Orders.Managers.PaymentManager.GetPaymentMethod(payment.PaymentMethodId);
         }
+
+        public abstract PaymentInitializeResult Initialize();
+        public abstract PaymentCompleteResult Complete(string orderRef);
+        public abstract bool Capture();
 
         private bool TransactionTypeEquals(TransactionType transactionType)
         {

@@ -9,6 +9,7 @@ namespace Epinova.PayExProvider.Contracts
         string Create(OrderLine orderLine);
         string Create(PayExAddress address);
         string Create(long accountNumber, string orderRef, string encryptionKey);
+        string Create(long accountNumber, int transactionNumber, string encryptionKey);
 
         string Create(long accountNumber, int transactionNumber, long amount, string orderId, int vatAmount,
             string additionalValues, string encryptionKey);

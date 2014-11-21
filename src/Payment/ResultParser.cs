@@ -103,6 +103,8 @@ namespace Epinova.PayExProvider.Payment
         private TransactionStatus GetTransactionStatus(string xml)
         {
             string transactionStatus = ParseXml(xml, "/payex/transactionStatus");
+            if (transactionStatus.Equals("1"))
+                return TransactionStatus.Initialize;
             if (transactionStatus.Equals("3"))
                 return TransactionStatus.Authorize;
             if (transactionStatus.Equals("6"))
