@@ -1,9 +1,10 @@
 ﻿
 using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
+using Epinova.PayExProvider.Dectorators.PaymentCapturers;
 using Epinova.PayExProvider.Dectorators.PaymentCompleters;
+using Epinova.PayExProvider.Dectorators.PaymentCrediters;
 using Epinova.PayExProvider.Dectorators.PaymentInitializers;
-using Mediachase.Commerce.Customization;
 
 namespace Epinova.PayExProvider.Models.PaymentMethods
 {
@@ -38,7 +39,14 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 
         public override bool Capture()
         {
-            throw new System.NotImplementedException();
+            IPaymentCapturer capturer = new CapturePayment(null, new Logger(), new PaymentManager(), new ParameterReader());
+            return capturer.Capture(this);
+        }
+
+        public override bool Credit()
+        {
+            IPaymentCreditor creditor = new CreditPayment(null, new Logger(), new PaymentManager(), new ParameterReader());
+            return creditor.Credit(this);
         }
     }
 }

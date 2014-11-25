@@ -34,5 +34,10 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
         {
             throw new System.NotImplementedException();
         }
+
+        public override bool Credit()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

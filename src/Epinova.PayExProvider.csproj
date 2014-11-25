@@ -273,7 +273,6 @@
       <DependentUpon>ConfigurePayment.ascx.cs</DependentUpon>
     </Compile>
     <Compile Include="Contracts\Commerce\ICartActions.cs" />
-    <Compile Include="Contracts\Commerce\IOrderNote.cs" />
     <Compile Include="Contracts\Commerce\IPurchaseOrder.cs" />
     <Compile Include="Contracts\IHasher.cs" />
     <Compile Include="Contracts\ILogger.cs" />
@@ -282,6 +281,7 @@
     <Compile Include="Contracts\IPayExPayment.cs" />
     <Compile Include="Contracts\IPaymentCapturer.cs" />
     <Compile Include="Contracts\IPaymentCompleter.cs" />
+    <Compile Include="Contracts\IPaymentCreditor.cs" />
     <Compile Include="Contracts\IPaymentInitializer.cs" />
     <Compile Include="Contracts\IPaymentManager.cs" />
     <Compile Include="Contracts\IPaymentMethodFactory.cs" />
@@ -291,6 +291,7 @@
     <Compile Include="Dectorators\PaymentCapturers\CapturePayment.cs" />
     <Compile Include="Dectorators\PaymentCompleters\CompletePayment.cs" />
     <Compile Include="Dectorators\PaymentCompleters\UpdateTransactionDetails.cs" />
+    <Compile Include="Dectorators\PaymentCrediters\CreditPayment.cs" />
     <Compile Include="Dectorators\PaymentInitializers\GenerateOrderNumber.cs" />
     <Compile Include="Dectorators\PaymentInitializers\InitializePayment.cs" />
     <Compile Include="Dectorators\PaymentInitializers\RedirectUser.cs" />

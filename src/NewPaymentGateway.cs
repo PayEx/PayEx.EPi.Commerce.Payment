@@ -47,9 +47,9 @@ namespace Epinova.PayExProvider
                 // When "Refund" shipment in Commerce Manager, this method will be invoked with the TransactionType is Credit
                 if (currentPayment.IsCredit)
                 {
-                    return false; // Not implemented
+                    _logger.LogDebug(string.Format("Begin CreditPayment for purchaseOrder with ID:{0}", currentPayment.PurchaseOrder.Id));
+                    return currentPayment.Credit();
                 }
-
                 return false;
             }
 

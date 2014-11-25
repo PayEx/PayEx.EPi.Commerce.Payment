@@ -33,5 +33,10 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
         {
             return true; // No capture needed for Invoice Ledger Service, so just return true
         }
+
+        public override bool Credit()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

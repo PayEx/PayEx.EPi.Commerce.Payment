@@ -21,11 +21,12 @@ namespace Epinova.PayExProvider.Dectorators.PaymentCapturers
 
         public bool Capture(PaymentMethod currentPayment)
         {
-            int transactionId;
             Mediachase.Commerce.Orders.Payment payment = (Mediachase.Commerce.Orders.Payment) currentPayment.Payment;
+
+            int transactionId;
             if (!int.TryParse(payment.AuthorizationCode, out transactionId))
             {
-                _logger.LogWarning(string.Format("Could not get PayEx Transaction Id from purchase order with ID: {0}", currentPayment.PurchaseOrder.Id));
+                _logger.LogError(string.Format("Could not get PayEx Transaction Id from purchase order with ID: {0}", currentPayment.PurchaseOrder.Id));
                 return false;
             }
 
@@ -33,13 +34,17 @@ namespace Epinova.PayExProvider.Dectorators.PaymentCapturers
             int vat = _parameterReader.GetVat(currentPayment.PaymentMethodDto);
             string transactionNumber = _paymentManager.Capture(transactionId, amount, currentPayment.PurchaseOrder.TrackingNumber, vat, string.Empty);
 
+            bool success = false;
             if (!string.IsNullOrWhiteSpace(transactionNumber))
             {
                 payment.ValidationCode = transactionNumber;
                 payment.AcceptChanges();
-                return true;
+                success = true;
             }
-            return false;
+
+            if (_paymentCapturer != null)
+                return _paymentCapturer.Capture(currentPayment) && success;
+            return success;
         }
     }
 }

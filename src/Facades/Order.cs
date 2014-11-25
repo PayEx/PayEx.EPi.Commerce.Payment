@@ -59,5 +59,10 @@ namespace Epinova.PayExProvider.Facades
         {
             return Client.GetTransactionDetails2(accountNumber, transactionNumber, hash);
         }
+
+        public string Credit(long accountNumber, int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues, string hash)
+        {
+            return Client.Credit5(accountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, hash);
+        }
     }
 }

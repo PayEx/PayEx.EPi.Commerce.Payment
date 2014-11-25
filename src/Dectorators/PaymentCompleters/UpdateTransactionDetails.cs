@@ -3,7 +3,6 @@ using System.Linq;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Payment;
-using log4net;
 using Mediachase.Commerce.Orders;
 using Mediachase.Data.Provider;
 using PaymentMethod = Epinova.PayExProvider.Models.PaymentMethods.PaymentMethod;

@@ -468,11 +468,11 @@ namespace Epinova.PayExProvider.PxOrder {
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/CreditOrderLine", ReplyAction="*")]
         System.Threading.Tasks.Task<string> CreditOrderLineAsync(long accountNumber, string transactionRef, string itemNumber, string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Capture", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Credit", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string Capture(long accountNumber, string transactionRef, int amount, string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Capture", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Credit", ReplyAction="*")]
         System.Threading.Tasks.Task<string> CaptureAsync(long accountNumber, string transactionRef, int amount, string hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Capture2", ReplyAction="*")]

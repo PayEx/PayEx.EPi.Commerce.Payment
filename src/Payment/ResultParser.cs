@@ -120,6 +120,8 @@ namespace Epinova.PayExProvider.Payment
             string transactionStatus = ParseXml(xml, "/payex/transactionStatus");
             if (transactionStatus.Equals("1"))
                 return TransactionStatus.Initialize;
+            if (transactionStatus.Equals("2"))
+                return TransactionStatus.Credit;
             if (transactionStatus.Equals("3"))
                 return TransactionStatus.Authorize;
             if (transactionStatus.Equals("6"))

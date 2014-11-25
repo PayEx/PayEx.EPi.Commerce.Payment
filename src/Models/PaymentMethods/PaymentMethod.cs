@@ -69,6 +69,7 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
         public abstract PaymentInitializeResult Initialize();
         public abstract PaymentCompleteResult Complete(string orderRef);
         public abstract bool Capture();
+        public abstract bool Credit();
 
         private bool TransactionTypeEquals(TransactionType transactionType)
         {
