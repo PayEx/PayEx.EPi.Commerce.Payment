@@ -10,9 +10,7 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 {
     public class PayPal : PaymentMethod
     {
-        public PayPal()
-        {
-        }
+        public PayPal() { } // Needed for unit testing
 
         public PayPal(Mediachase.Commerce.Orders.Payment payment)
             : base(payment)
