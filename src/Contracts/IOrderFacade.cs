@@ -17,5 +17,7 @@ namespace Epinova.PayExProvider.Contracts
 
         string Credit(long accountNumber, int transactionNumber, long amount, string orderId, int vatAmount,
             string additionalValues, string hash);
+
+        string CreditOrderLine(long accountNumber, int transactionNumber, string itemNumber, string orderId, string hash);
     }
 }

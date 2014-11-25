@@ -4,7 +4,7 @@ using Epinova.PayExProvider.Models.PaymentMethods;
 using Moq;
 using NUnit.Framework;
 
-namespace Epinova.PayExProvider.UnitTests.Decorators
+namespace Epinova.PayExProvider.UnitTests.Decorators.PaymentInitializers
 {
     [TestFixture]
     public class GenerateOrderNumberTests

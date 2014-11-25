@@ -58,6 +58,12 @@ namespace Epinova.PayExProvider.Payment
             return CreateHash(stringToHash);
         }
 
+        public string Create(long accountNumber, int transactionNumber, string itemNumber, string orderId, string encryptionKey)
+        {
+            var stringToHash = string.Concat(accountNumber, transactionNumber, itemNumber, orderId, encryptionKey);
+            return CreateHash(stringToHash);
+        }
+
         private string CreateHash(string stringToHash)
         {
             var hash = new MD5CryptoServiceProvider();

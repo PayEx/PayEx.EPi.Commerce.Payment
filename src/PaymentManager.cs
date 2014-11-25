@@ -71,6 +71,17 @@ namespace Epinova.PayExProvider
             return null;
         }
 
+        public string CreditOrderLine(int transactionNumber, string itemNumber, string orderId)
+        {
+            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, itemNumber, orderId, PayExSettings.Instance.EncryptionKey);
+            string xmlResult = _orderFacade.CreditOrderLine(PayExSettings.Instance.AccountNumber, transactionNumber, itemNumber, orderId, hash);
+
+            TransactionResult result = _resultParser.ParseTransactionXml(xmlResult);
+            if (result.Success && result.TransactionStatus == TransactionStatus.Credit)
+                return result.TransactionNumber;
+            return null;
+        }
+
         public TransactionResult GetTransactionDetails(int transactionNumber)
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, PayExSettings.Instance.EncryptionKey);

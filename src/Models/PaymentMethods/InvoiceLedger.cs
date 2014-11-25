@@ -1,15 +1,16 @@
 ﻿
 using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
+using Epinova.PayExProvider.Dectorators.PaymentCapturers;
+using Epinova.PayExProvider.Dectorators.PaymentCompleters;
+using Epinova.PayExProvider.Dectorators.PaymentCreditors;
 using Epinova.PayExProvider.Dectorators.PaymentInitializers;
 
 namespace Epinova.PayExProvider.Models.PaymentMethods
 {
     public class InvoiceLedger : PaymentMethod
     {
-        public InvoiceLedger()
-        {
-        }
+        public InvoiceLedger() { } // Needed for unit testing
 
         public InvoiceLedger(Mediachase.Commerce.Orders.Payment payment)
             : base(payment)
@@ -26,17 +27,24 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 
         public override PaymentCompleteResult Complete(string orderRef)
         {
-            throw new System.NotImplementedException();
+            PaymentManager paymentManager = new PaymentManager();
+            Logger logger = new Logger();
+
+            IPaymentCompleter completer = new CompletePayment(
+                new UpdateTransactionDetails(null, paymentManager, logger), paymentManager, logger);
+            return completer.Complete(this, orderRef);
         }
 
         public override bool Capture()
         {
-            return true; // No capture needed for Invoice Ledger Service, so just return true
+            IPaymentCapturer capturer = new CapturePayment(null, new Logger(), new PaymentManager(), new ParameterReader());
+            return capturer.Capture(this);
         }
 
         public override bool Credit()
         {
-            throw new System.NotImplementedException();
+            IPaymentCreditor creditor = new CreditPaymentByOrderLines(null, new Logger(), new PaymentManager());
+            return creditor.Credit(this);
         }
     }
 }

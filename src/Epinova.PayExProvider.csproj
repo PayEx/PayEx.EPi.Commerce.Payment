@@ -291,7 +291,8 @@
     <Compile Include="Dectorators\PaymentCapturers\CapturePayment.cs" />
     <Compile Include="Dectorators\PaymentCompleters\CompletePayment.cs" />
     <Compile Include="Dectorators\PaymentCompleters\UpdateTransactionDetails.cs" />
-    <Compile Include="Dectorators\PaymentCrediters\CreditPayment.cs" />
+    <Compile Include="Dectorators\PaymentCreditors\CreditPayment.cs" />
+    <Compile Include="Dectorators\PaymentCreditors\CreditPaymentByOrderLines.cs" />
     <Compile Include="Dectorators\PaymentInitializers\GenerateOrderNumber.cs" />
     <Compile Include="Dectorators\PaymentInitializers\InitializePayment.cs" />
     <Compile Include="Dectorators\PaymentInitializers\RedirectUser.cs" />

@@ -2,7 +2,7 @@
 using Epinova.PayExProvider.Models.PaymentMethods;
 using Epinova.PayExProvider.Price;
 
-namespace Epinova.PayExProvider.Dectorators.PaymentCrediters
+namespace Epinova.PayExProvider.Dectorators.PaymentCreditors
 {
     public class CreditPayment : IPaymentCreditor
     {
@@ -22,8 +22,8 @@ namespace Epinova.PayExProvider.Dectorators.PaymentCrediters
         public bool Credit(PaymentMethod currentPayment)
         {
             Mediachase.Commerce.Orders.Payment payment = (Mediachase.Commerce.Orders.Payment)currentPayment.Payment;
-            
-              int transactionId;
+
+            int transactionId;
             if (!int.TryParse(payment.AuthorizationCode, out transactionId))
             {
                 _logger.LogError(string.Format("Could not get PayEx Transaction Id from purchase order with ID: {0}", currentPayment.PurchaseOrder.Id));

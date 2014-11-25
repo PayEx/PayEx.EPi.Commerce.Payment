@@ -3,7 +3,7 @@ using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Dectorators.PaymentCapturers;
 using Epinova.PayExProvider.Dectorators.PaymentCompleters;
-using Epinova.PayExProvider.Dectorators.PaymentCrediters;
+using Epinova.PayExProvider.Dectorators.PaymentCreditors;
 using Epinova.PayExProvider.Dectorators.PaymentInitializers;
 
 namespace Epinova.PayExProvider.Models.PaymentMethods

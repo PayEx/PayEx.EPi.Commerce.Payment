@@ -59,7 +59,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Decorators\GenerateOrderNumberTests.cs" />
+    <Compile Include="Decorators\PaymentInitializers\GenerateOrderNumberTests.cs" />
     <Compile Include="Factories\PaymentMethodFactoryTests.cs" />
     <Compile Include="PayExResult\ResultParserTests.cs" />
     <Compile Include="PayExResult\XmlInput.cs" />
