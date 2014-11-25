@@ -57,8 +57,23 @@ namespace Epinova.PayExProvider.Payment
                 result.Description = description;
                 result.TransactionStatus = status;
                 result.TransactionErrorCode = GetTransactionErrorCode(xml);
+                result = TryAddInvoiceInformation(result, xml);
             }
 
+            return result;
+        }
+
+        private TransactionResult TryAddInvoiceInformation(TransactionResult result, string xml)
+        {
+            string customerName = ParseXml(xml, "/payex/customerName");
+            if (!string.IsNullOrWhiteSpace(customerName))
+            {
+                result.CustomerName = customerName;
+                result.Address = ParseXml(xml, "/payex/customerStreetAddress");
+                result.PostNumber = ParseXml(xml, "/payex/customerPostNumber");
+                result.City = ParseXml(xml, "/payex/customerCity");
+                result.Country = ParseXml(xml, "/payex/customerCountry");
+            }
             return result;
         }
 

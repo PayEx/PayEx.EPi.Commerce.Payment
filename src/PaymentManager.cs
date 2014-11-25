@@ -59,11 +59,14 @@ namespace Epinova.PayExProvider
             return null;
         }
 
-        public string GetTransactionDetails(int transactionNumber)
+        public TransactionResult GetTransactionDetails(int transactionNumber)
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.GetTransactionDetails(PayExSettings.Instance.AccountNumber, transactionNumber, hash);
-            return string.Empty;
+            TransactionResult result = _resultParser.ParseTransactionXml(xmlResult);
+            if (result.Success)
+                return result;
+            return null;
         }
 
         private void AddOrderAddress(Cart cart, PaymentInformation payment, InitializeResult initializeResult)

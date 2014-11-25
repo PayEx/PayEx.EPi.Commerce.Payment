@@ -313,6 +313,7 @@
     <Compile Include="Models\PaymentMethods\PartPayment.cs" />
     <Compile Include="Models\PaymentMethods\PaymentMethod.cs" />
     <Compile Include="Models\PaymentMethods\PayPal.cs" />
+    <Compile Include="Models\TransactionDetails.cs" />
     <Compile Include="NewPaymentGateway.cs" />
     <Compile Include="ParameterReader.cs" />
     <Compile Include="PayExPayment.cs" />

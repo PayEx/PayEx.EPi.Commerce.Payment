@@ -12,7 +12,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentCompleters
 {
     public class CompletePayment : IPaymentCompleter
     {
-        private readonly IPaymentCompleter _paymentCompleter;
+        private IPaymentCompleter _paymentCompleter;
         private readonly IPaymentManager _paymentManager;
         private readonly ILogger _logger;
 
@@ -29,19 +29,20 @@ namespace Epinova.PayExProvider.Dectorators.PaymentCompleters
             if (completeResult.Error || string.IsNullOrWhiteSpace(completeResult.TransactionNumber))
                 return new PaymentCompleteResult { ErrorCode = completeResult.ErrorCode };
 
-            PaymentCompleteResult result = null;
+            if (completeResult.GetTransactionDetails)
+            {
+                if (_paymentCompleter == null)
+                    _paymentCompleter = new UpdateTransactionDetails(null, _paymentManager, _logger);
+                _paymentCompleter = new UpdateTransactionDetails(_paymentCompleter, _paymentManager, _logger);
+            }
+
+            bool purchaseOrderCreated = CreatePurchaseOrder(currentPayment, completeResult);
+
+            PaymentCompleteResult result = new PaymentCompleteResult {Success = true};
             if (_paymentCompleter != null)
                 result = _paymentCompleter.Complete(currentPayment, orderRef);
-
-            if (result == null)
-                result = new PaymentCompleteResult();
-
-            result.Success = CreatePurchaseOrder(currentPayment, completeResult);
+            result.Success = purchaseOrderCreated && result.Success;
             return result;
-
-            //if (_paymentCompleter != null)
-            //    return _paymentCompleter.Complete(currentPayment, orderRef);
-            //return new PaymentCompleteResult { Success = true };
         }
 
         private bool CreatePurchaseOrder(PaymentMethod currentPayment, CompleteResult completeResult)

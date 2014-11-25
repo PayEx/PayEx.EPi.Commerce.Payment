@@ -3,6 +3,7 @@ using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Dectorators.PaymentCompleters;
 using Epinova.PayExProvider.Dectorators.PaymentInitializers;
+using Mediachase.Commerce.Customization;
 
 namespace Epinova.PayExProvider.Models.PaymentMethods
 {
@@ -27,8 +28,11 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 
         public override PaymentCompleteResult Complete(string orderRef)
         {
+            PaymentManager paymentManager = new PaymentManager();
+            Logger logger = new Logger();
+
             IPaymentCompleter completer = new CompletePayment(
-                new UpdateTransactionDetails(), new PaymentManager(), new Logger());
+                new UpdateTransactionDetails(null, paymentManager, logger), paymentManager, logger);
             return completer.Complete(this, orderRef);
         }
 
