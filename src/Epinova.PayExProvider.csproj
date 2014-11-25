@@ -288,6 +288,7 @@
     <Compile Include="Contracts\IPriceFormatter.cs" />
     <Compile Include="Contracts\IResultParser.cs" />
     <Compile Include="Contracts\IPayExSettings.cs" />
+    <Compile Include="Contracts\IVerificationFacade.cs" />
     <Compile Include="Dectorators\PaymentCapturers\CapturePayment.cs" />
     <Compile Include="Dectorators\PaymentCompleters\CompletePayment.cs" />
     <Compile Include="Dectorators\PaymentCompleters\UpdateTransactionDetails.cs" />
@@ -297,11 +298,14 @@
     <Compile Include="Dectorators\PaymentInitializers\InitializePayment.cs" />
     <Compile Include="Dectorators\PaymentInitializers\RedirectUser.cs" />
     <Compile Include="Facades\Order.cs" />
+    <Compile Include="Facades\Verification.cs" />
+    <Compile Include="Facades\VerificationManager.cs" />
     <Compile Include="Factories\PaymentMethodFactory.cs" />
     <Compile Include="IoC\PayExRegistry.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CompleteResult.cs" />
+    <Compile Include="Models\InvoiceData.cs" />
     <Compile Include="Models\PayExAddress.cs" />
     <Compile Include="Models\OrderLine.cs" />
     <Compile Include="Models\PaymentCompleteResult.cs" />
@@ -332,10 +336,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="PaymentManager.cs" />
+    <Compile Include="Facades\PaymentManager.cs" />
     <Compile Include="Payment\ResultParser.cs" />
     <Compile Include="PayExSettings.cs" />
     <Compile Include="Payment\Hash.cs" />
+    <Compile Include="Service References\PxVerification\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -347,9 +356,14 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\PxOrder\pxorder.wsdl" />
+    <None Include="Service References\PxVerification\Epinova.PayExProvider.PxVerification.PxRequestAuthenticationResp.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PxVerification\pxverification.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\PxOrder\" />
+    <WCFMetadataStorage Include="Service References\PxVerification\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\PxOrder\configuration91.svcinfo" />
@@ -367,6 +381,12 @@
     <Content Include="ConfigurePayment.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <None Include="Service References\PxVerification\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\PxVerification\configuration.svcinfo" />
+    <None Include="Service References\PxVerification\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -45,6 +45,14 @@ namespace Epinova.PayExProvider.Facades
                 address.ShippingAddress.Phone, address.ShippingAddress.Mobile, hash);
         }
 
+        public string PurchaseInvoiceSale(long accountNumber, string orderRef, InvoiceData invoice, string hash)
+        {
+            return Client.PurchaseInvoiceSale(accountNumber, orderRef, invoice.SocialSecurityNumber, invoice.FirstName,
+                invoice.LastName, invoice.StreetAddress,
+                invoice.CoAddress, invoice.PostNumber, invoice.City, invoice.CountryCode, invoice.Email,
+                invoice.MobilePhone, invoice.IpAddress, hash);
+        }
+
         public string Complete(long accountNumber, string orderRef, string hash)
         {
             return Client.Complete(accountNumber, orderRef, hash);

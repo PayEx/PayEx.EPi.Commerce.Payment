@@ -1,11 +1,10 @@
-﻿using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Facades;
+﻿using System.Collections.Generic;
+using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Payment;
 using Mediachase.Commerce.Orders;
-using System.Collections.Generic;
 
-namespace Epinova.PayExProvider
+namespace Epinova.PayExProvider.Facades
 {
     public class PaymentManager : IPaymentManager
     {

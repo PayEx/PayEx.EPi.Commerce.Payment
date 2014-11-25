@@ -1,10 +1,10 @@
 ﻿
 using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Dectorators.PaymentCapturers;
 using Epinova.PayExProvider.Dectorators.PaymentCompleters;
 using Epinova.PayExProvider.Dectorators.PaymentCreditors;
 using Epinova.PayExProvider.Dectorators.PaymentInitializers;
+using Epinova.PayExProvider.Facades;
 
 namespace Epinova.PayExProvider.Models.PaymentMethods
 {
@@ -37,8 +37,7 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 
         public override bool Capture()
         {
-            IPaymentCapturer capturer = new CapturePayment(null, new Logger(), new PaymentManager(), new ParameterReader());
-            return capturer.Capture(this);
+            throw new System.NotImplementedException();
         }
 
         public override bool Credit()

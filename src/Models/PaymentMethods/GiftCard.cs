@@ -1,16 +1,16 @@
 ﻿
 using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
+using Epinova.PayExProvider.Dectorators.PaymentCapturers;
+using Epinova.PayExProvider.Dectorators.PaymentCompleters;
 using Epinova.PayExProvider.Dectorators.PaymentInitializers;
-using Epinova.PayExProvider.Price;
+using Epinova.PayExProvider.Facades;
 
 namespace Epinova.PayExProvider.Models.PaymentMethods
 {
     public class GiftCard : PaymentMethod
     {
-        public GiftCard()
-        {
-        }
+        public GiftCard()  { }
 
         public GiftCard(Mediachase.Commerce.Orders.Payment payment)
             : base(payment)
@@ -27,12 +27,14 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 
         public override PaymentCompleteResult Complete(string orderRef)
         {
-            throw new System.NotImplementedException();
+            IPaymentCompleter completer = new CompletePayment(null, new PaymentManager(), new Logger());
+            return completer.Complete(this, orderRef);
         }
 
         public override bool Capture()
         {
-            throw new System.NotImplementedException();
+            IPaymentCapturer capturer = new CapturePayment(null, new Logger(), new PaymentManager(), new ParameterReader());
+            return capturer.Capture(this);
         }
 
         public override bool Credit()

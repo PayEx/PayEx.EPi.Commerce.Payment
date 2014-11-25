@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://external.payex.com/PxVerification/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://external.payex.com/PxVerification/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://external.payex.com/PxVerification/">
+      <s:element name="CreditCheckPrivate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="countryCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="socialSecurityNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientIPAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreditCheckPrivateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreditCheckPrivateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreditCheckPrivate2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="countryCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="socialSecurityNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientIPAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreditCheckPrivate2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreditCheckPrivate2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreditCheckCorporate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="countryCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="organizationNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreditCheckCorporateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreditCheckCorporateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreditCheckCorporate2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="countryCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="organizationNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreditCheckCorporate2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreditCheckCorporate2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NameCheckPrivate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="socialSecurityNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="countryCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NameCheckPrivateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NameCheckPrivateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestAuthentication">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:PxRequestAuthenticationReq" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PxRequestAuthenticationReq">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PxBaseReq">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Authenticators" type="tns:ArrayOfString" />
+              <s:element minOccurs="0" maxOccurs="1" name="ReturnUrl" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Signable" type="tns:Signable" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExtraData" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PxBaseReq" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseReq">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Authentication" type="tns:Authentication" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseReq" />
+      <s:complexType name="Authentication">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Hash" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountNumber" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Signable">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RequestAuthenticationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestAuthenticationResult" type="tns:PxRequestAuthenticationResp" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PxRequestAuthenticationResp">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PxBaseResp">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ReturnUrl" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PxBaseResp" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseResp" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseResp">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="tns:Status" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Status">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCodeSimple" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParamName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetConsumerLegalAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="socialSecurityNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="countryCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsumerLegalAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsumerLegalAddressResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreditCheckPrivateSoapIn">
+    <wsdl:part name="parameters" element="tns:CreditCheckPrivate" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckPrivateSoapOut">
+    <wsdl:part name="parameters" element="tns:CreditCheckPrivateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckPrivate2SoapIn">
+    <wsdl:part name="parameters" element="tns:CreditCheckPrivate2" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckPrivate2SoapOut">
+    <wsdl:part name="parameters" element="tns:CreditCheckPrivate2Response" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckCorporateSoapIn">
+    <wsdl:part name="parameters" element="tns:CreditCheckCorporate" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckCorporateSoapOut">
+    <wsdl:part name="parameters" element="tns:CreditCheckCorporateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckCorporate2SoapIn">
+    <wsdl:part name="parameters" element="tns:CreditCheckCorporate2" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckCorporate2SoapOut">
+    <wsdl:part name="parameters" element="tns:CreditCheckCorporate2Response" />
+  </wsdl:message>
+  <wsdl:message name="NameCheckPrivateSoapIn">
+    <wsdl:part name="parameters" element="tns:NameCheckPrivate" />
+  </wsdl:message>
+  <wsdl:message name="NameCheckPrivateSoapOut">
+    <wsdl:part name="parameters" element="tns:NameCheckPrivateResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestAuthenticationSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="RequestAuthenticationSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestAuthenticationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsumerLegalAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsumerLegalAddress" />
+  </wsdl:message>
+  <wsdl:message name="GetConsumerLegalAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsumerLegalAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckPrivateHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="countryCode" type="s:string" />
+    <wsdl:part name="socialSecurityNumber" type="s:string" />
+    <wsdl:part name="firstName" type="s:string" />
+    <wsdl:part name="lastName" type="s:string" />
+    <wsdl:part name="amount" type="s:string" />
+    <wsdl:part name="clientIPAddress" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckPrivateHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckPrivate2HttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="countryCode" type="s:string" />
+    <wsdl:part name="socialSecurityNumber" type="s:string" />
+    <wsdl:part name="firstName" type="s:string" />
+    <wsdl:part name="lastName" type="s:string" />
+    <wsdl:part name="amount" type="s:string" />
+    <wsdl:part name="clientIPAddress" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckPrivate2HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckCorporateHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="countryCode" type="s:string" />
+    <wsdl:part name="organizationNumber" type="s:string" />
+    <wsdl:part name="amount" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckCorporateHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckCorporate2HttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="countryCode" type="s:string" />
+    <wsdl:part name="organizationNumber" type="s:string" />
+    <wsdl:part name="amount" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreditCheckCorporate2HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="NameCheckPrivateHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="socialSecurityNumber" type="s:string" />
+    <wsdl:part name="firstName" type="s:string" />
+    <wsdl:part name="lastName" type="s:string" />
+    <wsdl:part name="countryCode" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="NameCheckPrivateHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConsumerLegalAddressHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="socialSecurityNumber" type="s:string" />
+    <wsdl:part name="countryCode" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConsumerLegalAddressHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="PxVerificationSoap">
+    <wsdl:operation name="CreditCheckPrivate">
+      <wsdl:input message="tns:CreditCheckPrivateSoapIn" />
+      <wsdl:output message="tns:CreditCheckPrivateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckPrivate2">
+      <wsdl:input message="tns:CreditCheckPrivate2SoapIn" />
+      <wsdl:output message="tns:CreditCheckPrivate2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate">
+      <wsdl:input message="tns:CreditCheckCorporateSoapIn" />
+      <wsdl:output message="tns:CreditCheckCorporateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate2">
+      <wsdl:input message="tns:CreditCheckCorporate2SoapIn" />
+      <wsdl:output message="tns:CreditCheckCorporate2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NameCheckPrivate">
+      <wsdl:input message="tns:NameCheckPrivateSoapIn" />
+      <wsdl:output message="tns:NameCheckPrivateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestAuthentication">
+      <wsdl:input message="tns:RequestAuthenticationSoapIn" />
+      <wsdl:output message="tns:RequestAuthenticationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsumerLegalAddress">
+      <wsdl:input message="tns:GetConsumerLegalAddressSoapIn" />
+      <wsdl:output message="tns:GetConsumerLegalAddressSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PxVerificationHttpPost">
+    <wsdl:operation name="CreditCheckPrivate">
+      <wsdl:input message="tns:CreditCheckPrivateHttpPostIn" />
+      <wsdl:output message="tns:CreditCheckPrivateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckPrivate2">
+      <wsdl:input message="tns:CreditCheckPrivate2HttpPostIn" />
+      <wsdl:output message="tns:CreditCheckPrivate2HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate">
+      <wsdl:input message="tns:CreditCheckCorporateHttpPostIn" />
+      <wsdl:output message="tns:CreditCheckCorporateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate2">
+      <wsdl:input message="tns:CreditCheckCorporate2HttpPostIn" />
+      <wsdl:output message="tns:CreditCheckCorporate2HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NameCheckPrivate">
+      <wsdl:input message="tns:NameCheckPrivateHttpPostIn" />
+      <wsdl:output message="tns:NameCheckPrivateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsumerLegalAddress">
+      <wsdl:input message="tns:GetConsumerLegalAddressHttpPostIn" />
+      <wsdl:output message="tns:GetConsumerLegalAddressHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PxVerificationSoap" type="tns:PxVerificationSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreditCheckPrivate">
+      <soap:operation soapAction="http://external.payex.com/PxVerification/CreditCheckPrivate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckPrivate2">
+      <soap:operation soapAction="http://external.payex.com/PxVerification/CreditCheckPrivate2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate">
+      <soap:operation soapAction="http://external.payex.com/PxVerification/CreditCheckCorporate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate2">
+      <soap:operation soapAction="http://external.payex.com/PxVerification/CreditCheckCorporate2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NameCheckPrivate">
+      <soap:operation soapAction="http://external.payex.com/PxVerification/NameCheckPrivate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestAuthentication">
+      <soap:operation soapAction="http://external.payex.com/PxVerification/RequestAuthentication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsumerLegalAddress">
+      <soap:operation soapAction="http://external.payex.com/PxVerification/GetConsumerLegalAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxVerificationSoap12" type="tns:PxVerificationSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreditCheckPrivate">
+      <soap12:operation soapAction="http://external.payex.com/PxVerification/CreditCheckPrivate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckPrivate2">
+      <soap12:operation soapAction="http://external.payex.com/PxVerification/CreditCheckPrivate2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate">
+      <soap12:operation soapAction="http://external.payex.com/PxVerification/CreditCheckCorporate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate2">
+      <soap12:operation soapAction="http://external.payex.com/PxVerification/CreditCheckCorporate2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NameCheckPrivate">
+      <soap12:operation soapAction="http://external.payex.com/PxVerification/NameCheckPrivate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestAuthentication">
+      <soap12:operation soapAction="http://external.payex.com/PxVerification/RequestAuthentication" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsumerLegalAddress">
+      <soap12:operation soapAction="http://external.payex.com/PxVerification/GetConsumerLegalAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxVerificationHttpPost" type="tns:PxVerificationHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="CreditCheckPrivate">
+      <http:operation location="/CreditCheckPrivate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckPrivate2">
+      <http:operation location="/CreditCheckPrivate2" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate">
+      <http:operation location="/CreditCheckCorporate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditCheckCorporate2">
+      <http:operation location="/CreditCheckCorporate2" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NameCheckPrivate">
+      <http:operation location="/NameCheckPrivate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsumerLegalAddress">
+      <http:operation location="/GetConsumerLegalAddress" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PxVerification">
+    <wsdl:port name="PxVerificationSoap" binding="tns:PxVerificationSoap">
+      <soap:address location="https://external.payex.com/pxverification/pxverification.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxVerificationSoap12" binding="tns:PxVerificationSoap12">
+      <soap12:address location="https://external.payex.com/pxverification/pxverification.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxVerificationHttpPost" binding="tns:PxVerificationHttpPost">
+      <http:address location="http://external.payex.com/pxverification/pxverification.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
