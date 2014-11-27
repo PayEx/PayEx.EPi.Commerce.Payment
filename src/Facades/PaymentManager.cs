@@ -81,8 +81,8 @@ namespace Epinova.PayExProvider.Facades
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.GetTransactionDetails(PayExSettings.Instance.AccountNumber, transactionNumber, hash);
-            TransactionResult result = _resultParser.ParseTransactionXml(xmlResult);
-            if (result.Success)
+            TransactionResult result = _resultParser.Deserialize<TransactionResult>(xmlResult);
+            if (result.Status.Success)
                 return result;
             return null;
         }

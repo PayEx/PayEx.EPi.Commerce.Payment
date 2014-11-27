@@ -25,8 +25,14 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 
         public override PaymentCompleteResult Complete(string orderRef)
         {
-            IPaymentCompleter completer = new CompletePayment(null, new PaymentManager(), new Logger());
+            PaymentManager paymentManager = new PaymentManager();
+            Logger logger = new Logger();
+
+            IPaymentCompleter completer = new CompletePayment(
+                new UpdateTransactionDetails(null, paymentManager, logger), paymentManager, logger);
             return completer.Complete(this, orderRef);
+            //IPaymentCompleter completer = new CompletePayment(null, new PaymentManager(), new Logger());
+            //return completer.Complete(this, orderRef);
         }
 
         public override bool Capture()

@@ -83,6 +83,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentCompleters
                     purchaseOrder.OrderForms[0]["PaymentMethodCode"] = completeResult.PaymentMethod;
                     purchaseOrder.AcceptChanges();
 
+                    currentPayment.OrderGroup = purchaseOrder; 
                     scope.Complete();
                 }
             }

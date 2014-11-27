@@ -326,12 +326,11 @@
     <Compile Include="Models\Result\InitializeResult.cs" />
     <Compile Include="Models\Result\Status.cs" />
     <Compile Include="Models\Result\StatusCode.cs" />
-    <Compile Include="Models\TransactionDetails.cs" />
     <Compile Include="NewPaymentGateway.cs" />
     <Compile Include="ParameterReader.cs" />
     <Compile Include="PayExPayment.cs" />
     <Compile Include="PayExPaymentGateway.cs" />
-    <Compile Include="Payment\TransactionResult.cs" />
+    <Compile Include="Models\Result\TransactionResult.cs" />
     <Compile Include="Payment\ResultBase.cs" />
     <Compile Include="Payment\TransactionStatus.cs" />
     <Compile Include="Price\PriceFormatter.cs" />

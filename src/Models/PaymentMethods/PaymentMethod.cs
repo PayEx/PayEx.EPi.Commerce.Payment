@@ -26,7 +26,7 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
             set { _orderGroupId = value; }
         }
 
-        private OrderGroup OrderGroup { get; set; }
+        public OrderGroup OrderGroup { get; set; }
         private string TransactionType { get; set; }
 
         public bool IsCapture

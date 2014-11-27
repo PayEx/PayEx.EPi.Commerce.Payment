@@ -63,6 +63,7 @@
     <Compile Include="Factories\PaymentMethodFactoryTests.cs" />
     <Compile Include="Models\Result\CaptureResultTests.cs" />
     <Compile Include="Models\Result\CompleteResultTests.cs" />
+    <Compile Include="Models\Result\CreditResultTests.cs" />
     <Compile Include="Models\Result\StatusTests.cs" />
     <Compile Include="PayExResult\ResultParserTests.cs" />
     <Compile Include="Factory.cs" />
