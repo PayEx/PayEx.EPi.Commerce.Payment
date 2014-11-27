@@ -3,6 +3,7 @@ using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Factories;
 using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Payment;
+using EPiServer.ServiceLocation;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Plugins.Payment;
 using System.Web;
@@ -22,8 +23,8 @@ namespace Epinova.PayExProvider
 
         public PayExPaymentGateway()
         {
-            _logger = new Logger();
-            _paymentMethodFactory = new PaymentMethodFactory();
+            _logger = ServiceLocator.Current.GetInstance<ILogger>();
+            _paymentMethodFactory = ServiceLocator.Current.GetInstance<IPaymentMethodFactory>();
         }
 
         public override bool ProcessPayment(Mediachase.Commerce.Orders.Payment payment, ref string message)

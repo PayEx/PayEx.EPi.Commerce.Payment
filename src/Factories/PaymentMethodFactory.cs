@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Epinova.PayExProvider.Contracts;
+﻿using Epinova.PayExProvider.Contracts;
+using Epinova.PayExProvider.Contracts.Commerce;
 using Epinova.PayExProvider.Models.PaymentMethods;
 using Mediachase.Commerce.Orders.Dto;
 
@@ -11,6 +7,19 @@ namespace Epinova.PayExProvider.Factories
 {
     public class PaymentMethodFactory : IPaymentMethodFactory
     {
+        private readonly IPaymentManager _paymentManager;
+        private readonly IParameterReader _parameterReader;
+        private readonly ILogger _logger;
+        private readonly ICartActions _cartActions;
+
+        public PaymentMethodFactory(IPaymentManager paymentManager, IParameterReader parameterReader, ILogger logger, ICartActions cartActions)
+        {
+            _paymentManager = paymentManager;
+            _parameterReader = parameterReader;
+            _logger = logger;
+            _cartActions = cartActions;
+        }
+
         public PaymentMethod Create(Mediachase.Commerce.Orders.Payment payment)
         {
             if (!(payment is PayExPayment))
@@ -35,7 +44,7 @@ namespace Epinova.PayExProvider.Factories
                 case "PayEx_PayPal":
                     return new PayPal(payment);
                 default:
-                    return new CreditCard(payment);
+                    return new CreditCard(payment, _paymentManager, _parameterReader, _logger, _cartActions);
             }
         }
     }
