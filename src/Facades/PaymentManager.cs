@@ -3,6 +3,7 @@ using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Models.Result;
 using Epinova.PayExProvider.Payment;
+using EPiServer.Data;
 using Mediachase.Commerce.Orders;
 
 namespace Epinova.PayExProvider.Facades
@@ -42,15 +43,15 @@ namespace Epinova.PayExProvider.Facades
             return _resultParser.Deserialize<CompleteResult>(xmlResult);
         }
 
-        public string Capture(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues)
+        public CaptureResult Capture(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues)
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.Capture(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount,
                 additionalValues, hash);
 
-            TransactionResult result = _resultParser.ParseTransactionXml(xmlResult);
-            if (result.Success && result.TransactionStatus == TransactionStatus.Capture)
-                return result.TransactionNumber;
+            CaptureResult result = _resultParser.Deserialize<CaptureResult>(xmlResult);
+            if (result.Success)
+                return result;
             return null;
         }
 

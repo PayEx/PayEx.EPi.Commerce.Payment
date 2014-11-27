@@ -1,4 +1,5 @@
 ﻿using System;
+using Epinova.PayExProvider.Models.Result;
 using Epinova.PayExProvider.Payment;
 using NUnit.Framework;
 
@@ -11,7 +12,7 @@ namespace Epinova.PayExProvider.UnitTests.PayExResult
         public void Deserialize_InitializeResultXml_ReturnsInitializeResultObject()
         {
             ResultParser resultParser = new ResultParser();
-            PayExProvider.Models.Result.InitializeResult result = resultParser.Deserialize<PayExProvider.Models.Result.InitializeResult>(XmlInput.InitializeResult);
+            InitializeResult result = resultParser.Deserialize<InitializeResult>(Factory.InitializeResult);
 
             Assert.IsNotNull(result);
         }
@@ -20,7 +21,7 @@ namespace Epinova.PayExProvider.UnitTests.PayExResult
         public void Deserialize_InitializeIsSuccessful_ReturnsSuccessTrue()
         {
             ResultParser resultParser = new ResultParser();
-            PayExProvider.Models.Result.InitializeResult result = resultParser.Deserialize<PayExProvider.Models.Result.InitializeResult>(XmlInput.InitializeResult);
+            InitializeResult result = resultParser.Deserialize<InitializeResult>(Factory.InitializeResult);
 
             Assert.IsNotNull(result.Status);
         }
@@ -29,7 +30,7 @@ namespace Epinova.PayExProvider.UnitTests.PayExResult
         public void Deserialize_InitializeIsSuccessful_ReturnsNonEmptyOrderRef()
         {
             ResultParser resultParser = new ResultParser();
-            PayExProvider.Models.Result.InitializeResult result = resultParser.Deserialize<PayExProvider.Models.Result.InitializeResult>(XmlInput.InitializeResult);
+            InitializeResult result = resultParser.Deserialize<InitializeResult>(Factory.InitializeResult);
 
             Assert.IsTrue(result.OrderRef != Guid.Empty);
         }
@@ -38,120 +39,72 @@ namespace Epinova.PayExProvider.UnitTests.PayExResult
         public void Deserialize_InitializeIsSuccessful_ReturnsNonEmptyRedirectUrl()
         {
             ResultParser resultParser = new ResultParser();
-            PayExProvider.Models.Result.InitializeResult result = resultParser.Deserialize<PayExProvider.Models.Result.InitializeResult>(XmlInput.InitializeResult);
+            InitializeResult result = resultParser.Deserialize<InitializeResult>(Factory.InitializeResult);
 
             Assert.IsNotNullOrEmpty(result.RedirectUrl);
         }
 
+        [Test]
+        public void Deserialize_InitializeIsUnsuccessful_ReturnsSuccessFalse()
+        {
+            ResultParser resultParser = new ResultParser();
+            CompleteResult result = resultParser.Deserialize<CompleteResult>(Factory.InitializeResultError);
 
-        // Old stuff
+            Assert.IsFalse(result.Success);
+        }
 
-        //[Test]
-        //public void ParseInitializeXml_InitializeIsSuccessful_SuccessIsTrue()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    ResultBase result = resultParser.ParseInitializeXml(XmlInput.InitializeResultSuccess);
+        [Test]
+        public void Deserialize_CompleteResultXml_ReturnsCompleteResultObject()
+        {
+            ResultParser resultParser = new ResultParser();
+            CompleteResult result = resultParser.Deserialize<CompleteResult>(Factory.CompleteResult);
 
-        //    Assert.IsTrue(result.Success);
-        //}
+            Assert.IsNotNull(result);
+        }
 
-        //[Test]
-        //public void ParseInitializeXml_InitializeIsSuccessful_OrderRefExists()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    InitializeResult result = resultParser.ParseInitializeXml(XmlInput.InitializeResultSuccess);
+        [Test]
+        public void Deserialize_CompleteIsSuccessful_ReturnsSuccessTrue()
+        {
+            ResultParser resultParser = new ResultParser();
+            CompleteResult result = resultParser.Deserialize<CompleteResult>(Factory.CompleteResult);
 
-        //    Assert.AreNotEqual(result.OrderRef, Guid.Empty);
-        //}
+            Assert.IsNotNull(result.Status);
+        }
 
-        //[Test]
-        //public void ParseInitializeXml_InitializeIsSuccessful_ReturnsUrlExists()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    InitializeResult result = resultParser.ParseInitializeXml(XmlInput.InitializeResultSuccess);
+        [Test]
+        public void Deserialize_CompleteIsSuccessful_ReturnsNonEmptyTransactionNumber()
+        {
+            ResultParser resultParser = new ResultParser();
+            CompleteResult result = resultParser.Deserialize<CompleteResult>(Factory.CompleteResult);
 
-        //    Assert.IsNotNullOrEmpty(result.ReturnUrl);
-        //}
+            Assert.IsNotNullOrEmpty(result.TransactionNumber);
+        }
 
-        //[Test]
-        //public void ParseInitializeXml_InitializeError_SuccessIsFalse()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    InitializeResult result = resultParser.ParseInitializeXml(XmlInput.InitializeResultError);
+        [Test]
+        public void Deserialize_CompleteIsSuccessful_ReturnsNonEmptyPaymentMethod()
+        {
+            ResultParser resultParser = new ResultParser();
+            CompleteResult result = resultParser.Deserialize<CompleteResult>(Factory.CompleteResult);
 
-        //    Assert.IsFalse(result.Success);
-        //}
+            Assert.IsNotNullOrEmpty(result.PaymentMethod);
+        }
 
-        //[Test]
-        //public void ParseInitializeXml_InitializeError_NoOrderRef()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    InitializeResult result = resultParser.ParseInitializeXml(XmlInput.InitializeResultError);
+        [Test]
+        public void Deserialize_CompleteIsUnsuccessful_ReturnsSuccessFalse()
+        {
+            ResultParser resultParser = new ResultParser();
+            CompleteResult result = resultParser.Deserialize<CompleteResult>(Factory.CompleteResultError);
 
-        //    Assert.AreEqual(result.OrderRef, Guid.Empty);
-        //}
+            Assert.IsFalse(result.Success);
+        }
 
-        //[Test]
-        //public void ParseInitializeXml_InitializeError_ErrorCodeNotEmpty()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    InitializeResult result = resultParser.ParseInitializeXml(XmlInput.InitializeResultError);
+        [Test]
+        public void Deserialize_CompleteIsUnsuccessful_ReturnsNonEmptyTransactionErrorCode()
+        {
+            ResultParser resultParser = new ResultParser();
+            CompleteResult result = resultParser.Deserialize<CompleteResult>(Factory.CompleteResultError);
 
-        //    Assert.IsNotNullOrEmpty(result.ErrorCode);
-        //}
-
-        //[Test]
-        //public void ParseInitializeXml_InitializeError_DescriptionNotEmpty()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    InitializeResult result = resultParser.ParseInitializeXml(XmlInput.InitializeResultError);
-
-        //    Assert.IsNotNullOrEmpty(result.Description);
-        //}
-
-        //[Test]
-        //public void ParseCompleteXml_CompleteIsSuccessful_SuccessIsTrue()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    ResultBase result = resultParser.ParseTransactionXml(XmlInput.CompleteResultSuccess);
-
-        //    Assert.IsTrue(result.Success);
-        //}
-
-        //[Test]
-        //public void ParseCompleteXml_CompleteIsSuccessful_TransactionNumberNotEmpty()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    TransactionResult result = resultParser.ParseTransactionXml(XmlInput.CompleteResultSuccess);
-
-        //    Assert.IsNotNullOrEmpty(result.TransactionNumber);
-        //}
-
-        //[Test]
-        //public void ParseCompleteXml_CompleteIsSuccessful_TransactionStatusIsAuthorize()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    TransactionResult result = resultParser.ParseTransactionXml(XmlInput.CompleteResultSuccess);
-
-        //    Assert.AreEqual(result.TransactionStatus, TransactionStatus.Authorize);
-        //}
-
-        //[Test]
-        //public void ParseCompleteXml_CompleteError_ErrorCodeNotEmpty()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    TransactionResult result = resultParser.ParseTransactionXml(XmlInput.CompleteResultError);
-
-        //    Assert.IsNotNullOrEmpty(result.ErrorCode);
-        //}
-
-        //[Test]
-        //public void ParseCompleteXml_CompleteError_DescriptionNotEmpty()
-        //{
-        //    ResultParser resultParser = new ResultParser();
-        //    TransactionResult result = resultParser.ParseTransactionXml(XmlInput.CompleteResultError);
-
-        //    Assert.IsNotNullOrEmpty(result.Description);
-        //}
+            Assert.IsNotNullOrEmpty(result.ErrorDetails.TransactionErrorCode);
+        }
     }
 }

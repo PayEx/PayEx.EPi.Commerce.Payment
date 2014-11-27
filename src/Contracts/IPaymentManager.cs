@@ -7,11 +7,11 @@ namespace Epinova.PayExProvider.Contracts
 {
     public interface IPaymentManager
     {
-        Models.Result.CompleteResult Complete(string orderRef);
+        CompleteResult Complete(string orderRef);
         TransactionResult GetTransactionDetails(int transactionNumber);
         InitializeResult Initialize(Cart cart, PaymentInformation payment);
         string CreditOrderLine(int transactionNumber, string itemNumber, string orderId);
         string Credit(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues);
-        string Capture(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues);
+        CaptureResult Capture(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues);
     }
 }

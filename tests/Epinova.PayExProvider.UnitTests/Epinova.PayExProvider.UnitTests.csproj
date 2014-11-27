@@ -61,10 +61,11 @@
   <ItemGroup>
     <Compile Include="Decorators\PaymentInitializers\GenerateOrderNumberTests.cs" />
     <Compile Include="Factories\PaymentMethodFactoryTests.cs" />
+    <Compile Include="Models\Result\CaptureResultTests.cs" />
     <Compile Include="Models\Result\CompleteResultTests.cs" />
     <Compile Include="Models\Result\StatusTests.cs" />
     <Compile Include="PayExResult\ResultParserTests.cs" />
-    <Compile Include="PayExResult\XmlInput.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

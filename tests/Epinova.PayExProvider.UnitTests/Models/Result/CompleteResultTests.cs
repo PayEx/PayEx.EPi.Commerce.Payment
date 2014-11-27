@@ -13,13 +13,9 @@ namespace Epinova.PayExProvider.UnitTests.Models.Result
         [TestCase(TransactionStatus.Authorize, false, false)]
         [TestCase(TransactionStatus.Failure, true, false)]
         [TestCase(TransactionStatus.Failure, false, false)]
-        public void Success_StatusSuccessIsTrue_ReturnsCorrectResult(TransactionStatus transactionStatus, bool statusSuccess, bool expected)
+        public void Success_ReturnsCorrectResult(TransactionStatus transactionStatus, bool statusSuccess, bool expected)
         {
-            Status status;
-            if (statusSuccess)
-                status = new Status { Description = "OK", ErrorCode = "OK" };
-            else
-                status = new Status { Description = "NotOK", ErrorCode = "NotOK" };
+            Status status = Factory.CreateStatus(statusSuccess);
 
             CompleteResult completeResult = new CompleteResult { Status = status, TransactionStatus = transactionStatus };
             Assert.AreEqual(expected, completeResult.Success);

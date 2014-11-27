@@ -1,5 +1,6 @@
 ﻿using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Models.PaymentMethods;
+using Epinova.PayExProvider.Models.Result;
 using Epinova.PayExProvider.Price;
 
 namespace Epinova.PayExProvider.Dectorators.PaymentCapturers
@@ -32,12 +33,12 @@ namespace Epinova.PayExProvider.Dectorators.PaymentCapturers
 
             long amount = payment.Amount.RoundToLong();
             int vat = _parameterReader.GetVat(currentPayment.PaymentMethodDto);
-            string transactionNumber = _paymentManager.Capture(transactionId, amount, currentPayment.PurchaseOrder.TrackingNumber, vat, string.Empty);
+            CaptureResult result = _paymentManager.Capture(transactionId, amount, currentPayment.PurchaseOrder.TrackingNumber, vat, string.Empty);
 
             bool success = false;
-            if (!string.IsNullOrWhiteSpace(transactionNumber))
+            if (result != null && !string.IsNullOrWhiteSpace(result.TransactionNumber))
             {
-                payment.ValidationCode = transactionNumber;
+                payment.ValidationCode = result.TransactionNumber;
                 payment.AcceptChanges();
                 success = true;
             }
