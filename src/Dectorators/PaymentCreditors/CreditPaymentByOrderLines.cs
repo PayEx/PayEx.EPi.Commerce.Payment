@@ -1,4 +1,5 @@
 ﻿using Epinova.PayExProvider.Contracts;
+using Epinova.PayExProvider.Models.Result;
 using Mediachase.Commerce.Orders;
 using PaymentMethod = Epinova.PayExProvider.Models.PaymentMethods.PaymentMethod;
 
@@ -28,19 +29,19 @@ namespace Epinova.PayExProvider.Dectorators.PaymentCreditors
                 return false;
             }
 
-            string transactionNumber = string.Empty;
+            CreditResult result = null;
             foreach (OrderForm orderForm in currentPayment.PurchaseOrder.OrderForms)
             {
                 foreach (LineItem lineItem in orderForm.LineItems)
                 {
-                    transactionNumber = _paymentManager.CreditOrderLine(transactionId, lineItem.CatalogEntryId, currentPayment.PurchaseOrder.TrackingNumber);
+                    result = _paymentManager.CreditOrderLine(transactionId, lineItem.CatalogEntryId, currentPayment.PurchaseOrder.TrackingNumber);
                 }
             }
 
             bool success = false;
-            if (!string.IsNullOrWhiteSpace(transactionNumber))
+            if (result != null && !string.IsNullOrWhiteSpace(result.TransactionNumber))
             {
-                payment.TransactionID = transactionNumber;
+                payment.TransactionID = result.TransactionNumber;
                 payment.AcceptChanges();
                 success = true;
             }

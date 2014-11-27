@@ -321,6 +321,7 @@
     <Compile Include="Models\PaymentMethods\PayPal.cs" />
     <Compile Include="Models\Result\CaptureResult.cs" />
     <Compile Include="Models\Result\CompleteResult.cs" />
+    <Compile Include="Models\Result\CreditResult.cs" />
     <Compile Include="Models\Result\ErrorDetails.cs" />
     <Compile Include="Models\Result\InitializeResult.cs" />
     <Compile Include="Models\Result\Status.cs" />

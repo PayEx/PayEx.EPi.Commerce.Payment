@@ -3,7 +3,6 @@ using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Models.Result;
 using Epinova.PayExProvider.Payment;
-using EPiServer.Data;
 using Mediachase.Commerce.Orders;
 
 namespace Epinova.PayExProvider.Facades
@@ -55,26 +54,26 @@ namespace Epinova.PayExProvider.Facades
             return null;
         }
 
-        public string Credit(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues)
+        public CreditResult Credit(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues)
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.Credit(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount,
               additionalValues, hash);
 
-            TransactionResult result = _resultParser.ParseTransactionXml(xmlResult);
-            if (result.Success && result.TransactionStatus == TransactionStatus.Credit)
-                return result.TransactionNumber;
+            CreditResult result = _resultParser.Deserialize<CreditResult>(xmlResult);
+            if (result.Success)
+                return result;
             return null;
         }
 
-        public string CreditOrderLine(int transactionNumber, string itemNumber, string orderId)
+        public CreditResult CreditOrderLine(int transactionNumber, string itemNumber, string orderId)
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, itemNumber, orderId, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.CreditOrderLine(PayExSettings.Instance.AccountNumber, transactionNumber, itemNumber, orderId, hash);
 
-            TransactionResult result = _resultParser.ParseTransactionXml(xmlResult);
-            if (result.Success && result.TransactionStatus == TransactionStatus.Credit)
-                return result.TransactionNumber;
+            CreditResult result = _resultParser.Deserialize<CreditResult>(xmlResult);
+            if (result.Success)
+                return result;
             return null;
         }
 
