@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Models;
+using Epinova.PayExProvider.Models.Result;
 using Epinova.PayExProvider.Payment;
 using Mediachase.Commerce.Orders;
 
@@ -24,8 +25,8 @@ namespace Epinova.PayExProvider.Facades
             string hash = _hasher.Create(payment);
             string xmlResult = _orderFacade.Initialize(payment, hash);
 
-            InitializeResult result = _resultParser.ParseInitializeXml(xmlResult);
-            if (!result.Success)
+            InitializeResult result = _resultParser.Deserialize<InitializeResult>(xmlResult);
+            if (!result.Status.Success)
                 return null;
 
             AddOrderLineItems(cart, payment, result);
@@ -38,12 +39,7 @@ namespace Epinova.PayExProvider.Facades
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.Complete(PayExSettings.Instance.AccountNumber, orderRef, hash);
 
-            TransactionResult result = _resultParser.ParseTransactionXml(xmlResult);
-            if (result.Success && result.TransactionStatus == TransactionStatus.Initialize)
-                return new CompleteResult(result.TransactionNumber, result.PaymentMethod, true);
-            if (result.Success && result.TransactionStatus == TransactionStatus.Authorize)
-                return new CompleteResult(result.TransactionNumber, result.PaymentMethod);
-            return new CompleteResult(result.TransactionNumber, result.PaymentMethod, result.TransactionErrorCode);
+            return _resultParser.Deserialize<CompleteResult>(xmlResult);
         }
 
         public string Capture(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues)

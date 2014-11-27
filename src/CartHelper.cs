@@ -1,4 +1,5 @@
 ﻿using Epinova.PayExProvider.Models;
+using Epinova.PayExProvider.Models.Result;
 using Epinova.PayExProvider.Payment;
 using Epinova.PayExProvider.Price;
 using Mediachase.Commerce.Orders;

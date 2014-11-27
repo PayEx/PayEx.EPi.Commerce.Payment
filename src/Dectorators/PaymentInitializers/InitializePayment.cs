@@ -3,7 +3,7 @@ using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Contracts.Commerce;
 using Epinova.PayExProvider.Models;
 using Epinova.PayExProvider.Models.PaymentMethods;
-using Epinova.PayExProvider.Payment;
+using Epinova.PayExProvider.Models.Result;
 using Epinova.PayExProvider.Price;
 using EPiServer.Globalization;
 
@@ -34,7 +34,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
             _cartActions.UpdateCartInstanceId(currentPayment.Cart); // Save all the changes that have been done to the cart
 
             if (_paymentInitializer != null)
-                return _paymentInitializer.Initialize(currentPayment, orderNumber, result.ReturnUrl);
+                return _paymentInitializer.Initialize(currentPayment, orderNumber, result.RedirectUrl);
 
             return new PaymentInitializeResult {Success = true};
         }

@@ -4,7 +4,8 @@ namespace Epinova.PayExProvider.Contracts
 {
     public interface IResultParser
     {
-        InitializeResult ParseInitializeXml(string xml);
+        T Deserialize<T>(string xml) where T : class;
+       // InitializeResult ParseInitializeXml(string xml);
         TransactionResult ParseTransactionXml(string xml);
     }
 }

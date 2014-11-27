@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Models;
+using Epinova.PayExProvider.Models.Result;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Managers;
 using Mediachase.Data.Provider;
@@ -26,8 +27,8 @@ namespace Epinova.PayExProvider.Dectorators.PaymentCompleters
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
         {
             CompleteResult completeResult = _paymentManager.Complete(orderRef);
-            if (completeResult.Error || string.IsNullOrWhiteSpace(completeResult.TransactionNumber))
-                return new PaymentCompleteResult { ErrorCode = completeResult.ErrorCode };
+            if (!completeResult.Success || string.IsNullOrWhiteSpace(completeResult.TransactionNumber))
+                return new PaymentCompleteResult { TransactionErrorCode = completeResult.ErrorDetails != null ? completeResult.ErrorDetails.TransactionErrorCode : string.Empty };
 
             if (completeResult.GetTransactionDetails)
             {

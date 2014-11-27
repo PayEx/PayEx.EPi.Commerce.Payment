@@ -1,6 +1,8 @@
-﻿using System;
+﻿using System.IO;
 using System.Xml;
+using System.Xml.Serialization;
 using Epinova.PayExProvider.Contracts;
+using Epinova.PayExProvider.Models;
 
 namespace Epinova.PayExProvider.Payment
 {
@@ -8,31 +10,14 @@ namespace Epinova.PayExProvider.Payment
     {
         private const string SuccessCode = "OK";
 
-        public InitializeResult ParseInitializeXml(string xml)
+        public T Deserialize<T>(string xml) where T : class
         {
-            string errorCode = GetErrorCode(xml);
-            string description = GetDescription(xml);
-            string orderRef = GetOrderRef(xml);
-
-            bool success = errorCode.Equals(SuccessCode) && description.Equals(SuccessCode);
-
-            InitializeResult result = new InitializeResult(success);
-
-            if (success)
-            {
-                result.ReturnUrl = GetRedirectUrl(xml);
-
-                Guid orderReference;
-                if (Guid.TryParse(orderRef, out orderReference))
-                    result.OrderRef = orderReference;
-            }
-            else
-            {
-                result.ErrorCode = errorCode;
-                result.Description = description;
-            }
-
-            return result;
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+            TextReader textReader = new StringReader(xml);
+            object obj = xmlSerializer.Deserialize(textReader);
+            if (obj != null)
+                return (T)obj;
+            return null;
         }
 
         public TransactionResult ParseTransactionXml(string xml)
@@ -56,11 +41,19 @@ namespace Epinova.PayExProvider.Payment
                 result.ErrorCode = errorCode;
                 result.Description = description;
                 result.TransactionStatus = status;
-                result.TransactionErrorCode = GetTransactionErrorCode(xml);
+                //result.TransactionErrorCode = GetTransactionErrorCode(xml);
                 result = TryAddInvoiceInformation(result, xml);
             }
 
             return result;
+        }
+
+        public InvoiceData ParseInvoiceData(string xml)
+        {
+            string errorCode = GetErrorCode(xml);
+            string description = GetDescription(xml);
+
+            return null;
         }
 
         private TransactionResult TryAddInvoiceInformation(TransactionResult result, string xml)
@@ -87,13 +80,13 @@ namespace Epinova.PayExProvider.Payment
             return ParseXml(xml, "/payex/transactionNumber");
         }
 
-        private TransactionErrorCode GetTransactionErrorCode(string xml)
-        {
-            string transactionErrorCode = ParseXml(xml, "/payex/errorDetails/transactionErrorCode");
-            if (transactionErrorCode.Equals("CardNotAcceptedForThisPurchase"))
-                return TransactionErrorCode.CardNotAcceptedForThisPurchase;
-            return TransactionErrorCode.Other;
-        }
+        //private TransactionErrorCode GetTransactionErrorCode(string xml)
+        //{
+        //    string transactionErrorCode = ParseXml(xml, "/payex/errorDetails/transactionErrorCode");
+        //    if (transactionErrorCode.Equals("CardNotAcceptedForThisPurchase"))
+        //        return TransactionErrorCode.CardNotAcceptedForThisPurchase;
+        //    return TransactionErrorCode.Other;
+        //}
 
         private string GetRedirectUrl(string xml)
         {
@@ -128,7 +121,8 @@ namespace Epinova.PayExProvider.Payment
                 return TransactionStatus.Capture;
             if (transactionStatus.Equals("5"))
                 return TransactionStatus.Failure;
-            return TransactionStatus.Other;
+           // return TransactionStatus.Other;
+            return TransactionStatus.Initialize;
         }
 
         private string ParseXml(string xmlText, string node)

@@ -75,9 +75,9 @@ namespace Epinova.PayExProvider
             return result.Success;
         }
 
-        public bool ProcessSuccessfulTransaction(PayExPayment payExPayment, string orderNumber, string orderRef, Cart cart, out TransactionErrorCode? error)
+        public bool ProcessSuccessfulTransaction(PayExPayment payExPayment, string orderNumber, string orderRef, Cart cart, out string transactionErrorCode)
         {
-            error = null;
+            transactionErrorCode = null;
 
             PaymentMethod currentPayment = _paymentMethodFactory.Create(payExPayment);
             if (currentPayment == null)
@@ -87,7 +87,7 @@ namespace Epinova.PayExProvider
             }
 
             PaymentCompleteResult result = currentPayment.Complete(orderRef);
-            error = result.ErrorCode;
+            transactionErrorCode = result.TransactionErrorCode;
             return result.Success;
         }
     }

@@ -1,4 +1,5 @@
-﻿using Epinova.PayExProvider.Payment;
+﻿using Epinova.PayExProvider.Models.Result;
+using Epinova.PayExProvider.Payment;
 using Mediachase.Commerce.Orders;
 using Epinova.PayExProvider.Models;
 
@@ -6,7 +7,7 @@ namespace Epinova.PayExProvider.Contracts
 {
     public interface IPaymentManager
     {
-        CompleteResult Complete(string orderRef);
+        Models.Result.CompleteResult Complete(string orderRef);
         TransactionResult GetTransactionDetails(int transactionNumber);
         InitializeResult Initialize(Cart cart, PaymentInformation payment);
         string CreditOrderLine(int transactionNumber, string itemNumber, string orderId);

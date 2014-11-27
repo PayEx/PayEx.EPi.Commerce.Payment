@@ -68,18 +68,18 @@ namespace Epinova.PayExProvider
             return result.Success;
         }
 
-        public bool CompleteTransaction(PayExPayment payExPayment, string orderRef, out TransactionErrorCode? error)
+        public bool CompleteTransaction(PayExPayment payExPayment, string orderRef, out string transactionErrorCode)
         {
             PaymentMethod currentPayment = _paymentMethodFactory.Create(payExPayment);
             if (currentPayment == null)
             {
                 _logger.LogWarning("Could not get PayEx payment method for current payment");
-                error = null;
+                transactionErrorCode = null;
                 return false;
             }
 
             PaymentCompleteResult result = currentPayment.Complete(orderRef);
-            error = result.ErrorCode;
+            transactionErrorCode = result.TransactionErrorCode;
             return result.Success;
         }
     }
