@@ -25,7 +25,7 @@ namespace Epinova.PayExProvider.Models
         public string EncryptionKey { get; private set; }
 
         public PaymentInformation(long lowestUnitPrice, string priceArgList, string currency, int vat, string orderId, string productNumber, string description, string clientIpAddress, string clientIdentifier,
-            string additionalValues, string returnUrl, string view, string agreementRef, string cancelUrl, string clientLanguage)
+            string additionalValues, string returnUrl, string view, string agreementRef, string cancelUrl, string clientLanguage, string purchaseOperation)
         {
             if (!string.IsNullOrWhiteSpace(priceArgList))
             {
@@ -51,13 +51,13 @@ namespace Epinova.PayExProvider.Models
             AgreementRef = agreementRef;
             CancelUrl = cancelUrl;
             ClientLanguage = clientLanguage;
+            PurchaseOperation = purchaseOperation;
             AddSettings(PayExSettings.Instance);
         }
 
         private void AddSettings(IPayExSettings settings)
         {
             AccountNumber = settings.AccountNumber;
-            PurchaseOperation = settings.PurchaseOperation;
             EncryptionKey = settings.EncryptionKey;
         }
     }

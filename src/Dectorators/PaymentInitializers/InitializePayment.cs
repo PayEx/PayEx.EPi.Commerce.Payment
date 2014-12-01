@@ -50,7 +50,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
                currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, vat,
                orderNumber, currentPayment.Payment.ProductNumber, currentPayment.Payment.Description, currentPayment.Payment.ClientIpAddress,
                currentPayment.Payment.ClientUserAgent, additionalValues, currentPayment.Payment.ReturnUrl, defaultView, currentPayment.Payment.AgreementReference,
-               currentPayment.Payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName);
+               currentPayment.Payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName, currentPayment.Payment.PurchaseOperation);
         }
 
         private string FormatAdditionalValues(PaymentMethod currentPayment)

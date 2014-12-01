@@ -17,8 +17,9 @@ namespace Epinova.PayExProvider.UnitTests.Factories
             Mock<IParameterReader> parameterReaderMock = new Mock<IParameterReader>();
             Mock<ILogger> loggerMock = new Mock<ILogger>();
             Mock<ICartActions> cartActionsMock = new Mock<ICartActions>();
+            Mock<IVerificationManager> verificationManagerMock  = new Mock<IVerificationManager>();
 
-            PaymentMethodFactory factory = new PaymentMethodFactory(paymentManagerMock.Object, parameterReaderMock.Object, loggerMock.Object, cartActionsMock.Object);
+            PaymentMethodFactory factory = new PaymentMethodFactory(paymentManagerMock.Object, parameterReaderMock.Object, loggerMock.Object, cartActionsMock.Object, verificationManagerMock.Object);
             PaymentMethod result = factory.Create(null);
 
             Assert.IsNull(result);

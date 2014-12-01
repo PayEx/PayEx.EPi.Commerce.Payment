@@ -4,24 +4,24 @@ using Epinova.PayExProvider.Payment;
 
 namespace Epinova.PayExProvider.Facades
 {
-    public class VerificationManager
+    public class VerificationManager : IVerificationManager
     {
         private readonly IVerificationFacade _verificationFacade;
         private readonly IHasher _hasher;
         private readonly IResultParser _resultParser;
 
-        public VerificationManager()
+        public VerificationManager(IVerificationFacade verificationFacade, IHasher hasher, IResultParser resultParser)
         {
-            _verificationFacade = new Verification();
-            _hasher = new Hash();
-            _resultParser = new ResultParser();
+            _verificationFacade = verificationFacade;
+            _hasher = hasher;
+            _resultParser = resultParser;
         }
 
         public InvoiceData GetConsumerLegalAddress(string socialSecurityNumber, string countryCode)
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, socialSecurityNumber, countryCode,
                 PayExSettings.Instance.EncryptionKey);
-            string result = _verificationFacade.GetConsumerLegalAddress(PayExSettings.Instance.AccountNumber, socialSecurityNumber, countryCode, hash);
+            string xmlResult = _verificationFacade.GetConsumerLegalAddress(PayExSettings.Instance.AccountNumber, socialSecurityNumber, countryCode, hash);
             return null;
         }
     }

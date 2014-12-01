@@ -21,6 +21,16 @@
 				    runat="server"></asp:RequiredFieldValidator>
 		    </td>
 	    </tr>
+            <tr>
+            <td colspan="2" class="FormSpacerCell"></td>
+        </tr>
+        <tr>
+		    <td class="FormLabelCell"><asp:Literal runat="server" Text="Purchase operation (SALE/AUTHORIZATION)" />:</td>
+		    <td class="FormFieldCell"><asp:TextBox runat="server" ID="PurchaseOperation" Width="230"></asp:TextBox><br>
+			    <asp:RequiredFieldValidator ControlToValidate="PurchaseOperation" Display="dynamic" Font-Name="verdana" Font-Size="9pt" ErrorMessage="PurchaseOperation is required"
+				    runat="server"></asp:RequiredFieldValidator>
+		    </td>
+	    </tr>
 	    <tr>
             <td colspan="2" class="FormSpacerCell"></td>
         </tr>

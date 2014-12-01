@@ -8,6 +8,11 @@ namespace Epinova.PayExProvider
     public partial class ConfigurePayment : System.Web.UI.UserControl, IGatewayControl
     {
         private PaymentMethodDto _paymentMethodDto;
+        private const string VatParameter = "Vat";
+        private const string PurchaseOperationParameter = "PurchaseOperation";
+        private const string PriceListArgsParameter = "PriceListArgs";
+        private const string AdditionalValuesParameter = "AdditionalValues";
+        private const string DefaultViewParameter = "DefaultView";
 
         public string ValidationGroup { get; set; }
 
@@ -26,25 +31,31 @@ namespace Epinova.PayExProvider
         {
             if ((_paymentMethodDto != null) && (_paymentMethodDto.PaymentMethodParameter != null))
             {
-                PaymentMethodDto.PaymentMethodParameterRow parameterByName = GetParameterByName(PayExPaymentGateway.PriceListArgsParameter);
+                PaymentMethodDto.PaymentMethodParameterRow parameterByName = GetParameterByName(PriceListArgsParameter);
                 if (parameterByName != null)
                 {
                     PriceArgList.Text = parameterByName.Value;
                 }
 
-                parameterByName = GetParameterByName(PayExPaymentGateway.VatParameter);
+                parameterByName = GetParameterByName(VatParameter);
                 if (parameterByName != null)
                 {
                     VAT.Text = parameterByName.Value;
                 }
 
-                parameterByName = GetParameterByName(PayExPaymentGateway.AdditionalValuesParameter);
+                parameterByName = GetParameterByName(PurchaseOperationParameter);
+                if (parameterByName != null)
+                {
+                    PurchaseOperation.Text = parameterByName.Value;
+                }
+
+                parameterByName = GetParameterByName(AdditionalValuesParameter);
                 if (parameterByName != null)
                 {
                     AdditionalValues.Text = parameterByName.Value;
                 }
 
-                parameterByName = this.GetParameterByName(PayExPaymentGateway.DefaultViewParameter);
+                parameterByName = GetParameterByName(DefaultViewParameter);
                 if (parameterByName != null)
                 {
                     DefaultView.Text = parameterByName.Value;
@@ -78,44 +89,54 @@ namespace Epinova.PayExProvider
                         paymentMethodId = _paymentMethodDto.PaymentMethod[0].PaymentMethodId;
                     }
 
-                    PaymentMethodDto.PaymentMethodParameterRow parameterByName = GetParameterByName(PayExPaymentGateway.PriceListArgsParameter);
+                    PaymentMethodDto.PaymentMethodParameterRow parameterByName = GetParameterByName(PriceListArgsParameter);
                     if (parameterByName != null)
                     {
                         parameterByName.Value = PriceArgList.Text;
                     }
                     else
                     {
-                        CreateParameter(_paymentMethodDto, PayExPaymentGateway.PriceListArgsParameter, PriceArgList.Text, paymentMethodId);
+                        CreateParameter(_paymentMethodDto, PriceListArgsParameter, PriceArgList.Text, paymentMethodId);
                     }
 
-                    parameterByName = GetParameterByName(PayExPaymentGateway.VatParameter);
+                    parameterByName = GetParameterByName(VatParameter);
                     if (parameterByName != null)
                     {
                         parameterByName.Value = VAT.Text;
                     }
                     else
                     {
-                        CreateParameter(_paymentMethodDto, PayExPaymentGateway.VatParameter, VAT.Text, paymentMethodId);
+                        CreateParameter(_paymentMethodDto, VatParameter, VAT.Text, paymentMethodId);
                     }
 
-                    parameterByName = GetParameterByName(PayExPaymentGateway.AdditionalValuesParameter);
+                    parameterByName = GetParameterByName(PurchaseOperationParameter);
+                    if (parameterByName != null)
+                    {
+                        parameterByName.Value = PurchaseOperation.Text;
+                    }
+                    else
+                    {
+                        CreateParameter(_paymentMethodDto, PurchaseOperationParameter, PurchaseOperation.Text, paymentMethodId);
+                    }
+
+                    parameterByName = GetParameterByName(AdditionalValuesParameter);
                     if (parameterByName != null)
                     {
                         parameterByName.Value = AdditionalValues.Text;
                     }
                     else
                     {
-                        CreateParameter(_paymentMethodDto, PayExPaymentGateway.AdditionalValuesParameter, AdditionalValues.Text, paymentMethodId);
+                        CreateParameter(_paymentMethodDto, AdditionalValuesParameter, AdditionalValues.Text, paymentMethodId);
                     }
 
-                    parameterByName = GetParameterByName(PayExPaymentGateway.DefaultViewParameter);
+                    parameterByName = GetParameterByName(DefaultViewParameter);
                     if (parameterByName != null)
                     {
                         parameterByName.Value = DefaultView.Text;
                     }
                     else
                     {
-                        CreateParameter(this._paymentMethodDto, PayExPaymentGateway.DefaultViewParameter, DefaultView.Text, paymentMethodId);
+                        CreateParameter(_paymentMethodDto, DefaultViewParameter, DefaultView.Text, paymentMethodId);
                     }
                 }
             }
@@ -124,7 +145,7 @@ namespace Epinova.PayExProvider
 
         private PaymentMethodDto.PaymentMethodParameterRow GetParameterByName(string name)
         {
-            PaymentMethodDto.PaymentMethodParameterRow[] rowArray = (PaymentMethodDto.PaymentMethodParameterRow[])this._paymentMethodDto.PaymentMethodParameter.Select(string.Format("Parameter = '{0}'", name));
+            PaymentMethodDto.PaymentMethodParameterRow[] rowArray = (PaymentMethodDto.PaymentMethodParameterRow[])_paymentMethodDto.PaymentMethodParameter.Select(string.Format("Parameter = '{0}'", name));
             if ((rowArray != null) && (rowArray.Length > 0))
             {
                 return rowArray[0];

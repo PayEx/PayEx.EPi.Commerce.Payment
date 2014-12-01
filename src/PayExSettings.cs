@@ -18,8 +18,8 @@ namespace Epinova.PayExProvider
         [PlugInProperty(Description = "PayEx Encryption Key", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string EncryptionKey { get; set; }
 
-        [PlugInProperty(Description = "PayEx Purchase Operation (ex: SALE/AUTHORIZATION)", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string PurchaseOperation { get; set; }
+        //[PlugInProperty(Description = "PayEx Purchase Operation (ex: SALE/AUTHORIZATION)", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        //public string PurchaseOperation { get; set; }
 
         [PlugInProperty(Description = "Payment Cancel URL", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string PaymentCancelUrl { get; set; }

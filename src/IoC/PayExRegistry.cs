@@ -23,6 +23,8 @@ namespace Epinova.PayExProvider.IoC
             For<IOrderFacade>().Use<Order>();
             For<IPaymentManager>().Use<PaymentManager>();
             For<IResultParser>().Use<ResultParser>();
+            For<IVerificationManager>().Use<VerificationManager>();
+            For<IVerificationFacade>().Use<Verification>();
         }
     }
 }

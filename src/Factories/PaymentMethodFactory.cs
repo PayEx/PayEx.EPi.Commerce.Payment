@@ -11,13 +11,15 @@ namespace Epinova.PayExProvider.Factories
         private readonly IParameterReader _parameterReader;
         private readonly ILogger _logger;
         private readonly ICartActions _cartActions;
+        private readonly IVerificationManager _verificationManager;
 
-        public PaymentMethodFactory(IPaymentManager paymentManager, IParameterReader parameterReader, ILogger logger, ICartActions cartActions)
+        public PaymentMethodFactory(IPaymentManager paymentManager, IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IVerificationManager verificationManager)
         {
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
             _logger = logger;
             _cartActions = cartActions;
+            _verificationManager = verificationManager;
         }
 
         public PaymentMethod Create(Mediachase.Commerce.Orders.Payment payment)
@@ -36,7 +38,7 @@ namespace Epinova.PayExProvider.Factories
                 case "PayEx_GiftCard":
                     return new GiftCard(payment);
                 case "PayEx_Invoice":
-                    return new Invoice(payment);
+                    return new Invoice(payment, _verificationManager, _paymentManager, _parameterReader, _cartActions);
                 case "PayEx_InvoiceLedger":
                     return new InvoiceLedger(payment);
                 case "PayEx_PartPayment":
@@ -44,7 +46,7 @@ namespace Epinova.PayExProvider.Factories
                 case "PayEx_PayPal":
                     return new PayPal(payment);
                 default:
-                    return new CreditCard(payment, _paymentManager, _parameterReader, _logger, _cartActions);
+                    return new CreditCard(payment, _paymentManager, _parameterReader, _logger, _cartActions, _verificationManager);
             }
         }
     }

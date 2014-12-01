@@ -54,7 +54,7 @@ namespace Epinova.PayExProvider.Payment
 
         public string Create(long accountNumber, string socialSecurityNumber, string countryCode, string encryptionKey)
         {
-            var stringToHash = string.Concat(accountNumber, socialSecurityNumber, countryCode, encryptionKey);
+            var stringToHash = string.Concat(accountNumber, countryCode, socialSecurityNumber, encryptionKey);
             return CreateHash(stringToHash);
         }
 

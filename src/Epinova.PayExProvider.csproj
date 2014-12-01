@@ -289,12 +289,14 @@
     <Compile Include="Contracts\IResultParser.cs" />
     <Compile Include="Contracts\IPayExSettings.cs" />
     <Compile Include="Contracts\IVerificationFacade.cs" />
+    <Compile Include="Contracts\IVerificationManager.cs" />
     <Compile Include="Dectorators\PaymentCapturers\CapturePayment.cs" />
     <Compile Include="Dectorators\PaymentCompleters\CompletePayment.cs" />
     <Compile Include="Dectorators\PaymentCompleters\UpdateTransactionDetails.cs" />
     <Compile Include="Dectorators\PaymentCreditors\CreditPayment.cs" />
     <Compile Include="Dectorators\PaymentCreditors\CreditPaymentByOrderLines.cs" />
     <Compile Include="Dectorators\PaymentInitializers\GenerateOrderNumber.cs" />
+    <Compile Include="Dectorators\PaymentInitializers\GetConsumerLegalAddress.cs" />
     <Compile Include="Dectorators\PaymentInitializers\InitializePayment.cs" />
     <Compile Include="Dectorators\PaymentInitializers\RedirectUser.cs" />
     <Compile Include="Facades\Order.cs" />
@@ -328,7 +330,6 @@
     <Compile Include="Models\Result\InitializeResult.cs" />
     <Compile Include="Models\Result\Status.cs" />
     <Compile Include="Models\Result\StatusCode.cs" />
-    <Compile Include="NewPaymentGateway.cs" />
     <Compile Include="ParameterReader.cs" />
     <Compile Include="PayExPayment.cs" />
     <Compile Include="PayExPaymentGateway.cs" />

@@ -14,23 +14,29 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
         private readonly IParameterReader _parameterReader;
         private readonly ILogger _logger;
         private readonly ICartActions _cartActions;
+        private readonly IVerificationManager _verificationManager;
         public CreditCard() { } // Needed for unit testing
 
         public CreditCard(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager, 
-            IParameterReader parameterReader, ILogger logger, ICartActions cartActions)
+            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IVerificationManager verificationManager)
             : base(payment)
         {
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
             _logger = logger;
             _cartActions = cartActions;
+            _verificationManager = verificationManager;
         }
 
         public override PaymentInitializeResult Initialize()
         {
+            //IPaymentInitializer initializer = new GenerateOrderNumber(
+            //        new InitializePayment(
+            //        new RedirectUser(), _paymentManager, _parameterReader, _cartActions));
+            //return initializer.Initialize(this, null, null);
             IPaymentInitializer initializer = new GenerateOrderNumber(
-                    new InitializePayment(
-                    new RedirectUser(), _paymentManager, _parameterReader, _cartActions));
+               new InitializePayment(
+                   new GetConsumerLegalAddress(null, _verificationManager), _paymentManager, _parameterReader, _cartActions));
             return initializer.Initialize(this, null, null);
         }
 

@@ -1,8 +1,6 @@
 ﻿using Epinova.PayExProvider.Commerce;
 using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Factories;
 using Epinova.PayExProvider.Models;
-using Epinova.PayExProvider.Payment;
 using EPiServer.ServiceLocation;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Plugins.Payment;
@@ -15,11 +13,6 @@ namespace Epinova.PayExProvider
     {
         private readonly ILogger _logger;
         private readonly IPaymentMethodFactory _paymentMethodFactory;
-
-        public const string VatParameter = "Vat";
-        public const string PriceListArgsParameter = "PriceListArgs";
-        public const string AdditionalValuesParameter = "AdditionalValues";
-        public const string DefaultViewParameter = "DefaultView";
 
         public PayExPaymentGateway()
         {

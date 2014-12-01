@@ -31,6 +31,15 @@ namespace Epinova.PayExProvider {
         protected global::System.Web.UI.WebControls.TextBox VAT;
         
         /// <summary>
+        /// PurchaseOperation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PurchaseOperation;
+        
+        /// <summary>
         /// AdditionalValues control.
         /// </summary>
         /// <remarks>
