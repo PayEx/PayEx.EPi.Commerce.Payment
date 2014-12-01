@@ -105,18 +105,6 @@ namespace Epinova.PayExProvider
             }
         }
 
-        public string PurchaseOperation
-        {
-            get
-            {
-                return GetString("PurchaseOperation");
-            }
-            set
-            {
-                this["PurchaseOperation"] = value;
-            }
-        }
-
         public string ReturnUrl
         {
             get

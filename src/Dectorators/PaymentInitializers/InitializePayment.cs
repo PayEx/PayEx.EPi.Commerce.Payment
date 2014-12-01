@@ -45,12 +45,13 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
             string priceArgsList = _parameterReader.GetPriceArgsList(currentPayment.PaymentMethodDto);
             int vat = _parameterReader.GetVat(currentPayment.PaymentMethodDto);
             string defaultView = _parameterReader.GetDefaultView(currentPayment.PaymentMethodDto);
+            string purchaseOperation = _parameterReader.GetPurchaseOperation(currentPayment.PaymentMethodDto);
 
             return new PaymentInformation(
                currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, vat,
                orderNumber, currentPayment.Payment.ProductNumber, currentPayment.Payment.Description, currentPayment.Payment.ClientIpAddress,
                currentPayment.Payment.ClientUserAgent, additionalValues, currentPayment.Payment.ReturnUrl, defaultView, currentPayment.Payment.AgreementReference,
-               currentPayment.Payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName, currentPayment.Payment.PurchaseOperation);
+               currentPayment.Payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName, purchaseOperation);
         }
 
         private string FormatAdditionalValues(PaymentMethod currentPayment)

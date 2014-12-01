@@ -10,6 +10,7 @@ namespace Epinova.PayExProvider
         public const string PriceListArgsParameter = "PriceListArgs";
         public const string AdditionalValuesParameter = "AdditionalValues";
         public const string DefaultViewParameter = "DefaultView";
+        public const string PurchaseOperationParameter = "PurchaseOperation";
 
         public string GetAdditionalValues(PaymentMethodDto paymentMethodDto)
         {
@@ -32,6 +33,11 @@ namespace Epinova.PayExProvider
         public string GetDefaultView(PaymentMethodDto paymentMethodDto)
         {
             return GetParameterByName(paymentMethodDto, DefaultViewParameter).Value;
+        }
+
+        public string GetPurchaseOperation(PaymentMethodDto paymentMethodDto)
+        {
+            return GetParameterByName(paymentMethodDto, PurchaseOperationParameter).Value;
         }
 
         internal PaymentMethodDto.PaymentMethodParameterRow GetParameterByName(PaymentMethodDto paymentMethodDto, string name)

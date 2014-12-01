@@ -8,5 +8,6 @@ namespace Epinova.PayExProvider.Contracts
         string GetDefaultView(PaymentMethodDto paymentMethodDto);
         string GetPriceArgsList(PaymentMethodDto paymentMethodDto);
         string GetAdditionalValues(PaymentMethodDto paymentMethodDto);
+        string GetPurchaseOperation(PaymentMethodDto paymentMethodDto);
     }
 }

@@ -15,7 +15,6 @@ namespace Epinova.PayExProvider.Contracts
         string CustomerId { get; set; }
         string AgreementReference { get; set; }
         string CancelUrl { get; set; }
-        string PurchaseOperation { get; set; }
         DateTime Created { get; set; }
     }
 }

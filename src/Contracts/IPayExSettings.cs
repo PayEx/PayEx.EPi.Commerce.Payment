@@ -4,7 +4,6 @@ namespace Epinova.PayExProvider.Contracts
     public interface IPayExSettings
     {
         long AccountNumber { get; }
-        //string PurchaseOperation { get; }
         string EncryptionKey { get; }
         string PaymentCancelUrl { get; }
         string PaymentReturnUrl { get; }
