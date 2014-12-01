@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Epinova.PayExProvider.Contracts;
 using Epinova.PayExProvider.Models;
+using Epinova.PayExProvider.Models.PaymentMethods;
 using Epinova.PayExProvider.Models.Result;
 using Epinova.PayExProvider.Payment;
 using Mediachase.Commerce.Orders;
@@ -85,6 +86,13 @@ namespace Epinova.PayExProvider.Facades
             if (result.Status.Success)
                 return result;
             return null;
+        }
+
+        public void PurchaseInvoiceSale(string orderRef, InvoiceData invoiceData)
+        {
+              string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, invoiceData, PayExSettings.Instance.EncryptionKey);
+            string xmlResult = _orderFacade.PurchaseInvoiceSale(PayExSettings.Instance.AccountNumber, orderRef, invoiceData, hash);
+            // TODO
         }
 
         private void AddOrderAddress(Cart cart, PaymentInformation payment, InitializeResult initializeResult)

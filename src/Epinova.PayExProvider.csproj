@@ -298,6 +298,7 @@
     <Compile Include="Dectorators\PaymentInitializers\GenerateOrderNumber.cs" />
     <Compile Include="Dectorators\PaymentInitializers\GetConsumerLegalAddress.cs" />
     <Compile Include="Dectorators\PaymentInitializers\InitializePayment.cs" />
+    <Compile Include="Dectorators\PaymentInitializers\PurchaseInvoiceSale.cs" />
     <Compile Include="Dectorators\PaymentInitializers\RedirectUser.cs" />
     <Compile Include="Facades\Order.cs" />
     <Compile Include="Facades\Verification.cs" />

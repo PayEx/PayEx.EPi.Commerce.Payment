@@ -58,6 +58,13 @@ namespace Epinova.PayExProvider.Payment
             return CreateHash(stringToHash);
         }
 
+        public string Create(long accountNumber, string orderRef, InvoiceData invoiceData, string encryptionKey)
+        {
+            var stringToHash = string.Concat(accountNumber, orderRef, invoiceData.SocialSecurityNumber, invoiceData.FirstName, invoiceData.LastName, invoiceData.StreetAddress, invoiceData.CoAddress,
+                invoiceData.PostNumber, invoiceData.City, invoiceData.CountryCode, invoiceData.Email, invoiceData.MobilePhone, invoiceData.IpAddress, encryptionKey);
+            return CreateHash(stringToHash);
+        }
+
         public string Create(long accountNumber, int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues, string encryptionKey)
         {
             var stringToHash = string.Concat(accountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, encryptionKey);

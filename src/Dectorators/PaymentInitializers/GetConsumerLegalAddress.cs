@@ -19,7 +19,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
             _verificationManager = verificationManager;
         }
 
-        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl)
+        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
             var a = _verificationManager.GetConsumerLegalAddress("195907195662", "SE");
             return new PaymentInitializeResult { Success = true };

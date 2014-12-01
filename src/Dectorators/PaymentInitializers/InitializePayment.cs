@@ -24,7 +24,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
             _cartActions = cartActions;
         }
 
-        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl)
+        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
             PaymentInformation paymentInformation = CreateModel(currentPayment, orderNumber);
 
@@ -34,7 +34,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
             _cartActions.UpdateCartInstanceId(currentPayment.Cart); // Save all the changes that have been done to the cart
 
             if (_paymentInitializer != null)
-                return _paymentInitializer.Initialize(currentPayment, orderNumber, result.RedirectUrl);
+                return _paymentInitializer.Initialize(currentPayment, orderNumber, result.RedirectUrl, result.OrderRef.ToString());
 
             return new PaymentInitializeResult {Success = true};
         }

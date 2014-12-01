@@ -7,7 +7,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
 {
     public class RedirectUser : IPaymentInitializer
     {
-        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl)
+        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
             PaymentInitializeResult result = new PaymentInitializeResult();
             if (!string.IsNullOrWhiteSpace(returnUrl))

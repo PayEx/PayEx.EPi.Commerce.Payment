@@ -16,5 +16,6 @@ namespace Epinova.PayExProvider.Contracts
 
         string Create(long accountNumber, int transactionNumber, string itemNumber, string orderId, string encryptionKey);
         string Create(long accountNumber, string socialSecurityNumber, string countryCode, string encryptionKey);
+        string Create(long accountNumber, string orderRef, InvoiceData invoiceData, string encryptionKey);
     }
 }

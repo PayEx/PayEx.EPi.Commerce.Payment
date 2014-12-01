@@ -14,7 +14,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
             _initializer = initializer;
         }
 
-        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl)
+        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
             if (string.IsNullOrWhiteSpace(orderNumber))
                 orderNumber = Generate(currentPayment.OrderGroupId);
@@ -24,7 +24,7 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
             if (!string.IsNullOrWhiteSpace(currentPayment.Payment.Description))
                 currentPayment.Payment.Description = string.Format(currentPayment.Payment.Description, orderNumber);
 
-            return _initializer.Initialize(currentPayment, orderNumber, returnUrl);
+            return _initializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef);
         }
 
         private string Generate(int orderGroupId)
