@@ -106,5 +106,59 @@ namespace Epinova.PayExProvider.UnitTests.PayExResult
 
             Assert.IsNotNullOrEmpty(result.ErrorDetails.TransactionErrorCode);
         }
+
+        [Test]
+        public void Deserialize_GetTransactionDetailsResultXml_ReturnsTransactionResultObject()
+        {
+            ResultParser resultParser = new ResultParser();
+            TransactionResult result = resultParser.Deserialize<TransactionResult>(Factory.TransactionResult);
+
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void Deserialize_GetTransactionDetailsIsSuccessful_ReturnsSuccessTrue()
+        {
+            ResultParser resultParser = new ResultParser();
+            TransactionResult result = resultParser.Deserialize<TransactionResult>(Factory.TransactionResult);
+
+            Assert.IsNotNull(result.Status);
+        }
+
+        [Test]
+        public void Deserialize_GetTransactionDetailsIsSuccessful_ReturnsAddressCollection()
+        {
+            ResultParser resultParser = new ResultParser();
+            TransactionResult result = resultParser.Deserialize<TransactionResult>(Factory.TransactionResult);
+
+            Assert.IsNotNull(result.AddressCollection);
+        }
+
+        [Test]
+        public void Deserialize_GetTransactionDetailsIsSuccessful_ReturnsAnAddressCollection()
+        {
+            ResultParser resultParser = new ResultParser();
+            TransactionResult result = resultParser.Deserialize<TransactionResult>(Factory.TransactionResult);
+
+            Assert.IsNotNull(result.AddressCollection.MainAddress);
+        }
+
+        [Test]
+        public void Deserialize_GetTransactionDetailsIsSuccessful_ReturnsNonEmptyCustomerName()
+        {
+            ResultParser resultParser = new ResultParser();
+            TransactionResult result = resultParser.Deserialize<TransactionResult>(Factory.TransactionResult);
+
+            Assert.IsNotNullOrEmpty(result.CustomerName);
+        }
+
+        [Test]
+        public void Deserialize_GetTransactionDetailsIsSuccessful_ReturnsNonEmptyAddress()
+        {
+            ResultParser resultParser = new ResultParser();
+            TransactionResult result = resultParser.Deserialize<TransactionResult>(Factory.TransactionResult);
+
+            Assert.IsNotNullOrEmpty(result.Address);
+        }
     }
 }
