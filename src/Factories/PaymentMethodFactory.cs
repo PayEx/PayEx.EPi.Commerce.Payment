@@ -34,9 +34,9 @@ namespace Epinova.PayExProvider.Factories
             switch (systemKeyword)
             {
                 case "PayEx_DirectBankDebit":
-                    return new DirectBankDebit(payment);
+                    return new DirectBankDebit(payment, _paymentManager, _parameterReader, _logger, _cartActions);
                 case "PayEx_GiftCard":
-                    return new GiftCard(payment);
+                    return new GiftCard(payment, _paymentManager, _parameterReader, _logger, _cartActions);
                 case "PayEx_Invoice":
                     return new Invoice(payment, _verificationManager, _paymentManager, _parameterReader, _cartActions);
                 case "PayEx_InvoiceLedger":
