@@ -30,14 +30,14 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 
         public override PaymentInitializeResult Initialize()
         {
-            //IPaymentInitializer initializer = new GenerateOrderNumber(
-            //        new InitializePayment(
-            //        new RedirectUser(), _paymentManager, _parameterReader, _cartActions));
-            //return initializer.Initialize(this, null, null);
             IPaymentInitializer initializer = new GenerateOrderNumber(
-               new InitializePayment(
-                   new GetConsumerLegalAddress(null, _verificationManager), _paymentManager, _parameterReader, _cartActions));
+                    new InitializePayment(
+                    new RedirectUser(), _paymentManager, _parameterReader, _cartActions));
             return initializer.Initialize(this, null, null, null);
+            //IPaymentInitializer initializer = new GenerateOrderNumber(
+            //   new InitializePayment(
+            //       new GetConsumerLegalAddress(null, _verificationManager), _paymentManager, _parameterReader, _cartActions));
+            //return initializer.Initialize(this, null, null, null);
         }
 
         public override PaymentCompleteResult Complete(string orderRef)
