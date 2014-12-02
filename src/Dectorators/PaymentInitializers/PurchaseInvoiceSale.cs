@@ -1,9 +1,8 @@
-﻿using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Models;
-using Epinova.PayExProvider.Models.PaymentMethods;
-using System;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 
-namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
+namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers
 {
     public class PurchaseInvoiceSale : IPaymentInitializer
     {

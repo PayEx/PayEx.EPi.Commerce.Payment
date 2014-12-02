@@ -1,6 +1,6 @@
 ﻿using Mediachase.Commerce.Orders;
 
-namespace Epinova.PayExProvider.Contracts.Commerce
+namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce
 {
     public interface ICartActions
     {

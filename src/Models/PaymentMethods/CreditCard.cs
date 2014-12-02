@@ -1,12 +1,11 @@
-﻿
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Contracts.Commerce;
-using Epinova.PayExProvider.Dectorators.PaymentCapturers;
-using Epinova.PayExProvider.Dectorators.PaymentCompleters;
-using Epinova.PayExProvider.Dectorators.PaymentCreditors;
-using Epinova.PayExProvider.Dectorators.PaymentInitializers;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCapturers;
+using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters;
+using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors;
+using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
 
-namespace Epinova.PayExProvider.Models.PaymentMethods
+namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
     public class CreditCard : PaymentMethod
     {

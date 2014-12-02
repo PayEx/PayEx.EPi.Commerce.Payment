@@ -1,10 +1,10 @@
-﻿using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Dectorators.PaymentInitializers;
-using Epinova.PayExProvider.Models.PaymentMethods;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 using Moq;
 using NUnit.Framework;
 
-namespace Epinova.PayExProvider.UnitTests.Decorators.PaymentInitializers
+namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests.Decorators.PaymentInitializers
 {
     [TestFixture]
     public class GenerateOrderNumberTests

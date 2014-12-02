@@ -1,13 +1,13 @@
 ﻿using System;
-using Epinova.PayExProvider.Commerce;
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Contracts.Commerce;
-using Epinova.PayExProvider.Facades;
-using Epinova.PayExProvider.Factories;
-using Epinova.PayExProvider.Payment;
+using EPiServer.Business.Commerce.Payment.PayEx.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Facades;
+using EPiServer.Business.Commerce.Payment.PayEx.Factories;
+using EPiServer.Business.Commerce.Payment.PayEx.Payment;
 using StructureMap.Configuration.DSL;
 
-namespace Epinova.PayExProvider.IoC
+namespace EPiServer.Business.Commerce.Payment.PayEx.IoC
 {
     public class PayExRegistry : Registry
     {

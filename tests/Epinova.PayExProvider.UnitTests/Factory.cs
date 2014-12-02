@@ -1,7 +1,7 @@
 ﻿
-using Epinova.PayExProvider.Models.Result;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 
-namespace Epinova.PayExProvider.UnitTests
+namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests
 {
     public static class Factory
     {

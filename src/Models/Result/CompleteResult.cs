@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
-using Epinova.PayExProvider.Payment;
+using EPiServer.Business.Commerce.Payment.PayEx.Payment;
 
-namespace Epinova.PayExProvider.Models.Result
+namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
     [XmlRoot("payex")]
     public class CompleteResult

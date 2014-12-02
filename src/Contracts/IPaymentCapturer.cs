@@ -1,7 +1,7 @@
 ﻿
-using Epinova.PayExProvider.Models.PaymentMethods;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 
-namespace Epinova.PayExProvider.Contracts
+namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
    public interface IPaymentCapturer
     {

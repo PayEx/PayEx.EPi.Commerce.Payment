@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Epinova.PayExProvider.Contracts
+namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
     public interface ILogger
     {

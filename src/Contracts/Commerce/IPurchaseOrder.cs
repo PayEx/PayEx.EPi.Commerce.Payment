@@ -1,5 +1,5 @@
 ﻿
-namespace Epinova.PayExProvider.Contracts.Commerce
+namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce
 {
     public interface IPurchaseOrder
     {

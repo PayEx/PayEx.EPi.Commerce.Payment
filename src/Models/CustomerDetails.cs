@@ -1,4 +1,4 @@
-﻿namespace Epinova.PayExProvider.Models
+﻿namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
     public class CustomerDetails
     {

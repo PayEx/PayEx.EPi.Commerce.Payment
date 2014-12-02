@@ -1,5 +1,5 @@
 ﻿
-namespace Epinova.PayExProvider.Payment
+namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
 {
     public class ResultBase
     {

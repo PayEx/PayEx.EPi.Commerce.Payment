@@ -7,8 +7,8 @@
     <ProjectGuid>{7CB1D4E3-DA0F-4EBE-B07B-4585623FF3E6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Epinova.PayExProvider</RootNamespace>
-    <AssemblyName>Epinova.PayExProvider</AssemblyName>
+    <RootNamespace>EPiServer.Business.Commerce.Payment.PayEx</RootNamespace>
+    <AssemblyName>EPiServer.Business.Commerce.Payment.PayEx</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\kondomeriet-commerce\</SolutionDir>
@@ -309,11 +309,11 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Service References\PxOrder\Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesResponse.datasource">
+    <None Include="Service References\PxOrder\EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\PxOrder\pxorder.wsdl" />
-    <None Include="Service References\PxVerification\Epinova.PayExProvider.PxVerification.PxRequestAuthenticationResp.datasource">
+    <None Include="Service References\PxVerification\EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxRequestAuthenticationResp.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\PxVerification\pxverification.wsdl" />

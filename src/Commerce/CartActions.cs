@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Threading;
 using System.Web;
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Contracts.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using Mediachase.Commerce.Orders;
 
-namespace Epinova.PayExProvider.Commerce
+namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
     public class CartActions : ICartActions
     {

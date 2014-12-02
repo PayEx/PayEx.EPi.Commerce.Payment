@@ -1,8 +1,8 @@
 ﻿using System;
-using Epinova.PayExProvider.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using Mediachase.Commerce.Orders.Dto;
 
-namespace Epinova.PayExProvider
+namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     public class ParameterReader : IParameterReader
     {

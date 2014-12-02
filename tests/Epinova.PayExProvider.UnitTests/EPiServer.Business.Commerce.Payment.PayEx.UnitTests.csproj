@@ -6,8 +6,8 @@
     <ProjectGuid>{84229FF5-45F1-441C-9265-AEB58526772B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Epinova.PayExProvider.UnitTests</RootNamespace>
-    <AssemblyName>Epinova.PayExProvider.UnitTests</AssemblyName>
+    <RootNamespace>EPiServer.Business.Commerce.Payment.PayEx.UnitTests</RootNamespace>
+    <AssemblyName>EPiServer.Business.Commerce.Payment.PayEx.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -74,9 +74,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Epinova.PayExProvider.csproj">
+    <ProjectReference Include="..\..\src\EPiServer.Business.Commerce.Payment.PayEx.csproj">
       <Project>{7cb1d4e3-da0f-4ebe-b07b-4585623ff3e6}</Project>
-      <Name>Epinova.PayExProvider</Name>
+      <Name>EPiServer.Business.Commerce.Payment.PayEx</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

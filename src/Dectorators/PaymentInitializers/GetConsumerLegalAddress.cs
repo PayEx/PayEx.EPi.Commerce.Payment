@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Models;
-using Epinova.PayExProvider.Models.PaymentMethods;
-using Epinova.PayExProvider.Models.Result;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 
-namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
+namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers
 {
     public class GetConsumerLegalAddress : IPaymentInitializer
     {

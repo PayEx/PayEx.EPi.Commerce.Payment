@@ -1,9 +1,9 @@
-﻿using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Models.PaymentMethods;
-using Epinova.PayExProvider.Models.Result;
-using Epinova.PayExProvider.Price;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
+using EPiServer.Business.Commerce.Payment.PayEx.Price;
 
-namespace Epinova.PayExProvider.Dectorators.PaymentCapturers
+namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCapturers
 {
     public class CapturePayment : IPaymentCapturer
     {

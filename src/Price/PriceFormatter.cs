@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Epinova.PayExProvider.Price
+namespace EPiServer.Business.Commerce.Payment.PayEx.Price
 {
     public static class PriceFormatter
     {

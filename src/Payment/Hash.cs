@@ -1,9 +1,9 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Models;
 
-namespace Epinova.PayExProvider.Payment
+namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
 {
     public class Hash : IHasher
     {

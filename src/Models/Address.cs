@@ -1,8 +1,6 @@
-﻿
-using EPiServer.BaseLibrary.Search;
-using Mediachase.Commerce.Orders;
+﻿using Mediachase.Commerce.Orders;
 
-namespace Epinova.PayExProvider.Models
+namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
     public class Address
     {

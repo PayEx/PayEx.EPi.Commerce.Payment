@@ -1,8 +1,8 @@
-﻿using Epinova.PayExProvider.Models.Result;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 using Mediachase.Commerce.Orders;
-using Epinova.PayExProvider.Models;
 
-namespace Epinova.PayExProvider.Contracts
+namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
     public interface IPaymentManager
     {

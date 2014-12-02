@@ -1,13 +1,13 @@
 ﻿using System;
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Contracts.Commerce;
-using Epinova.PayExProvider.Models;
-using Epinova.PayExProvider.Models.PaymentMethods;
-using Epinova.PayExProvider.Models.Result;
-using Epinova.PayExProvider.Price;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
+using EPiServer.Business.Commerce.Payment.PayEx.Price;
 using EPiServer.Globalization;
 
-namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
+namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers
 {
     public class InitializePayment : IPaymentInitializer
     {

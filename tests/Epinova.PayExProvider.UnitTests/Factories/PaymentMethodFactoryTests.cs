@@ -1,11 +1,11 @@
-﻿using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Contracts.Commerce;
-using Epinova.PayExProvider.Factories;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Factories;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 using Moq;
 using NUnit.Framework;
-using PaymentMethod = Epinova.PayExProvider.Models.PaymentMethods.PaymentMethod;
 
-namespace Epinova.PayExProvider.UnitTests.Factories
+namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests.Factories
 {
     [TestFixture]
     public class PaymentMethodFactoryTests

@@ -1,7 +1,7 @@
 ﻿
-using Epinova.PayExProvider.Contracts.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 
-namespace Epinova.PayExProvider.Commerce
+namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
     public class PurchaseOrder : IPurchaseOrder
     {

@@ -1,8 +1,8 @@
-﻿using Epinova.PayExProvider.Models.Result;
-using Epinova.PayExProvider.Payment;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
+using EPiServer.Business.Commerce.Payment.PayEx.Payment;
 using NUnit.Framework;
 
-namespace Epinova.PayExProvider.UnitTests.Models.Result
+namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests.Models.Result
 {
     [TestFixture]
     public class CompleteResultTests

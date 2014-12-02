@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Epinova.PayExProvider.PxOrder {
+namespace EPiServer.Business.Commerce.Payment.PayEx.PxOrder {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -273,7 +273,7 @@ namespace Epinova.PayExProvider.PxOrder {
                     string clientLanguage, 
                     string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Complete", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Initialize", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string Initialize(
                     long accountNumber, 
@@ -294,7 +294,7 @@ namespace Epinova.PayExProvider.PxOrder {
                     string externalID, 
                     string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Complete", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Initialize", ReplyAction="*")]
         System.Threading.Tasks.Task<string> InitializeAsync(
                     long accountNumber, 
                     string orderType, 
@@ -468,11 +468,11 @@ namespace Epinova.PayExProvider.PxOrder {
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/CreditOrderLine", ReplyAction="*")]
         System.Threading.Tasks.Task<string> CreditOrderLineAsync(long accountNumber, string transactionRef, string itemNumber, string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Credit", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Capture", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string Capture(long accountNumber, string transactionRef, int amount, string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Credit", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Capture", ReplyAction="*")]
         System.Threading.Tasks.Task<string> CaptureAsync(long accountNumber, string transactionRef, int amount, string hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/Capture2", ReplyAction="*")]
@@ -534,10 +534,10 @@ namespace Epinova.PayExProvider.PxOrder {
         // CODEGEN: Parameter 'orderDetails' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlArrayItemAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/AddMultipleOrderLines", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesResponse AddMultipleOrderLines(Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesRequest request);
+        EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesResponse AddMultipleOrderLines(EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/AddMultipleOrderLines", ReplyAction="*")]
-        System.Threading.Tasks.Task<Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesResponse> AddMultipleOrderLinesAsync(Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesRequest request);
+        System.Threading.Tasks.Task<EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesResponse> AddMultipleOrderLinesAsync(EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PrepareSaleDD", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -1167,12 +1167,12 @@ namespace Epinova.PayExProvider.PxOrder {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface PxOrderSoapChannel : Epinova.PayExProvider.PxOrder.PxOrderSoap, System.ServiceModel.IClientChannel {
+    public interface PxOrderSoapChannel : EPiServer.Business.Commerce.Payment.PayEx.PxOrder.PxOrderSoap, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class PxOrderSoapClient : System.ServiceModel.ClientBase<Epinova.PayExProvider.PxOrder.PxOrderSoap>, Epinova.PayExProvider.PxOrder.PxOrderSoap {
+    public partial class PxOrderSoapClient : System.ServiceModel.ClientBase<EPiServer.Business.Commerce.Payment.PayEx.PxOrder.PxOrderSoap>, EPiServer.Business.Commerce.Payment.PayEx.PxOrder.PxOrderSoap {
         
         public PxOrderSoapClient() {
         }
@@ -1748,34 +1748,34 @@ namespace Epinova.PayExProvider.PxOrder {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesResponse Epinova.PayExProvider.PxOrder.PxOrderSoap.AddMultipleOrderLines(Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesRequest request) {
+        EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesResponse EPiServer.Business.Commerce.Payment.PayEx.PxOrder.PxOrderSoap.AddMultipleOrderLines(EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesRequest request) {
             return base.Channel.AddMultipleOrderLines(request);
         }
         
         public string AddMultipleOrderLines(long accountNumber, string orderRef, int numberOfItems, string[][] orderDetails, string hash) {
-            Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesRequest inValue = new Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesRequest();
+            EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesRequest inValue = new EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesRequest();
             inValue.accountNumber = accountNumber;
             inValue.orderRef = orderRef;
             inValue.numberOfItems = numberOfItems;
             inValue.orderDetails = orderDetails;
             inValue.hash = hash;
-            Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesResponse retVal = ((Epinova.PayExProvider.PxOrder.PxOrderSoap)(this)).AddMultipleOrderLines(inValue);
+            EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesResponse retVal = ((EPiServer.Business.Commerce.Payment.PayEx.PxOrder.PxOrderSoap)(this)).AddMultipleOrderLines(inValue);
             return retVal.AddMultipleOrderLinesResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesResponse> Epinova.PayExProvider.PxOrder.PxOrderSoap.AddMultipleOrderLinesAsync(Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesRequest request) {
+        System.Threading.Tasks.Task<EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesResponse> EPiServer.Business.Commerce.Payment.PayEx.PxOrder.PxOrderSoap.AddMultipleOrderLinesAsync(EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesRequest request) {
             return base.Channel.AddMultipleOrderLinesAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesResponse> AddMultipleOrderLinesAsync(long accountNumber, string orderRef, int numberOfItems, string[][] orderDetails, string hash) {
-            Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesRequest inValue = new Epinova.PayExProvider.PxOrder.AddMultipleOrderLinesRequest();
+        public System.Threading.Tasks.Task<EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesResponse> AddMultipleOrderLinesAsync(long accountNumber, string orderRef, int numberOfItems, string[][] orderDetails, string hash) {
+            EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesRequest inValue = new EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesRequest();
             inValue.accountNumber = accountNumber;
             inValue.orderRef = orderRef;
             inValue.numberOfItems = numberOfItems;
             inValue.orderDetails = orderDetails;
             inValue.hash = hash;
-            return ((Epinova.PayExProvider.PxOrder.PxOrderSoap)(this)).AddMultipleOrderLinesAsync(inValue);
+            return ((EPiServer.Business.Commerce.Payment.PayEx.PxOrder.PxOrderSoap)(this)).AddMultipleOrderLinesAsync(inValue);
         }
         
         public string PrepareSaleDD(long accountNumber, string orderRef, int userType, string userRef, string bankName, string clientIPAddress, string clientIdentifier, string hash) {

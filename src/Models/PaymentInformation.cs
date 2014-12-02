@@ -1,7 +1,7 @@
 ﻿
-using Epinova.PayExProvider.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 
-namespace Epinova.PayExProvider.Models
+namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
     public class PaymentInformation
     {

@@ -1,9 +1,9 @@
-﻿using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Contracts.Commerce;
-using Epinova.PayExProvider.Models.PaymentMethods;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 using Mediachase.Commerce.Orders.Dto;
 
-namespace Epinova.PayExProvider.Factories
+namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
 {
     public class PaymentMethodFactory : IPaymentMethodFactory
     {

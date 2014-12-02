@@ -1,13 +1,10 @@
-﻿
-using Epinova.PayExProvider.Commerce;
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Contracts.Commerce;
-using Epinova.PayExProvider.Dectorators.PaymentCompleters;
-using Epinova.PayExProvider.Dectorators.PaymentCreditors;
-using Epinova.PayExProvider.Dectorators.PaymentInitializers;
-using Epinova.PayExProvider.Facades;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters;
+using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors;
+using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
 
-namespace Epinova.PayExProvider.Models.PaymentMethods
+namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
     public class DirectBankDebit : PaymentMethod
     {

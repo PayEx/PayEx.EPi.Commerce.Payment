@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Models;
-using Epinova.PayExProvider.Models.Result;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 using Mediachase.Commerce.Orders;
 using Mediachase.Data.Provider;
-using PaymentMethod = Epinova.PayExProvider.Models.PaymentMethods.PaymentMethod;
+using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods.PaymentMethod;
 
-namespace Epinova.PayExProvider.Dectorators.PaymentCompleters
+namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters
 {
     public class UpdateTransactionDetails : IPaymentCompleter
     {

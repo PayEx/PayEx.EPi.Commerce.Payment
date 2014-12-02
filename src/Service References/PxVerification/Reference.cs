@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Epinova.PayExProvider.PxVerification {
+namespace EPiServer.Business.Commerce.Payment.PayEx.PxVerification {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -54,10 +54,10 @@ namespace Epinova.PayExProvider.PxVerification {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BaseResp))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BaseReq))]
-        Epinova.PayExProvider.PxVerification.PxRequestAuthenticationResp RequestAuthentication(Epinova.PayExProvider.PxVerification.PxRequestAuthenticationReq req);
+        EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxRequestAuthenticationResp RequestAuthentication(EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxRequestAuthenticationReq req);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxVerification/RequestAuthentication", ReplyAction="*")]
-        System.Threading.Tasks.Task<Epinova.PayExProvider.PxVerification.PxRequestAuthenticationResp> RequestAuthenticationAsync(Epinova.PayExProvider.PxVerification.PxRequestAuthenticationReq req);
+        System.Threading.Tasks.Task<EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxRequestAuthenticationResp> RequestAuthenticationAsync(EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxRequestAuthenticationReq req);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxVerification/GetConsumerLegalAddress", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -412,12 +412,12 @@ namespace Epinova.PayExProvider.PxVerification {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface PxVerificationSoapChannel : Epinova.PayExProvider.PxVerification.PxVerificationSoap, System.ServiceModel.IClientChannel {
+    public interface PxVerificationSoapChannel : EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxVerificationSoap, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class PxVerificationSoapClient : System.ServiceModel.ClientBase<Epinova.PayExProvider.PxVerification.PxVerificationSoap>, Epinova.PayExProvider.PxVerification.PxVerificationSoap {
+    public partial class PxVerificationSoapClient : System.ServiceModel.ClientBase<EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxVerificationSoap>, EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxVerificationSoap {
         
         public PxVerificationSoapClient() {
         }
@@ -478,11 +478,11 @@ namespace Epinova.PayExProvider.PxVerification {
             return base.Channel.NameCheckPrivateAsync(accountNumber, socialSecurityNumber, firstName, lastName, countryCode, hash);
         }
         
-        public Epinova.PayExProvider.PxVerification.PxRequestAuthenticationResp RequestAuthentication(Epinova.PayExProvider.PxVerification.PxRequestAuthenticationReq req) {
+        public EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxRequestAuthenticationResp RequestAuthentication(EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxRequestAuthenticationReq req) {
             return base.Channel.RequestAuthentication(req);
         }
         
-        public System.Threading.Tasks.Task<Epinova.PayExProvider.PxVerification.PxRequestAuthenticationResp> RequestAuthenticationAsync(Epinova.PayExProvider.PxVerification.PxRequestAuthenticationReq req) {
+        public System.Threading.Tasks.Task<EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxRequestAuthenticationResp> RequestAuthenticationAsync(EPiServer.Business.Commerce.Payment.PayEx.PxVerification.PxRequestAuthenticationReq req) {
             return base.Channel.RequestAuthenticationAsync(req);
         }
         

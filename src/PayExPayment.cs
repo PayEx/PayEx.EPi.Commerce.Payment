@@ -1,10 +1,10 @@
-﻿using Epinova.PayExProvider.Contracts;
+﻿using System;
+using System.Runtime.Serialization;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using Mediachase.Commerce.Orders;
 using Mediachase.MetaDataPlus.Configurator;
-using System;
-using System.Runtime.Serialization;
 
-namespace Epinova.PayExProvider
+namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     [Serializable]
     public class PayExPayment : Mediachase.Commerce.Orders.Payment, IPayExPayment

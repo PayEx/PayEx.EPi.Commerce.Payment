@@ -1,10 +1,10 @@
-﻿using System.Web.UI.WebControls;
-using Epinova.PayExProvider.Contracts;
+﻿using System;
+using System.Web.UI.WebControls;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Events.Clients;
 using EPiServer.PlugIn;
-using System;
 
-namespace Epinova.PayExProvider
+namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     [GuiPlugIn(Area = PlugInArea.None, DisplayName = "Epinova.PayExProvider Settings")]
     public class PayExSettings : IPayExSettings

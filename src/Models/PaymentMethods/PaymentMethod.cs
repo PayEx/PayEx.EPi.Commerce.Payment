@@ -1,9 +1,9 @@
 ﻿using System;
-using Epinova.PayExProvider.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Dto;
 
-namespace Epinova.PayExProvider.Models.PaymentMethods
+namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
     public abstract class PaymentMethod
     {

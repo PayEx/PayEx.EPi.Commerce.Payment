@@ -1,5 +1,5 @@
 ﻿
-namespace Epinova.PayExProvider.Commerce
+namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
     public enum CartStatus
     {

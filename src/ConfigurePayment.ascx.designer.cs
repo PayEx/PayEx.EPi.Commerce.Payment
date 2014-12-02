@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Epinova.PayExProvider {
+namespace EPiServer.Business.Commerce.Payment.PayEx {
     
     
     public partial class ConfigurePayment {

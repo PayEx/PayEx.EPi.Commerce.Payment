@@ -1,8 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Xml.Serialization;
 
-namespace Epinova.PayExProvider.Payment
+namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
 {
     [Serializable]
     public enum TransactionStatus

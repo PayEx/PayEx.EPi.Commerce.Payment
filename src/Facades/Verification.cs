@@ -1,6 +1,6 @@
-﻿using Epinova.PayExProvider.Contracts;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 
-namespace Epinova.PayExProvider.Facades
+namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 {
     public class Verification : IVerificationFacade
     {

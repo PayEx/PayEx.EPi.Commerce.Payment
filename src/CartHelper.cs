@@ -1,18 +1,17 @@
-﻿using Epinova.PayExProvider.Models;
-using Epinova.PayExProvider.Models.Result;
-using Epinova.PayExProvider.Payment;
-using Epinova.PayExProvider.Price;
-using Mediachase.Commerce.Orders;
-using Mediachase.Commerce.Orders.Dto;
-using Mediachase.Commerce.Orders.Managers;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using EPiServer.Business.Commerce.Payment.PayEx.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
+using EPiServer.Business.Commerce.Payment.PayEx.Price;
+using Mediachase.Commerce.Orders;
+using Mediachase.Commerce.Orders.Dto;
+using Mediachase.Commerce.Orders.Managers;
 
-namespace Epinova.PayExProvider
+namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     internal static class CartHelper
     {

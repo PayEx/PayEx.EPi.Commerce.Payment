@@ -1,8 +1,8 @@
-﻿using Epinova.PayExProvider.Contracts;
+﻿using System;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using log4net;
-using System;
 
-namespace Epinova.PayExProvider
+namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     public class Logger : ILogger
     {

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epinova.PayExProvider", "src\Epinova.PayExProvider.csproj", "{7CB1D4E3-DA0F-4EBE-B07B-4585623FF3E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiServer.Business.Commerce.Payment.PayEx", "src\EPiServer.Business.Commerce.Payment.PayEx.csproj", "{7CB1D4E3-DA0F-4EBE-B07B-4585623FF3E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epinova.PayExProvider.UnitTests", "tests\Epinova.PayExProvider.UnitTests\Epinova.PayExProvider.UnitTests.csproj", "{84229FF5-45F1-441C-9265-AEB58526772B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiServer.Business.Commerce.Payment.PayEx.UnitTests", "tests\Epinova.PayExProvider.UnitTests\EPiServer.Business.Commerce.Payment.PayEx.UnitTests.csproj", "{84229FF5-45F1-441C-9265-AEB58526772B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

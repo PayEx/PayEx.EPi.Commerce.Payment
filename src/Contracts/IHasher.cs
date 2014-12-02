@@ -1,7 +1,7 @@
 ﻿
-using Epinova.PayExProvider.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Models;
 
-namespace Epinova.PayExProvider.Contracts
+namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
     public interface IHasher
     {

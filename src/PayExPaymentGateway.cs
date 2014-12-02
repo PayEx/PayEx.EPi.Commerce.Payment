@@ -1,13 +1,13 @@
-﻿using Epinova.PayExProvider.Commerce;
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Models;
+﻿using System.Web;
+using EPiServer.Business.Commerce.Payment.PayEx.Commerce;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Models;
 using EPiServer.ServiceLocation;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Plugins.Payment;
-using System.Web;
-using PaymentMethod = Epinova.PayExProvider.Models.PaymentMethods.PaymentMethod;
+using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods.PaymentMethod;
 
-namespace Epinova.PayExProvider
+namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     public class PayExPaymentGateway : AbstractPaymentGateway
     {

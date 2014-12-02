@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Models;
-using Epinova.PayExProvider.Models.PaymentMethods;
-using Epinova.PayExProvider.Models.Result;
-using Epinova.PayExProvider.Payment;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
+using EPiServer.Business.Commerce.Payment.PayEx.Payment;
 using Mediachase.Commerce.Orders;
 
-namespace Epinova.PayExProvider.Facades
+namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 {
     public class PaymentManager : IPaymentManager
     {

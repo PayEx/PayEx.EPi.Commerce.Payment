@@ -1,9 +1,9 @@
-﻿using Epinova.PayExProvider.Contracts;
-using Epinova.PayExProvider.Models.Result;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 using Mediachase.Commerce.Orders;
-using PaymentMethod = Epinova.PayExProvider.Models.PaymentMethods.PaymentMethod;
+using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods.PaymentMethod;
 
-namespace Epinova.PayExProvider.Dectorators.PaymentCreditors
+namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
 {
     public class CreditPaymentByOrderLines : IPaymentCreditor
     {

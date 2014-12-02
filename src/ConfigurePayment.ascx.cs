@@ -3,7 +3,7 @@ using System.Data;
 using Mediachase.Commerce.Orders.Dto;
 using Mediachase.Web.Console.Interfaces;
 
-namespace Epinova.PayExProvider
+namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     public partial class ConfigurePayment : System.Web.UI.UserControl, IGatewayControl
     {

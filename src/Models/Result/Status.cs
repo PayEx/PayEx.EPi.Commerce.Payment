@@ -1,7 +1,7 @@
 ﻿
 using System.Xml.Serialization;
 
-namespace Epinova.PayExProvider.Models.Result
+namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
     public class Status
     {

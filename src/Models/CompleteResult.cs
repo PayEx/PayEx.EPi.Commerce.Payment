@@ -1,7 +1,5 @@
 ﻿
-using Epinova.PayExProvider.Payment;
-
-namespace Epinova.PayExProvider.Models
+namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
     //public class CompleteResult
     //{

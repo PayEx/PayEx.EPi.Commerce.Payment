@@ -1,8 +1,8 @@
-﻿using Epinova.PayExProvider.Contracts;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Serialization;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 
-namespace Epinova.PayExProvider.Payment
+namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
 {
     public class ResultParser : IResultParser
     {
