@@ -1,5 +1,4 @@
 ﻿using System.Web;
-using EPiServer.Business.Commerce.Payment.PayEx.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
 using EPiServer.ServiceLocation;
@@ -61,9 +60,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
             if (!currentPayment.IsCart)
                 return false;
-
-            if (currentPayment.Cart.Status == CartStatus.PaymentComplete.ToString())
-                return true; // return true because this shopping cart has been paid already on PayEx
 
             PaymentInitializeResult result = currentPayment.Initialize();
             return result.Success;

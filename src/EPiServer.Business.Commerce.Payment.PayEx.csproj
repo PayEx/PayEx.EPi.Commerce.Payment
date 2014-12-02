@@ -211,7 +211,6 @@
   <ItemGroup>
     <Compile Include="CartHelper.cs" />
     <Compile Include="Commerce\CartActions.cs" />
-    <Compile Include="Commerce\CartStatus.cs" />
     <Compile Include="Commerce\PurchaseOrder.cs" />
     <Compile Include="ConfigurePayment.ascx.cs">
       <DependentUpon>ConfigurePayment.ascx</DependentUpon>

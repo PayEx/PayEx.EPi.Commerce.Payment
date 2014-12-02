@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using EPiServer.Business.Commerce.Payment.PayEx.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
-using Mediachase.Commerce.Orders;
-using Mediachase.Commerce.Orders.Managers;
 using Mediachase.Data.Provider;
 using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods.PaymentMethod;
 
@@ -37,62 +33,35 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
                 _paymentCompleter = new UpdateTransactionDetails(_paymentCompleter, _paymentManager, _logger);
             }
 
-            bool purchaseOrderCreated = CreatePurchaseOrder(currentPayment, completeResult);
+            bool paymentInformationSet = SetPaymentInformation(currentPayment, completeResult);
 
-            PaymentCompleteResult result = new PaymentCompleteResult {Success = true};
+            PaymentCompleteResult result = new PaymentCompleteResult { Success = true };
             if (_paymentCompleter != null)
                 result = _paymentCompleter.Complete(currentPayment, orderRef);
-            result.Success = purchaseOrderCreated && result.Success;
+            result.Success = paymentInformationSet && result.Success;
             return result;
         }
 
-        private bool CreatePurchaseOrder(PaymentMethod currentPayment, CompleteResult completeResult)
+        private bool SetPaymentInformation(PaymentMethod currentPayment, CompleteResult completeResult)
         {
             try
             {
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    currentPayment.Cart.Status = CartStatus.PaymentComplete.ToString();
-
-                    // Change status of payments to processed. 
-                    // It must be done before execute workflow to ensure payments which should mark as processed.
-                    // To avoid get errors when executed workflow.
-                    foreach (OrderForm orderForm in currentPayment.Cart.OrderForms)
-                    {
-                        foreach (Mediachase.Commerce.Orders.Payment payment in orderForm.Payments)
-                        {
-                            if (payment != null)
-                                PaymentStatusManager.ProcessPayment(payment);
-                        }
-                    }
-
-                    // Execute CheckOutWorkflow with parameter to ignore running process payment activity again.
-                    var isIgnoreProcessPayment = new Dictionary<string, object>();
-                    isIgnoreProcessPayment.Add("IsIgnoreProcessPayment", true);
-                    OrderGroupWorkflowManager.RunWorkflow(currentPayment.Cart, OrderGroupWorkflowManager.CartCheckOutWorkflowName, true,
-                        isIgnoreProcessPayment);
-
-                    currentPayment.Cart.OrderNumberMethod = c => currentPayment.Payment.OrderNumber;
-                    ((Mediachase.Commerce.Orders.Payment)currentPayment.Payment).AuthorizationCode = completeResult.TransactionNumber;
+                    ((Mediachase.Commerce.Orders.Payment)currentPayment.Payment).AuthorizationCode =
+                        completeResult.TransactionNumber;
                     ((Mediachase.Commerce.Orders.Payment)currentPayment.Payment).AcceptChanges();
-                    Mediachase.Commerce.Orders.PurchaseOrder purchaseOrder = currentPayment.Cart.SaveAsPurchaseOrder();
-
-                    currentPayment.Cart.Delete();
-                    currentPayment.Cart.AcceptChanges();
-
-                    purchaseOrder.OrderForms[0]["PaymentMethodCode"] = completeResult.PaymentMethod;
-                    purchaseOrder.AcceptChanges();
-
-                    currentPayment.OrderGroup = purchaseOrder; 
+                    currentPayment.OrderGroup.OrderForms[0]["PaymentMethodCode"] = completeResult.PaymentMethod;
+                    currentPayment.OrderGroup.AcceptChanges();
                     scope.Complete();
                 }
+                return true;
             }
             catch (Exception e)
             {
-                _logger.LogError("Error in ProcessSuccessfulTransaction", e);
+                _logger.LogError("Could not set payment information", e);
                 return false;
             }
-            return true;
         }
     }
 }
