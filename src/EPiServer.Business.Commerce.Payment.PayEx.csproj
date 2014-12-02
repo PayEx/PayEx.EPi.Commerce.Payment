@@ -253,7 +253,7 @@
     <Compile Include="Facades\Verification.cs" />
     <Compile Include="Facades\VerificationManager.cs" />
     <Compile Include="Factories\PaymentMethodFactory.cs" />
-    <Compile Include="IoC\PayExRegistry.cs" />
+    <Compile Include="Initializers\DependencyResolverModule.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CompleteResult.cs" />
