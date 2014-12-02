@@ -88,10 +88,17 @@ namespace Epinova.PayExProvider.Facades
             return null;
         }
 
-        public void PurchaseInvoiceSale(string orderRef, InvoiceData invoiceData)
+        public void PurchaseInvoiceSale(string orderRef, CustomerDetails customerDetails)
         {
-              string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, invoiceData, PayExSettings.Instance.EncryptionKey);
-            string xmlResult = _orderFacade.PurchaseInvoiceSale(PayExSettings.Instance.AccountNumber, orderRef, invoiceData, hash);
+              string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, PayExSettings.Instance.EncryptionKey);
+            string xmlResult = _orderFacade.PurchaseInvoiceSale(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, hash);
+            // TODO
+        }
+
+        public void PurchasePartPaymentSale(string orderRef, CustomerDetails customerDetails)
+        {
+            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, PayExSettings.Instance.EncryptionKey);
+            string xmlResult = _orderFacade.PurchasePartPaymentSale(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, hash);
             // TODO
         }
 

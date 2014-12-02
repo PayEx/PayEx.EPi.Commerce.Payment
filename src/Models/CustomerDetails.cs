@@ -1,9 +1,6 @@
-﻿
-using Epinova.PayExProvider.Payment;
-
-namespace Epinova.PayExProvider.Models
+﻿namespace Epinova.PayExProvider.Models
 {
-    public class InvoiceData : ResultBase
+    public class CustomerDetails
     {
         public string SocialSecurityNumber { get; set; }
         public string FirstName { get; set; }
@@ -16,9 +13,5 @@ namespace Epinova.PayExProvider.Models
         public string Email { get; set; }
         public string MobilePhone { get; set; }
         public string IpAddress { get; set; }
-
-        public InvoiceData(bool success) : base(success)
-        {
-        }
     }
 }

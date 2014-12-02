@@ -42,9 +42,9 @@ namespace Epinova.PayExProvider.Factories
                 case "PayEx_InvoiceLedger":
                     return new InvoiceLedger(payment, _paymentManager, _parameterReader, _logger, _cartActions);
                 case "PayEx_PartPayment":
-                    return new PartPayment(payment);
+                    return new PartPayment(payment, _paymentManager, _parameterReader, _logger, _cartActions);
                 case "PayEx_PayPal":
-                    return new PayPal(payment);
+                    return new PayPal(payment, _paymentManager, _parameterReader, _logger, _cartActions);
                 default:
                     return new CreditCard(payment, _paymentManager, _parameterReader, _logger, _cartActions, _verificationManager);
             }

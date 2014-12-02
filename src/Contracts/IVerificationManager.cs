@@ -4,6 +4,6 @@ namespace Epinova.PayExProvider.Contracts
 {
     public interface IVerificationManager
     {
-        InvoiceData GetConsumerLegalAddress(string socialSecurityNumber, string countryCode);
+        CustomerDetails GetConsumerLegalAddress(string socialSecurityNumber, string countryCode);
     }
 }

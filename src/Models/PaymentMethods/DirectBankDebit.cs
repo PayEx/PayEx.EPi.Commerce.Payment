@@ -43,7 +43,7 @@ namespace Epinova.PayExProvider.Models.PaymentMethods
 
         public override bool Capture()
         {
-            return true;
+            return true; // Direct Bank Debit is done with PurchaseOperation=SALE, so Capture is not possible. Return true to continue execution.
         }
 
         public override bool Credit()

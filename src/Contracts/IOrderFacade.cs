@@ -19,6 +19,10 @@ namespace Epinova.PayExProvider.Contracts
             string additionalValues, string hash);
 
         string CreditOrderLine(long accountNumber, int transactionNumber, string itemNumber, string orderId, string hash);
-        string PurchaseInvoiceSale(long accountNumber, string orderRef, InvoiceData invoice, string hash);
+
+        string PurchaseInvoiceSale(long accountNumber, string orderRef, CustomerDetails customerDetails, string hash);
+
+        string PurchasePartPaymentSale(long accountNumber, string orderRef, CustomerDetails customerDetails,
+            string hash);
     }
 }

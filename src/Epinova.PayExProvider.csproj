@@ -247,6 +247,7 @@
     <Compile Include="Dectorators\PaymentInitializers\GetConsumerLegalAddress.cs" />
     <Compile Include="Dectorators\PaymentInitializers\InitializePayment.cs" />
     <Compile Include="Dectorators\PaymentInitializers\PurchaseInvoiceSale.cs" />
+    <Compile Include="Dectorators\PaymentInitializers\PurchasePartPaymentSale.cs" />
     <Compile Include="Dectorators\PaymentInitializers\RedirectUser.cs" />
     <Compile Include="Facades\Order.cs" />
     <Compile Include="Facades\Verification.cs" />
@@ -256,7 +257,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CompleteResult.cs" />
-    <Compile Include="Models\InvoiceData.cs" />
+    <Compile Include="Models\CustomerDetails.cs" />
     <Compile Include="Models\PayExAddress.cs" />
     <Compile Include="Models\OrderLine.cs" />
     <Compile Include="Models\PaymentCompleteResult.cs" />

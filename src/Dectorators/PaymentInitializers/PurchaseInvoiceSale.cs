@@ -16,8 +16,8 @@ namespace Epinova.PayExProvider.Dectorators.PaymentInitializers
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
-            InvoiceData invoiceData = new InvoiceData(true); //TODO
-            _paymentManager.PurchaseInvoiceSale(orderRef, invoiceData); // Check result
+            CustomerDetails customerDetails = new CustomerDetails(); //TODO
+            _paymentManager.PurchaseInvoiceSale(orderRef, customerDetails); // Check result
             return new PaymentInitializeResult {Success = true};
         }
     }

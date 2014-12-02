@@ -17,7 +17,7 @@ namespace Epinova.PayExProvider.Facades
             _resultParser = resultParser;
         }
 
-        public InvoiceData GetConsumerLegalAddress(string socialSecurityNumber, string countryCode)
+        public CustomerDetails GetConsumerLegalAddress(string socialSecurityNumber, string countryCode)
         {
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, socialSecurityNumber, countryCode,
                 PayExSettings.Instance.EncryptionKey);

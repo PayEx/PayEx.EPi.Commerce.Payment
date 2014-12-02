@@ -45,12 +45,22 @@ namespace Epinova.PayExProvider.Facades
                 address.ShippingAddress.Phone, address.ShippingAddress.Mobile, hash);
         }
 
-        public string PurchaseInvoiceSale(long accountNumber, string orderRef, InvoiceData invoice, string hash)
+        public string PurchaseInvoiceSale(long accountNumber, string orderRef, CustomerDetails customerDetails, string hash)
         {
-            return Client.PurchaseInvoiceSale(accountNumber, orderRef, invoice.SocialSecurityNumber, invoice.FirstName,
-                invoice.LastName, invoice.StreetAddress,
-                invoice.CoAddress, invoice.PostNumber, invoice.City, invoice.CountryCode, invoice.Email,
-                invoice.MobilePhone, invoice.IpAddress, hash);
+            return Client.PurchaseInvoiceSale(accountNumber, orderRef, customerDetails.SocialSecurityNumber, customerDetails.FirstName,
+                customerDetails.LastName, customerDetails.StreetAddress,
+                customerDetails.CoAddress, customerDetails.PostNumber, customerDetails.City, customerDetails.CountryCode, customerDetails.Email,
+                customerDetails.MobilePhone, customerDetails.IpAddress, hash);
+        }
+
+        public string PurchasePartPaymentSale(long accountNumber, string orderRef, CustomerDetails customerDetails,
+            string hash)
+        {
+            return Client.PurchasePartPaymentSale(accountNumber, orderRef, customerDetails.SocialSecurityNumber,
+                customerDetails.FirstName, customerDetails.LastName,
+                customerDetails.StreetAddress, customerDetails.CoAddress, customerDetails.PostNumber,
+                customerDetails.City, customerDetails.CountryCode, customerDetails.Email,
+                customerDetails.MobilePhone, customerDetails.IpAddress, hash);
         }
 
         public string Complete(long accountNumber, string orderRef, string hash)
