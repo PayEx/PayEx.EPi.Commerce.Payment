@@ -337,6 +337,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Apps\Order\Payments\Plugins\PayEx_CreditCard\ConfigurePayment.ascx" />
+    <Content Include="Apps\Order\Payments\Plugins\PayEx_GiftCard\ConfigurePayment.ascx" />
+    <Content Include="Apps\Order\Payments\Plugins\PayEx_InvoiceLedger\ConfigurePayment.ascx" />
+    <Content Include="Apps\Order\Payments\Plugins\PayEx_PayPal\ConfigurePayment.ascx" />
     <Content Include="ConfigurePayment.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>

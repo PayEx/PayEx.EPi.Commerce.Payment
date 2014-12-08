@@ -14,5 +14,9 @@
   </metadata>  
   <files>
     <file src="\bin\EPiServer.Business.Commerce.Payment.PayEx.dll" target="lib\net45"/>
+    <file src="\Apps\Order\Payments\Plugins\PayEx_CreditCard\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_CreditCard" />
+    <file src="\Apps\Order\Payments\Plugins\PayEx_GiftCard\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_GiftCard" />
+    <file src="\Apps\Order\Payments\Plugins\PayEx_InvoiceLedger\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_InvoiceLedger" />
+    <file src="\Apps\Order\Payments\Plugins\PayEx_PayPal\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_PayPal" />
   </files>
 </package>
