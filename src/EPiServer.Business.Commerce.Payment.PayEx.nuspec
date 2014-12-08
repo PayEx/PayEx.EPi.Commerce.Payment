@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>$id$</id>
+    <title>$id$</title>
+    <version>$version$</version>
+    <authors>Karoline Klever</authors>
+    <owners>$author$ - Karoline Klever</owners>
+    <projectUrl></projectUrl>
+    <iconUrl></iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright 2014 - Epinova</copyright>
+    <tags>EPiServer Epinova</tags>    
+  </metadata>  
+  <files>
+    <file src="\bin\EPiServer.Business.Commerce.Payment.PayEx.dll" target="lib\net45"/>
+  </files>
+</package>
