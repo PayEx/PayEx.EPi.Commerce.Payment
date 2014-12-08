@@ -121,45 +121,45 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce, Version=8.1.0.304, Culture=neutral, PublicKeyToken=6e58b501b34abce3, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.Commerce, Version=7.10.3.184, Culture=neutral, PublicKeyToken=6e58b501b34abce3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.Commerce.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Marketing.Validators, Version=8.1.0.304, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.Commerce.Marketing.Validators, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.Commerce.Marketing.Validators.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Marketing.Validators.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Plugins.Payment, Version=8.1.0.304, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.Commerce.Plugins.Payment, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.Commerce.Plugins.Payment.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Plugins.Payment.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Plugins.Shipping, Version=8.1.0.304, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.Commerce.Plugins.Shipping, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.Commerce.Plugins.Shipping.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Plugins.Shipping.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Website, Version=8.1.0.304, Culture=neutral, PublicKeyToken=6e58b501b34abce3, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.Commerce.Website, Version=7.10.3.184, Culture=neutral, PublicKeyToken=6e58b501b34abce3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.Commerce.Website.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Website.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Workflow, Version=8.1.0.304, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.Commerce.Workflow, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.Commerce.Workflow.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Workflow.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.Commerce.Workflow.Activities, Version=8.1.0.304, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.Commerce.Workflow.Activities, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.Commerce.Workflow.Activities.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.Workflow.Activities.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.DataProvider, Version=8.1.0.304, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.DataProvider, Version=7.10.3.184, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.DataProvider.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.DataProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.MetaDataPlus, Version=8.1.0.304, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.MetaDataPlus, Version=7.10.3.184, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.MetaDataPlus.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.MetaDataPlus.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.WebConsoleLib, Version=8.1.0.304, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mediachase.WebConsoleLib, Version=7.10.3.184, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.8.1.0\lib\net45\Mediachase.WebConsoleLib.dll</HintPath>
+      <HintPath>..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.WebConsoleLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
