@@ -5,7 +5,7 @@ using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMe
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
 {
-    public class CreditPaymentByOrderLines : IPaymentCreditor
+    internal class CreditPaymentByOrderLines : IPaymentCreditor
     {
         private readonly IPaymentCreditor _paymentCreditor;
         private readonly ILogger _logger;

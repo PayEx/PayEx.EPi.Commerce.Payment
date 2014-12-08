@@ -14,7 +14,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests.Models.Result
         [TestCase(TransactionStatus.Authorize, false, false)]
         [TestCase(TransactionStatus.Credit, false, false)]
         [TestCase(TransactionStatus.Capture, false, false)]
-        public void Success_ReturnsCorrectResult(TransactionStatus transactionStatus, bool statusSuccess, bool expected)
+        internal void Success_ReturnsCorrectResult(TransactionStatus transactionStatus, bool statusSuccess, bool expected)
         {
             Status status = Factory.CreateStatus(statusSuccess);
 

@@ -5,7 +5,7 @@ using Mediachase.Commerce.Orders.Dto;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
-    public abstract class PaymentMethod
+    internal abstract class PaymentMethod
     {
         public IPayExPayment Payment { get; set; }
         public bool IsCart { get { return OrderGroup is Cart; } }

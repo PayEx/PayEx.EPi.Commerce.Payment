@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
-    public class AddressDetailCollection
+    internal class AddressDetailCollection
     {
         [XmlElement("addressDetail")]
         public List<AddressDetail> AddressDetails { get; set; }

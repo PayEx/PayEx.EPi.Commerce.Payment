@@ -4,7 +4,7 @@ using log4net;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx
 {
-    public class Logger : ILogger
+    internal class Logger : ILogger
     {
         public const string DefaultApplicationLogger = "Epinova.PayExProvider";
 

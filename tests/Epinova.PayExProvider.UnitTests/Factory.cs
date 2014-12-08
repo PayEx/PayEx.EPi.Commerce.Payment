@@ -3,7 +3,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests
 {
-    public static class Factory
+    internal static class Factory
     {
         public static string InitializeResult = "<?xml version=\"1.0\" encoding='utf-8' ?><payex><header name=\"Payex Header v1.0\"><id>4e0fbe36b146452b8ce7b87e6186a3e3</id><date>2010-11-10 06:13:48</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><orderRef>b93d29bf7df3424cac23407a987c0be9</orderRef><sessionRef>7807accc0e7e4d069e1d92ec5680d0cc</sessionRef><redirectUrl>https://test-confined.payex.com/PxOrderCC.aspx?orderRef=b93d29bf7df3424cac23407a987c0be9</redirectUrl></payex>";
 

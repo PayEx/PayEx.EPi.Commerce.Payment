@@ -4,7 +4,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
 {
-    public class ResultParser : IResultParser
+    internal class ResultParser : IResultParser
     {
         public T Deserialize<T>(string xml) where T : class
         {

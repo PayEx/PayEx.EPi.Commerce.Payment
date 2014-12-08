@@ -3,7 +3,7 @@ using System;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
-    public interface IPayExPayment
+    internal interface IPayExPayment
     {
         string OrderNumber { get; set; }
         string ReturnUrl { get; set; }

@@ -24,6 +24,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
 
             _container.Configure(x =>
             {
+                x.For<IPurchaseOrderCreator>().Use<PurchaseOrderCreator>();
+                x.For<IOrderNumberGenerator>().Use<OrderNumberGenerator>();
                 x.For<ICartActions>().Use<CartActions>();
                 x.For<IParameterReader>().Use<ParameterReader>();
                 x.For<IPaymentMethodFactory>().Use<PaymentMethodFactory>();

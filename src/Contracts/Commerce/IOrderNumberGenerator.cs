@@ -2,8 +2,8 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce
 {
-    internal interface ICartActions
+    public interface IOrderNumberGenerator
     {
-        void UpdateCartInstanceId(Cart cart);
+        string GenerateOrderNumber(Cart cart);
     }
 }

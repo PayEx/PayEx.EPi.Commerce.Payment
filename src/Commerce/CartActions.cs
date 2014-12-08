@@ -8,7 +8,7 @@ using Mediachase.Commerce.Orders;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
-    public class CartActions : ICartActions
+    internal class CartActions : ICartActions
     {
         private readonly ILogger _logger;
         private const string CurrentCartKey = "CurrentCart";

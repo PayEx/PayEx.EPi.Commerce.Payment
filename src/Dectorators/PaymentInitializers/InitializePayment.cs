@@ -9,7 +9,7 @@ using EPiServer.Globalization;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers
 {
-    public class InitializePayment : IPaymentInitializer
+    internal class InitializePayment : IPaymentInitializer
     {
         private readonly IPaymentInitializer _paymentInitializer;
         private readonly IPaymentManager _paymentManager;

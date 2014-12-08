@@ -2,7 +2,7 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
-    public interface IParameterReader
+    internal interface IParameterReader
     {
         int GetVat(PaymentMethodDto paymentMethodDto);
         string GetDefaultView(PaymentMethodDto paymentMethodDto);

@@ -3,7 +3,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
-    public class PurchaseOrder : IPurchaseOrder
+    internal class PurchaseOrder : IPurchaseOrder
     {
         public Mediachase.Commerce.Orders.PurchaseOrder Get(Mediachase.Commerce.Orders.Payment payment)
         {

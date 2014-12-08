@@ -2,7 +2,7 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
-    public interface IPaymentMethodFactory
+    internal interface IPaymentMethodFactory
     {
         PaymentMethod Create(Mediachase.Commerce.Orders.Payment payment);
     }

@@ -7,7 +7,7 @@ using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMe
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters
 {
-    public class CompletePayment : IPaymentCompleter
+    internal class CompletePayment : IPaymentCompleter
     {
         private IPaymentCompleter _paymentCompleter;
         private readonly IPaymentManager _paymentManager;

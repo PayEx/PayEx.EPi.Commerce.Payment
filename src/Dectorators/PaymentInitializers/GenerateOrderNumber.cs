@@ -5,7 +5,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers
 {
-    public class GenerateOrderNumber : IPaymentInitializer
+    internal class GenerateOrderNumber : IPaymentInitializer
     {
         private readonly IPaymentInitializer _initializer;
 

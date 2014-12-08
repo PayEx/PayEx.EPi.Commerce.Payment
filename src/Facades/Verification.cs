@@ -2,7 +2,7 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 {
-    public class Verification : IVerificationFacade
+    internal class Verification : IVerificationFacade
     {
         private PxVerification.PxVerificationSoapClient _client;
 

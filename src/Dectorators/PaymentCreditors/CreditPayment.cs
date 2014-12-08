@@ -5,7 +5,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Price;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
 {
-    public class CreditPayment : IPaymentCreditor
+    internal class CreditPayment : IPaymentCreditor
     {
         private readonly IPaymentCreditor _paymentCreditor;
         private readonly ILogger _logger;

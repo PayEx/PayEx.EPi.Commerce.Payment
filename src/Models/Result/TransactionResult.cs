@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
     [XmlRoot("payex")]
-    public class TransactionResult
+    internal class TransactionResult
     {
         [XmlElement("status")]
         public Status Status { get; set; }

@@ -4,7 +4,7 @@ using Mediachase.Commerce.Orders.Dto;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx
 {
-    public class ParameterReader : IParameterReader
+    internal class ParameterReader : IParameterReader
     {
         public const string VatParameter = "Vat";
         public const string PriceListArgsParameter = "PriceListArgs";

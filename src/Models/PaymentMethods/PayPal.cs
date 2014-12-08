@@ -7,7 +7,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
-    public class PayPal : PaymentMethod
+    internal class PayPal : PaymentMethod
     {
         private readonly IPaymentManager _paymentManager;
         private readonly IParameterReader _parameterReader;

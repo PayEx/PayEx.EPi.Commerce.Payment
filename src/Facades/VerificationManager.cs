@@ -3,7 +3,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 {
-    public class VerificationManager : IVerificationManager
+    internal class VerificationManager : IVerificationManager
     {
         private readonly IVerificationFacade _verificationFacade;
         private readonly IHasher _hasher;

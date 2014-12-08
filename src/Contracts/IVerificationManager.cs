@@ -2,7 +2,7 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
-    public interface IVerificationManager
+    internal interface IVerificationManager
     {
         CustomerDetails GetConsumerLegalAddress(string socialSecurityNumber, string countryCode);
     }

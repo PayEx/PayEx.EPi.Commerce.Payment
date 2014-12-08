@@ -2,7 +2,7 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Price
 {
-    public static class PriceFormatter
+    internal static class PriceFormatter
     {
         public static int RoundToInt(this decimal price)
         {

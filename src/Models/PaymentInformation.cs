@@ -3,7 +3,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
-    public class PaymentInformation
+    internal class PaymentInformation
     {
         public long AccountNumber { get; set; }
         public string PurchaseOperation { get; set; }

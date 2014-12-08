@@ -5,7 +5,7 @@ using Mediachase.Commerce.Orders.Dto;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
 {
-    public class PaymentMethodFactory : IPaymentMethodFactory
+    internal class PaymentMethodFactory : IPaymentMethodFactory
     {
         private readonly IPaymentManager _paymentManager;
         private readonly IParameterReader _parameterReader;

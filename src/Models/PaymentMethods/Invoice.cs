@@ -4,7 +4,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
-    public class Invoice : PaymentMethod
+    internal class Invoice : PaymentMethod
     {
         private readonly IVerificationManager _verificationManager;
         private readonly IPaymentManager _paymentManager;

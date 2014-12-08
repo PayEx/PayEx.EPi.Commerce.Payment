@@ -2,7 +2,7 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
-    public class AddressDetail
+    internal class AddressDetail
     {
         [XmlElement("firstName")]
         public string FirstName { get; set; }

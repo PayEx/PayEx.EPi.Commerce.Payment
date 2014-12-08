@@ -2,7 +2,7 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
-    public class ErrorDetails
+    internal class ErrorDetails
     {
         [XmlElement("transactionErrorCode")]
         public string TransactionErrorCode { get; set; }

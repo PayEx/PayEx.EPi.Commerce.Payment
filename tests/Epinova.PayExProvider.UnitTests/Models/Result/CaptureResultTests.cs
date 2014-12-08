@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests.Models.Result
 {
     [TestFixture]
-    public class CaptureResultTests
+    internal class CaptureResultTests
     {
         [TestCase(TransactionStatus.Initialize, true, false)]
         [TestCase(TransactionStatus.Authorize, true, false)]

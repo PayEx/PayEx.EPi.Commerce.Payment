@@ -5,7 +5,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers
 {
-    public class RedirectUser : IPaymentInitializer
+    internal class RedirectUser : IPaymentInitializer
     {
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {

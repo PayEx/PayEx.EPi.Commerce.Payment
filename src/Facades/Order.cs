@@ -3,7 +3,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 {
-    public class Order : IOrderFacade
+    internal class Order : IOrderFacade
     {
         private PxOrder.PxOrderSoapClient _client;
 

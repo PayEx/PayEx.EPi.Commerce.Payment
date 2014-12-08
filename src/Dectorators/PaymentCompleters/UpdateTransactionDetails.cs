@@ -9,7 +9,7 @@ using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMe
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters
 {
-    public class UpdateTransactionDetails : IPaymentCompleter
+    internal class UpdateTransactionDetails : IPaymentCompleter
     {
         private readonly IPaymentCompleter _paymentCompleter;
         private readonly IPaymentManager _paymentManager;

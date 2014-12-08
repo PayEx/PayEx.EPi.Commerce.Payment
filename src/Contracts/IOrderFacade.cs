@@ -3,7 +3,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
-    public interface IOrderFacade
+    internal interface IOrderFacade
     {
         string Initialize(PaymentInformation payment, string hash);
         string AddOrderLine(OrderLine orderLine, string hash);

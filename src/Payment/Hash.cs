@@ -5,7 +5,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
 {
-    public class Hash : IHasher
+    internal class Hash : IHasher
     {
         public string Create(PaymentInformation payment)
         {

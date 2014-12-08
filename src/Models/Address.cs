@@ -2,7 +2,7 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
-    public class Address
+    internal class Address
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

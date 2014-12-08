@@ -5,7 +5,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Price;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCapturers
 {
-    public class CapturePayment : IPaymentCapturer
+    internal class CapturePayment : IPaymentCapturer
     {
         private readonly IPaymentCapturer _paymentCapturer;
         private readonly ILogger _logger;
