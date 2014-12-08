@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
-    internal class Status
+    public class Status
     {
         [XmlElement("description")]
         public string Description { get; set; }

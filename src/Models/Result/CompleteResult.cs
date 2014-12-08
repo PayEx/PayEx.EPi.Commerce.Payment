@@ -4,7 +4,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Payment;
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
     [XmlRoot("payex")]
-    internal class CompleteResult
+    public class CompleteResult
     {
         [XmlElement("status")]
         public Status Status { get; set; }

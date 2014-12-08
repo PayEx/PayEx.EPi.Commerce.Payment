@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
 {
     [Serializable]
-    internal enum TransactionStatus
+    public enum TransactionStatus
     {
         [XmlEnum("0")]
         Sale = 0,
