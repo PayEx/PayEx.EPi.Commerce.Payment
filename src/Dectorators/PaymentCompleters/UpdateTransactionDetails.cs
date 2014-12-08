@@ -103,10 +103,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
 
         public OrderAddress GetBillingAddress(OrderGroup orderGroup)
         {
-            OrderForm orderForm = orderGroup.OrderForms.First();
+            OrderForm orderForm = orderGroup.OrderForms.ToArray().First();
             if (orderForm == null || string.IsNullOrEmpty(orderForm.BillingAddressId))
                 return null;
-            return orderGroup.OrderAddresses.FirstOrDefault(x => x.Name.Equals(orderForm.BillingAddressId, StringComparison.OrdinalIgnoreCase));
+            return orderGroup.OrderAddresses.ToArray().FirstOrDefault(x => x.Name.Equals(orderForm.BillingAddressId, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

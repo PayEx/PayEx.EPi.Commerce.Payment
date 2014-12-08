@@ -72,18 +72,18 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         {
             PayExAddress payexAddress = new PayExAddress(payment.AccountNumber, result.OrderRef.ToString(), payment.EncryptionKey);
 
-            if (cart == null || cart.OrderForms == null || !cart.OrderForms.Any())
+            if (cart == null || cart.OrderForms == null || cart.OrderForms.Count == 0)
                 return payexAddress;
 
             OrderForm orderForm = cart.OrderForms[0];
 
-            OrderAddress billingAddress = cart.OrderAddresses.FirstOrDefault(x => x.Name == orderForm.BillingAddressId);
+            OrderAddress billingAddress = cart.OrderAddresses.ToArray().FirstOrDefault(x => x.Name == orderForm.BillingAddressId);
             if (billingAddress != null)
                 payexAddress.BillingAddress.Populate(billingAddress);
 
-            if (orderForm.Shipments != null && orderForm.Shipments.Any() && orderForm.Shipments[0] != null)
+            if (orderForm.Shipments != null && orderForm.Shipments.Count > 0 && orderForm.Shipments[0] != null)
             {
-                OrderAddress shippingAddress = cart.OrderAddresses.FirstOrDefault(x => x.Name == orderForm.Shipments[0].ShippingAddressId);
+                OrderAddress shippingAddress = cart.OrderAddresses.ToArray().FirstOrDefault(x => x.Name == orderForm.Shipments[0].ShippingAddressId);
                 if (shippingAddress != null)
                     payexAddress.ShippingAddress.Populate(shippingAddress);
             }
@@ -94,11 +94,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         public static List<OrderLine> OrderLines(Cart cart, PaymentInformation payment, InitializeResult result)
         {
             List<OrderLine> orderLines = new List<OrderLine>();
-            if (cart == null || cart.OrderForms == null || !cart.OrderForms.Any())
+            if (cart == null || cart.OrderForms == null || cart.OrderForms.Count == 0)
                 return orderLines;
 
             OrderForm orderForm = cart.OrderForms[0];
-            if (orderForm == null || orderForm.LineItems == null || !orderForm.LineItems.Any())
+            if (orderForm == null || orderForm.LineItems == null || orderForm.LineItems.Count == 0)
                 return orderLines;
 
             foreach (LineItem lineItem in orderForm.LineItems)
