@@ -6,8 +6,6 @@
     <version>$version$</version>
     <authors>Karoline Klever</authors>
     <owners>$author$ - Karoline Klever</owners>
-    <projectUrl></projectUrl>
-    <iconUrl></iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>First release</releaseNotes>
