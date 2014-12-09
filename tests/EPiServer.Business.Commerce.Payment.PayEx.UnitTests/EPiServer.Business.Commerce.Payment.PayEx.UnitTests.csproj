@@ -38,11 +38,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mediachase.Commerce">
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.Commerce.dll</HintPath>
+    <Reference Include="Mediachase.Commerce, Version=7.10.3.184, Culture=neutral, PublicKeyToken=6e58b501b34abce3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EPiServer.Commerce.Core.7.6.1\lib\net40\Mediachase.Commerce.dll</HintPath>
     </Reference>
-    <Reference Include="Mediachase.MetaDataPlus">
-      <HintPath>..\..\packages\EPiServer.Commerce.Core.7.10.3\lib\net40\Mediachase.MetaDataPlus.dll</HintPath>
+    <Reference Include="Mediachase.MetaDataPlus, Version=7.10.3.184, Culture=neutral, PublicKeyToken=41d2e7a615ba286c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EPiServer.Commerce.Core.7.6.1\lib\net40\Mediachase.MetaDataPlus.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
