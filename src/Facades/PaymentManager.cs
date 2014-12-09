@@ -29,8 +29,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             if (!result.Status.Success)
                 return null;
 
-            AddOrderLineItems(cart, payment, result);
-            AddOrderAddress(cart, payment, result);
+            if (PayExSettings.Instance.IncludeOrderLines)
+                AddOrderLineItems(cart, payment, result);
+
+            if (PayExSettings.Instance.IncludeCustomerAddress)
+                AddOrderAddress(cart, payment, result);
             return result;
         }
 
@@ -89,7 +92,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 
         public void PurchaseInvoiceSale(string orderRef, CustomerDetails customerDetails)
         {
-              string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, PayExSettings.Instance.EncryptionKey);
+            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.PurchaseInvoiceSale(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, hash);
             // TODO
         }

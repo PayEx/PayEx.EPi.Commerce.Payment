@@ -39,6 +39,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         [PlugInProperty(Description = "Invoice system keyword", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string InvoiceKeyword { get; set; }
 
+        [PlugInProperty(Description = "Give PayEx information on each individual order line", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
+        public bool IncludeOrderLines { get; set; }
+
+        [PlugInProperty(Description = "Give PayEx address information for the customer", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
+        public bool IncludeCustomerAddress { get; set; }
+
         private PayExSettings()
         {
             PlugInSettings.SettingsChanged += BroadcastToAllServers;
