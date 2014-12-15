@@ -8,6 +8,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             public static class Namespace
             {
                 public const string Order = "Mediachase.Commerce.Orders";
+                public const string OrderGroup = "Mediachase.Commerce.Orders.System.OrderGroup";
             }
 
             public class Payment
@@ -23,6 +24,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 public const string ReturnUrl = "ReturnUrl";
                 public const string CustomerId = "CustomerId";
                 public const string AgreementReference = "AgreementReference";
+            }
+
+            public static class OrderForm
+            {
+                public const string ClassName = "OrderFormEx";
+                public const string PaymentMethodCode = "PaymentMethodCode";
             }
 
             public class LineItem
