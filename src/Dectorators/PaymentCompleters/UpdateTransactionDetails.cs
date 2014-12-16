@@ -43,12 +43,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
         private bool UpdateOrderAddress(PaymentMethod currentPayment, TransactionResult transactionDetails)
         {
             bool updated = false;
-            PurchaseOrder purchaseOrder = currentPayment.PurchaseOrder;
-            OrderAddress billingAddress = GetBillingAddress(purchaseOrder);
+            Cart cart = currentPayment.Cart;
+            OrderAddress billingAddress = GetBillingAddress(cart);
 
             if (!string.IsNullOrWhiteSpace(transactionDetails.CustomerName))
             {
-                purchaseOrder.CustomerName = transactionDetails.CustomerName;
+                cart.CustomerName = transactionDetails.CustomerName;
                 string[] names = transactionDetails.CustomerName.Split(' ');
                 billingAddress.FirstName = names[0];
                 if (names.Length > 1)
@@ -86,9 +86,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
                 {
                     using (TransactionScope scope = new TransactionScope())
                     {
-
                         billingAddress.AcceptChanges();
-                        purchaseOrder.AcceptChanges();
+                        cart.AcceptChanges();
                         scope.Complete();
                     }
                 }
