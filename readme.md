@@ -13,14 +13,17 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 ## Prerequisites ##
 
 TODO: Agreement with PayEx? 
-TODO: Commerce version? 
-TODO: EPiServer version?
 
-.NET Framework 4.5 or higher
+- EPiServer.CMS version 7.6.3 or higher
+- EPiServer.Commerce version 7.6.1 or higher
+- .NET Framework 4.5 or higher
 
 ## Installing the PayEx payment provider ##
 
 1. Download the EPiServer.Business.Commerce.Payment.PayEx package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). The package must be added to both your Web project and your Commerce Manager.
+
+2. TODO: Fill in PayEx account details in module settings
+3. TODO:Create PayExPayment meta klasse
 
 ## Extending the payment provider ##
 
@@ -102,3 +105,46 @@ Remember that your implementation of *IOrderNumberGenerator* will have to be inj
         	}
     	}
 	}
+
+### Specifying the *additionalValues* parameter
+
+During payment initialization, PayEx gives you the option of passing in *additionalValues* as a parameter. The *additionalValues* parameter is used for several things, for example enabling the payment menu, enabling responsive design or passing in invoice data. Take a look at the [PayEx documentation for the additionalValues parameter](http://www.payexpim.com/technical-reference/pxorder/initialize8/) to see all the options available.
+
+#### ... if it is a plain string
+
+If the value you wish to pass along with the *additionalValues* parameter is a plain string (such as "PAYMENTMENU=TRUE"), you can specify it in the parameters tab for the payment method in Commerce Manager: 
+
+1. In the Commerce Manager, click on Administration -> Order System -> Payments
+2. Click on the language folder you wish to view
+3. Click on the PayEx payment method you wish to add a parameter to
+4. Go to the *Parameters* tab and enter the AdditionalValue
+
+TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\AdditionalValues.PNG
+
+#### ... if it is a dynamic value
+
+If the value you wish to pass along the *additionalValues* parameter is a dynamic value such as the invoice due date or invoice customer number, you cannot specify this using the previous method. This is because both the due date and the customer ID should be generated based on the purchase being made, in other words: It will vary from purchase to purchase.
+
+In order to specify dynamic values you can implement your own *IAdditionalValuesFormatter*. In the example below we're assuming that the [Invoice Ledger](http://www.payexpim.com/payment-methods/invoice/) payment method is being used, which enables us to specify the customer ID and invoice due date that is six days from now:
+
+	using EPiServer.Business.Commerce.Payment.PayEx;
+	using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
+	using System;
+	using System.Text;
+	
+	namespace PayExProviderDemo.Commerce.Core.Payment.PayEx
+	{
+	    public class AdditionalValuesFormatter : IAdditionalValuesFormatter
+	    {
+	        public string Format(PayExPayment payExPayment)
+	        {
+	            StringBuilder stringBuilder = new StringBuilder();
+	            stringBuilder.AppendFormat("INVOICE_CUSTOMERID={0}", payExPayment.CustomerId);
+	
+	            DateTime sixDaysForward = payExPayment.Created.AddDays(6);
+	            stringBuilder.AppendFormat("&INVOICE_DUEDATE={0}", new DateTime(sixDaysForward.Year, sixDaysForward.Month, sixDaysForward.Day).ToString("yyyy-MM-dd"));
+	            return stringBuilder.ToString();
+	        }
+	    }
+	}
+
