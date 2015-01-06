@@ -8,8 +8,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
     {
         public string Generate(Cart cart)
         {
-            string num = new Random().Next(100, 999).ToString();
-            return string.Format("PO{0}{1}", cart.OrderGroupId, num);
+            string num = new Random().Next(1000, 9999).ToString();
+            return string.Format("{0}{1}", cart.OrderGroupId, num);
         }
     }
 }
