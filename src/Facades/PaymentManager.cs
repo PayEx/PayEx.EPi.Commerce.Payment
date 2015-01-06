@@ -7,7 +7,7 @@ using Mediachase.Commerce.Orders;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 {
-    internal class PaymentManager : IPaymentManager
+    public class PaymentManager : IPaymentManager
     {
         private readonly IOrderFacade _orderFacade;
         private readonly IHasher _hasher;

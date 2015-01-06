@@ -65,7 +65,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
             string dynamicAdditionalValues = _additionalValuesFormatter.Format(currentPayment.Payment as PayExPayment);
             if (!string.IsNullOrWhiteSpace(dynamicAdditionalValues))
             {
-                stringBuilder.Append("&");
+                if (!string.IsNullOrWhiteSpace(staticAdditionalValues))
+                    stringBuilder.Append("&");
+
                 stringBuilder.Append(dynamicAdditionalValues);
             }
 
