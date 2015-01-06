@@ -27,6 +27,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             get { return "INVOICESALE"; }
         }
 
+        public override PurchaseOperation PurchaseOperation
+        {
+            get { return PurchaseOperation.AUTHORIZATION; }
+        }
+
         public override PaymentInitializeResult Initialize()
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(

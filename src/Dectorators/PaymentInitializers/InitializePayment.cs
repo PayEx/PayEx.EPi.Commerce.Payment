@@ -45,7 +45,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
             string priceArgsList = _parameterReader.GetPriceArgsList(currentPayment.PaymentMethodDto);
             int vat = _parameterReader.GetVat(currentPayment.PaymentMethodDto);
             string defaultView = _parameterReader.GetDefaultView(currentPayment.PaymentMethodDto);
-            string purchaseOperation = _parameterReader.GetPurchaseOperation(currentPayment.PaymentMethodDto);
+            string purchaseOperation = currentPayment.PurchaseOperation.ToString();
 
             return new PaymentInformation(
                currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, vat,

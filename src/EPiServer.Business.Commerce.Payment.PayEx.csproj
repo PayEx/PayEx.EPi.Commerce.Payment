@@ -265,6 +265,7 @@
     <Compile Include="Models\PaymentMethods\PartPayment.cs" />
     <Compile Include="Models\PaymentMethods\PaymentMethod.cs" />
     <Compile Include="Models\PaymentMethods\PayPal.cs" />
+    <Compile Include="Models\PurchaseOperation.cs" />
     <Compile Include="Models\Result\AddressDetail.cs" />
     <Compile Include="Models\Result\AddressDetailCollection.cs" />
     <Compile Include="Models\Result\CaptureResult.cs" />

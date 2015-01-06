@@ -9,7 +9,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
     {
         private PaymentMethodDto _paymentMethodDto;
         private const string VatParameter = "Vat";
-        private const string PurchaseOperationParameter = "PurchaseOperation";
         private const string PriceListArgsParameter = "PriceListArgs";
         private const string AdditionalValuesParameter = "AdditionalValues";
         private const string DefaultViewParameter = "DefaultView";
@@ -41,12 +40,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 if (parameterByName != null)
                 {
                     VAT.Text = parameterByName.Value;
-                }
-
-                parameterByName = GetParameterByName(PurchaseOperationParameter);
-                if (parameterByName != null)
-                {
-                    PurchaseOperation.Text = parameterByName.Value;
                 }
 
                 parameterByName = GetParameterByName(AdditionalValuesParameter);
@@ -107,16 +100,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                     else
                     {
                         CreateParameter(_paymentMethodDto, VatParameter, VAT.Text, paymentMethodId);
-                    }
-
-                    parameterByName = GetParameterByName(PurchaseOperationParameter);
-                    if (parameterByName != null)
-                    {
-                        parameterByName.Value = PurchaseOperation.Text;
-                    }
-                    else
-                    {
-                        CreateParameter(_paymentMethodDto, PurchaseOperationParameter, PurchaseOperation.Text, paymentMethodId);
                     }
 
                     parameterByName = GetParameterByName(AdditionalValuesParameter);

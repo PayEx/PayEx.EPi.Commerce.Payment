@@ -67,6 +67,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         }
 
         public abstract string PaymentMethodCode { get; }
+        public abstract PurchaseOperation PurchaseOperation { get; }
         public abstract PaymentInitializeResult Initialize();
         public abstract PaymentCompleteResult Complete(string orderRef);
         public abstract bool Capture();
