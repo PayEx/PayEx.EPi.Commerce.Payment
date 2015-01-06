@@ -27,6 +27,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             _verificationManager = verificationManager;
         }
 
+        public override string PaymentMethodCode
+        {
+            get { return "VISA"; }
+        }
+
         public override PaymentInitializeResult Initialize()
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(

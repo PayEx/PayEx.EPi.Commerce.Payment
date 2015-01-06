@@ -24,6 +24,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             _cartActions = cartActions;
         }
 
+        public override string PaymentMethodCode
+        {
+            get { return "DD"; }
+        }
+
         public override PaymentInitializeResult Initialize()
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(

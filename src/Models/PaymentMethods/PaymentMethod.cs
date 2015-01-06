@@ -66,6 +66,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             PaymentMethodDto = Mediachase.Commerce.Orders.Managers.PaymentManager.GetPaymentMethod(payment.PaymentMethodId);
         }
 
+        public abstract string PaymentMethodCode { get; }
         public abstract PaymentInitializeResult Initialize();
         public abstract PaymentCompleteResult Complete(string orderRef);
         public abstract bool Capture();
