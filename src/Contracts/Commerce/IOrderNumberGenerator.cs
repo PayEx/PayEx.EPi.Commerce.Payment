@@ -4,6 +4,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce
 {
     public interface IOrderNumberGenerator
     {
-        string GenerateOrderNumber(Cart cart);
+        string Generate(Cart cart);
     }
 }

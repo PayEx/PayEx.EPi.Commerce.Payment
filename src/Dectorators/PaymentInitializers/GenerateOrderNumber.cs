@@ -1,5 +1,5 @@
-﻿using System;
-using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 
@@ -8,16 +8,18 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
     internal class GenerateOrderNumber : IPaymentInitializer
     {
         private readonly IPaymentInitializer _initializer;
+        private readonly IOrderNumberGenerator _orderNumberGenerator;
 
-        public GenerateOrderNumber(IPaymentInitializer initializer)
+        public GenerateOrderNumber(IPaymentInitializer initializer, IOrderNumberGenerator orderNumberGenerator)
         {
             _initializer = initializer;
+            _orderNumberGenerator = orderNumberGenerator;
         }
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
             if (string.IsNullOrWhiteSpace(orderNumber))
-                orderNumber = Generate(currentPayment.OrderGroupId);
+                orderNumber = _orderNumberGenerator.Generate(currentPayment.Cart);
 
             currentPayment.Payment.OrderNumber = orderNumber;
 
@@ -25,12 +27,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
                 currentPayment.Payment.Description = string.Format(currentPayment.Payment.Description, orderNumber);
 
             return _initializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef);
-        }
-
-        private string Generate(int orderGroupId)
-        {
-            string str = new Random().Next(1000, 9999).ToString();
-            return string.Format("{0}{1}", orderGroupId, str);
         }
     }
 }

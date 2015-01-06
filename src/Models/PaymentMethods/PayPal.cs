@@ -13,16 +13,18 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         private readonly IParameterReader _parameterReader;
         private readonly ILogger _logger;
         private readonly ICartActions _cartActions;
+        private readonly IOrderNumberGenerator _orderNumberGenerator;
         public PayPal() { } // Needed for unit testing
 
         public PayPal(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
-            IParameterReader parameterReader, ILogger logger, ICartActions cartActions)
+            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator)
             : base(payment)
         {
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
             _logger = logger;
             _cartActions = cartActions;
+            _orderNumberGenerator = orderNumberGenerator;
         }
 
         public override string PaymentMethodCode
@@ -44,7 +46,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(
                 new InitializePayment(
-                new RedirectUser(), _paymentManager, _parameterReader, _cartActions));
+                new RedirectUser(), _paymentManager, _parameterReader, _cartActions), _orderNumberGenerator);
             return initializer.Initialize(this, null, null, null);
         }
 

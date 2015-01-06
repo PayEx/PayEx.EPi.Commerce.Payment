@@ -12,14 +12,17 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
         private readonly ILogger _logger;
         private readonly ICartActions _cartActions;
         private readonly IVerificationManager _verificationManager;
+        private readonly IOrderNumberGenerator _orderNumberGenerator;
 
-        public PaymentMethodFactory(IPaymentManager paymentManager, IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IVerificationManager verificationManager)
+        public PaymentMethodFactory(IPaymentManager paymentManager, IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IVerificationManager verificationManager, 
+            IOrderNumberGenerator orderNumberGenerator)
         {
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
             _logger = logger;
             _cartActions = cartActions;
             _verificationManager = verificationManager;
+            _orderNumberGenerator = orderNumberGenerator;
         }
 
         public PaymentMethod Create(Mediachase.Commerce.Orders.Payment payment)
@@ -34,19 +37,19 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
             switch (systemKeyword)
             {
                 case "PayEx_DirectBankDebit":
-                    return new DirectBankDebit(payment, _paymentManager, _parameterReader, _logger, _cartActions);
+                    return new DirectBankDebit(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator);
                 case "PayEx_GiftCard":
-                    return new GiftCard(payment, _paymentManager, _parameterReader, _logger, _cartActions);
+                    return new GiftCard(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator);
                 case "PayEx_Invoice":
-                    return new Invoice(payment, _verificationManager, _paymentManager, _parameterReader, _cartActions);
+                    return new Invoice(payment, _verificationManager, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator);
                 case "PayEx_InvoiceLedger":
-                    return new InvoiceLedger(payment, _paymentManager, _parameterReader, _logger, _cartActions);
+                    return new InvoiceLedger(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator);
                 case "PayEx_PartPayment":
-                    return new PartPayment(payment, _paymentManager, _parameterReader, _logger, _cartActions);
+                    return new PartPayment(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator);
                 case "PayEx_PayPal":
-                    return new PayPal(payment, _paymentManager, _parameterReader, _logger, _cartActions);
+                    return new PayPal(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator);
                 default:
-                    return new CreditCard(payment, _paymentManager, _parameterReader, _logger, _cartActions, _verificationManager);
+                    return new CreditCard(payment, _paymentManager, _parameterReader, _logger, _cartActions, _verificationManager, _orderNumberGenerator);
             }
         }
     }

@@ -1,6 +1,8 @@
 ﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
+using Mediachase.Commerce.Orders;
 using Moq;
 using NUnit.Framework;
 
@@ -10,12 +12,14 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests.Decorators.Payment
     public class GenerateOrderNumberTests
     {
         private GenerateOrderNumber _orderNumberGenerator;
+        private Mock<IOrderNumberGenerator> _orderNumberGeneratorMock;
 
         [SetUp]
         public void Setup()
         {
             Mock<IPaymentInitializer> mockInitializer = new Mock<IPaymentInitializer>();
-            _orderNumberGenerator = new GenerateOrderNumber(mockInitializer.Object);
+            _orderNumberGeneratorMock = new Mock<IOrderNumberGenerator>();
+            _orderNumberGenerator = new GenerateOrderNumber(mockInitializer.Object, _orderNumberGeneratorMock.Object);
         }
 
         [Test]
@@ -24,6 +28,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests.Decorators.Payment
             CreditCard creditCard = new CreditCard();
             Mock<IPayExPayment> paymentMock = new Mock<IPayExPayment>();
             paymentMock.SetupAllProperties();
+
+            _orderNumberGeneratorMock.Setup(x => x.Generate(It.IsAny<Cart>())).Returns("Ordernumber");
 
             creditCard.Payment = paymentMock.Object;
             creditCard.OrderGroupId = 1000;
