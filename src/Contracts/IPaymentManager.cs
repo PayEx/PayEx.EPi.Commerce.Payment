@@ -4,7 +4,7 @@ using Mediachase.Commerce.Orders;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
-    internal interface IPaymentManager
+    public interface IPaymentManager
     {
         CompleteResult Complete(string orderRef);
         TransactionResult GetTransactionDetails(int transactionNumber);

@@ -18,6 +18,10 @@ TODO: EPiServer version?
 
 .NET Framework 4.5 or higher
 
+## Installing the PayEx payment provider ##
+
+1. Download the EPiServer.Business.Commerce.Payment.PayEx package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). The package must be added to both your Web project and your Commerce Manager.
+
 ## Extending the payment provider ##
 
 ### Generating order numbers ###

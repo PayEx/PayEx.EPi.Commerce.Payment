@@ -6,7 +6,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     internal class Logger : ILogger
     {
-        public const string DefaultApplicationLogger = "Epinova.PayExProvider";
+        public const string DefaultApplicationLogger = "EPiServer.Business.Commerce.Payment.PayEx";
 
         public enum LogType
         {

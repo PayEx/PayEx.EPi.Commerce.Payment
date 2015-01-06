@@ -1,6 +1,6 @@
 ﻿namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
-    internal class CustomerDetails
+    public class CustomerDetails
     {
         public string SocialSecurityNumber { get; set; }
         public string FirstName { get; set; }
