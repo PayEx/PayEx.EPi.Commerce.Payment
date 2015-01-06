@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
@@ -15,13 +16,16 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
         private readonly IPaymentManager _paymentManager;
         private readonly IParameterReader _parameterReader;
         private readonly ICartActions _cartActions;
+        private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
 
-        public InitializePayment(IPaymentInitializer paymentInitializer, IPaymentManager paymentManager, IParameterReader parameterReader, ICartActions cartActions)
+        public InitializePayment(IPaymentInitializer paymentInitializer, IPaymentManager paymentManager, IParameterReader parameterReader, ICartActions cartActions,
+            IAdditionalValuesFormatter additionalValuesFormatter)
         {
             _paymentInitializer = paymentInitializer;
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
             _cartActions = cartActions;
+            _additionalValuesFormatter = additionalValuesFormatter;
         }
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
@@ -36,7 +40,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
             if (_paymentInitializer != null)
                 return _paymentInitializer.Initialize(currentPayment, orderNumber, result.RedirectUrl, result.OrderRef.ToString());
 
-            return new PaymentInitializeResult {Success = true};
+            return new PaymentInitializeResult { Success = true };
         }
 
         private PaymentInformation CreateModel(PaymentMethod currentPayment, string orderNumber)
@@ -55,17 +59,17 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
 
         private string FormatAdditionalValues(PaymentMethod currentPayment)
         {
-            string additionalValues = _parameterReader.GetAdditionalValues(currentPayment.PaymentMethodDto);
-            if (string.IsNullOrWhiteSpace(additionalValues))
-                return string.Empty;
+            string staticAdditionalValues = _parameterReader.GetAdditionalValues(currentPayment.PaymentMethodDto);
+            StringBuilder stringBuilder = new StringBuilder(staticAdditionalValues);
 
-            additionalValues = string.Concat(additionalValues, string.Format("&INVOICE_CUSTOMERID={0}", currentPayment.Payment.CustomerId));
+            string dynamicAdditionalValues = _additionalValuesFormatter.Format(currentPayment.Payment as PayExPayment);
+            if (!string.IsNullOrWhiteSpace(dynamicAdditionalValues))
+            {
+                stringBuilder.Append("&");
+                stringBuilder.Append(dynamicAdditionalValues);
+            }
 
-            DateTime sixDaysForward = currentPayment.Payment.Created.AddDays(6);
-            additionalValues = string.Concat(additionalValues,
-                string.Format("&INVOICE_DUEDATE={0}",
-                    new DateTime(sixDaysForward.Year, sixDaysForward.Month, sixDaysForward.Day).ToString("yyyy-MM-dd")));
-            return additionalValues;
+            return stringBuilder.ToString();
         }
     }
 }

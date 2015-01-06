@@ -14,10 +14,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         private readonly ILogger _logger;
         private readonly ICartActions _cartActions;
         private readonly IOrderNumberGenerator _orderNumberGenerator;
+        private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         public InvoiceLedger() { } // Needed for unit testing
 
         public InvoiceLedger(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
-            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator)
+            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, IAdditionalValuesFormatter additionalValuesFormatter)
             : base(payment)
         {
             _paymentManager = paymentManager;
@@ -25,6 +26,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             _logger = logger;
             _cartActions = cartActions;
             _orderNumberGenerator = orderNumberGenerator;
+            _additionalValuesFormatter = additionalValuesFormatter;
         }
 
         public override string PaymentMethodCode
@@ -46,7 +48,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(
                  new InitializePayment(
-                 new RedirectUser(), _paymentManager, _parameterReader, _cartActions), _orderNumberGenerator);
+                 new RedirectUser(), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _orderNumberGenerator);
             return initializer.Initialize(this, null, null, null);
         }
 

@@ -200,16 +200,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CartHelper.cs" />
+    <Compile Include="Commerce\AdditionalValuesFormatter.cs" />
     <Compile Include="Commerce\CartActions.cs" />
     <Compile Include="Commerce\OrderNumberGenerator.cs" />
     <Compile Include="ConfigurePayment.ascx.cs">
-      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ConfigurePayment.ascx.designer.cs">
       <DependentUpon>ConfigurePayment.ascx.cs</DependentUpon>
     </Compile>
     <Compile Include="Constants.cs" />
+    <Compile Include="Contracts\Commerce\IAdditionalValuesFormatter.cs" />
     <Compile Include="Contracts\Commerce\ICartActions.cs" />
     <Compile Include="Contracts\Commerce\IOrderNumberGenerator.cs" />
     <Compile Include="Contracts\IHasher.cs" />
@@ -333,9 +334,6 @@
     <Content Include="Apps\Order\Payments\Plugins\PayEx_Invoice\ConfigurePayment.ascx" />
     <Content Include="Apps\Order\Payments\Plugins\PayEx_PartPayment\ConfigurePayment.ascx" />
     <Content Include="Apps\Order\Payments\Plugins\PayEx_PayPal\ConfigurePayment.ascx" />
-    <Content Include="ConfigurePayment.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
     <None Include="Service References\PxVerification\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

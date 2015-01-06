@@ -15,10 +15,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         private readonly ICartActions _cartActions;
         private readonly IVerificationManager _verificationManager;
         private readonly IOrderNumberGenerator _orderNumberGenerator;
+        private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         public CreditCard() { } // Needed for unit testing
 
         public CreditCard(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager, 
-            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IVerificationManager verificationManager, IOrderNumberGenerator orderNumberGenerator)
+            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IVerificationManager verificationManager, IOrderNumberGenerator orderNumberGenerator, 
+            IAdditionalValuesFormatter additionalValuesFormatter)
             : base(payment)
         {
             _paymentManager = paymentManager;
@@ -27,6 +29,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             _cartActions = cartActions;
             _verificationManager = verificationManager;
             _orderNumberGenerator = orderNumberGenerator;
+            _additionalValuesFormatter = additionalValuesFormatter;
         }
 
         public override string PaymentMethodCode
@@ -48,7 +51,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(
                     new InitializePayment(
-                    new RedirectUser(), _paymentManager, _parameterReader, _cartActions), _orderNumberGenerator);
+                    new RedirectUser(), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _orderNumberGenerator);
             return initializer.Initialize(this, null, null, null);
             //IPaymentInitializer initializer = new GenerateOrderNumber(
             //   new InitializePayment(
