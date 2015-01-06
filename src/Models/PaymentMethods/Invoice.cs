@@ -27,6 +27,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             get { return "INVOICESALE"; }
         }
 
+        public override string DefaultView
+        {
+            get { return "FACTORING"; }
+        }
+
         public override PurchaseOperation PurchaseOperation
         {
             get { return PurchaseOperation.AUTHORIZATION; }

@@ -32,6 +32,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             get { return "VISA"; }
         }
 
+        public override string DefaultView
+        {
+            get { return "CREDITCARD"; }
+        }
+
         public override PurchaseOperation PurchaseOperation
         {
             get { return PurchaseOperation.AUTHORIZATION; }

@@ -11,7 +11,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         private const string VatParameter = "Vat";
         private const string PriceListArgsParameter = "PriceListArgs";
         private const string AdditionalValuesParameter = "AdditionalValues";
-        private const string DefaultViewParameter = "DefaultView";
 
         public string ValidationGroup { get; set; }
 
@@ -46,12 +45,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 if (parameterByName != null)
                 {
                     AdditionalValues.Text = parameterByName.Value;
-                }
-
-                parameterByName = GetParameterByName(DefaultViewParameter);
-                if (parameterByName != null)
-                {
-                    DefaultView.Text = parameterByName.Value;
                 }
             }
             else
@@ -110,16 +103,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                     else
                     {
                         CreateParameter(_paymentMethodDto, AdditionalValuesParameter, AdditionalValues.Text, paymentMethodId);
-                    }
-
-                    parameterByName = GetParameterByName(DefaultViewParameter);
-                    if (parameterByName != null)
-                    {
-                        parameterByName.Value = DefaultView.Text;
-                    }
-                    else
-                    {
-                        CreateParameter(_paymentMethodDto, DefaultViewParameter, DefaultView.Text, paymentMethodId);
                     }
                 }
             }

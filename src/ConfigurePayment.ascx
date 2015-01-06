@@ -30,16 +30,5 @@
 		            <asp:TextBox Runat="server" ID="AdditionalValues" Width="300px"></asp:TextBox>
 	          </td>
         </tr>
-        <tr>
-            <td colspan="2" class="FormSpacerCell"></td>
-        </tr>
-        <tr>
-              <td class="FormLabelCell"><asp:Literal runat="server" Text="DefaultView" />:</td>
-	          <td class="FormFieldCell">
-		            <asp:TextBox Runat="server" ID="DefaultView" Width="300px"></asp:TextBox><br>
-		            <asp:RequiredFieldValidator ControlToValidate="DefaultView" Display="dynamic" Font-Name="verdana" Font-Size="9pt"
-			                ErrorMessage="DefaultView is required" runat="server"></asp:RequiredFieldValidator>
-	          </td>
-        </tr>
     </table>
 </div>

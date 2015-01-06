@@ -29,6 +29,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             get { return "DD"; }
         }
 
+        public override string DefaultView
+        {
+            get { return "DIRECTDEBIT"; }
+        }
+
         public override PurchaseOperation PurchaseOperation
         {
             get { return PurchaseOperation.SALE; }

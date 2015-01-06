@@ -9,7 +9,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         public const string VatParameter = "Vat";
         public const string PriceListArgsParameter = "PriceListArgs";
         public const string AdditionalValuesParameter = "AdditionalValues";
-        public const string DefaultViewParameter = "DefaultView";
 
         public string GetAdditionalValues(PaymentMethodDto paymentMethodDto)
         {
@@ -27,11 +26,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             if (int.TryParse(GetParameterByName(paymentMethodDto, VatParameter).Value, out vat))
                 return vat;
             return 0;
-        }
-
-        public string GetDefaultView(PaymentMethodDto paymentMethodDto)
-        {
-            return GetParameterByName(paymentMethodDto, DefaultViewParameter).Value;
         }
 
         internal PaymentMethodDto.PaymentMethodParameterRow GetParameterByName(PaymentMethodDto paymentMethodDto, string name)
