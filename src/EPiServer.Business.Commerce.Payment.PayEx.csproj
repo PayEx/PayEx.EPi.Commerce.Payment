@@ -202,8 +202,6 @@
     <Compile Include="CartHelper.cs" />
     <Compile Include="Commerce\CartActions.cs" />
     <Compile Include="Commerce\OrderNumberGenerator.cs" />
-    <Compile Include="Commerce\PurchaseOrder.cs" />
-    <Compile Include="Commerce\PurchaseOrderCreator.cs" />
     <Compile Include="ConfigurePayment.ascx.cs">
       <DependentUpon>ConfigurePayment.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -214,8 +212,6 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Contracts\Commerce\ICartActions.cs" />
     <Compile Include="Contracts\Commerce\IOrderNumberGenerator.cs" />
-    <Compile Include="Contracts\Commerce\IPurchaseOrder.cs" />
-    <Compile Include="Contracts\Commerce\IPurchaseOrderCreator.cs" />
     <Compile Include="Contracts\IHasher.cs" />
     <Compile Include="Contracts\ILogger.cs" />
     <Compile Include="Contracts\IOrderFacade.cs" />

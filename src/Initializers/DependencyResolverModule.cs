@@ -24,13 +24,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
 
             _container.Configure(x =>
             {
-                x.For<IPurchaseOrderCreator>().Use<PurchaseOrderCreator>();
                 x.For<IOrderNumberGenerator>().Use<OrderNumberGenerator>();
                 x.For<ICartActions>().Use<CartActions>();
                 x.For<IParameterReader>().Use<ParameterReader>();
                 x.For<IPaymentMethodFactory>().Use<PaymentMethodFactory>();
                 x.For<ILogger>().Use<Logger>();
-                x.For<IPurchaseOrder>().Use<PurchaseOrder>();
                 x.For<IHasher>().Use<Hash>();
                 x.For<IOrderFacade>().Use<Order>();
                 x.For<IPaymentManager>().Use<PaymentManager>();
