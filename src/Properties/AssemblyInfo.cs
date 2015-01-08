@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
 using Castle.Core.Internal;
 
 [assembly: AssemblyTitle("EPiServer.Business.Commerce.Payment.PayEx")]
-[assembly: AssemblyDescription("PayEx provider for EPiServer Commerce")]
+[assembly: AssemblyDescription("PayEx payment provider for EPiServer Commerce")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Epinova")]
+[assembly: AssemblyCompany("PayEx")]
 [assembly: AssemblyProduct("EPiServer.Business.Commerce.Payment.PayEx")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
