@@ -8,12 +8,19 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             public static class Namespace
             {
                 public const string Order = "Mediachase.Commerce.Orders";
+                public const string User = "Mediachase.Commerce.Orders.User";
                 public const string OrderGroup = "Mediachase.Commerce.Orders.System.OrderGroup";
+            }
+
+            public class OrderFormPayment
+            {
+                public const string ClassName = "OrderFormPayment";
             }
 
             public class Payment
             {
                 public const string ClassName = "PayExPayment";
+                public const string TableName = "OrderFormPaymentEx_PayExPayment";
                 public const string OrderNumber = "OrderNumber";
                 public const string PayExOrderRef = "PayExOrderRef";
                 public const string Description = "Description";

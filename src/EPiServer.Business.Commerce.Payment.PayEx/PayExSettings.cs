@@ -6,7 +6,7 @@ using EPiServer.PlugIn;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx
 {
-    [GuiPlugIn(Area = PlugInArea.None, DisplayName = "Epinova.PayExProvider Settings")]
+    [GuiPlugIn(Area = PlugInArea.None, DisplayName = "Settings for the PayEx payment provider")]
     public class PayExSettings : IPayExSettings
     {
         internal static Guid BroadcastSettingsChangedEventId = new Guid("75714741-2ec2-4317-8110-1b1b63818602");
@@ -35,9 +35,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
         [PlugInProperty(Description = "Payment system keyword prefix", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string SystemKeywordPrefix { get; set; }
-
-        [PlugInProperty(Description = "Invoice system keyword", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string InvoiceKeyword { get; set; }
 
         [PlugInProperty(Description = "Give PayEx information on each individual order line", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
         public bool IncludeOrderLines { get; set; }

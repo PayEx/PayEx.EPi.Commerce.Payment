@@ -55,6 +55,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
 
             MetaDataContext mdContext = CatalogContext.MetaDataContext;
 
+            CreateMetaClass(mdContext, Constants.Metadata.OrderFormPayment.ClassName, Constants.Metadata.Namespace.User, Constants.Metadata.Payment.ClassName,
+                Constants.Metadata.Payment.TableName, string.Empty);
+
             foreach (var item in metadataInfo)
             {
                 var metaField = CreateMetaField(mdContext, item.MetadataNamespace, item.MetaFieldName, item.Type, item.Length, item.AllowNulls, item.CultureSpecific);
@@ -67,6 +70,13 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
         public void Uninitialize(InitializationEngine context)
         {
             //Add uninitialization logic
+        }
+
+        private void CreateMetaClass(MetaDataContext mdContext, string parentName, string metaDataNamespace, string name, string tableName, string description)
+        {
+            MetaClass parentClass = MetaClass.Load(mdContext, parentName);
+            if (MetaClass.Load(mdContext, name) == null)
+                MetaClass.Create(mdContext, metaDataNamespace, name, name, tableName, parentClass, false, description);
         }
 
         private MetaField CreateMetaField(MetaDataContext mdContext, string metaDataNamespace, string name, MetaDataType type, int length, bool allowNulls, bool cultureSpecific)
