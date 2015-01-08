@@ -78,7 +78,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\EPiServer.Business.Commerce.Payment.PayEx.csproj">
+    <ProjectReference Include="..\..\src\EPiServer.Business.Commerce.Payment.PayEx\EPiServer.Business.Commerce.Payment.PayEx.csproj">
       <Project>{7cb1d4e3-da0f-4ebe-b07b-4585623ff3e6}</Project>
       <Name>EPiServer.Business.Commerce.Payment.PayEx</Name>
     </ProjectReference>
