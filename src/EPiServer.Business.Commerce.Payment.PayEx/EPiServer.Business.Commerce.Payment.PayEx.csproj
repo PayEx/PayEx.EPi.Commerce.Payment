@@ -300,7 +300,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="EPiServer.Business.Commerce.Payment.PayEx.nuspec" />
     <None Include="packages.config" />
     <None Include="Service References\PxOrder\EPiServer.Business.Commerce.Payment.PayEx.PxOrder.AddMultipleOrderLinesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
