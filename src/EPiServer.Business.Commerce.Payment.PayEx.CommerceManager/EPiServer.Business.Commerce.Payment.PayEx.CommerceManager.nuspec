@@ -9,16 +9,12 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Commerce Manager package for the PayEx payment provider for EPiServer Commerce</description>
     <copyright>Copyright 2015 - PayEx</copyright>
-    <tags>EPiServer Commerce PayEx</tags>
+    <tags>EPiServer Commerce CommerceManager PayEx</tags>
+    <dependencies>
+      <dependency id="EPiServer.Business.Commerce.Payment.PayEx" version="[1.0, 2.5)" />
+    </dependencies>
   </metadata>
   <files>
     <file src="\Apps\**\*.ascx" target="content\Apps" />
-    <!--<file src="\Apps\Order\Payments\Plugins\PayEx_CreditCard\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_CreditCard" />
-    <file src="\Apps\Order\Payments\Plugins\PayEx_DirectDebit\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_DirectDebit" />
-    <file src="\Apps\Order\Payments\Plugins\PayEx_GiftCard\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_GiftCard" />
-    <file src="\Apps\Order\Payments\Plugins\PayEx_Invoice\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_Invoice" />
-    <file src="\Apps\Order\Payments\Plugins\PayEx_InvoiceLedger\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_InvoiceLedger" />
-    <file src="\Apps\Order\Payments\Plugins\PayEx_PartPayment\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_PartPayment" />
-    <file src="\Apps\Order\Payments\Plugins\PayEx_PayPal\ConfigurePayment.ascx" target="content\Apps\Order\Payments\Plugins\PayEx_PayPal" />-->
   </files>
 </package>
