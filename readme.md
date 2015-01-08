@@ -20,7 +20,9 @@ TODO: Agreement with PayEx?
 
 ## Installing the PayEx payment provider ##
 
-1. Download the EPiServer.Business.Commerce.Payment.PayEx package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). The package must be added to both your Web project and your Commerce Manager.
+1. Download the EPiServer.Business.Commerce.Payment.PayEx package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Web project**. 
+
+2. Download the EPiServer.Business.Commerce.Payment.PayEx.CommerceManager package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Commerce Manager project**.
 
 2. TODO: Fill in PayEx account details in module settings
 3. TODO:Create PayExPayment meta klasse
