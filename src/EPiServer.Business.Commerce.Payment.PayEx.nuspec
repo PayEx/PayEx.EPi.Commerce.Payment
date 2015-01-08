@@ -13,6 +13,6 @@
   </metadata>  
   <files>
     <file src="\bin\EPiServer.Business.Commerce.Payment.PayEx.dll" target="lib\net45"/>
-    <file src="\Apps\**\*.ascx" target="content\Apps" exclude="**\*.ascx" />
+    <file src="\Apps\**\*.ascx" target="content\Apps" exclude="\Apps\**\*.ascx" />
   </files>
 </package>
