@@ -33,9 +33,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         [PlugInProperty(Description = "PayEx callback IP-address", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string PayExCallbackIpAddress { get; set; }
 
-        [PlugInProperty(Description = "Payment system keyword prefix", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string SystemKeywordPrefix { get; set; }
-
         [PlugInProperty(Description = "Give PayEx information on each individual order line", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
         public bool IncludeOrderLines { get; set; }
 

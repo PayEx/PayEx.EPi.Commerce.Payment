@@ -10,6 +10,5 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
         string UserAgentFormat { get; }
         string DescriptionFormat { get; }
         string PayExCallbackIpAddress { get; }
-        string SystemKeywordPrefix { get; }
     }
 }
