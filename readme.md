@@ -24,8 +24,12 @@ TODO: Agreement with PayEx?
 
 2. Download the EPiServer.Business.Commerce.Payment.PayEx.CommerceManager package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Commerce Manager project**.
 
-2. TODO: Fill in PayEx account details in module settings
-3. TODO:Create PayExPayment meta klasse
+3. Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Manager* under *Tool Settings*. Click on the *EPiServer.Business.Commerce.Payment.PayEx* plugin and fill in the following settings: 
+
+**Merchants PayEx account number**: The merchants PayEx account number given to you by PayEx.
+**PayEx Encryption Key**: The encryption key generated in PayEx Admin
+
+4. TODO:Create PayExPayment meta klasse
 
 ## Extending the payment provider ##
 

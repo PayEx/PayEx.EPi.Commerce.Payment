@@ -12,7 +12,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         internal static Guid BroadcastSettingsChangedEventId = new Guid("75714741-2ec2-4317-8110-1b1b63818602");
         private static PayExSettings _instance;
 
-        [PlugInProperty(Description = "PayEx Account Number", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
+        [PlugInProperty(Description = "Merchants PayEx account number", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public long AccountNumber { get; set; }
 
         [PlugInProperty(Description = "PayEx Encryption Key", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
