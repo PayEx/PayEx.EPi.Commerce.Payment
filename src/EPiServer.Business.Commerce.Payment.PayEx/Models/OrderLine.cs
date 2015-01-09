@@ -1,7 +1,7 @@
 ﻿
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
-    internal class OrderLine
+    public class OrderLine
     {
         public long AccountNumber { get; private set; }
         public string OrderRef { get; private set; }
