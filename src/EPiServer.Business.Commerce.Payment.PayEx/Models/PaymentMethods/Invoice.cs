@@ -1,6 +1,7 @@
 ﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
@@ -36,6 +37,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             get { return "FACTORING"; }
         }
 
+        public override bool RequireAddressUpdate
+        {
+            get { return false; }
+        }
+
         public override PurchaseOperation PurchaseOperation
         {
             get { return PurchaseOperation.AUTHORIZATION; }
@@ -63,6 +69,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         public override bool Credit()
         {
             throw new System.NotImplementedException();
+        }
+
+        public override Address GetAddressFromPayEx(TransactionResult transactionResult)
+        {
+            return null;
         }
     }
 }

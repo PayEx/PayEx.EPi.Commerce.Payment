@@ -1,5 +1,6 @@
 ﻿using System;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Dto;
 
@@ -68,11 +69,13 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 
         public abstract string PaymentMethodCode { get; }
         public abstract string DefaultView { get; }
+        public abstract bool RequireAddressUpdate { get; }
         public abstract PurchaseOperation PurchaseOperation { get; }
         public abstract PaymentInitializeResult Initialize();
         public abstract PaymentCompleteResult Complete(string orderRef);
         public abstract bool Capture();
         public abstract bool Credit();
+        public abstract Address GetAddressFromPayEx(TransactionResult transactionResult);
 
         private bool TransactionTypeEquals(TransactionType transactionType)
         {

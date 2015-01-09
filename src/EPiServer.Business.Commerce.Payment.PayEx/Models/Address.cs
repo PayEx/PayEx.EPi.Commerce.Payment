@@ -18,6 +18,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models
         public string Mobile { get; set; }
         public string Email { get; set; }
 
+        public string Fullname
+        {
+            get { return FirstName + " " + LastName; }
+        }
+
         public void Populate(OrderAddress orderAddress)
         {
             FirstName = orderAddress.FirstName;

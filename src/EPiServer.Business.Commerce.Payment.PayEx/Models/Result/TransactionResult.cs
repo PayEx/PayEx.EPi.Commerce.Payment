@@ -1,5 +1,6 @@
 ﻿
 using System.Xml.Serialization;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
@@ -11,6 +12,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 
         [XmlElement("addressDetails")]
         public AddressDetailCollection AddressCollection { get; set; }
+
+        [XmlElement("invoice")]
+        public InvoiceDetails Invoice { get; set; }
 
         public string CustomerName
         {

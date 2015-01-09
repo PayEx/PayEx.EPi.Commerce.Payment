@@ -3,6 +3,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
@@ -38,6 +39,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             get { return "DIRECTDEBIT"; }
         }
 
+        public override bool RequireAddressUpdate
+        {
+            get { return false; }
+        }
+
         public override PurchaseOperation PurchaseOperation
         {
             get { return PurchaseOperation.SALE; }
@@ -66,6 +72,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         {
             IPaymentCreditor creditor = new CreditPayment(null, _logger, _paymentManager, _parameterReader);
             return creditor.Credit(this);
+        }
+
+        public override Address GetAddressFromPayEx(TransactionResult transactionResult)
+        {
+            return null;
         }
     }
 }

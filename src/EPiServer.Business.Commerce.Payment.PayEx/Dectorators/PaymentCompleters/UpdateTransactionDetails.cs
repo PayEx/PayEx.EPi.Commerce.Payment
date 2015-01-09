@@ -2,6 +2,7 @@
 using System.Linq;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 using Mediachase.Commerce.Orders;
 using Mediachase.Data.Provider;
@@ -30,7 +31,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
                 return new PaymentCompleteResult();
 
             TransactionResult transactionDetails = _paymentManager.GetTransactionDetails(transactionNumber);
-            bool updated = UpdateOrderAddress(currentPayment, transactionDetails);
+            bool updated = false;
+            if (transactionDetails != null)
+                updated = UpdateOrderAddress(currentPayment, transactionDetails);
 
             PaymentCompleteResult result = new PaymentCompleteResult { Success = true };
             if (_paymentCompleter != null)
@@ -40,43 +43,61 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
             return result;
         }
 
-        private bool UpdateOrderAddress(PaymentMethod currentPayment, TransactionResult transactionDetails)
+        private bool UpdateOrderAddress(PaymentMethod currentPayment, TransactionResult transactionDetails2)
         {
+            if (!currentPayment.RequireAddressUpdate)
+                return true;
+
+            Address newAddress = currentPayment.GetAddressFromPayEx(transactionDetails2);
+            if (newAddress == null)
+                return false;
+
             bool updated = false;
             Cart cart = currentPayment.Cart;
-            OrderAddress billingAddress = GetBillingAddress(cart);
+            OrderAddress shippingAddress = GetShippingAddress(cart);
 
-            if (!string.IsNullOrWhiteSpace(transactionDetails.CustomerName))
+            if (!string.IsNullOrWhiteSpace(newAddress.FirstName))
             {
-                cart.CustomerName = transactionDetails.CustomerName;
-                string[] names = transactionDetails.CustomerName.Split(' ');
-                billingAddress.FirstName = names[0];
-                if (names.Length > 1)
-                    billingAddress.LastName = string.Join(" ", names.Skip(1));
+                shippingAddress.FirstName = newAddress.FirstName;
                 updated = true;
             }
 
-            if (!string.IsNullOrWhiteSpace(transactionDetails.Address))
+            if (!string.IsNullOrWhiteSpace(newAddress.LastName))
             {
-                billingAddress.Line1 = transactionDetails.Address;
+                shippingAddress.LastName = newAddress.LastName;
                 updated = true;
             }
 
-            if (!string.IsNullOrWhiteSpace(transactionDetails.PostNumber))
+            if (!string.IsNullOrWhiteSpace(newAddress.Fullname))
+                cart.CustomerName = newAddress.Fullname;
+
+            if (!string.IsNullOrWhiteSpace(newAddress.Line1))
             {
-                billingAddress.PostalCode = transactionDetails.PostNumber;
+                shippingAddress.Line1 = newAddress.Line1;
                 updated = true;
             }
 
-            if (!string.IsNullOrWhiteSpace(transactionDetails.City))
+            if (!string.IsNullOrWhiteSpace(newAddress.PostCode))
             {
-                billingAddress.City = transactionDetails.City;
+                shippingAddress.PostalCode = newAddress.PostCode;
                 updated = true;
             }
 
-            if (!string.IsNullOrWhiteSpace(transactionDetails.Country))
+            if (!string.IsNullOrWhiteSpace(newAddress.City))
             {
-                billingAddress.CountryName = transactionDetails.Country;
+                shippingAddress.City = newAddress.City;
+                updated = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(newAddress.Country))
+            {
+                shippingAddress.CountryName = newAddress.Country;
+                updated = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(newAddress.Email))
+            {
+                shippingAddress.Email = newAddress.Email;
                 updated = true;
             }
 
@@ -86,7 +107,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
                 {
                     using (TransactionScope scope = new TransactionScope())
                     {
-                        billingAddress.AcceptChanges();
+                        shippingAddress.AcceptChanges();
                         cart.AcceptChanges();
                         scope.Complete();
                     }
@@ -100,12 +121,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
             }
         }
 
-        public OrderAddress GetBillingAddress(OrderGroup orderGroup)
+        public OrderAddress GetShippingAddress(OrderGroup orderGroup)
         {
             OrderForm orderForm = orderGroup.OrderForms.ToArray().First();
-            if (orderForm == null || string.IsNullOrEmpty(orderForm.BillingAddressId))
+            if (orderForm == null || orderForm.Shipments == null || orderForm.Shipments.Count == 0 || string.IsNullOrEmpty(orderForm.Shipments[0].ShippingAddressId))
                 return null;
-            return orderGroup.OrderAddresses.ToArray().FirstOrDefault(x => x.Name.Equals(orderForm.BillingAddressId, StringComparison.OrdinalIgnoreCase));
+            return orderGroup.OrderAddresses.ToArray().FirstOrDefault(x => x.Name.Equals(orderForm.Shipments[0].ShippingAddressId, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

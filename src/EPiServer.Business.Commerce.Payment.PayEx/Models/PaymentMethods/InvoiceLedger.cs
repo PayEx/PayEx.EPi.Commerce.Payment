@@ -1,9 +1,11 @@
-﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+﻿using System.Linq;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCapturers;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
+using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
@@ -39,6 +41,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             get { return "INVOICE"; }
         }
 
+        public override bool RequireAddressUpdate
+        {
+            get { return true; }
+        }
+
         public override PurchaseOperation PurchaseOperation
         {
             get { return PurchaseOperation.AUTHORIZATION; }
@@ -69,6 +76,28 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         {
             IPaymentCreditor creditor = new CreditPaymentByOrderLines(null, _logger, _paymentManager);
             return creditor.Credit(this);
+        }
+
+        public override Address GetAddressFromPayEx(TransactionResult transactionResult)
+        {
+            if (transactionResult.Invoice == null || string.IsNullOrWhiteSpace(transactionResult.CustomerName))
+                return null;
+
+            string lastName = string.Empty;
+            string[] names = transactionResult.Invoice.CustomerName.Split(' ');
+            string firstName = names[0];
+            if (names.Length > 1)
+                lastName = string.Join(" ", names.Skip(1));
+
+            return new Address
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Line1 = transactionResult.Invoice.CustomerStreetAddress,
+                PostCode = transactionResult.Invoice.CustomerPostNumber,
+                City = transactionResult.Invoice.CustomerCity,
+                Email = transactionResult.Invoice.CustomerEmail
+            };
         }
     }
 }
