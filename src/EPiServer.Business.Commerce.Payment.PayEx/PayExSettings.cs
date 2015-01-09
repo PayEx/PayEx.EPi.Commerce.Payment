@@ -39,6 +39,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         [PlugInProperty(Description = "Give PayEx address information for the customer", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
         public bool IncludeCustomerAddress { get; set; }
 
+        [PlugInProperty(Description = "Disable automatic payment method creation during initialization", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
+        public bool DisablePaymentMethodCreation { get; set; }
+
         private PayExSettings()
         {
             PlugInSettings.SettingsChanged += BroadcastToAllServers;
