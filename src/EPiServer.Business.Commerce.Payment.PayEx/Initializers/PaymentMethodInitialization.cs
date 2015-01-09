@@ -126,28 +126,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
             return string.Format("{0}, {1}", type, type.Assembly.GetName().Name);
         }
 
-        //public void Test()
-        //{
-        //    PaymentMethodDto paymentMethod = new PaymentMethodDto();
-        //    PaymentMethodDto.PaymentMethodRow paymentMethodRow = paymentMethod.PaymentMethod.NewPaymentMethodRow();
-        //    paymentMethodRow[paymentMethod.PaymentMethod.PaymentMethodIdColumn] = (object)Guid.NewGuid();
-        //    paymentMethodRow[paymentMethod.PaymentMethod.ApplicationIdColumn] = (object)AppContext.Current.ApplicationId;
-        //    paymentMethodRow[paymentMethod.PaymentMethod.NameColumn] = "Test";
-        //    paymentMethodRow[paymentMethod.PaymentMethod.DescriptionColumn] = "Test";
-        //    paymentMethodRow[paymentMethod.PaymentMethod.LanguageIdColumn] = "no";
-        //    paymentMethodRow[paymentMethod.PaymentMethod.SystemKeywordColumn] = "Test";
-        //    paymentMethodRow[paymentMethod.PaymentMethod.IsActiveColumn] = (false);
-        //    paymentMethodRow[paymentMethod.PaymentMethod.IsDefaultColumn] = (false);
-        //    paymentMethodRow[paymentMethod.PaymentMethod.ClassNameColumn] = "EPiServer.Business.Commerce.Payment.PayEx.PayExPaymentGateway, EPiServer.Business.Commerce.Payment.PayEx";
-        //    paymentMethodRow[paymentMethod.PaymentMethod.PaymentImplementationClassNameColumn] = "EPiServer.Business.Commerce.Payment.PayEx.PayExPayment, EPiServer.Business.Commerce.Payment.PayEx";
-        //    paymentMethodRow[paymentMethod.PaymentMethod.SupportsRecurringColumn] = false;
-        //    paymentMethodRow[paymentMethod.PaymentMethod.OrderingColumn] = 1000;
-        //    paymentMethodRow[paymentMethod.PaymentMethod.CreatedColumn] = FrameworkContext.Current.CurrentDateTime;
-        //    paymentMethodRow[paymentMethod.PaymentMethod.ModifiedColumn] = FrameworkContext.Current.CurrentDateTime;
-        //    paymentMethod.PaymentMethod.Rows.Add(paymentMethodRow);
-        //    PaymentManager.SavePayment(paymentMethod);
-        //}
-
         private class PaymentMethodInfo
         {
             public string SystemKeyword { get; set; }

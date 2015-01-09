@@ -38,7 +38,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
 
             switch (systemKeyword)
             {
-                case "PayEx_DirectBankDebit":
+                case "PayEx_DirectDebit":
                     return new DirectBankDebit(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter);
                 case "PayEx_GiftCard":
                     return new GiftCard(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter);
