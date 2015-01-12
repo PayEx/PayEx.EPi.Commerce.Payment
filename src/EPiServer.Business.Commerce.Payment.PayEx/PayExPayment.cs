@@ -117,13 +117,19 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             }
         }
 
-        public PayExPayment(string clientIpAddress, string description, string productNumber, string cancelUrl, string returnUrl)
+        /// <summary>
+        /// Create a new PayExPayment
+        /// </summary>
+        /// <param name="clientIpAddress">Clients IP address</param>
+        /// <param name="productNumber">Merchant product number/reference for this specific product. We recommend that only the characters A-Z and 0-9 are used in this parameter.</param>
+        /// <param name="cancelUrl">A string identifying the full URL for the page the user will be redirected to when the Cancel Purchase button is pressed by the user. We do not add data to the end of this string. Set to blank if you don’t want this functionality. (Note: This is the PayEx cancel button, and must not be associated with cancel buttons in the customers bank.)</param>
+        /// <param name="returnUrl">A string identifying the full URL for the page the user will be redirected to after a successful purchase. We will add orderRef to the existing query, and if no query is supplied to the URL, then the query will be added.</param>
+        /// <param name="description">Merchant’s description of the product. Can be empty.</param>
+        public PayExPayment(string clientIpAddress, string productNumber, string cancelUrl, string returnUrl, string description)
             : base(PayExPaymentMetaClass)
         {
             if (clientIpAddress == null || string.IsNullOrWhiteSpace(clientIpAddress))
                 throw new ArgumentException("clientIpAddress cannot be null or empty", "clientIpAddress");
-            if (description == null || string.IsNullOrWhiteSpace(description))
-                throw new ArgumentException("description cannot be null or empty", "description");
             if (productNumber == null || string.IsNullOrWhiteSpace(productNumber))
                 throw new ArgumentException("productNumber cannot be null or empty", "productNumber");
             if (cancelUrl == null || string.IsNullOrWhiteSpace(cancelUrl))
@@ -132,7 +138,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 throw new ArgumentException("returnUrl cannot be null or empty", "returnUrl");
 
             ClientIpAddress = clientIpAddress;
-            Description = description;
+            Description = description ?? string.Empty;
             ProductNumber = productNumber;
             CancelUrl = cancelUrl;
             ReturnUrl = returnUrl;
