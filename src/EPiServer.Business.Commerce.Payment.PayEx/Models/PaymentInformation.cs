@@ -24,8 +24,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models
         public string ClientLanguage { get; private set; }
         public string EncryptionKey { get; private set; }
 
-        public PaymentInformation(long lowestUnitPrice, string priceArgList, string currency, int vat, string orderId, string productNumber, string description, string clientIpAddress, string clientIdentifier,
-            string additionalValues, string returnUrl, string view, string agreementRef, string cancelUrl, string clientLanguage, string purchaseOperation)
+        public PaymentInformation(long lowestUnitPrice, string priceArgList, string currency, int vat, string orderId, string productNumber, string description, string clientIpAddress,
+            string additionalValues, string returnUrl, string view, string cancelUrl, string clientLanguage, string purchaseOperation)
         {
             if (!string.IsNullOrWhiteSpace(priceArgList))
             {
@@ -44,11 +44,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models
             ProductNumber = productNumber;
             Description = description;
             ClientIpAddress = clientIpAddress;
-            ClientIdentifier = clientIdentifier;
+            ClientIdentifier = string.Empty; // The information in this field is only used if you are implementing Credit Card in the direct model. And the direct model is not supported by this provider
             AdditionalValues = additionalValues;
             ReturnUrl = string.Format(returnUrl, orderId);
             View = view;
-            AgreementRef = agreementRef;
+            AgreementRef = string.Empty; // The provider does not support recurring payments
             CancelUrl = cancelUrl;
             ClientLanguage = clientLanguage;
             PurchaseOperation = purchaseOperation;

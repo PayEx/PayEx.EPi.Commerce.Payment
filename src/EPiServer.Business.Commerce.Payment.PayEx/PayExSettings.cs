@@ -18,15 +18,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         [PlugInProperty(Description = "PayEx Encryption Key", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string EncryptionKey { get; set; }
 
-        [PlugInProperty(Description = "Payment Cancel URL", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string PaymentCancelUrl { get; set; }
-
-        [PlugInProperty(Description = "Payment Return URL", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string PaymentReturnUrl { get; set; }
-
-        [PlugInProperty(Description = "User Agent format", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
-        public string UserAgentFormat { get; set; }
-
         [PlugInProperty(Description = "PayEx description format", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string DescriptionFormat { get; set; }
 

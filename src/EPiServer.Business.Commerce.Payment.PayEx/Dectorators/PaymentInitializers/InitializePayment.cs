@@ -53,7 +53,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
             return new PaymentInformation(
                currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, vat,
                orderNumber, currentPayment.Payment.ProductNumber, currentPayment.Payment.Description, currentPayment.Payment.ClientIpAddress,
-               currentPayment.Payment.ClientUserAgent, additionalValues, currentPayment.Payment.ReturnUrl, currentPayment.DefaultView, currentPayment.Payment.AgreementReference,
+               additionalValues, currentPayment.Payment.ReturnUrl, currentPayment.DefaultView, 
                currentPayment.Payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName, purchaseOperation);
         }
 

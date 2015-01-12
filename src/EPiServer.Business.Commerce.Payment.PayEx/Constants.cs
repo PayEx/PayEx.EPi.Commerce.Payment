@@ -26,11 +26,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 public const string Description = "Description";
                 public const string ProductNumber = "ProductNumber";
                 public const string ClientIpAddress = "ClientIpAddress";
-                public const string ClientUserAgent = "ClientUserAgent";
                 public const string CancelUrl = "CancelUrl";
                 public const string ReturnUrl = "ReturnUrl";
                 public const string CustomerId = "CustomerId";
-                public const string AgreementReference = "AgreementReference";
             }
 
             public static class OrderForm

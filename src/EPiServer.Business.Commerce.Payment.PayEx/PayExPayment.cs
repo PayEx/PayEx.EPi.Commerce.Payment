@@ -81,18 +81,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             }
         }
 
-        public string ClientUserAgent
-        {
-            get
-            {
-                return GetString("ClientUserAgent");
-            }
-            set
-            {
-                this["ClientUserAgent"] = value;
-            }
-        }
-
         public string CancelUrl
         {
             get
@@ -129,21 +117,26 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             }
         }
 
-        public string AgreementReference
-        {
-            get
-            {
-                return GetString("AgreementReference");
-            }
-            set
-            {
-                this["AgreementReference"] = value;
-            }
-        }
-
-        public PayExPayment()
+        public PayExPayment(string clientIpAddress, string description, string productNumber, string cancelUrl, string returnUrl)
             : base(PayExPaymentMetaClass)
         {
+            if (clientIpAddress == null || string.IsNullOrWhiteSpace(clientIpAddress))
+                throw new ArgumentException("clientIpAddress cannot be null or empty", "clientIpAddress");
+            if (description == null || string.IsNullOrWhiteSpace(description))
+                throw new ArgumentException("description cannot be null or empty", "description");
+            if (productNumber == null || string.IsNullOrWhiteSpace(productNumber))
+                throw new ArgumentException("productNumber cannot be null or empty", "productNumber");
+            if (cancelUrl == null || string.IsNullOrWhiteSpace(cancelUrl))
+                throw new ArgumentException("cancelUrl cannot be null or empty", "cancelUrl");
+            if (returnUrl == null || string.IsNullOrWhiteSpace(returnUrl))
+                throw new ArgumentException("returnUrl cannot be null or empty", "returnUrl");
+
+            ClientIpAddress = clientIpAddress;
+            Description = description;
+            ProductNumber = productNumber;
+            CancelUrl = cancelUrl;
+            ReturnUrl = returnUrl;
+
             PaymentType = PaymentType.Other;
             ImplementationClass = GetType().AssemblyQualifiedName;
         }

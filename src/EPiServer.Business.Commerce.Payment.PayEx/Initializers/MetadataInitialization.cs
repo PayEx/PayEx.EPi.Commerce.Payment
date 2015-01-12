@@ -45,11 +45,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
                 new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.Description, MetaDataType.ShortString, 255, true, false, Constants.Metadata.Payment.ClassName),
                 new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.ProductNumber, MetaDataType.ShortString, 255, true, false, Constants.Metadata.Payment.ClassName),
                 new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.ClientIpAddress, MetaDataType.ShortString, 255, true, false, Constants.Metadata.Payment.ClassName),
-                new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.ClientUserAgent, MetaDataType.ShortString, 255, true, false, Constants.Metadata.Payment.ClassName),
                 new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.CancelUrl, MetaDataType.ShortString, 255, true, false, Constants.Metadata.Payment.ClassName),
                 new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.ReturnUrl, MetaDataType.ShortString, 255, true, false, Constants.Metadata.Payment.ClassName),
                 new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.CustomerId, MetaDataType.ShortString, 255, true, false, Constants.Metadata.Payment.ClassName),
-                new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.AgreementReference, MetaDataType.ShortString, 255, true, false, Constants.Metadata.Payment.ClassName),
                 new MetadataInfo(Constants.Metadata.Namespace.OrderGroup, Constants.Metadata.OrderForm.PaymentMethodCode, MetaDataType.ShortString, 255, true, false, Constants.Metadata.OrderForm.ClassName),
             };
 
