@@ -15,7 +15,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
-            var a = _verificationManager.GetConsumerLegalAddress("195907195662", "SE");
+            var a = _verificationManager.GetConsumerLegalAddress("197311012525", "SE");
             return new PaymentInitializeResult { Success = true };
         }
     }

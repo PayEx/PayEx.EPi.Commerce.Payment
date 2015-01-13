@@ -143,9 +143,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 throw new ArgumentException("cancelUrl cannot be null or empty", "cancelUrl");
             if (returnUrl == null || string.IsNullOrWhiteSpace(returnUrl))
                 throw new ArgumentException("returnUrl cannot be null or empty", "returnUrl");
+            if (description == null || string.IsNullOrWhiteSpace(description))
+                throw new ArgumentException("description cannot be null or empty", "description");
 
             ClientIpAddress = clientIpAddress;
-            Description = description ?? string.Empty;
+            Description = description;
             ProductNumber = productNumber;
             CancelUrl = cancelUrl;
             ReturnUrl = returnUrl;

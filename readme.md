@@ -27,6 +27,7 @@ TODO: Agreement with PayEx?
 3. Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Manager* under *Tool Settings*. Click on the *EPiServer.Business.Commerce.Payment.PayEx* plugin and fill in the following settings: 
 
 **Merchants PayEx account number**: The merchants PayEx account number given to you by PayEx.
+
 **PayEx Encryption Key**: The encryption key generated in PayEx Admin
 
 4. TODO:Create PayExPayment meta klasse
