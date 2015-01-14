@@ -1,4 +1,6 @@
-﻿namespace EPiServer.Business.Commerce.Payment.PayEx.Models
+﻿using Newtonsoft.Json;
+
+namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
     public class CustomerDetails
     {
@@ -13,5 +15,10 @@
         public string Email { get; set; }
         public string MobilePhone { get; set; }
         public string IpAddress { get; set; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

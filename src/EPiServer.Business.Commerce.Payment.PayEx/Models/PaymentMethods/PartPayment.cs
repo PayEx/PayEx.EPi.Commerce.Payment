@@ -47,6 +47,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             get { return false; }
         }
 
+        public override bool IsDirectModel
+        {
+            get { return true; }
+        }
+
         public override PurchaseOperation PurchaseOperation
         {
             get { return PurchaseOperation.AUTHORIZATION; }

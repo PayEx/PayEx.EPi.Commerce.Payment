@@ -21,20 +21,23 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             _resultParser = resultParser;
         }
 
-        public InitializeResult Initialize(Cart cart, PaymentInformation payment)
+        public InitializeResult Initialize(Cart cart, PaymentInformation payment, bool ignoreOrderLines = false, bool ignoreCustomerAddress = false)
         {
+            _logger.LogInfo(string.Format("Calling Initialize for cart with ID:{0}. PaymentInformation:{1}", cart.Id, payment));
+
             string hash = _hasher.Create(payment);
             string xmlResult = _orderFacade.Initialize(payment, hash);
-            _logger.LogDebug(xmlResult);
+
+            _logger.LogInfo(string.Format("Finished calling Initialize for cart with ID:{0}. Result:{1}", cart.Id, xmlResult));
 
             InitializeResult result = _resultParser.Deserialize<InitializeResult>(xmlResult);
             if (!result.Status.Success)
                 return null;
 
-            if (PayExSettings.Instance.IncludeOrderLines)
+            if (!ignoreOrderLines && PayExSettings.Instance.IncludeOrderLines)
                 AddOrderLineItems(cart, payment, result);
 
-            if (PayExSettings.Instance.IncludeCustomerAddress)
+            if (!ignoreCustomerAddress && PayExSettings.Instance.IncludeCustomerAddress)
                 AddOrderAddress(cart, payment, result);
             return result;
         }
@@ -107,9 +110,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 
         public void PurchasePartPaymentSale(string orderRef, CustomerDetails customerDetails)
         {
+            _logger.LogInfo(string.Format("Calling PurchasePartPaymentSale for order with orderRef:{0}. CustomerDetails:{1}", orderRef, customerDetails));
+
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.PurchasePartPaymentSale(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, hash);
-            _logger.LogDebug(xmlResult);
+
+            _logger.LogInfo(string.Format("Finished calling PurchasePartPaymentSale for order with orderRef:{0}. Result:{1}", orderRef, xmlResult));
             // TODO
         }
 

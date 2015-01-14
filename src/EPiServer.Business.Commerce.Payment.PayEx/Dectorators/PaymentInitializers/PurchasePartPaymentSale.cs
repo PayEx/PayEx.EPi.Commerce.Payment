@@ -17,8 +17,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
         {
             CustomerDetails customerDetails = new CustomerDetails
             {
-                SocialSecurityNumber = "590719-5662",
-                FirstName = "Eva Dagmar Kristina",
+                SocialSecurityNumber = "195907195662",
+                FirstName = "Eva Dagmar Christina",
                 LastName = "Tannerdal",
                 StreetAddress = "Gunbritt Boden p12",
                 City = "Småbyen",
@@ -29,6 +29,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
                 MobilePhone = "9876543212",
                 PostNumber = "29620"
             };
+  
             _paymentManager.PurchasePartPaymentSale(orderRef, customerDetails);
             return new PaymentInitializeResult { Success = true };
         }

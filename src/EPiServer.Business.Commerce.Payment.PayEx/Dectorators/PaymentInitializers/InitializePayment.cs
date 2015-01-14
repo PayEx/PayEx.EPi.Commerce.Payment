@@ -32,7 +32,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
         {
             PaymentInformation paymentInformation = CreateModel(currentPayment, orderNumber);
 
-            InitializeResult result = _paymentManager.Initialize(currentPayment.Cart, paymentInformation);
+            InitializeResult result = _paymentManager.Initialize(currentPayment.Cart, paymentInformation, currentPayment.IsDirectModel, currentPayment.IsDirectModel);
             currentPayment.Payment.PayExOrderRef = result.OrderRef.ToString();
 
             _cartActions.UpdateCartInstanceId(currentPayment.Cart); // Save all the changes that have been done to the cart

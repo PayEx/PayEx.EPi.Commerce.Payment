@@ -1,5 +1,6 @@
 ﻿
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using Newtonsoft.Json;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
@@ -59,6 +60,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models
         {
             AccountNumber = settings.AccountNumber;
             EncryptionKey = settings.EncryptionKey;
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }
