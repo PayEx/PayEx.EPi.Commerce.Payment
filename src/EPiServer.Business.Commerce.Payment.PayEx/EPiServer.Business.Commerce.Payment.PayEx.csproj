@@ -203,6 +203,7 @@
     <Compile Include="Commerce\AdditionalValuesFormatter.cs" />
     <Compile Include="Commerce\CartActions.cs" />
     <Compile Include="Commerce\OrderNumberGenerator.cs" />
+    <Compile Include="Commerce\PaymentActions.cs" />
     <Compile Include="ConfigurePayment.ascx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -213,6 +214,7 @@
     <Compile Include="Contracts\Commerce\IAdditionalValuesFormatter.cs" />
     <Compile Include="Contracts\Commerce\ICartActions.cs" />
     <Compile Include="Contracts\Commerce\IOrderNumberGenerator.cs" />
+    <Compile Include="Contracts\Commerce\IPaymentActions.cs" />
     <Compile Include="Contracts\IHasher.cs" />
     <Compile Include="Contracts\ILogger.cs" />
     <Compile Include="Contracts\IOrderFacade.cs" />
@@ -240,6 +242,7 @@
     <Compile Include="Dectorators\PaymentInitializers\PurchaseInvoiceSale.cs" />
     <Compile Include="Dectorators\PaymentInitializers\PurchasePartPaymentSale.cs" />
     <Compile Include="Dectorators\PaymentInitializers\RedirectUser.cs" />
+    <Compile Include="ExtendedPayExPayment.cs" />
     <Compile Include="Facades\Order.cs" />
     <Compile Include="Facades\Verification.cs" />
     <Compile Include="Facades\VerificationManager.cs" />
@@ -272,6 +275,7 @@
     <Compile Include="Models\Result\ErrorDetails.cs" />
     <Compile Include="Models\Result\InitializeResult.cs" />
     <Compile Include="Models\Result\InvoiceDetails.cs" />
+    <Compile Include="Models\Result\PurchasePartPaymentSaleResult.cs" />
     <Compile Include="Models\Result\Status.cs" />
     <Compile Include="Models\Result\StatusCode.cs" />
     <Compile Include="ParameterReader.cs" />

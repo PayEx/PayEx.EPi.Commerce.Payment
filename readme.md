@@ -32,6 +32,10 @@ TODO: Agreement with PayEx?
 
 4. TODO:Create PayExPayment meta klasse
 
+## Implementering the payment methods ##
+
+TODO :
+
 ## Extending the payment provider ##
 
 ### Generating order numbers ###

@@ -16,10 +16,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         private readonly ICartActions _cartActions;
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
+        private readonly IPaymentActions _paymentActions;
         public PayPal() { } // Needed for unit testing
 
         public PayPal(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
-            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, IAdditionalValuesFormatter additionalValuesFormatter)
+            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
+            IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
             : base(payment)
         {
             _paymentManager = paymentManager;
@@ -28,6 +30,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             _cartActions = cartActions;
             _orderNumberGenerator = orderNumberGenerator;
             _additionalValuesFormatter = additionalValuesFormatter;
+            _paymentActions = paymentActions;
         }
 
         public override string PaymentMethodCode
@@ -66,7 +69,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         public override PaymentCompleteResult Complete(string orderRef)
         {
             IPaymentCompleter completer = new CompletePayment(
-                new UpdateTransactionDetails(null, _paymentManager, _logger), _paymentManager, _logger);
+                new UpdateTransactionDetails(null, _paymentManager, _logger), _paymentManager, _paymentActions, _logger);
             return completer.Complete(this, orderRef);
         }
 

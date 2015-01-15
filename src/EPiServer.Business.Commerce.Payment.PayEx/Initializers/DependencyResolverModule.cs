@@ -27,6 +27,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
                 x.For<IOrderNumberGenerator>().Use<OrderNumberGenerator>();
                 x.For<IAdditionalValuesFormatter>().Use<AdditionalValuesFormatter>();
                 x.For<ICartActions>().Use<CartActions>();
+                x.For<IPaymentActions>().Use<PaymentActions>();
                 x.For<IParameterReader>().Use<ParameterReader>();
                 x.For<IPaymentMethodFactory>().Use<PaymentMethodFactory>();
                 x.For<ILogger>().Use<Logger>();

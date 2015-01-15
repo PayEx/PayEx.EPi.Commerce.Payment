@@ -19,8 +19,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
             public class Payment
             {
-                public const string ClassName = "PayExPayment";
-                public const string TableName = "OrderFormPaymentEx_PayExPayment";
+                public const string PayExPaymentClassName = "PayExPayment";
+                public const string ExtendedPayExPaymentClassName = "ExtendedPayExPayment";
+                public const string PayExPaymentTableName = "OrderFormPaymentEx_PayExPayment";
+                public const string ExtendedPayExPaymentTableName = "OrderFormPaymentEx_ExtendedPayExPayment";
                 public const string OrderNumber = "OrderNumber";
                 public const string PayExOrderRef = "PayExOrderRef";
                 public const string Description = "Description";
@@ -29,6 +31,16 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 public const string CancelUrl = "CancelUrl";
                 public const string ReturnUrl = "ReturnUrl";
                 public const string CustomerId = "CustomerId";
+                public const string SocialSecurityNumber = "SocialSecurityNumber";
+                public const string FirstName = "FirstName";
+                public const string LastName = "LastName";
+                public const string StreetAddress = "StreetAddress";
+                public const string CoAddress = "CoAddress";
+                public const string City = "City";
+                public const string CountryCode = "CountryCode";
+                public const string Email = "Email";
+                public const string MobilePhone = "MobilePhone";
+                public const string PostNumber = "PostNumber";
             }
 
             public static class OrderForm

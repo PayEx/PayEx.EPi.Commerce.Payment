@@ -20,9 +20,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests.Factories
             Mock<IVerificationManager> verificationManagerMock  = new Mock<IVerificationManager>();
             Mock<IOrderNumberGenerator> orderNumberGeneratorMock = new Mock<IOrderNumberGenerator>();
             Mock<IAdditionalValuesFormatter> additionalValuesFormatterMock = new Mock<IAdditionalValuesFormatter>();
+            Mock<IPaymentActions> paymentActionsMock = new Mock<IPaymentActions>();
 
             PaymentMethodFactory factory = new PaymentMethodFactory(paymentManagerMock.Object, parameterReaderMock.Object, loggerMock.Object, cartActionsMock.Object,
-                verificationManagerMock.Object, orderNumberGeneratorMock.Object, additionalValuesFormatterMock.Object);
+                verificationManagerMock.Object, orderNumberGeneratorMock.Object, additionalValuesFormatterMock.Object, paymentActionsMock.Object);
             PaymentMethod result = factory.Create(null);
 
             Assert.IsNull(result);

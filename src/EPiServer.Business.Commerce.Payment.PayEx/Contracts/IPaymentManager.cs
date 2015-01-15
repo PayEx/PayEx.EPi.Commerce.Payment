@@ -10,7 +10,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
         TransactionResult GetTransactionDetails(int transactionNumber);
         InitializeResult Initialize(Cart cart, PaymentInformation payment, bool ignoreOrderLines = false, bool ignoreCustomerAddress = false);
         void PurchaseInvoiceSale(string orderRef, CustomerDetails customerDetails);
-        void PurchasePartPaymentSale(string orderRef, CustomerDetails customerDetails);
+        PurchasePartPaymentSaleResult PurchasePartPaymentSale(string orderRef, CustomerDetails customerDetails);
         CreditResult CreditOrderLine(int transactionNumber, string itemNumber, string orderId);
         CreditResult Credit(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues);
         CaptureResult Capture(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues);

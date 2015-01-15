@@ -23,17 +23,18 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
                 return;
 
             string paymentGatewayClassname = ConcatenateClassAndAssemblyName(typeof(PayExPaymentGateway));
-            string paymentClassName = ConcatenateClassAndAssemblyName(typeof (PayExPayment));
+            string payExPaymentClassName = ConcatenateClassAndAssemblyName(typeof (PayExPayment));
+            string extendedPayExPaymentClassName = ConcatenateClassAndAssemblyName(typeof(ExtendedPayExPayment));
 
             var paymentMethodInfo = new List<PaymentMethodInfo>
             {
-                new PaymentMethodInfo("PayEx_CreditCard", "PayEx CreditCard", paymentGatewayClassname, paymentClassName, 1000),
-                new PaymentMethodInfo("PayEx_InvoiceLedger", "PayEx Invoice Ledger", paymentGatewayClassname, paymentClassName, 1100),
-                new PaymentMethodInfo("PayEx_Invoice", "PayEx Invoice 2.0", paymentGatewayClassname, paymentClassName, 1200),
-                new PaymentMethodInfo("PayEx_DirectDebit", "PayEx Direct Debit", paymentGatewayClassname, paymentClassName, 1300),
-                new PaymentMethodInfo("PayEx_PartPayment", "PayEx Part Payment", paymentGatewayClassname, paymentClassName, 1400),
-                new PaymentMethodInfo("PayEx_Paypal", "PayEx Paypal", paymentGatewayClassname, paymentClassName, 1500),
-                new PaymentMethodInfo("PayEx_GiftCard", "PayEx GiftCard", paymentGatewayClassname, paymentClassName, 1600),
+                new PaymentMethodInfo("PayEx_CreditCard", "PayEx CreditCard", paymentGatewayClassname, payExPaymentClassName, 1000),
+                new PaymentMethodInfo("PayEx_InvoiceLedger", "PayEx Invoice Ledger", paymentGatewayClassname, payExPaymentClassName, 1100),
+                new PaymentMethodInfo("PayEx_Invoice", "PayEx Invoice 2.0", paymentGatewayClassname, payExPaymentClassName, 1200),
+                new PaymentMethodInfo("PayEx_DirectDebit", "PayEx Direct Debit", paymentGatewayClassname, payExPaymentClassName, 1300),
+                new PaymentMethodInfo("PayEx_PartPayment", "PayEx Part Payment", paymentGatewayClassname, extendedPayExPaymentClassName, 1400),
+                new PaymentMethodInfo("PayEx_Paypal", "PayEx Paypal", paymentGatewayClassname, payExPaymentClassName, 1500),
+                new PaymentMethodInfo("PayEx_GiftCard", "PayEx GiftCard", paymentGatewayClassname, payExPaymentClassName, 1600),
             };
 
             CreateForEnabledLanguages(paymentMethodInfo);

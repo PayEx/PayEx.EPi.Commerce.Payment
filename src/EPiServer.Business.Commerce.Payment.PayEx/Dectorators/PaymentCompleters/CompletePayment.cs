@@ -1,5 +1,6 @@
 ﻿using System;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 using Mediachase.Data.Provider;
@@ -11,18 +12,23 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
     {
         private IPaymentCompleter _paymentCompleter;
         private readonly IPaymentManager _paymentManager;
+        private readonly IPaymentActions _paymentActions;
         private readonly ILogger _logger;
 
-        public CompletePayment(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager, ILogger logger)
+        public CompletePayment(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager, IPaymentActions paymentActions, ILogger logger)
         {
             _paymentCompleter = paymentCompleter;
             _paymentManager = paymentManager;
+            _paymentActions = paymentActions;
             _logger = logger;
         }
 
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
         {
             CompleteResult completeResult = _paymentManager.Complete(orderRef);
+            if (completeResult == null)
+                return new PaymentCompleteResult {Success = false};
+
             if (!completeResult.Success || string.IsNullOrWhiteSpace(completeResult.TransactionNumber))
                 return new PaymentCompleteResult { TransactionErrorCode = completeResult.ErrorDetails != null ? completeResult.ErrorDetails.TransactionErrorCode : string.Empty };
 
@@ -33,35 +39,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
                 _paymentCompleter = new UpdateTransactionDetails(_paymentCompleter, _paymentManager, _logger);
             }
 
-            bool paymentInformationSet = SetPaymentInformation(currentPayment, completeResult);
+            _paymentActions.UpdatePaymentInformation(currentPayment, completeResult.TransactionNumber, completeResult.PaymentMethod);
 
             PaymentCompleteResult result = new PaymentCompleteResult { Success = true };
             if (_paymentCompleter != null)
                 result = _paymentCompleter.Complete(currentPayment, orderRef);
-            result.Success = paymentInformationSet && result.Success;
             return result;
-        }
-
-        private bool SetPaymentInformation(PaymentMethod currentPayment, CompleteResult completeResult)
-        {
-            try
-            {
-                using (TransactionScope scope = new TransactionScope())
-                {
-                    ((Mediachase.Commerce.Orders.Payment)currentPayment.Payment).AuthorizationCode =
-                        completeResult.TransactionNumber;
-                    ((Mediachase.Commerce.Orders.Payment)currentPayment.Payment).AcceptChanges();
-                    currentPayment.OrderGroup.OrderForms[0]["PaymentMethodCode"] = completeResult.PaymentMethod;
-                    currentPayment.OrderGroup.AcceptChanges();
-                    scope.Complete();
-                }
-                return true;
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Could not set payment information", e);
-                return false;
-            }
         }
     }
 }

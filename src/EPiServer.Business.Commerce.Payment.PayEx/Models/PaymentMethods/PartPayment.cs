@@ -15,13 +15,15 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         private readonly ICartActions _cartActions;
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
+        private readonly IPaymentActions _paymentActions;
 
         public PartPayment()
         {
         }
 
         public PartPayment(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
-            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, IAdditionalValuesFormatter additionalValuesFormatter)
+            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
+            IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
             : base(payment)
         {
             _paymentManager = paymentManager;
@@ -30,6 +32,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             _cartActions = cartActions;
             _orderNumberGenerator = orderNumberGenerator;
             _additionalValuesFormatter = additionalValuesFormatter;
+            _paymentActions = paymentActions;
         }
 
         public override string PaymentMethodCode
@@ -61,7 +64,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(
                   new InitializePayment(
-                  new PurchasePartPaymentSale(_paymentManager), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _orderNumberGenerator);
+                  new PurchasePartPaymentSale(_paymentManager, _paymentActions), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _orderNumberGenerator);
             return initializer.Initialize(this, null, null, null);
         }
 

@@ -124,6 +124,13 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             ImplementationClass = GetType().AssemblyQualifiedName;
         }
 
+        public PayExPayment(MetaClass metaClass)
+            : base(metaClass)
+        {
+            PaymentType = PaymentType.Other;
+            ImplementationClass = GetType().AssemblyQualifiedName;
+        }
+
         /// <summary>
         /// Create a new PayExPayment
         /// </summary>

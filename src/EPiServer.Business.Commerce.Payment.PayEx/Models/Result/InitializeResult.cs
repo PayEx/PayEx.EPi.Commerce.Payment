@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
@@ -14,5 +15,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 
         [XmlElement("redirectUrl")]
         public string RedirectUrl { get; set; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

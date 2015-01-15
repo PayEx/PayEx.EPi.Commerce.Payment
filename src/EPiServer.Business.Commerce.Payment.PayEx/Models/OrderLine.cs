@@ -1,4 +1,6 @@
 ﻿
+using Newtonsoft.Json;
+
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
     public class OrderLine
@@ -36,6 +38,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models
             VatAmount = (int) (vatAmount*100);
             VatPercentage = (int)(vatPercentage * 100);
             EncryptionKey = encryptionKey;
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }
