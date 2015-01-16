@@ -25,10 +25,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
                 throw new Exception("Payment class must be ExtendedPayExPayment when using this payment method");
 
             PurchasePartPaymentSaleResult result = _paymentManager.PurchasePartPaymentSale(orderRef, customerDetails);
-            if (result != null)
-                _paymentActions.UpdatePaymentInformation(currentPayment, result.TransactionNumber, result.PaymentMethod);
+            if (result == null || !result.Status.Success)
+                return new PaymentInitializeResult { ErrorMessage = result != null ? result.Status.Description : string.Empty };
 
-            return new PaymentInitializeResult { Success = result != null && result.Status.Success };
+            _paymentActions.UpdatePaymentInformation(currentPayment, result.TransactionNumber, result.PaymentMethod);
+            return new PaymentInitializeResult { Success = true };
         }
 
         private CustomerDetails CreateModel(PaymentMethod currentPayment)
@@ -53,7 +54,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
                 PostNumber = payment.PostNumber,
             };
 
-          
+
         }
     }
 }

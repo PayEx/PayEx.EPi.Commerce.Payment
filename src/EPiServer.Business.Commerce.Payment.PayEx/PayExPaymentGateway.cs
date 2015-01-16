@@ -62,6 +62,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 return false;
 
             PaymentInitializeResult result = currentPayment.Initialize();
+            message = result.ErrorMessage ?? string.Empty;
             return result.Success;
         }
 

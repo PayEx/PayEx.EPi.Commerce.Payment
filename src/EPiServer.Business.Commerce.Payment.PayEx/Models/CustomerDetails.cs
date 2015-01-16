@@ -14,7 +14,19 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models
         public string CountryCode { get; set; }
         public string Email { get; set; }
         public string MobilePhone { get; set; }
-        public string IpAddress { get; set; }
+
+        private string _ipAddress;
+        public string IpAddress
+        {
+            get
+            {
+                if (_ipAddress == "::1") // PayEx does not accept IPv6
+                    return "127.0.0.1";
+                return _ipAddress;
+
+            }
+            set { _ipAddress = value; }
+        }
 
         public override string ToString()
         {
