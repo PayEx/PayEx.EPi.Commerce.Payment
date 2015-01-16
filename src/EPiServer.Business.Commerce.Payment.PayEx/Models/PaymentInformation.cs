@@ -1,12 +1,10 @@
 ﻿
-using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using Newtonsoft.Json;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
     public class PaymentInformation
     {
-        public long AccountNumber { get; set; }
         public string PurchaseOperation { get; set; }
         public long Price { get; private set; }
         public string PriceArgList { get; set; }
@@ -23,7 +21,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models
         public string AgreementRef { get; private set; }
         public string CancelUrl { get; private set; }
         public string ClientLanguage { get; private set; }
-        public string EncryptionKey { get; private set; }
 
         public PaymentInformation(long lowestUnitPrice, string priceArgList, string currency, int vat, string orderId, string productNumber, string description, string clientIpAddress,
             string additionalValues, string returnUrl, string view, string cancelUrl, string clientLanguage, string purchaseOperation)
@@ -53,13 +50,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models
             CancelUrl = cancelUrl;
             ClientLanguage = clientLanguage;
             PurchaseOperation = purchaseOperation;
-            AddSettings(PayExSettings.Instance);
-        }
-
-        private void AddSettings(IPayExSettings settings)
-        {
-            AccountNumber = settings.AccountNumber;
-            EncryptionKey = settings.EncryptionKey;
         }
 
         public override string ToString()

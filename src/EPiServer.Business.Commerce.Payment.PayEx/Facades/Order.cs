@@ -17,22 +17,22 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             }
         }
 
-        public string Initialize(PaymentInformation payment, string hash)
+        public string Initialize(long accountNumber, PaymentInformation payment, string hash)
         {
-            return Client.Initialize8(payment.AccountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId,
+            return Client.Initialize8(accountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId,
                                       payment.ProductNumber, payment.Description, payment.ClientIpAddress, payment.ClientIdentifier, payment.AdditionalValues,
                                       string.Empty, payment.ReturnUrl, payment.View, payment.AgreementRef, payment.CancelUrl, payment.ClientLanguage, hash);
         }
 
-        public string AddOrderLine(OrderLine orderLine, string hash)
+        public string AddOrderLine(long accountNumber, OrderLine orderLine, string hash)
         {
-            return Client.AddSingleOrderLine(orderLine.AccountNumber, orderLine.OrderRef, orderLine.ItemNumber, orderLine.Description, orderLine.Description2, orderLine.Description3, 
+            return Client.AddSingleOrderLine(accountNumber, orderLine.OrderRef, orderLine.ItemNumber, orderLine.Description, orderLine.Description2, orderLine.Description3, 
                 orderLine.Description4, orderLine.Description5, orderLine.Quantity, orderLine.Amount, orderLine.VatAmount, orderLine.VatPercentage, hash);
         }
 
-        public string AddOrderAddress(PayExAddress address, string hash)
+        public string AddOrderAddress(long accountNumber, PayExAddress address, string hash)
         {
-            return Client.AddOrderAddress2(address.AccountNumber, address.OrderRef, address.BillingAddress.FirstName,
+            return Client.AddOrderAddress2(accountNumber, address.OrderRef, address.BillingAddress.FirstName,
                 address.BillingAddress.LastName, address.BillingAddress.Line1,
                 address.BillingAddress.Line2, address.BillingAddress.Line3, address.BillingAddress.PostCode,
                 address.BillingAddress.City, address.BillingAddress.State, address.BillingAddress.Country,

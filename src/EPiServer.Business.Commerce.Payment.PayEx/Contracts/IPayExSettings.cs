@@ -5,8 +5,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
     {
         long AccountNumber { get; }
         string EncryptionKey { get; }
-        string DescriptionFormat { get; }
-        string PayExCallbackIpAddress { get; }
+        bool IncludeOrderLines { get; }
         bool DisablePaymentMethodCreation { get; }
+        bool IncludeCustomerAddress { get; }
     }
 }

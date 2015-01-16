@@ -5,9 +5,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
     public interface IHasher
     {
-        string Create(PaymentInformation payment);
-        string Create(OrderLine orderLine);
-        string Create(PayExAddress address);
+        string Create(long accountNumber, PaymentInformation payment, string encryptionKey);
+        string Create(long accountNumber, OrderLine orderLine, string encryptionKey);
+        string Create(long accountNumber, PayExAddress address, string encryptionKey);
         string Create(long accountNumber, string orderRef, string encryptionKey);
         string Create(long accountNumber, int transactionNumber, string encryptionKey);
 

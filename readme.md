@@ -32,9 +32,20 @@ TODO: Agreement with PayEx?
 
 4. TODO:Create PayExPayment meta klasse
 
-## Implementering the payment methods ##
+## Implementing the payment methods ##
 
-TODO :
+The following payment methods supports the redirect method: 
+
+- [Credit Card](http://www.payexpim.com/payment-methods/credit-cards/)
+- [PayPal](http://www.payexpim.com/payment-methods/paypal/)
+- [Gift Cards](http://www.payexpim.com/payment-methods/gift-cards-generic-cards/)
+- [Invoice Ledger](http://www.payexpim.com/payment-methods/invoice/)
+- [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
+
+The following payment methods do not supports the redirect method:
+
+- [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
+- [Invoice 2.0](http://www.payexpim.com/payment-methods/payex-faktura-2-0/)
 
 ## Extending the payment provider ##
 

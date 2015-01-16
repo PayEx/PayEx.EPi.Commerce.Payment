@@ -7,26 +7,26 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
 {
     internal class Hash : IHasher
     {
-        public string Create(PaymentInformation payment)
+        public string Create(long accountNumber, PaymentInformation payment, string encryptionKey)
         {
-            var stringToHash = string.Concat(payment.AccountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId, payment.ProductNumber,
+            var stringToHash = string.Concat(accountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId, payment.ProductNumber,
                                 payment.Description, payment.ClientIpAddress, payment.ClientIdentifier, payment.AdditionalValues, payment.ReturnUrl, payment.View,
-                                payment.AgreementRef, payment.CancelUrl, payment.ClientLanguage, payment.EncryptionKey);
+                                payment.AgreementRef, payment.CancelUrl, payment.ClientLanguage, encryptionKey);
 
             return CreateHash(stringToHash);
         }
 
-        public string Create(OrderLine orderLine)
+        public string Create(long accountNumber, OrderLine orderLine, string encryptionKey)
         {
-            var stringToHash = string.Concat(orderLine.AccountNumber, orderLine.OrderRef, orderLine.ItemNumber, orderLine.Description, orderLine.Description2, orderLine.Description3,
-                orderLine.Description4, orderLine.Description5, orderLine.Quantity, orderLine.Amount, orderLine.VatAmount, orderLine.VatPercentage, orderLine.EncryptionKey);
+            var stringToHash = string.Concat(accountNumber, orderLine.OrderRef, orderLine.ItemNumber, orderLine.Description, orderLine.Description2, orderLine.Description3,
+                orderLine.Description4, orderLine.Description5, orderLine.Quantity, orderLine.Amount, orderLine.VatAmount, orderLine.VatPercentage, encryptionKey);
 
             return CreateHash(stringToHash);
         }
 
-        public string Create(PayExAddress address)
+        public string Create(long accountNumber, PayExAddress address, string encryptionKey)
         {
-            var stringToHash = string.Concat(address.AccountNumber, address.OrderRef, address.BillingAddress.FirstName,
+            var stringToHash = string.Concat(accountNumber, address.OrderRef, address.BillingAddress.FirstName,
                 address.BillingAddress.LastName, address.BillingAddress.Line1,
                 address.BillingAddress.Line2, address.BillingAddress.Line3, address.BillingAddress.PostCode,
                 address.BillingAddress.City, address.BillingAddress.State, address.BillingAddress.Country,
@@ -35,7 +35,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
                 address.ShippingAddress.Line1, address.ShippingAddress.Line2, address.ShippingAddress.Line3,
                 address.ShippingAddress.PostCode, address.ShippingAddress.City, address.ShippingAddress.State,
                 address.ShippingAddress.Country, address.ShippingAddress.CountryCode, address.ShippingAddress.Email,
-                address.ShippingAddress.Phone, address.ShippingAddress.Mobile, address.EncryptionKey);
+                address.ShippingAddress.Phone, address.ShippingAddress.Mobile, encryptionKey);
 
             return CreateHash(stringToHash);
         }

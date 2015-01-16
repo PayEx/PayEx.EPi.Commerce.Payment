@@ -12,21 +12,23 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
         private readonly IOrderFacade _orderFacade;
         private readonly IHasher _hasher;
         private readonly IResultParser _resultParser;
+        private readonly IPayExSettings _payExSettings;
 
-        public PaymentManager(ILogger logger, IOrderFacade orderFacade, IHasher hasher, IResultParser resultParser)
+        public PaymentManager(ILogger logger, IOrderFacade orderFacade, IHasher hasher, IResultParser resultParser, IPayExSettings payExSettings)
         {
             _logger = logger;
             _orderFacade = orderFacade;
             _hasher = hasher;
             _resultParser = resultParser;
+            _payExSettings = payExSettings;
         }
 
         public InitializeResult Initialize(Cart cart, PaymentInformation payment, bool ignoreOrderLines = false, bool ignoreCustomerAddress = false)
         {
             _logger.LogInfo(string.Format("Calling Initialize for cart with ID:{0}. PaymentInformation:{1}", cart.Id, payment));
 
-            string hash = _hasher.Create(payment);
-            string xmlResult = _orderFacade.Initialize(payment, hash);
+            string hash = _hasher.Create(_payExSettings.AccountNumber, payment, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.Initialize(_payExSettings.AccountNumber, payment, hash);
 
             InitializeResult result = _resultParser.Deserialize<InitializeResult>(xmlResult);
             if (!result.Status.Success)
@@ -37,10 +39,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 
             _logger.LogInfo(string.Format("Successfully called Initialize for cart with ID:{0}. Result:{1}", cart.Id, xmlResult));
 
-            if (!ignoreOrderLines && PayExSettings.Instance.IncludeOrderLines)
+            if (!ignoreOrderLines && _payExSettings.IncludeOrderLines)
                 AddOrderLineItems(cart, payment, result);
 
-            if (!ignoreCustomerAddress && PayExSettings.Instance.IncludeCustomerAddress)
+            if (!ignoreCustomerAddress && _payExSettings.IncludeCustomerAddress)
                 AddOrderAddress(cart, payment, result);
 
             return result;
@@ -50,8 +52,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
         {
             _logger.LogInfo(string.Format("Calling Complete for orderRef:{0}.", orderRef));
 
-            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, PayExSettings.Instance.EncryptionKey);
-            string xmlResult = _orderFacade.Complete(PayExSettings.Instance.AccountNumber, orderRef, hash);
+            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.Complete(_payExSettings.AccountNumber, orderRef, hash);
 
             CompleteResult result = _resultParser.Deserialize<CompleteResult>(xmlResult);
             if (result.Status.Success)
@@ -66,8 +68,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             _logger.LogInfo(string.Format("Calling Capture for TransactionNumber:{0}. Amount:{1}. OrderId:{2}. VatAmount:{3}. AdditionalValues:{4}",
                 transactionNumber, amount, orderId, vatAmount, additionalValues));
 
-            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, PayExSettings.Instance.EncryptionKey);
-            string xmlResult = _orderFacade.Capture(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount,
+            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.Capture(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount,
                 additionalValues, hash);
 
             CaptureResult result = _resultParser.Deserialize<CaptureResult>(xmlResult);
@@ -85,8 +87,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             _logger.LogInfo(string.Format("Calling Credit for TransactionNumber:{0}. Amount:{1}. OrderId:{2}. VatAmount:{3}. AdditionalValues:{4}",
                 transactionNumber, amount, orderId, vatAmount, additionalValues));
 
-            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, PayExSettings.Instance.EncryptionKey);
-            string xmlResult = _orderFacade.Credit(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount,
+            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.Credit(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount,
               additionalValues, hash);
 
             CreditResult result = _resultParser.Deserialize<CreditResult>(xmlResult);
@@ -104,8 +106,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             _logger.LogInfo(string.Format("Calling CreditOrderLine for TransactionNumber:{0}. ItemNumber:{1}. OrderId:{2}.",
                 transactionNumber, itemNumber, orderId));
 
-            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, itemNumber, orderId, PayExSettings.Instance.EncryptionKey);
-            string xmlResult = _orderFacade.CreditOrderLine(PayExSettings.Instance.AccountNumber, transactionNumber, itemNumber, orderId, hash);
+            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, itemNumber, orderId, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.CreditOrderLine(_payExSettings.AccountNumber, transactionNumber, itemNumber, orderId, hash);
 
             CreditResult result = _resultParser.Deserialize<CreditResult>(xmlResult);
             if (result.Success)
@@ -121,8 +123,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
         {
             _logger.LogInfo(string.Format("Calling GetTransactionDetails for TransactionNumber:{0}.", transactionNumber));
 
-            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, PayExSettings.Instance.EncryptionKey);
-            string xmlResult = _orderFacade.GetTransactionDetails(PayExSettings.Instance.AccountNumber, transactionNumber, hash);
+            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.GetTransactionDetails(_payExSettings.AccountNumber, transactionNumber, hash);
 
             TransactionResult result = _resultParser.Deserialize<TransactionResult>(xmlResult);
             if (result.Status.Success)
@@ -134,8 +136,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 
         public void PurchaseInvoiceSale(string orderRef, CustomerDetails customerDetails)
         {
-            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, PayExSettings.Instance.EncryptionKey);
-            string xmlResult = _orderFacade.PurchaseInvoiceSale(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, hash);
+            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, customerDetails, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.PurchaseInvoiceSale(_payExSettings.AccountNumber, orderRef, customerDetails, hash);
             _logger.LogDebug(xmlResult);
             // TODO
         }
@@ -144,8 +146,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
         {
             _logger.LogInfo(string.Format("Calling PurchasePartPaymentSale for order with orderRef:{0}. CustomerDetails:{1}", orderRef, customerDetails));
 
-            string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, PayExSettings.Instance.EncryptionKey);
-            string xmlResult = _orderFacade.PurchasePartPaymentSale(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, hash);
+            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, customerDetails, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.PurchasePartPaymentSale(_payExSettings.AccountNumber, orderRef, customerDetails, hash);
 
             PurchasePartPaymentSaleResult result = _resultParser.Deserialize<PurchasePartPaymentSaleResult>(xmlResult);
             if (result.Status.Success)
@@ -160,8 +162,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             _logger.LogInfo(string.Format("Calling AddOrderAddress for cart with ID:{0}. PaymentInformation:{1}. InitializeResult:{2}", cart.Id, payment, initializeResult));
 
             PayExAddress address = CartHelper.OrderAddress(cart, payment, initializeResult);
-            string hash = _hasher.Create(address);
-            string xmlResult = _orderFacade.AddOrderAddress(address, hash);
+            string hash = _hasher.Create(_payExSettings.AccountNumber, address, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.AddOrderAddress(_payExSettings.AccountNumber, address, hash);
 
             _logger.LogInfo(string.Format("Finished calling AddOrderAddress for cart with ID:{0}. PaymentInformation:{1}. InitializeResult:{2}. Result:{3}",
                 cart.Id, payment, initializeResult, xmlResult));
@@ -174,8 +176,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             List<OrderLine> orderlines = CartHelper.OrderLines(cart, payment, initializeResult);
             foreach (OrderLine orderline in orderlines)
             {
-                string hash = _hasher.Create(orderline);
-                string result = _orderFacade.AddOrderLine(orderline, hash);
+                string hash = _hasher.Create(_payExSettings.AccountNumber, orderline, _payExSettings.EncryptionKey);
+                string result = _orderFacade.AddOrderLine(_payExSettings.AccountNumber, orderline, hash);
 
                 _logger.LogInfo(string.Format("Added OrderLineItem for cart with ID:{0}. OrderLine:{1}. Result:{2}",
                     cart.Id, orderline, result));

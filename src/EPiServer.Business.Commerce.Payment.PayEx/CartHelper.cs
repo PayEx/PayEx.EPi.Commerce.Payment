@@ -70,7 +70,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
         public static PayExAddress OrderAddress(Cart cart, PaymentInformation payment, InitializeResult result)
         {
-            PayExAddress payexAddress = new PayExAddress(payment.AccountNumber, result.OrderRef.ToString(), payment.EncryptionKey);
+            PayExAddress payexAddress = new PayExAddress(result.OrderRef.ToString());
 
             if (cart == null || cart.OrderForms == null || cart.OrderForms.Count == 0)
                 return payexAddress;
@@ -103,14 +103,14 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
             foreach (LineItem lineItem in orderForm.LineItems)
             {
-                orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), lineItem.CatalogEntryId, lineItem.DisplayName, (int)lineItem.Quantity,
-                    lineItem.ExtendedPrice.RoundToInt(), GetVatAmount(lineItem), GetVatPercentage(lineItem), payment.EncryptionKey));
+                orderLines.Add(new OrderLine(result.OrderRef.ToString(), lineItem.CatalogEntryId, lineItem.DisplayName, (int)lineItem.Quantity,
+                    lineItem.ExtendedPrice.RoundToInt(), GetVatAmount(lineItem), GetVatPercentage(lineItem)));
             }
 
             foreach (Shipment shipment in orderForm.Shipments)
             {
-                orderLines.Add(new OrderLine(payment.AccountNumber, result.OrderRef.ToString(), string.Empty, GetShippingMethodName(shipment), 1,
-                    cart.ShippingTotal.RoundToInt(), 0, 0, payment.EncryptionKey));
+                orderLines.Add(new OrderLine(result.OrderRef.ToString(), string.Empty, GetShippingMethodName(shipment), 1,
+                    cart.ShippingTotal.RoundToInt(), 0, 0));
             }
             return orderLines;
         }
