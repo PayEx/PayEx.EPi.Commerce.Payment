@@ -21,7 +21,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
         public CustomerDetails GetConsumerLegalAddress(string socialSecurityNumber, string countryCode)
         {
             string hash = _hasher.Create(_payExSettings.AccountNumber, socialSecurityNumber, countryCode,
-                PayExSettings.Instance.EncryptionKey);
+                _payExSettings.EncryptionKey);
             string xmlResult = _verificationFacade.GetConsumerLegalAddress(_payExSettings.AccountNumber, socialSecurityNumber, countryCode, hash);
             return null;
         }
