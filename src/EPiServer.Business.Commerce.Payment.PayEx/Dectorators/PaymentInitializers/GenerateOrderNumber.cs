@@ -24,7 +24,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
             currentPayment.Payment.OrderNumber = orderNumber;
 
             if (!string.IsNullOrWhiteSpace(currentPayment.Payment.Description))
-                currentPayment.Payment.Description = string.Format(currentPayment.Payment.Description, orderNumber);
+            {
+                if (currentPayment.Payment.Description.Contains("{0}"))
+                    currentPayment.Payment.Description = string.Format(currentPayment.Payment.Description, orderNumber);
+            }
 
             return _initializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef);
         }
