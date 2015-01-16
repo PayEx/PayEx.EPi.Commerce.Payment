@@ -37,7 +37,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
                 currentPayment.PurchaseOrder.TrackingNumber, vat, string.Empty);
 
             bool success = false;
-            if (result != null && !string.IsNullOrWhiteSpace(result.TransactionNumber))
+            if (result.Success && !string.IsNullOrWhiteSpace(result.TransactionNumber))
             {
                 payment.TransactionID = result.TransactionNumber;
                 payment.AcceptChanges();

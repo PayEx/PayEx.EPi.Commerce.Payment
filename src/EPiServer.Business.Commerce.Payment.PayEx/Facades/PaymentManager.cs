@@ -28,11 +28,14 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             string hash = _hasher.Create(payment);
             string xmlResult = _orderFacade.Initialize(payment, hash);
 
-            _logger.LogInfo(string.Format("Finished calling Initialize for cart with ID:{0}. Result:{1}", cart.Id, xmlResult));
-
             InitializeResult result = _resultParser.Deserialize<InitializeResult>(xmlResult);
             if (!result.Status.Success)
-                return null;
+            {
+                _logger.LogError(string.Format("Error when calling Initialize for cart with ID:{0}. Result:{1}", cart.Id, xmlResult));
+                return result;
+            }
+
+            _logger.LogInfo(string.Format("Successfully called Initialize for cart with ID:{0}. Result:{1}", cart.Id, xmlResult));
 
             if (!ignoreOrderLines && PayExSettings.Instance.IncludeOrderLines)
                 AddOrderLineItems(cart, payment, result);
@@ -50,9 +53,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.Complete(PayExSettings.Instance.AccountNumber, orderRef, hash);
 
-            _logger.LogInfo(string.Format("Finished calling Complete for orderRef:{0}. Result:{1}", orderRef, xmlResult));
-
-            return _resultParser.Deserialize<CompleteResult>(xmlResult);
+            CompleteResult result = _resultParser.Deserialize<CompleteResult>(xmlResult);
+            if (result.Status.Success)
+                _logger.LogInfo(string.Format("Successfully called Complete for orderRef:{0}. Result:{1}", orderRef, xmlResult));
+            else
+                _logger.LogError(string.Format("Error when calling Complete for orderRef:{0}. Result:{1}", orderRef, xmlResult));
+            return result;
         }
 
         public CaptureResult Capture(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues)
@@ -64,13 +70,14 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             string xmlResult = _orderFacade.Capture(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount,
                 additionalValues, hash);
 
-            _logger.LogInfo(string.Format("Finished calling Capture for TransactionNumber:{0}. Amount:{1}. OrderId:{2}. VatAmount:{3}. AdditionalValues:{4}. Result:{5}",
-               transactionNumber, amount, orderId, vatAmount, additionalValues, xmlResult));
-
             CaptureResult result = _resultParser.Deserialize<CaptureResult>(xmlResult);
             if (result.Success)
-                return result;
-            return null;
+                _logger.LogInfo(string.Format("Successfully called Capture for TransactionNumber:{0}. Amount:{1}. OrderId:{2}. VatAmount:{3}. AdditionalValues:{4}. Result:{5}",
+                    transactionNumber, amount, orderId, vatAmount, additionalValues, xmlResult));
+            else
+                _logger.LogError(string.Format("Error when calling Capture for TransactionNumber:{0}. Amount:{1}. OrderId:{2}. VatAmount:{3}. AdditionalValues:{4}. Result:{5}",
+                   transactionNumber, amount, orderId, vatAmount, additionalValues, xmlResult));
+            return result;
         }
 
         public CreditResult Credit(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues)
@@ -82,13 +89,14 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             string xmlResult = _orderFacade.Credit(PayExSettings.Instance.AccountNumber, transactionNumber, amount, orderId, vatAmount,
               additionalValues, hash);
 
-            _logger.LogInfo(string.Format("Finished calling Credit for TransactionNumber:{0}. Amount:{1}. OrderId:{2}. VatAmount:{3}. AdditionalValues:{4}. Result:{5}",
-                transactionNumber, amount, orderId, vatAmount, additionalValues, xmlResult));
-
             CreditResult result = _resultParser.Deserialize<CreditResult>(xmlResult);
             if (result.Success)
-                return result;
-            return null;
+                _logger.LogInfo(string.Format("Successfully called Credit for TransactionNumber:{0}. Amount:{1}. OrderId:{2}. VatAmount:{3}. AdditionalValues:{4}. Result:{5}",
+              transactionNumber, amount, orderId, vatAmount, additionalValues, xmlResult));
+            else
+                _logger.LogError(string.Format("Error when calling Credit for TransactionNumber:{0}. Amount:{1}. OrderId:{2}. VatAmount:{3}. AdditionalValues:{4}. Result:{5}",
+              transactionNumber, amount, orderId, vatAmount, additionalValues, xmlResult));
+            return result;
         }
 
         public CreditResult CreditOrderLine(int transactionNumber, string itemNumber, string orderId)
@@ -99,13 +107,14 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, itemNumber, orderId, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.CreditOrderLine(PayExSettings.Instance.AccountNumber, transactionNumber, itemNumber, orderId, hash);
 
-            _logger.LogInfo(string.Format("Finished calling CreditOrderLine for TransactionNumber:{0}. ItemNumber:{1}. OrderId:{2}.",
-                transactionNumber, itemNumber, orderId));
-
             CreditResult result = _resultParser.Deserialize<CreditResult>(xmlResult);
             if (result.Success)
-                return result;
-            return null;
+                _logger.LogInfo(string.Format("Successfully called CreditOrderLine for TransactionNumber:{0}. ItemNumber:{1}. OrderId:{2}.",
+               transactionNumber, itemNumber, orderId));
+            else
+                _logger.LogError(string.Format("Error when calling CreditOrderLine for TransactionNumber:{0}. ItemNumber:{1}. OrderId:{2}.",
+               transactionNumber, itemNumber, orderId));
+            return result;
         }
 
         public TransactionResult GetTransactionDetails(int transactionNumber)
@@ -115,12 +124,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, transactionNumber, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.GetTransactionDetails(PayExSettings.Instance.AccountNumber, transactionNumber, hash);
 
-            _logger.LogInfo(string.Format("Finished calling GetTransactionDetails for TransactionNumber:{0}.", transactionNumber));
-
             TransactionResult result = _resultParser.Deserialize<TransactionResult>(xmlResult);
             if (result.Status.Success)
-                return result;
-            return null;
+                _logger.LogInfo(string.Format("Successfully called GetTransactionDetails for TransactionNumber:{0}. Result:{1}", transactionNumber, xmlResult));
+            else
+                _logger.LogError(string.Format("Error when calling GetTransactionDetails for TransactionNumber:{0}. Result:{1}", transactionNumber, xmlResult));
+            return result;
         }
 
         public void PurchaseInvoiceSale(string orderRef, CustomerDetails customerDetails)
@@ -138,8 +147,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             string hash = _hasher.Create(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, PayExSettings.Instance.EncryptionKey);
             string xmlResult = _orderFacade.PurchasePartPaymentSale(PayExSettings.Instance.AccountNumber, orderRef, customerDetails, hash);
 
-            _logger.LogInfo(string.Format("Finished calling PurchasePartPaymentSale for order with orderRef:{0}. Result:{1}", orderRef, xmlResult));
-            return _resultParser.Deserialize<PurchasePartPaymentSaleResult>(xmlResult);
+            PurchasePartPaymentSaleResult result = _resultParser.Deserialize<PurchasePartPaymentSaleResult>(xmlResult);
+            if (result.Status.Success)
+                _logger.LogInfo(string.Format("Successfully called PurchasePartPaymentSale for order with orderRef:{0}. Result:{1}", orderRef, xmlResult));
+            else
+                _logger.LogError(string.Format("Error when calling PurchasePartPaymentSale for order with orderRef:{0}. Result:{1}", orderRef, xmlResult));
+            return result;
         }
 
         private void AddOrderAddress(Cart cart, PaymentInformation payment, InitializeResult initializeResult)

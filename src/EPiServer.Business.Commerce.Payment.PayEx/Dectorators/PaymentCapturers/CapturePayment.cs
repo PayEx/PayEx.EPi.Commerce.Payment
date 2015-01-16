@@ -36,7 +36,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCapturers
             CaptureResult result = _paymentManager.Capture(transactionId, amount, currentPayment.PurchaseOrder.TrackingNumber, vat, string.Empty);
 
             bool success = false;
-            if (result != null && !string.IsNullOrWhiteSpace(result.TransactionNumber))
+            if (result.Success && !string.IsNullOrWhiteSpace(result.TransactionNumber))
             {
                 payment.ValidationCode = result.TransactionNumber;
                 payment.AcceptChanges();

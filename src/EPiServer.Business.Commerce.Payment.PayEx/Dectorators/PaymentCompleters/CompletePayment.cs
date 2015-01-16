@@ -26,9 +26,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
         {
             CompleteResult completeResult = _paymentManager.Complete(orderRef);
-            if (completeResult == null)
-                return new PaymentCompleteResult {Success = false};
-
             if (!completeResult.Success || string.IsNullOrWhiteSpace(completeResult.TransactionNumber))
                 return new PaymentCompleteResult { TransactionErrorCode = completeResult.ErrorDetails != null ? completeResult.ErrorDetails.TransactionErrorCode : string.Empty };
 

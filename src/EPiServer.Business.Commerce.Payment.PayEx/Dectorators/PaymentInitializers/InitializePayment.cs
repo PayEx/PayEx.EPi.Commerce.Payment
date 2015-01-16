@@ -33,8 +33,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
             PaymentInformation paymentInformation = CreateModel(currentPayment, orderNumber);
 
             InitializeResult result = _paymentManager.Initialize(currentPayment.Cart, paymentInformation, currentPayment.IsDirectModel, currentPayment.IsDirectModel);
-            if (result == null)
-                return new PaymentInitializeResult { Success = false };
+            if (!result.Status.Success)
+                return new PaymentInitializeResult { Success = false, ErrorMessage = result.Status.Description };
 
             currentPayment.Payment.PayExOrderRef = result.OrderRef.ToString();
 

@@ -16,12 +16,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
         public void LogInfo(string message)
         {
-            LogInfo(message, LogType.General);
-        }
-
-        public static void LogInfo(string message, LogType type)
-        {
-            ILog logger = LogManager.GetLogger(type == LogType.Notify ? LogType.Notify.ToString() : DefaultApplicationLogger);
+            ILog logger = LogManager.GetLogger(DefaultApplicationLogger);
             if (logger.IsInfoEnabled)
             {
                 logger.Info(message);
@@ -30,12 +25,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
         public void LogDebug(string message)
         {
-            LogDebug(message, LogType.General);
-        }
-
-        public static void LogDebug(string message, LogType type)
-        {
-            ILog logger = LogManager.GetLogger(type == LogType.Notify ? LogType.Notify.ToString() : DefaultApplicationLogger);
+            ILog logger = LogManager.GetLogger(DefaultApplicationLogger);
             if (logger.IsDebugEnabled)
             {
                 logger.Debug(message);
@@ -44,12 +34,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
         public void LogWarning(string message)
         {
-            LogWarning(message, LogType.General);
-        }
-
-        public void LogWarning(string message, LogType type)
-        {
-            ILog logger = LogManager.GetLogger(type == LogType.Notify ? LogType.Notify.ToString() : DefaultApplicationLogger);
+            ILog logger = LogManager.GetLogger(DefaultApplicationLogger);
             if (logger.IsWarnEnabled)
             {
                 logger.Warn(message);
@@ -84,15 +69,19 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
         public void LogError(string message)
         {
-            LogError(message, LogType.General);
+            ILog logger = LogManager.GetLogger(DefaultApplicationLogger);
+            if (logger.IsErrorEnabled)
+            {
+                logger.Error(message);
+            }
         }
 
-        public void LogError(string message, LogType type)
+        public void LogFatal(string message)
         {
-            ILog logger = LogManager.GetLogger(type == LogType.Notify ? LogType.Notify.ToString() : DefaultApplicationLogger);
-            if (logger.IsWarnEnabled)
+            ILog logger = LogManager.GetLogger(DefaultApplicationLogger);
+            if (logger.IsFatalEnabled)
             {
-                logger.Warn(message);
+                logger.Fatal(message);
             }
         }
     }

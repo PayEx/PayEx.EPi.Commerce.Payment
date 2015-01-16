@@ -10,5 +10,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
         void LogWarning(string message, Exception exception);
         void LogError(string message, Exception exception);
         void LogError(string message);
+        void LogFatal(string message);
     }
 }

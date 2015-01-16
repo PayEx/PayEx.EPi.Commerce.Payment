@@ -25,8 +25,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
                 throw new Exception("Payment class must be ExtendedPayExPayment when using this payment method");
 
             PurchasePartPaymentSaleResult result = _paymentManager.PurchasePartPaymentSale(orderRef, customerDetails);
-            if (result == null || !result.Status.Success)
-                return new PaymentInitializeResult { ErrorMessage = result != null ? result.Status.Description : string.Empty };
+            if (!result.Status.Success)
+                return new PaymentInitializeResult { ErrorMessage = result.Status.Description };
 
             _paymentActions.UpdatePaymentInformation(currentPayment, result.TransactionNumber, result.PaymentMethod);
             return new PaymentInitializeResult { Success = true };
