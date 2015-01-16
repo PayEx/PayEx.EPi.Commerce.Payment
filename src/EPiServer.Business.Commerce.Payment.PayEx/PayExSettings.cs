@@ -18,10 +18,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         [PlugInProperty(Description = "PayEx Encryption Key", AdminControl = typeof(TextBox), AdminControlValue = "Text")]
         public string EncryptionKey { get; set; }
 
-        [PlugInProperty(Description = "Give PayEx information on each individual order line", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
+        [PlugInProperty(Description = "Display individual order lines in PayEx", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
         public bool IncludeOrderLines { get; set; }
 
-        [PlugInProperty(Description = "Give PayEx address information for the customer", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
+        [PlugInProperty(Description = "Display customer address information in PayEx", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]
         public bool IncludeCustomerAddress { get; set; }
 
         [PlugInProperty(Description = "Disable automatic payment method creation during initialization", AdminControl = typeof(CheckBox), AdminControlValue = "Checked")]

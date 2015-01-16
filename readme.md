@@ -12,29 +12,77 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 
 ## Prerequisites ##
 
-TODO: Agreement with PayEx? 
-
 - EPiServer.CMS version 7.6.3 or higher
 - EPiServer.Commerce version 7.6.1 or higher
 - .NET Framework 4.5 or higher
+- You should also take a look at the [PayEx prerequisites](http://www.payexpim.com/quick-guide/prerequisites/)
 
 ## Installing the PayEx payment provider ##
 
-1. Download the EPiServer.Business.Commerce.Payment.PayEx package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Web project**. 
+###Step 1###
+Download the EPiServer.Business.Commerce.Payment.PayEx package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Web project**. 
 
-2. Download the EPiServer.Business.Commerce.Payment.PayEx.CommerceManager package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Commerce Manager project**.
+###Step 2###
+Download the EPiServer.Business.Commerce.Payment.PayEx.CommerceManager package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Commerce Manager project**.
 
-3. Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Manager* under *Tool Settings*. Click on the *EPiServer.Business.Commerce.Payment.PayEx* plugin and fill in the following settings: 
+###Step 3###
+Build your project and browse to the web site
 
-**Merchants PayEx account number**: The merchants PayEx account number given to you by PayEx.
+## Configuring the PayEx payment provider ##
+###Step 1###
+Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Manager* under *Tool Settings*. Click on the *EPiServer.Business.Commerce.Payment.PayEx* plugin and fill in the following settings: 
+
+TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\ModuleSettings.PNG
+
+**Merchants PayEx account number**: The merchants account number given to you by PayEx.
 
 **PayEx Encryption Key**: The encryption key generated in PayEx Admin
 
-4. TODO:Create PayExPayment meta klasse
+**Display individual order lines in PayEx**: If this option is selected, the customer will be able to view their order lines in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the orderlines are displayed: 
 
-## Implementing the payment methods ##
+TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\OrderLines.PNG
 
-The following payment methods supports the redirect method: 
+**Display customer address information in PayEx**: If this option is selected, the customer will be able to view their address information in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the address information is displayed: 
+
+TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\CustomerAddress.PNG
+
+**Disable automatic payment method creation during initialization**: During initialization of the website, all the supported payment methods are added to the Commerce Manager automatically. If you wish to disable this functionality, you can select this option.
+
+###Step 2###
+Browse to your Commerce Manager, and do the following for all the payment methods you wish to use:
+
+**In the *Overview* tab**
+
+- Edit the name and description. 
+- Set IsActive to true
+- If this is the default payment method, set IsDefault to true
+- Select the shipping methods available for this payment
+
+TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\PaymentMethodOverview.PNG
+
+**In the *Parameters* tab**
+
+- Set the *PayEx PriceArgsList* parameter to a valid value according to the [PayEx documentation](http://www.payexpim.com/technical-reference/pxorder/initialize8/). Instead of specifying the price as a number, set it to {0} as this will be replaced with the price of the order line items the customer is trying to purchase. Example value: *VISA={0},MC={0}*
+
+- If the *VAT* is constant, regardless of the items bought, the VAT can be set here. If the VAT differs from item to item, set this parameter to 0. Refer to **TODO** section for information on how VAT is set dynamically.
+
+- If you wish to pass any *AdditionalValues* to PayEx according to the [PayEx documentation](http://www.payexpim.com/technical-reference/pxorder/initialize8/), you can specify those values here. If the value you wish to pass in is a dynamic value, you can choose to specify them in code as described in the *Specifying the additionalValues parameter* section.
+
+TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\PaymentMethodParameters.PNG
+
+**In the *Markets* tab**
+
+- Select the markets for which this payment method should be available.
+
+## Using the PayEx payment provider ##
+
+How you use the PayEx payment provider depends on which payment methods you wish to use. The payment methods can be separated into two groups: The ones that support the PayEx *redirect model* and the ones that support the *direct model*. 
+
+###What is the redirect model?###
+
+The redirect model states that the customer will be redirected from your Commerce website to PayEx. PayEx will collect the customers payment information before redirecting the customer back to your Commerce website. 
+
+The following payment methods use the redirect model: 
 
 - [Credit Card](http://www.payexpim.com/payment-methods/credit-cards/)
 - [PayPal](http://www.payexpim.com/payment-methods/paypal/)
@@ -42,10 +90,51 @@ The following payment methods supports the redirect method:
 - [Invoice Ledger](http://www.payexpim.com/payment-methods/invoice/)
 - [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
 
-The following payment methods do not supports the redirect method:
+###What is the direct model?###
+The direct model states that all communication between your Commerce website and PayEx is done server-to-server. This means that the payment process runs from beginning to end without the customer leaving your website. 
+
+The following payment methods use the direct model:
 
 - [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
 - [Invoice 2.0](http://www.payexpim.com/payment-methods/payex-faktura-2-0/)
+
+## Implementing a payment method using the redirect model ##
+
+###Step 1###
+After the customer has entered all necessary information during the checkout process, create a new instance of the PayExPayment class and assign this to an OrderForm in the customers Cart. 
+
+	public PayExPayment(
+		string clientIpAddress,
+		string productNumber, 
+		string cancelUrl, 
+		string returnUrl, 
+		string description
+	)
+
+**Parameters**
+
+*clientIpAddress*: The clients IP address
+
+*productNumber*: Merchant product number/reference for this specific product. We recommend that only the characters A-Z and 0-9 are used in this parameter.
+
+*cancelUrl*: A string identifying the full URL for the page the user will be redirected to when the Cancel Purchase button is pressed by the user. We do not add data to the end of this string. Set to blank if you don’t want this functionality. (Note: This is the PayEx cancel button, and must not be associated with cancel buttons in the customers bank.)
+
+*returnUrl*: A string identifying the full URL for the page the user will be redirected to after a successful purchase. We will add orderRef to the existing query, and if no query is supplied to the URL, then the query will be added.
+
+*description*: Merchant’s description of the product.
+
+###Step 2###
+The payment process is initiated in the *ProcessPaymentActivity* in the *CartCheckoutWorkflow* and the user is redirected to PayEx. **Unless you've changes the default Commerce workflows for your Commerce website, you will not need to write any code for this to happen!**
+
+###Step 3###
+After PayEx has collected the customers payment information, the customer will be redirected to the URL you supplied for the *returnUrl* parameter in step 1. If you're developing your Commerce website using ASP.NET MVC you can find an example callback controller here: TODO
+
+When the customer returns from PayEx, you have to do the following: 
+- 
+
+## Implementing a payment method using the direct model ##
+
+###Step 1###
 
 ## Extending the payment provider ##
 
