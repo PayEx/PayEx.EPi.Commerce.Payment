@@ -276,6 +276,7 @@
     <Compile Include="Models\Result\ErrorDetails.cs" />
     <Compile Include="Models\Result\InitializeResult.cs" />
     <Compile Include="Models\Result\InvoiceDetails.cs" />
+    <Compile Include="Models\Result\PurchaseInvoiceSaleResult.cs" />
     <Compile Include="Models\Result\PurchasePartPaymentSaleResult.cs" />
     <Compile Include="Models\Result\Status.cs" />
     <Compile Include="Models\Result\StatusCode.cs" />

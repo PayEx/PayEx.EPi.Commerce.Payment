@@ -147,6 +147,32 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             ImplementationClass = GetType().AssemblyQualifiedName;
         }
 
+        public ExtendedPayExPayment(string clientIpAddress, string productNumber, string returnUrl, string description, string socialSecurityNumber, string countryCode, string email, string mobilePhone)
+            : base(ExtendedPayExPaymentMetaClass)
+        {
+            ValidateParameter(clientIpAddress, "clientIpAddress");
+            ValidateParameter(productNumber, "productNumber");
+            ValidateParameter(returnUrl, "returnUrl");
+            ValidateParameter(description, "description");
+            ValidateParameter(socialSecurityNumber, "socialSecurityNumber");
+            ValidateParameter(countryCode, "countryCode");
+            ValidateParameter(email, "email");
+            ValidateParameter(mobilePhone, "mobilePhone");
+
+            ClientIpAddress = clientIpAddress;
+            Description = description;
+            ProductNumber = productNumber;
+            CancelUrl = string.Empty;
+            ReturnUrl = returnUrl;
+            SocialSecurityNumber = socialSecurityNumber;
+            CountryCode = countryCode;
+            Email = email;
+            MobilePhone = mobilePhone;
+
+            PaymentType = PaymentType.Other;
+            ImplementationClass = GetType().AssemblyQualifiedName;
+        }
+
         public ExtendedPayExPayment(string clientIpAddress, string productNumber, string returnUrl, string description, string socialSecurityNumber, string firstname, string lastname,
             string streetAddress, string coAddress, string city, string postNumber, string countryCode, string email, string mobilePhone)
             : base(ExtendedPayExPaymentMetaClass)

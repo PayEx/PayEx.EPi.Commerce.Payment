@@ -134,12 +134,19 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
             return result;
         }
 
-        public void PurchaseInvoiceSale(string orderRef, CustomerDetails customerDetails)
+        public PurchaseInvoiceSaleResult PurchaseInvoiceSale(string orderRef, CustomerDetails customerDetails)
         {
+            _logger.LogInfo(string.Format("Calling PurchaseInvoiceSale for order with orderRef:{0}. CustomerDetails:{1}", orderRef, customerDetails));
+
             string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, customerDetails, _payExSettings.EncryptionKey);
             string xmlResult = _orderFacade.PurchaseInvoiceSale(_payExSettings.AccountNumber, orderRef, customerDetails, hash);
-            _logger.LogDebug(xmlResult);
-            // TODO
+
+            PurchaseInvoiceSaleResult result = _resultParser.Deserialize<PurchaseInvoiceSaleResult>(xmlResult);
+            if (result.Status.Success)
+                _logger.LogInfo(string.Format("Successfully called PurchaseInvoiceSale for order with orderRef:{0}. Result:{1}", orderRef, xmlResult));
+            else
+                _logger.LogError(string.Format("Error when calling PurchaseInvoiceSale for order with orderRef:{0}. Result:{1}", orderRef, xmlResult));
+            return result;
         }
 
         public PurchasePartPaymentSaleResult PurchasePartPaymentSale(string orderRef, CustomerDetails customerDetails)
