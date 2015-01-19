@@ -271,6 +271,7 @@
     <Compile Include="Models\Result\AddressDetailCollection.cs" />
     <Compile Include="Models\Result\CaptureResult.cs" />
     <Compile Include="Models\Result\CompleteResult.cs" />
+    <Compile Include="Models\Result\ConsumerLegalAddressResult.cs" />
     <Compile Include="Models\Result\CreditResult.cs" />
     <Compile Include="Models\Result\ErrorDetails.cs" />
     <Compile Include="Models\Result\InitializeResult.cs" />

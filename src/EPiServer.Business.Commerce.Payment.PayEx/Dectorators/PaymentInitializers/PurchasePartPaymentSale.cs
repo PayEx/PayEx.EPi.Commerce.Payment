@@ -53,8 +53,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
                 MobilePhone = payment.MobilePhone,
                 PostNumber = payment.PostNumber,
             };
-
-
         }
     }
 }

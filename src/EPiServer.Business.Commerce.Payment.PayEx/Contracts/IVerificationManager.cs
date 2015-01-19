@@ -1,9 +1,9 @@
-﻿using EPiServer.Business.Commerce.Payment.PayEx.Models;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
     internal interface IVerificationManager
     {
-        CustomerDetails GetConsumerLegalAddress(string socialSecurityNumber, string countryCode);
+        ConsumerLegalAddressResult GetConsumerLegalAddress(string socialSecurityNumber, string countryCode);
     }
 }

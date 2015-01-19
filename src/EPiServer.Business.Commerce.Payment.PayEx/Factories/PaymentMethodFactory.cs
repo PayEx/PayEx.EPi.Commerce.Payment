@@ -45,7 +45,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
                 case "PayEx_GiftCard":
                     return new GiftCard(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case "PayEx_Invoice":
-                    return new Invoice(payment, _verificationManager, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator, _additionalValuesFormatter);
+                    return new Invoice(payment, _verificationManager, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case "PayEx_InvoiceLedger":
                     return new InvoiceLedger(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case "PayEx_PartPayment":
