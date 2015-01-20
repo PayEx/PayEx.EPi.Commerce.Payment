@@ -40,13 +40,11 @@ TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\ModuleSettings.PNG
 
 **Display individual order lines in PayEx**: If this option is selected, the customer will be able to view their order lines in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the orderlines are displayed: 
 
-![](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/OrderLines.PNG?at=90c5a9f0cef5bbd28a019114fca52c2611a7c4e0&raw)
-
-TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\OrderLines.PNG
+[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/OrderLines.PNG?raw)
 
 **Display customer address information in PayEx**: If this option is selected, the customer will be able to view their address information in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the address information is displayed: 
 
-TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\CustomerAddress.PNG
+[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/CustomerAddress.PNG?raw)
 
 **Disable automatic payment method creation during initialization**: During initialization of the website, all the supported payment methods are added to the Commerce Manager automatically. If you wish to disable this functionality, you can select this option.
 
@@ -60,7 +58,7 @@ Browse to your Commerce Manager, and do the following for all the payment method
 - If this is the default payment method, set IsDefault to true
 - Select the shipping methods available for this payment
 
-TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\PaymentMethodOverview.PNG
+[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/PaymentMethodOverview.PNG?raw)
 
 **In the *Parameters* tab**
 
@@ -70,7 +68,7 @@ TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\PaymentMethodOverv
 
 - If you wish to pass any *AdditionalValues* to PayEx according to the [PayEx documentation](http://www.payexpim.com/technical-reference/pxorder/initialize8/), you can specify those values here. If the value you wish to pass in is a dynamic value, you can choose to specify them in code as described in the *Specifying the additionalValues parameter* section.
 
-TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\PaymentMethodParameters.PNG
+[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/PaymentMethodParameters.PNG?raw)
 
 **In the *Markets* tab**
 
@@ -232,7 +230,7 @@ If the value you wish to pass along with the *additionalValues* parameter is a p
 3. Click on the PayEx payment method you wish to add a parameter to
 4. Go to the *Parameters* tab and enter the AdditionalValue
 
-TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\AdditionalValues.PNG
+[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/AdditionalValues.PNG?raw)
 
 #### ... if it is a dynamic value
 
