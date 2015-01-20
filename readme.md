@@ -64,7 +64,7 @@ Browse to your Commerce Manager, and do the following for all the payment method
 
 - Set the *PayEx PriceArgsList* parameter to a valid value according to the [PayEx documentation](http://www.payexpim.com/technical-reference/pxorder/initialize8/). Instead of specifying the price as a number, set it to {0} as this will be replaced with the price of the order line items the customer is trying to purchase. Example value: *VISA={0},MC={0}*
 
-- If the *VAT* is constant, regardless of the items bought, the VAT can be set here. If the VAT differs from item to item, set this parameter to 0. Refer to **TODO** section for information on how VAT is set dynamically.
+- If the *VAT* is constant, regardless of the items bought, the VAT can be set here. If the VAT differs from item to item, set this parameter to 0. Refer to the *Supplying VAT to PayEx* section for information on how VAT is set dynamically.
 
 - If you wish to pass any *AdditionalValues* to PayEx according to the [PayEx documentation](http://www.payexpim.com/technical-reference/pxorder/initialize8/), you can specify those values here. If the value you wish to pass in is a dynamic value, you can choose to specify them in code as described in the *Specifying the additionalValues parameter* section.
 
@@ -307,6 +307,61 @@ Remember that your implementation of *IOrderNumberGenerator* will have to be inj
         	}
     	}
 	}
+
+### Supplying VAT to PayEx
+
+During payment initialization, PayEx gives you the option of passing in a constant VAT for your entire order *or*  a VAT value per line item: 
+
+#### ... constant VAT for your entire order
+
+If the *VAT* is constant, regardless of the items bought, you can specify it in the parameters tab for the payment method in Commerce Manager: 
+
+1. In the Commerce Manager, click on Administration -> Order System -> Payments
+2. Click on the language folder you wish to view
+3. Click on the PayEx payment method you wish to add a parameter to
+4. Go to the *Parameters* tab and enter a value for VAT
+
+#### ... a VAT value per line item
+
+If you want to display a VAT value per line item in PayEx, you will need to make some changes to the CalculateTaxActivity in Mediachase.Commerce.Workflow.Activities. 
+
+Find the following piece of code in CalculateTaxActivity.cs ...
+
+	if (taxes.Length > 0)
+    {
+        foreach (TaxValue tax in taxes)
+        {
+            if(tax.TaxType == TaxType.SalesTax)
+                totalTaxes += item.ExtendedPrice * ((decimal)tax.Percentage / 100);
+        }
+    }
+
+...and replace it with this: 
+
+	if (taxes.Length > 0)
+    {
+        decimal itemTax = 0;
+        decimal itemTaxPercentage = 0;
+        foreach (TaxValue tax in taxes)
+        {
+           if (tax.TaxType == TaxType.SalesTax)
+           {
+               itemTax = item.ExtendedPrice * ((decimal)tax.Percentage / 100);
+               itemTaxPercentage = (decimal)tax.Percentage;
+               totalTaxes += itemTax;
+           }
+        }
+        item[Constants.Metadata.LineItem.VatAmount] = itemTax;
+        item[Constants.Metadata.LineItem.VatPercentage] = itemTaxPercentage;
+    }
+
+What this piece of code does is calculate both the VAT amount and the VAT percentage and save the result to the lineItems. The PayEx provider will find the values saved on the LineItem and pass these on to PayEx.
+
+If you wish to ensure that the VatAmout meta field and VatPercentage meta field of the line items are saved as they should, you can take a look in the dbo.LineItemEx table in your Commerce Manager database. You should see that the values have been populated: 
+
+[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/VatDB.PNG?raw)
+
+**Note:** The VAT values will only be displayed if you've selected the **Display individual order lines in PayEx** option in the *EPiServer.Business.Commerce.Payment.PayEx* Plug-In settings as described in Step 1 of "Configuring the PayEx payment provider" 
 
 ### Specifying the *additionalValues* parameter
 
