@@ -10,7 +10,9 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
 - [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
 
+
 ## Prerequisites ##
+----------
 
 - EPiServer.CMS version 7.6.3 or higher
 - EPiServer.Commerce version 7.6.1 or higher
