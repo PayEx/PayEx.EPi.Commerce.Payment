@@ -26,13 +26,13 @@ Download the EPiServer.Business.Commerce.Payment.PayEx package from the [EPiServ
 Download the EPiServer.Business.Commerce.Payment.PayEx.CommerceManager package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Commerce Manager project**.
 
 ###Step 3###
-Build your project and browse to the web site
+Build your project and browse to the website
 
 ## Configuring the PayEx payment provider ##
 ###Step 1###
 Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Manager* under *Tool Settings*. Click on the *EPiServer.Business.Commerce.Payment.PayEx* plugin and fill in the following settings: 
 
-TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\ModuleSettings.PNG
+[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/ModuleSettings.PNG?raw)
 
 **Merchants PayEx account number**: The merchants account number given to you by PayEx.
 
@@ -76,7 +76,7 @@ Browse to your Commerce Manager, and do the following for all the payment method
 
 ## Using the PayEx payment provider ##
 
-How you use the PayEx payment provider depends on which payment methods you wish to use. The payment methods can be separated into two groups: The ones that support the PayEx *redirect model* and the ones that support the *direct model*. 
+How you use the PayEx payment provider depends on which payment methods you wish to use. The payment methods can be separated into two groups: The ones that support the PayEx *redirect model* and the ones that support the PayEx *direct model*. 
 
 ###What is the redirect model?###
 
@@ -127,14 +127,105 @@ After the customer has entered all necessary information during the checkout pro
 The payment process is initiated in the *ProcessPaymentActivity* in the *CartCheckoutWorkflow* and the user is redirected to PayEx. **Unless you've changes the default Commerce workflows for your Commerce website, you will not need to write any code for this to happen!**
 
 ###Step 3###
-After PayEx has collected the customers payment information, the customer will be redirected to the URL you supplied for the *returnUrl* parameter in step 1. If you're developing your Commerce website using ASP.NET MVC you can find an example callback controller here: TODO
+After PayEx has collected the customers payment information, the customer will be redirected to the URL you supplied for the *returnUrl* parameter in step 1. If you're developing your Commerce website using ASP.NET MVC you can find an example callback controller here: [View example callback controller](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/examples/PayExCallbackController.cs?raw)
 
-When the customer returns from PayEx, you have to do the following: 
-- 
+**Important: The example callback controller is only an example, you will have to adjust it to your project**
+
+What's important is that the callback controller handles the following: 
+
+- Calls *PayExPaymentGateway.ProcessSuccessfulTransaction* function in order to complete the payment
+- If *PayExPaymentGateway.ProcessSuccessfulTransaction* is successful, create a Purchase Order with the given order number and redirect the user to the order confiration page.
 
 ## Implementing a payment method using the direct model ##
 
 ###Step 1###
+After the customer has entered all necessary information during the checkout process, create a new instance of the ExtendedPayExPayment class and assign this to an OrderForm in the customers Cart. How you create the ExtendedPayExPayment class depends on which payment method has been selected:
+
+#### a) If the selected payment method is PayEx Invoice 2.0####
+
+	public ExtendedPayExPayment(
+		string clientIpAddress,
+		string productNumber,  
+		string returnUrl, 
+		string description, 
+		string socialSecurityNumber, 
+		string countryCode, 
+		string email, 
+		string mobilePhone
+	)
+
+**Parameters**
+
+*clientIpAddress*: The clients IP address
+
+*productNumber*: Merchant product number/reference for this specific product. We recommend that only the characters A-Z and 0-9 are used in this parameter.
+
+*returnUrl*: A string identifying the full URL for the page the user will be redirected to after a successful purchase. We will add orderRef to the existing query, and if no query is supplied to the URL, then the query will be added.
+
+*description*: Merchant’s description of the product.
+
+*socialSecurityNumber*: Customer social security number, 10 digits for Swedish and Finnish customers, 11 digits for Norwegian customers
+
+*countryCode*: Customer origin Country, only SE is available at the moment
+
+*email*: Customers email address
+
+*mobilePhone*: Customers mobile phone number. Phone number need to be formatted with country code and “+” – (+46XXXXXXXXX, +47XXXXXXXX etc.) RegEx validation: “[a-zA-Z0-9_:!;\”#<>=?\\[\\]@{}´\n\r %-/À-ÖØ-öø-úü]*”
+
+#### b) If the selected payment method is PayEx Part Payment####
+
+	public ExtendedPayExPayment(
+		string clientIpAddress,
+		string productNumber,  
+		string returnUrl, 
+		string description, 
+		string socialSecurityNumber, 
+		string firstname, 
+		string lastname,
+        string streetAddress, 
+		string coAddress, 
+		string city, 
+		string postNumber, 
+		string countryCode, 
+		string email, 
+		string mobilePhone
+	)
+
+**Parameters**
+
+*clientIpAddress*: The clients IP address
+
+*productNumber*: Merchant product number/reference for this specific product. We recommend that only the characters A-Z and 0-9 are used in this parameter.
+
+*returnUrl*: A string identifying the full URL for the page the user will be redirected to after a successful purchase. We will add orderRef to the existing query, and if no query is supplied to the URL, then the query will be added.
+
+*description*: Merchant’s description of the product.
+
+*socialSecurityNumber*: Customer social security number, 10 digits for Swedish and Finnish customers, 11 digits for Norwegian customers
+
+*firstname*: Customers legal first name
+
+*lastname*: Customers legal last name
+
+*streetAddress*: Customers street address
+
+*coAddress*: Customers C/O address. Can be null or string.Empty.
+
+*city*: Customers city
+
+*postNumber*: Customers post number
+
+*countryCode*: Customer origin Country, only SE is available at the moment
+
+*email*: Customers email address
+
+*mobilePhone*: Customers mobile phone number. Phone number need to be formatted with country code and “+” – (+46XXXXXXXXX, +47XXXXXXXX etc.) RegEx validation: “[a-zA-Z0-9_:!;\”#<>=?\\[\\]@{}´\n\r %-/À-ÖØ-öø-úü]*”
+
+###Step 2###
+The payment process is initiated in the *ProcessPaymentActivity* in the *CartCheckoutWorkflow* and the user is redirected to PayEx. **Unless you've changes the default Commerce workflows for your Commerce website, you will not need to write any code for this to happen!**
+
+###Step 3###
+If the *CartCheckoutWorkflow* was successful, the payment has been initiated and you can create a purchase order from your cart, setting the order number equal to the order number found on the carts PayExPayment.
 
 ## Extending the payment provider ##
 
