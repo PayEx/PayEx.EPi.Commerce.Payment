@@ -10,6 +10,7 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
 - [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
 
+
 ----------
 
 ## Prerequisites ##
@@ -18,6 +19,8 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - EPiServer.Commerce version 7.6.1 or higher
 - .NET Framework 4.5 or higher
 - You should also take a look at the [PayEx prerequisites](http://www.payexpim.com/quick-guide/prerequisites/)
+
+----------
 
 ## Installing the PayEx payment provider ##
 
@@ -29,6 +32,8 @@ Download the EPiServer.Business.Commerce.Payment.PayEx.CommerceManager package f
 
 ###Step 3###
 Build your project and browse to the website
+
+----------
 
 ## Configuring the PayEx payment provider ##
 ###Step 1###
