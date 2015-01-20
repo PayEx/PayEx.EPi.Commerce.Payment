@@ -40,6 +40,8 @@ TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\ModuleSettings.PNG
 
 **Display individual order lines in PayEx**: If this option is selected, the customer will be able to view their order lines in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the orderlines are displayed: 
 
+![](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/OrderLines.PNG?at=90c5a9f0cef5bbd28a019114fca52c2611a7c4e0&raw)
+
 TODO: C:\Users\karoline.klever\Dropbox\Jobb\PayEx\Screenshots\OrderLines.PNG
 
 **Display customer address information in PayEx**: If this option is selected, the customer will be able to view their address information in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the address information is displayed: 
