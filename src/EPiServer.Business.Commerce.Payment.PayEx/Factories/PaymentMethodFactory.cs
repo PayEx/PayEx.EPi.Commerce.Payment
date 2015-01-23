@@ -40,17 +40,17 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
 
             switch (systemKeyword)
             {
-                case "PayEx_DirectDebit":
+                case Constants.Payment.DirectDebit.SystemKeyword:
                     return new DirectBankDebit(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
-                case "PayEx_GiftCard":
+                case Constants.Payment.Giftcard.SystemKeyword:
                     return new GiftCard(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
-                case "PayEx_Invoice":
+                case Constants.Payment.Invoice.SystemKeyword:
                     return new Invoice(payment, _verificationManager, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
-                case "PayEx_InvoiceLedger":
+                case Constants.Payment.InvoiceLedger.SystemKeyword:
                     return new InvoiceLedger(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
-                case "PayEx_PartPayment":
+                case Constants.Payment.PartPayment.SystemKeyword:
                     return new PartPayment(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
-                case "PayEx_PayPal":
+                case Constants.Payment.PayPal.SystemKeyword:
                     return new PayPal(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 default:
                     return new CreditCard(payment, _paymentManager, _parameterReader, _logger, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);

@@ -28,13 +28,13 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
 
             var paymentMethodInfo = new List<PaymentMethodInfo>
             {
-                new PaymentMethodInfo("PayEx_CreditCard", "PayEx CreditCard", paymentGatewayClassname, payExPaymentClassName, 1000),
-                new PaymentMethodInfo("PayEx_InvoiceLedger", "PayEx Invoice Ledger", paymentGatewayClassname, payExPaymentClassName, 1100),
-                new PaymentMethodInfo("PayEx_Invoice", "PayEx Invoice 2.0", paymentGatewayClassname, payExPaymentClassName, 1200),
-                new PaymentMethodInfo("PayEx_DirectDebit", "PayEx Direct Debit", paymentGatewayClassname, payExPaymentClassName, 1300),
-                new PaymentMethodInfo("PayEx_PartPayment", "PayEx Part Payment", paymentGatewayClassname, extendedPayExPaymentClassName, 1400),
-                new PaymentMethodInfo("PayEx_Paypal", "PayEx Paypal", paymentGatewayClassname, payExPaymentClassName, 1500),
-                new PaymentMethodInfo("PayEx_GiftCard", "PayEx GiftCard", paymentGatewayClassname, payExPaymentClassName, 1600),
+                new PaymentMethodInfo(Constants.Payment.CreditCard.SystemKeyword, Constants.Payment.CreditCard.Name, paymentGatewayClassname, payExPaymentClassName, 1000),
+                new PaymentMethodInfo(Constants.Payment.InvoiceLedger.SystemKeyword, Constants.Payment.InvoiceLedger.Name, paymentGatewayClassname, payExPaymentClassName, 1100),
+                new PaymentMethodInfo(Constants.Payment.Invoice.SystemKeyword, Constants.Payment.Invoice.Name, paymentGatewayClassname, payExPaymentClassName, 1200),
+                new PaymentMethodInfo(Constants.Payment.DirectDebit.SystemKeyword, Constants.Payment.DirectDebit.Name, paymentGatewayClassname, payExPaymentClassName, 1300),
+                new PaymentMethodInfo(Constants.Payment.PartPayment.SystemKeyword, Constants.Payment.PartPayment.Name, paymentGatewayClassname, extendedPayExPaymentClassName, 1400),
+                new PaymentMethodInfo(Constants.Payment.PayPal.SystemKeyword, Constants.Payment.PayPal.Name, paymentGatewayClassname, payExPaymentClassName, 1500),
+                new PaymentMethodInfo(Constants.Payment.Giftcard.SystemKeyword, Constants.Payment.Giftcard.Name, paymentGatewayClassname, payExPaymentClassName, 1600),
             };
 
             CreateForEnabledLanguages(paymentMethodInfo);

@@ -1,4 +1,6 @@
 ﻿
+using ICSharpCode.SharpZipLib.Core;
+
 namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     public static class Constants
@@ -54,6 +56,51 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 public const string ClassName = "LineItemEx";
                 public const string VatAmount = "LineItemVatAmount";
                 public const string VatPercentage = "LineItemVatPercentage";
+            }
+        }
+
+        public static class Payment
+        {
+            public static class CreditCard
+            {
+                public const string SystemKeyword = "PayEx_CreditCard";
+                public const string Name = "PayEx CreditCard";
+            }
+
+            public static class InvoiceLedger
+            {
+                public const string SystemKeyword = "PayEx_InvoiceLedger";
+                public const string Name = "PayEx Invoice Ledger";
+            }
+
+            public static class Invoice
+            {
+                public const string SystemKeyword = "PayEx_Invoice";
+                public const string Name = "PayEx Invoice 2.0";
+            }
+
+            public static class DirectDebit
+            {
+                public const string SystemKeyword = "PayEx_DirectDebit";
+                public const string Name = "PayEx Direct Debit";
+            }
+
+            public static class PartPayment
+            {
+                public const string SystemKeyword = "PayEx_PartPayment";
+                public const string Name = "PayEx Part Payment";
+            }
+
+            public static class PayPal
+            {
+                public const string SystemKeyword = "PayEx_Paypal";
+                public const string Name = "PayEx Paypal";
+            }
+
+            public static class Giftcard
+            {
+                public const string SystemKeyword = "PayEx_GiftCard";
+                public const string Name = "PayEx GiftCard";
             }
         }
     }
