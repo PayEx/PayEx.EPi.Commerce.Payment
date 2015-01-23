@@ -1,9 +1,7 @@
-﻿using System;
-using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
-using Mediachase.Data.Provider;
 using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods.PaymentMethod;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters

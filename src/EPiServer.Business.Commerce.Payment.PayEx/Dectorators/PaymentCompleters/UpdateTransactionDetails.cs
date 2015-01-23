@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
@@ -52,54 +55,24 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
             if (newAddress == null)
                 return false;
 
-            bool updated = false;
             Cart cart = currentPayment.Cart;
             OrderAddress shippingAddress = GetShippingAddress(cart);
 
-            if (!string.IsNullOrWhiteSpace(newAddress.FirstName))
+            Dictionary<string, string> propertiesToUpdate = new Dictionary<string, string>()
             {
-                shippingAddress.FirstName = newAddress.FirstName;
-                updated = true;
-            }
+                {GetPropertyName(() => shippingAddress.FirstName), newAddress.FirstName},
+                {GetPropertyName(() => shippingAddress.LastName), newAddress.LastName},
+                {GetPropertyName(() => shippingAddress.Line1), newAddress.Line1},
+                {GetPropertyName(() => shippingAddress.PostalCode), newAddress.PostCode},
+                {GetPropertyName(() => shippingAddress.City), newAddress.City},
+                {GetPropertyName(() => shippingAddress.CountryName), newAddress.Country},
+                {GetPropertyName(() => shippingAddress.Email), newAddress.Email},
+            };
 
-            if (!string.IsNullOrWhiteSpace(newAddress.LastName))
-            {
-                shippingAddress.LastName = newAddress.LastName;
-                updated = true;
-            }
+            bool updated = UpdatePropertyValues(shippingAddress, propertiesToUpdate);
 
             if (!string.IsNullOrWhiteSpace(newAddress.Fullname))
                 cart.CustomerName = newAddress.Fullname;
-
-            if (!string.IsNullOrWhiteSpace(newAddress.Line1))
-            {
-                shippingAddress.Line1 = newAddress.Line1;
-                updated = true;
-            }
-
-            if (!string.IsNullOrWhiteSpace(newAddress.PostCode))
-            {
-                shippingAddress.PostalCode = newAddress.PostCode;
-                updated = true;
-            }
-
-            if (!string.IsNullOrWhiteSpace(newAddress.City))
-            {
-                shippingAddress.City = newAddress.City;
-                updated = true;
-            }
-
-            if (!string.IsNullOrWhiteSpace(newAddress.Country))
-            {
-                shippingAddress.CountryName = newAddress.Country;
-                updated = true;
-            }
-
-            if (!string.IsNullOrWhiteSpace(newAddress.Email))
-            {
-                shippingAddress.Email = newAddress.Email;
-                updated = true;
-            }
 
             try
             {
@@ -119,6 +92,26 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
                 _logger.LogError("Could not update address on purchase order", e);
                 return false;
             }
+        }
+
+        private bool UpdatePropertyValues(OrderAddress address, Dictionary<string, string> properties)
+        {
+            bool updated = false;
+            foreach (KeyValuePair<string, string> property in properties)
+            {
+                if (string.IsNullOrWhiteSpace(property.Value))
+                    continue;
+
+                PropertyInfo propertyInfo = address.GetType().GetProperty(property.Key);
+                propertyInfo.SetValue(address, property.Value, null);
+                updated = true;
+            }
+            return updated;
+        }
+
+        public string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
+        {
+            return (propertyExpression.Body as MemberExpression).Member.Name;
         }
 
         public OrderAddress GetShippingAddress(OrderGroup orderGroup)
