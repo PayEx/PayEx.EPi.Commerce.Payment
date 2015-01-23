@@ -135,7 +135,7 @@ After the customer has entered all necessary information during the checkout pro
 *description*: Merchant’s description of the product.
 
 ####Step 2####
-The payment process is initiated in the *ProcessPaymentActivity* in the *CartCheckoutWorkflow* and the user is redirected to PayEx. **Unless you've changes the default Commerce workflows for your Commerce website, you will not need to write any code for this to happen!**
+The payment process is initiated in the *ProcessPaymentActivity* in the *CartCheckoutWorkflow* and the user is redirected to PayEx. **Unless you've changed the default Commerce workflows for your Commerce website, you will not need to write any code for this to happen!**
 
 ####Step 3####
 After PayEx has collected the customers payment information, the customer will be redirected to the URL you supplied for the *returnUrl* parameter in step 1. If you're developing your Commerce website using ASP.NET MVC you can find an example callback controller here: [View example callback controller](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/examples/PayExCallbackController.cs?raw)
