@@ -80,6 +80,9 @@ Browse to your Commerce Manager, and do the following for all the payment method
 
 - Select the markets for which this payment method should be available.
 
+###Step 3###
+If your shipping methods contain restrictions as to which payment methods they can be used in combination with, you need to browse to each of the shipping methods and define these restrictions.
+
 ----------
 
 ## Using the PayEx payment provider ##
