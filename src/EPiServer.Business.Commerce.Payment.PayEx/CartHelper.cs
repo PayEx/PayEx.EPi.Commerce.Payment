@@ -107,10 +107,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                     lineItem.ExtendedPrice.RoundToInt(), GetVatAmount(lineItem), GetVatPercentage(lineItem)));
             }
 
+            decimal shippingVatPercentage = GetShippingVatPercentage();
             foreach (Shipment shipment in orderForm.Shipments)
             {
+                decimal shippingVatAmount = cart.ShippingTotal * (shippingVatPercentage / 100);
                 orderLines.Add(new OrderLine(result.OrderRef.ToString(), string.Empty, GetShippingMethodName(shipment), 1,
-                    cart.ShippingTotal.RoundToInt(), 0, 0));
+                    cart.ShippingTotal.RoundToInt(), shippingVatAmount, shippingVatPercentage));
             }
             return orderLines;
         }
@@ -131,13 +133,21 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             return 0;
         }
 
+        private static decimal GetShippingVatPercentage()
+        {
+            TaxDto taxDto = TaxManager.GetTaxDto(TaxType.ShippingTax);
+            if (taxDto.TaxValue.Count == 0)
+                return 0;
+            return (decimal)taxDto.TaxValue[0].Percentage;
+        }
+
         private static string GetShippingMethodName(Shipment shipment)
         {
             ShippingMethodDto.ShippingMethodRow shippingMethodRow = ShippingManager.GetShippingMethod(shipment.ShippingMethodId)
                 .ShippingMethod.Single(s => s.ShippingMethodId == shipment.ShippingMethodId);
             if (shippingMethodRow != null)
                 return shippingMethodRow.DisplayName;
-            return "Frakt";
+            return string.Empty;
         }
     }
 }
