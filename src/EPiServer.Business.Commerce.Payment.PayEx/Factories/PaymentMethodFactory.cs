@@ -31,8 +31,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
 
         public PaymentMethod Create(Mediachase.Commerce.Orders.Payment payment)
         {
-            Log.InfoFormat("Attempting to resolve the PaymentMethod for payment with ID:{0}. PaymentMethodId:{1}", payment.Id, payment.PaymentMethodId);
+            if (payment == null)
+                return null;
 
+            Log.InfoFormat("Attempting to resolve the PaymentMethod for payment with ID:{0}. PaymentMethodId:{1}", payment.Id, payment.PaymentMethodId);
             if (!(payment is PayExPayment))
             {
                 Log.ErrorFormat("Payment with ID:{0} is not a PayExPayment and therefore it cannot be processed by the PayEx Payment Provider!", payment.Id);
