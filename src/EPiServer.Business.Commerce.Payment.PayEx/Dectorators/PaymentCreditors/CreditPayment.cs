@@ -2,20 +2,20 @@
 using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 using EPiServer.Business.Commerce.Payment.PayEx.Price;
+using log4net;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
 {
     internal class CreditPayment : IPaymentCreditor
     {
         private readonly IPaymentCreditor _paymentCreditor;
-        private readonly ILogger _logger;
         private readonly IParameterReader _parameterReader;
         private readonly IPaymentManager _paymentManager;
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        public CreditPayment(IPaymentCreditor paymentCreditor, ILogger logger, IPaymentManager paymentManager, IParameterReader parameterReader)
+        public CreditPayment(IPaymentCreditor paymentCreditor, IPaymentManager paymentManager, IParameterReader parameterReader)
         {
             _paymentCreditor = paymentCreditor;
-            _logger = logger;
             _parameterReader = parameterReader;
             _paymentManager = paymentManager;
         }
@@ -27,7 +27,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
             int transactionId;
             if (!int.TryParse(payment.AuthorizationCode, out transactionId))
             {
-                _logger.LogError(string.Format("Could not get PayEx Transaction Id from purchase order with ID: {0}", currentPayment.PurchaseOrder.Id));
+                Log.ErrorFormat("Could not get PayEx Transaction Id from purchase order with ID: {0}", currentPayment.PurchaseOrder.Id);
                 return false;
             }
 

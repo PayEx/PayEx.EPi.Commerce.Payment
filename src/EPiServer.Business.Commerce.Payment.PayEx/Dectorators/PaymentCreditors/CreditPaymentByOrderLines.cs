@@ -1,5 +1,6 @@
 ﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
+using log4net;
 using Mediachase.Commerce.Orders;
 using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods.PaymentMethod;
 
@@ -8,13 +9,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
     internal class CreditPaymentByOrderLines : IPaymentCreditor
     {
         private readonly IPaymentCreditor _paymentCreditor;
-        private readonly ILogger _logger;
         private readonly IPaymentManager _paymentManager;
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        public CreditPaymentByOrderLines(IPaymentCreditor paymentCreditor, ILogger logger, IPaymentManager paymentManager)
+        public CreditPaymentByOrderLines(IPaymentCreditor paymentCreditor, IPaymentManager paymentManager)
         {
             _paymentCreditor = paymentCreditor;
-            _logger = logger;
             _paymentManager = paymentManager;
         }
 
@@ -25,7 +25,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
             int transactionId;
             if (!int.TryParse(payment.AuthorizationCode, out transactionId))
             {
-                _logger.LogError(string.Format("Could not get PayEx Transaction Id from purchase order with ID: {0}", currentPayment.PurchaseOrder.Id));
+                Log.ErrorFormat("Could not get PayEx Transaction Id from purchase order with ID: {0}", currentPayment.PurchaseOrder.Id);
                 return false;
             }
 

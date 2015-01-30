@@ -2,22 +2,17 @@
 using System.Collections;
 using System.Threading;
 using System.Web;
-using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
+using log4net;
 using Mediachase.Commerce.Orders;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
     internal class CartActions : ICartActions
     {
-        private readonly ILogger _logger;
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
         private const string CurrentCartKey = "CurrentCart";
         private const string CurrentContextKey = "CurrentContext";
-
-        public CartActions(ILogger logger)
-        {
-            _logger = logger;
-        }
 
         /// <summary>
         /// Uses parameterized thread to update the cart instance id otherwise will get an "workflow already existed" exception.
@@ -61,7 +56,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("Could not update cart in PayEx provider", ex);
+                    Log.Error("Could not update cart in PayEx provider", ex);
                 }
             }
         }

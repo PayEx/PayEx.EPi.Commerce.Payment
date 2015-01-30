@@ -1,20 +1,15 @@
 ﻿using System;
-using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
+using log4net;
 using Mediachase.Data.Provider;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
     public class PaymentActions : IPaymentActions
     {
-        private readonly ILogger _logger;
-
-        public PaymentActions(ILogger logger)
-        {
-            _logger = logger;
-        }
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
         public void UpdatePaymentInformation(PaymentMethod paymentMethod, string authorizationCode, string paymentMethodCode)
         {
@@ -34,8 +29,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
             }
             catch (Exception e)
             {
-                _logger.LogError(string.Format("Could not update payment information for orderForm with ID:{0}. AuthorizationCode:{1}. PaymentMethodCode:{2}", 
-                    paymentMethod.OrderGroup.OrderForms[0].Id, authorizationCode, paymentMethodCode), e);
+                Log.Error("Could not update payment information. See next log item for more information.", e);
+                Log.ErrorFormat("Could not update payment information for orderForm with ID:{0}. AuthorizationCode:{1}. PaymentMethodCode:{2}", 
+                    paymentMethod.OrderGroup.OrderForms[0].Id, authorizationCode, paymentMethodCode);
             }
         }
 
@@ -61,8 +57,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
             }
             catch (Exception e)
             {
-                _logger.LogError(string.Format("Could not update consumer information for payment with ID:{0}. ConsumerLegalAddressResult:{1}.",
-                    payment.Id, consumerLegalAddress), e);
+                Log.Error("Could not update consumer information. See next log item for more information", e);
+                Log.ErrorFormat(
+                    "Could not update consumer information for payment with ID:{0}. ConsumerLegalAddressResult:{1}.",
+                    payment.Id, consumerLegalAddress);
             }
         }
     }

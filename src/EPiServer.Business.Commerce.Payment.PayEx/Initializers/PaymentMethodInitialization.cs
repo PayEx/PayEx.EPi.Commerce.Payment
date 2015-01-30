@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.DataAbstraction;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
+using log4net;
 using Mediachase.Commerce;
 using Mediachase.Commerce.Core;
 using Mediachase.Commerce.Orders.Dto;
@@ -17,6 +17,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
     [ModuleDependency(typeof(MetadataInitialization))]
     public class PaymentMethodInitialization : IInitializableModule
     {
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
+
         public void Initialize(InitializationEngine context)
         {
             if (PayExSettings.Instance.DisablePaymentMethodCreation)
@@ -68,9 +70,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
                     }
                     catch (Exception e)
                     {
-                        ILogger logger = ServiceLocator.Current.GetInstance<ILogger>();
-                        logger.LogError(string.Format("Could not create payment method with system name:{0} for language:{1} during initialization", 
-                            paymentMethodInfo.SystemKeyword, enabledSiteLanguage.LanguageID), e);
+                        Log.Error("Could not create payment method. See next log item for more information.", e);
+                        Log.ErrorFormat("Could not create payment method with system name:{0} for language:{1} during initialization", 
+                            paymentMethodInfo.SystemKeyword, enabledSiteLanguage.LanguageID);
                     }
                 }
             }

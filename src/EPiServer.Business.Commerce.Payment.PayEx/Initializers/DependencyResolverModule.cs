@@ -32,7 +32,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
                 x.For<IPaymentActions>().Use<PaymentActions>();
                 x.For<IParameterReader>().Use<ParameterReader>();
                 x.For<IPaymentMethodFactory>().Use<PaymentMethodFactory>();
-                x.For<ILogger>().Use<Logger>();
                 x.For<IHasher>().Use<Hash>();
                 x.For<IOrderFacade>().Use<Order>();
                 x.For<IPaymentManager>().Use<PaymentManager>();

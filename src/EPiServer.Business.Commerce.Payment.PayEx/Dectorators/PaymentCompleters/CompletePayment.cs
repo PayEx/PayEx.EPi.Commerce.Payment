@@ -11,14 +11,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
         private IPaymentCompleter _paymentCompleter;
         private readonly IPaymentManager _paymentManager;
         private readonly IPaymentActions _paymentActions;
-        private readonly ILogger _logger;
 
-        public CompletePayment(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager, IPaymentActions paymentActions, ILogger logger)
+        public CompletePayment(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager, IPaymentActions paymentActions)
         {
             _paymentCompleter = paymentCompleter;
             _paymentManager = paymentManager;
             _paymentActions = paymentActions;
-            _logger = logger;
         }
 
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
@@ -30,8 +28,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
             if (completeResult.GetTransactionDetails)
             {
                 if (_paymentCompleter == null)
-                    _paymentCompleter = new UpdateTransactionDetails(null, _paymentManager, _logger);
-                _paymentCompleter = new UpdateTransactionDetails(_paymentCompleter, _paymentManager, _logger);
+                    _paymentCompleter = new UpdateTransactionDetails(null, _paymentManager);
+                _paymentCompleter = new UpdateTransactionDetails(_paymentCompleter, _paymentManager);
             }
 
             _paymentActions.UpdatePaymentInformation(currentPayment, completeResult.TransactionNumber, completeResult.PaymentMethod);

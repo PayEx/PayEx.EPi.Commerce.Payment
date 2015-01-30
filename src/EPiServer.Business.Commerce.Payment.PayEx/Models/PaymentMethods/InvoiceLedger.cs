@@ -13,7 +13,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
     {
         private readonly IPaymentManager _paymentManager;
         private readonly IParameterReader _parameterReader;
-        private readonly ILogger _logger;
         private readonly ICartActions _cartActions;
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
@@ -21,13 +20,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         public InvoiceLedger() { } // Needed for unit testing
 
         public InvoiceLedger(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
-            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
+            IParameterReader parameterReader, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
             IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
             : base(payment)
         {
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
-            _logger = logger;
             _cartActions = cartActions;
             _orderNumberGenerator = orderNumberGenerator;
             _additionalValuesFormatter = additionalValuesFormatter;
@@ -70,19 +68,19 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         public override PaymentCompleteResult Complete(string orderRef)
         {
             IPaymentCompleter completer = new CompletePayment(
-                new UpdateTransactionDetails(null, _paymentManager, _logger), _paymentManager, _paymentActions, _logger);
+                new UpdateTransactionDetails(null, _paymentManager), _paymentManager, _paymentActions);
             return completer.Complete(this, orderRef);
         }
 
         public override bool Capture()
         {
-            IPaymentCapturer capturer = new CapturePayment(null, _logger, _paymentManager, _parameterReader);
+            IPaymentCapturer capturer = new CapturePayment(null, _paymentManager, _parameterReader);
             return capturer.Capture(this);
         }
 
         public override bool Credit()
         {
-            IPaymentCreditor creditor = new CreditPaymentByOrderLines(null, _logger, _paymentManager);
+            IPaymentCreditor creditor = new CreditPaymentByOrderLines(null, _paymentManager);
             return creditor.Credit(this);
         }
 

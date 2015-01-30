@@ -1,6 +1,4 @@
 ﻿
-using ICSharpCode.SharpZipLib.Core;
-
 namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     public static class Constants
@@ -102,6 +100,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 public const string SystemKeyword = "PayEx_GiftCard";
                 public const string Name = "PayEx GiftCard";
             }
+        }
+
+        public static class Logging
+        {
+            public const string DefaultLoggerName = "EPiServer.Business.Commerce.Payment.PayEx";
         }
     }
 }

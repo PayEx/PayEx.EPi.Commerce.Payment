@@ -15,14 +15,13 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.UnitTests.Factories
         {
             Mock<IPaymentManager> paymentManagerMock = new Mock<IPaymentManager>();
             Mock<IParameterReader> parameterReaderMock = new Mock<IParameterReader>();
-            Mock<ILogger> loggerMock = new Mock<ILogger>();
             Mock<ICartActions> cartActionsMock = new Mock<ICartActions>();
             Mock<IVerificationManager> verificationManagerMock  = new Mock<IVerificationManager>();
             Mock<IOrderNumberGenerator> orderNumberGeneratorMock = new Mock<IOrderNumberGenerator>();
             Mock<IAdditionalValuesFormatter> additionalValuesFormatterMock = new Mock<IAdditionalValuesFormatter>();
             Mock<IPaymentActions> paymentActionsMock = new Mock<IPaymentActions>();
 
-            PaymentMethodFactory factory = new PaymentMethodFactory(paymentManagerMock.Object, parameterReaderMock.Object, loggerMock.Object, cartActionsMock.Object,
+            PaymentMethodFactory factory = new PaymentMethodFactory(paymentManagerMock.Object, parameterReaderMock.Object, cartActionsMock.Object,
                 verificationManagerMock.Object, orderNumberGeneratorMock.Object, additionalValuesFormatterMock.Object, paymentActionsMock.Object);
             PaymentMethod result = factory.Create(null);
 

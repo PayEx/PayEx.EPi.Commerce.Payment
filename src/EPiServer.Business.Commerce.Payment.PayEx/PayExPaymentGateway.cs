@@ -2,6 +2,7 @@
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
 using EPiServer.ServiceLocation;
+using log4net;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Plugins.Payment;
 using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods.PaymentMethod;
@@ -10,12 +11,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     public class PayExPaymentGateway : AbstractPaymentGateway
     {
-        private readonly ILogger _logger;
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
         private readonly IPaymentMethodFactory _paymentMethodFactory;
 
         public PayExPaymentGateway()
         {
-            _logger = ServiceLocator.Current.GetInstance<ILogger>();
             _paymentMethodFactory = ServiceLocator.Current.GetInstance<IPaymentMethodFactory>();
         }
 
@@ -23,14 +23,14 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         {
             if (HttpContext.Current == null)
             {
-                _logger.LogWarning("HttpContent.Current is null");
+                Log.Warn("HttpContent.Current is null");
                 return false;
             }
 
             PaymentMethod currentPayment = _paymentMethodFactory.Create(payment);
             if (currentPayment == null)
             {
-                _logger.LogWarning("Could not get PayEx payment method for current payment");
+                Log.Warn("Could not get PayEx payment method for current payment");
                 return false;
             }
 
@@ -39,14 +39,14 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 // when user click complete order in commerce manager the transaction type will be Capture
                 if (currentPayment.IsCapture)
                 {
-                    _logger.LogDebug(string.Format("Begin CapturePayment for purchaseOrder with ID:{0}", currentPayment.PurchaseOrder.Id));
+                    Log.DebugFormat("Begin CapturePayment for purchaseOrder with ID:{0}", currentPayment.PurchaseOrder.Id);
                     return currentPayment.Capture();
                 }
 
                 // When "Refund" shipment in Commerce Manager, this method will be invoked with the TransactionType is Credit
                 if (currentPayment.IsCredit)
                 {
-                    _logger.LogDebug(string.Format("Begin CreditPayment for purchaseOrder with ID:{0}", currentPayment.PurchaseOrder.Id));
+                    Log.DebugFormat("Begin CreditPayment for purchaseOrder with ID:{0}", currentPayment.PurchaseOrder.Id);
                     return currentPayment.Credit();
                 }
 
@@ -73,7 +73,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             PaymentMethod currentPayment = _paymentMethodFactory.Create(payExPayment);
             if (currentPayment == null)
             {
-                _logger.LogWarning("Could not get PayEx payment method for current payment");
+                Log.Warn("Could not get PayEx payment method for current payment");
                 return false;
             }
 

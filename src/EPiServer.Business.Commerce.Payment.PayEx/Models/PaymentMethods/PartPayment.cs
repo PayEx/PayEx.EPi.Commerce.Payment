@@ -11,7 +11,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
     {
         private readonly IPaymentManager _paymentManager;
         private readonly IParameterReader _parameterReader;
-        private readonly ILogger _logger;
         private readonly ICartActions _cartActions;
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
@@ -22,13 +21,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         }
 
         public PartPayment(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
-            IParameterReader parameterReader, ILogger logger, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
+            IParameterReader parameterReader, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
             IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
             : base(payment)
         {
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
-            _logger = logger;
             _cartActions = cartActions;
             _orderNumberGenerator = orderNumberGenerator;
             _additionalValuesFormatter = additionalValuesFormatter;
@@ -75,13 +73,13 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 
         public override bool Capture()
         {
-            IPaymentCapturer capturer = new CapturePayment(null, _logger, _paymentManager, _parameterReader);
+            IPaymentCapturer capturer = new CapturePayment(null, _paymentManager, _parameterReader);
             return capturer.Capture(this);
         }
 
         public override bool Credit()
         {
-            IPaymentCreditor creditor = new CreditPayment(null, _logger, _paymentManager, _parameterReader);
+            IPaymentCreditor creditor = new CreditPayment(null, _paymentManager, _parameterReader);
             return creditor.Credit(this);
         }
 

@@ -16,10 +16,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IPaymentActions _paymentActions;
-        private readonly ILogger _logger;
         public Invoice() { }
 
-        public Invoice(Mediachase.Commerce.Orders.Payment payment, IVerificationManager verificationManager, IPaymentManager paymentManager, IParameterReader parameterReader, ILogger logger,  
+        public Invoice(Mediachase.Commerce.Orders.Payment payment, IVerificationManager verificationManager, IPaymentManager paymentManager, IParameterReader parameterReader,   
             ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
             : base(payment)
         {
@@ -30,7 +29,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             _orderNumberGenerator = orderNumberGenerator;
             _additionalValuesFormatter = additionalValuesFormatter;
             _paymentActions = paymentActions;
-            _logger = logger;
         }
 
         public override string PaymentMethodCode
@@ -63,7 +61,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             IPaymentInitializer initializer = new GenerateOrderNumber(
                 new GetConsumerLegalAddress(
                     new InitializePayment(
-                        new PurchaseInvoiceSale(_paymentManager, _paymentActions), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _verificationManager, _paymentActions), _orderNumberGenerator);
+                        new PurchaseInvoiceSale(_paymentManager, _paymentActions), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter),
+                        _verificationManager, _paymentActions), _orderNumberGenerator);
             return initializer.Initialize(this, null, null, null);
         }
 
@@ -74,13 +73,13 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 
         public override bool Capture()
         {
-            IPaymentCapturer capturer = new CapturePayment(null, _logger, _paymentManager, _parameterReader);
+            IPaymentCapturer capturer = new CapturePayment(null, _paymentManager, _parameterReader);
             return capturer.Capture(this);
         }
 
         public override bool Credit()
         {
-            IPaymentCreditor creditor = new CreditPayment(null, _logger, _paymentManager, _parameterReader);
+            IPaymentCreditor creditor = new CreditPayment(null, _paymentManager, _parameterReader);
             return creditor.Credit(this);
         }
 

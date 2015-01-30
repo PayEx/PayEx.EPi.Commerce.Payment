@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
-using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
+using log4net;
 using Mediachase.Commerce.Orders;
 using Mediachase.Data.Provider;
 using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods.PaymentMethod;
@@ -17,13 +17,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
     {
         private readonly IPaymentCompleter _paymentCompleter;
         private readonly IPaymentManager _paymentManager;
-        private readonly ILogger _logger;
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        public UpdateTransactionDetails(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager, ILogger logger)
+        public UpdateTransactionDetails(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager)
         {
             _paymentCompleter = paymentCompleter;
             _paymentManager = paymentManager;
-            _logger = logger;
         }
 
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
@@ -89,7 +88,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
             }
             catch (Exception e)
             {
-                _logger.LogError("Could not update address on purchase order", e);
+                Log.Error("Could not update address on purchase order", e);
                 return false;
             }
         }
