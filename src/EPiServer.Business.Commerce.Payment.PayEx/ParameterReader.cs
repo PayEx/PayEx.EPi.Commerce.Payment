@@ -6,7 +6,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     internal class ParameterReader : IParameterReader
     {
-        public const string VatParameter = "Vat";
         public const string PriceListArgsParameter = "PriceListArgs";
         public const string AdditionalValuesParameter = "AdditionalValues";
 
@@ -18,14 +17,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
         public string GetPriceArgsList(PaymentMethodDto paymentMethodDto)
         {
             return GetParameterByName(paymentMethodDto, PriceListArgsParameter).Value;
-        }
-
-        public int GetVat(PaymentMethodDto paymentMethodDto)
-        {
-            int vat;
-            if (int.TryParse(GetParameterByName(paymentMethodDto, VatParameter).Value, out vat))
-                return vat;
-            return 0;
         }
 
         internal PaymentMethodDto.PaymentMethodParameterRow GetParameterByName(PaymentMethodDto paymentMethodDto, string name)

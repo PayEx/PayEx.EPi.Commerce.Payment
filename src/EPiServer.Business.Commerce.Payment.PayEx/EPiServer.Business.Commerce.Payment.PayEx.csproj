@@ -334,13 +334,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Apps\Order\Payments\Plugins\PayEx_CreditCard\ConfigurePayment.ascx" />
-    <Content Include="Apps\Order\Payments\Plugins\PayEx_DirectDebit\ConfigurePayment.ascx" />
-    <Content Include="Apps\Order\Payments\Plugins\PayEx_GiftCard\ConfigurePayment.ascx" />
-    <Content Include="Apps\Order\Payments\Plugins\PayEx_InvoiceLedger\ConfigurePayment.ascx" />
-    <Content Include="Apps\Order\Payments\Plugins\PayEx_Invoice\ConfigurePayment.ascx" />
-    <Content Include="Apps\Order\Payments\Plugins\PayEx_PartPayment\ConfigurePayment.ascx" />
-    <Content Include="Apps\Order\Payments\Plugins\PayEx_PayPal\ConfigurePayment.ascx" />
     <None Include="Service References\PxVerification\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

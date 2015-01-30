@@ -9,14 +9,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
     internal class CreditPayment : IPaymentCreditor
     {
         private readonly IPaymentCreditor _paymentCreditor;
-        private readonly IParameterReader _parameterReader;
         private readonly IPaymentManager _paymentManager;
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        public CreditPayment(IPaymentCreditor paymentCreditor, IPaymentManager paymentManager, IParameterReader parameterReader)
+        public CreditPayment(IPaymentCreditor paymentCreditor, IPaymentManager paymentManager)
         {
             _paymentCreditor = paymentCreditor;
-            _parameterReader = parameterReader;
             _paymentManager = paymentManager;
         }
 
@@ -34,9 +32,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
             Log.InfoFormat("PayEx transaction ID is {0} on payment with ID:{1} belonging to order with ID: {2}", transactionId, payment.Id, payment.OrderGroupId);
 
             long amount = payment.Amount.RoundToLong();
-            int vat = _parameterReader.GetVat(currentPayment.PaymentMethodDto);
             CreditResult result = _paymentManager.Credit(transactionId, amount,
-                currentPayment.PurchaseOrder.TrackingNumber, vat, string.Empty);
+                currentPayment.PurchaseOrder.TrackingNumber, 0, string.Empty);
 
             bool success = false;
             if (result.Success && !string.IsNullOrWhiteSpace(result.TransactionNumber))

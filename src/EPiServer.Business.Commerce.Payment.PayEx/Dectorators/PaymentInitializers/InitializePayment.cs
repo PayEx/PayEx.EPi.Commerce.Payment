@@ -54,11 +54,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
         {
             string additionalValues = FormatAdditionalValues(currentPayment);
             string priceArgsList = _parameterReader.GetPriceArgsList(currentPayment.PaymentMethodDto);
-            int vat = _parameterReader.GetVat(currentPayment.PaymentMethodDto);
             string purchaseOperation = currentPayment.PurchaseOperation.ToString();
 
             return new PaymentInformation(
-               currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, vat,
+               currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, 0,
                orderNumber, currentPayment.Payment.ProductNumber, currentPayment.Payment.Description, currentPayment.Payment.ClientIpAddress,
                additionalValues, currentPayment.Payment.ReturnUrl, currentPayment.DefaultView,
                currentPayment.Payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName, purchaseOperation);

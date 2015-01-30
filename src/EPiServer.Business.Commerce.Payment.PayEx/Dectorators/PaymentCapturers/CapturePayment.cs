@@ -10,14 +10,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCapturers
     {
         private readonly IPaymentCapturer _paymentCapturer;
         private readonly IPaymentManager _paymentManager;
-        private readonly IParameterReader _parameterReader;
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        public CapturePayment(IPaymentCapturer paymentCapturer, IPaymentManager paymentManager, IParameterReader parameterReader)
+        public CapturePayment(IPaymentCapturer paymentCapturer, IPaymentManager paymentManager)
         {
             _paymentCapturer = paymentCapturer;
             _paymentManager = paymentManager;
-            _parameterReader = parameterReader;
         }
 
         public bool Capture(PaymentMethod currentPayment)
@@ -34,8 +32,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCapturers
             Log.InfoFormat("PayEx transaction ID is {0} on payment with ID:{1} belonging to order with ID: {2}", transactionId, payment.Id, payment.OrderGroupId);
 
             long amount = payment.Amount.RoundToLong();
-            int vat = _parameterReader.GetVat(currentPayment.PaymentMethodDto);
-            CaptureResult result = _paymentManager.Capture(transactionId, amount, currentPayment.PurchaseOrder.TrackingNumber, vat, string.Empty);
+            CaptureResult result = _paymentManager.Capture(transactionId, amount, currentPayment.PurchaseOrder.TrackingNumber, 0, string.Empty);
 
             bool success = false;
             if (result.Success && !string.IsNullOrWhiteSpace(result.TransactionNumber))

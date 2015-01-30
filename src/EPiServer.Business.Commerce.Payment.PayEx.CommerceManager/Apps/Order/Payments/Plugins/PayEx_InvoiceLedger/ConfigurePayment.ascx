@@ -15,16 +15,6 @@
             <td colspan="2" class="FormSpacerCell"></td>
         </tr>
         <tr>
-		    <td class="FormLabelCell"><asp:Literal runat="server" Text="VAT" />:</td>
-		    <td class="FormFieldCell"><asp:TextBox runat="server" ID="VAT" Width="230"></asp:TextBox><br>
-			    <asp:RequiredFieldValidator ControlToValidate="VAT" Display="dynamic" Font-Name="verdana" Font-Size="9pt" ErrorMessage="VAT is required"
-				    runat="server"></asp:RequiredFieldValidator>
-		    </td>
-	    </tr>
-	    <tr>
-            <td colspan="2" class="FormSpacerCell"></td>
-        </tr>
-        <tr>
               <td class="FormLabelCell"><asp:Literal runat="server" Text="AdditionalValues" />:</td>
 	          <td class="FormFieldCell">
 		            <asp:TextBox Runat="server" ID="AdditionalValues" Width="300px"></asp:TextBox>

@@ -8,7 +8,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
     public partial class ConfigurePayment : System.Web.UI.UserControl, IGatewayControl
     {
         private PaymentMethodDto _paymentMethodDto;
-        private const string VatParameter = "Vat";
         private const string PriceListArgsParameter = "PriceListArgs";
         private const string AdditionalValuesParameter = "AdditionalValues";
 
@@ -33,12 +32,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 if (parameterByName != null)
                 {
                     PriceArgList.Text = parameterByName.Value;
-                }
-
-                parameterByName = GetParameterByName(VatParameter);
-                if (parameterByName != null)
-                {
-                    VAT.Text = parameterByName.Value;
                 }
 
                 parameterByName = GetParameterByName(AdditionalValuesParameter);
@@ -83,16 +76,6 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                     else
                     {
                         CreateParameter(_paymentMethodDto, PriceListArgsParameter, PriceArgList.Text, paymentMethodId);
-                    }
-
-                    parameterByName = GetParameterByName(VatParameter);
-                    if (parameterByName != null)
-                    {
-                        parameterByName.Value = VAT.Text;
-                    }
-                    else
-                    {
-                        CreateParameter(_paymentMethodDto, VatParameter, VAT.Text, paymentMethodId);
                     }
 
                     parameterByName = GetParameterByName(AdditionalValuesParameter);

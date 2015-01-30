@@ -76,7 +76,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 
         public override bool Credit()
         {
-            IPaymentCreditor creditor = new CreditPayment(null, _paymentManager, _parameterReader);
+            IPaymentCreditor creditor = new CreditPayment(null, _paymentManager);
             return creditor.Credit(this);
         }
 

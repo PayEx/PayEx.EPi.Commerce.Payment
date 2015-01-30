@@ -77,7 +77,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 
         public override bool Capture()
         {
-            IPaymentCapturer capturer = new CapturePayment(null, _paymentManager, _parameterReader);
+            IPaymentCapturer capturer = new CapturePayment(null, _paymentManager);
             return capturer.Capture(this);
         }
 
