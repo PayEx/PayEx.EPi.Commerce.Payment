@@ -19,7 +19,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
         private readonly IPaymentManager _paymentManager;
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        public UpdateTransactionDetails(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager)
+        internal UpdateTransactionDetails(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager)
         {
             _paymentCompleter = paymentCompleter;
             _paymentManager = paymentManager;
