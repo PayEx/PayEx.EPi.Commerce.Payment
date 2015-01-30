@@ -2,22 +2,17 @@
 using System.Collections;
 using System.Threading;
 using System.Web;
-using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
+using log4net;
 using Mediachase.Commerce.Orders;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
     internal class CartActions : ICartActions
     {
-        private readonly ILogger _logger;
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
         private const string CurrentCartKey = "CurrentCart";
         private const string CurrentContextKey = "CurrentContext";
-
-        public CartActions(ILogger logger)
-        {
-            _logger = logger;
-        }
 
         /// <summary>
         /// Uses parameterized thread to update the cart instance id otherwise will get an "workflow already existed" exception.
@@ -44,25 +39,31 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
         /// <param name="cartArgs">The cart agruments for updating.</param>
         private void UpdateCartCallbackFunction(object cartArgs)
         {
+            Log.Info("Begin saving all the changes that have been done to the cart");
             var cartInfo = cartArgs as Hashtable;
             if (cartInfo == null || !cartInfo.ContainsKey(CurrentCartKey))
                 return;
 
             var cart = cartInfo[CurrentCartKey] as Cart;
-            if (cart != null)
+            if (cart == null)
             {
-                cart.InstanceId = Guid.NewGuid();
-                if (HttpContext.Current == null && cartInfo.ContainsKey(CurrentContextKey))
-                    HttpContext.Current = cartInfo[CurrentContextKey] as HttpContext;
-                
-                try
-                {
-                    cart.AcceptChanges();
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError("Could not update cart in PayEx provider", ex);
-                }
+                Log.Error("Current cart could not be found, cannot save changes!");
+                return;
+            }
+
+            Log.InfoFormat("Saving all the changes that have been done to the cart with ID:{0}", cart.OrderGroupId);
+            cart.InstanceId = Guid.NewGuid();
+            if (HttpContext.Current == null && cartInfo.ContainsKey(CurrentContextKey))
+                HttpContext.Current = cartInfo[CurrentContextKey] as HttpContext;
+
+            try
+            {
+                cart.AcceptChanges();
+                Log.InfoFormat("Successfylly saved all the changes that have been done to the cart with ID:{0}", cart.OrderGroupId);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Could not update cart in PayEx provider", ex);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿
 using System.Xml.Serialization;
-using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
+using Newtonsoft.Json;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
 {
@@ -54,6 +54,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.Result
             {
                 return AddressCollection.MainAddress != null ? AddressCollection.MainAddress.Country : string.Empty;
             }
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

@@ -2,17 +2,13 @@
 using System.IO;
 using System.Xml.Serialization;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+using log4net;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
 {
     internal class ResultParser : IResultParser
     {
-        private readonly ILogger _logger;
-
-        public ResultParser(ILogger logger)
-        {
-            _logger = logger;
-        }
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
         public T Deserialize<T>(string xml) where T : class
         {
@@ -22,7 +18,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Payment
             if (obj != null)
                 return (T)obj;
 
-            _logger.LogFatal(string.Format("Could not deserialize XML result from PayEx to object of type:{0}! xml:{1}", typeof(T).Name, xml));
+            Log.Fatal(string.Format("Could not deserialize XML result from PayEx to object of type:{0}! xml:{1}", typeof(T).Name, xml));
             throw new Exception(string.Format("Could not deserialize XML result from PayEx to object of type:{0}! xml:{1}", typeof(T).Name, xml));
         }
     }
