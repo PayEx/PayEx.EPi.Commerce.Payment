@@ -6,6 +6,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
     public interface IPayExPayment
     {
         /// <summary>
+        /// The ID of this payment
+        /// </summary>
+        int Id { get; }
+
+        /// <summary>
         /// The order number of this payment
         /// </summary>
         string OrderNumber { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Mediachase.Commerce.Orders;
+using Newtonsoft.Json;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models
 {
@@ -38,6 +39,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models
             Mobile = orderAddress.DaytimePhoneNumber;
             Email = orderAddress.Email;
             Phone = string.Empty;
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

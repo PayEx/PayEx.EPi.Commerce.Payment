@@ -13,10 +13,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
         public void Initialize(InitializationEngine context)
         {
             if (string.IsNullOrWhiteSpace(PayExSettings.Instance.AccountNumber.ToString()))
-                Log.Fatal("The PayEx payment provider will not work unless you supply an Account Number in the payment provider module settings!");
+                Log.Error("The PayEx payment provider will not work unless you supply an Account Number in the payment provider module settings!");
 
             if (string.IsNullOrWhiteSpace(PayExSettings.Instance.EncryptionKey))
-                Log.Fatal("The PayEx payment provider will not work unless you supply an encryption key in the payment provider module settings!");
+                Log.Error("The PayEx payment provider will not work unless you supply an encryption key in the payment provider module settings!");
         }
 
         public void Uninitialize(InitializationEngine context)

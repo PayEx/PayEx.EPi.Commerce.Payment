@@ -27,10 +27,16 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
 
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
         {
+            Log.InfoFormat("Updating transaction details for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             string transactionString = ((Mediachase.Commerce.Orders.Payment)currentPayment.Payment).AuthorizationCode;
+            Log.InfoFormat("Transaction number is:{0} for payment with ID:{1} belonging to order with ID: {2}", transactionString, currentPayment.Payment.Id, currentPayment.OrderGroupId);
+
             int transactionNumber;
             if (!Int32.TryParse(transactionString, out transactionNumber))
+            {
+                Log.ErrorFormat("Could not parse Transaction number:{0} to an Int for payment with ID:{1} belonging to order with ID: {2}", transactionString, currentPayment.Payment.Id, currentPayment.OrderGroupId);
                 return new PaymentCompleteResult();
+            }
 
             TransactionResult transactionDetails = _paymentManager.GetTransactionDetails(transactionNumber);
             bool updated = false;
@@ -41,14 +47,22 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
             if (_paymentCompleter != null)
                 result = _paymentCompleter.Complete(currentPayment, orderRef);
 
+            if (updated)
+                Log.InfoFormat("Successfully updated transaction details for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+
             result.Success = updated;
             return result;
         }
 
         private bool UpdateOrderAddress(PaymentMethod currentPayment, TransactionResult transactionDetails2)
         {
+            Log.InfoFormat("Updating order address for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             if (!currentPayment.RequireAddressUpdate)
+            {
+                Log.InfoFormat("This payment method ({0}) does not require an order address update. Payment with ID:{1} belonging to order with ID: {2}",
+                    currentPayment.PaymentMethodCode, currentPayment.Payment.Id, currentPayment.OrderGroupId);
                 return true;
+            }
 
             Address newAddress = currentPayment.GetAddressFromPayEx(transactionDetails2);
             if (newAddress == null)
@@ -56,6 +70,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
 
             Cart cart = currentPayment.Cart;
             OrderAddress shippingAddress = GetShippingAddress(cart);
+            if (shippingAddress == null)
+            {
+                Log.ErrorFormat("Could not update address for payment with ID:{0} belonging to order with ID: {1}. Reason: Shipping address was not found!", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                return false;
+            }
 
             Dictionary<string, string> propertiesToUpdate = new Dictionary<string, string>()
             {
@@ -71,7 +90,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
             bool updated = UpdatePropertyValues(shippingAddress, propertiesToUpdate);
 
             if (!string.IsNullOrWhiteSpace(newAddress.Fullname))
+            {
+                Log.InfoFormat("Setting customer name of cart to {0} on payment with ID:{1} belonging to order with ID: {2}",
+                    newAddress.Fullname, currentPayment.Payment.Id, currentPayment.OrderGroupId);
                 cart.CustomerName = newAddress.Fullname;
+            }
 
             try
             {
@@ -88,7 +111,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleter
             }
             catch (Exception e)
             {
-                Log.Error("Could not update address on purchase order", e);
+                Log.Error("Could not update address for payment. See next log statement for more information", e);
+                Log.ErrorFormat("Could not update address for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
                 return false;
             }
         }

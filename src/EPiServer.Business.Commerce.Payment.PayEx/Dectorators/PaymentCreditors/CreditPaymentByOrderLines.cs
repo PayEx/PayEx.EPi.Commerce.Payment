@@ -21,6 +21,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
         public bool Credit(PaymentMethod currentPayment)
         {
             Mediachase.Commerce.Orders.Payment payment = (Mediachase.Commerce.Orders.Payment)currentPayment.Payment;
+            Log.InfoFormat("Crediting payment with ID:{0} belonging to order with ID: {1}, by order lines", payment.Id, payment.OrderGroupId);
 
             int transactionId;
             if (!int.TryParse(payment.AuthorizationCode, out transactionId))
@@ -28,6 +29,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
                 Log.ErrorFormat("Could not get PayEx Transaction Id from purchase order with ID: {0}", currentPayment.PurchaseOrder.Id);
                 return false;
             }
+            Log.InfoFormat("PayEx transaction ID is {0} on payment with ID:{1} belonging to order with ID: {2}", transactionId, payment.Id, payment.OrderGroupId);
 
             CreditResult result = null;
             foreach (OrderForm orderForm in currentPayment.PurchaseOrder.OrderForms)
@@ -41,9 +43,11 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
             bool success = false;
             if (result != null && !string.IsNullOrWhiteSpace(result.TransactionNumber))
             {
+                Log.InfoFormat("Setting PayEx transaction number to {0} on payment with ID:{1} belonging to order with ID: {2} during credit", result.TransactionNumber, payment.Id, payment.OrderGroupId);
                 payment.TransactionID = result.TransactionNumber;
                 payment.AcceptChanges();
                 success = true;
+                Log.InfoFormat("Successfully credited payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             }
 
             if (_paymentCreditor != null)

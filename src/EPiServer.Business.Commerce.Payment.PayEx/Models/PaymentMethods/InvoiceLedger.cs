@@ -6,6 +6,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors;
 using EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
+using log4net;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 {
@@ -17,10 +18,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IPaymentActions _paymentActions;
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
+
         public InvoiceLedger() { } // Needed for unit testing
 
         public InvoiceLedger(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
-            IParameterReader parameterReader, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
+            IParameterReader parameterReader, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator,
             IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
             : base(payment)
         {
@@ -86,8 +89,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
 
         public override Address GetAddressFromPayEx(TransactionResult transactionResult)
         {
+            Log.InfoFormat("Attempting to retrieve address for PayEx transaction result: {0} for Invoice Ledger payment with ID:{1} belonging to order with ID: {2}", transactionResult, Payment.Id, OrderGroupId);
             if (transactionResult.Invoice == null || string.IsNullOrWhiteSpace(transactionResult.CustomerName))
+            {
+                Log.ErrorFormat("TransactionResult must contain both an invoice element and a customer name in order to retrieve address for PayEx transaction result. Payment with ID:{1} belonging to order with ID: {2}", Payment.Id, OrderGroupId);
                 return null;
+            }
 
             string lastName = string.Empty;
             string[] names = transactionResult.Invoice.CustomerName.Split(' ');
@@ -95,7 +102,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
             if (names.Length > 1)
                 lastName = string.Join(" ", names.Skip(1));
 
-            return new Address
+            Address address = new Address
             {
                 FirstName = firstName,
                 LastName = lastName,
@@ -104,6 +111,9 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods
                 City = transactionResult.Invoice.CustomerCity,
                 Email = transactionResult.Invoice.CustomerEmail
             };
+            Log.InfoFormat("Successfully retrieved address:{0} from PayEx transaction result: {1} for Invoice Ledger payment with ID:{2} belonging to order with ID: {3}",
+                address, transactionResult, Payment.Id, OrderGroupId);
+            return address;
         }
     }
 }

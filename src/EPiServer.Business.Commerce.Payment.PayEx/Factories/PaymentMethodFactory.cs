@@ -17,7 +17,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
         private readonly IPaymentActions _paymentActions;
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        public PaymentMethodFactory(IPaymentManager paymentManager, IParameterReader parameterReader, ICartActions cartActions, IVerificationManager verificationManager, 
+        public PaymentMethodFactory(IPaymentManager paymentManager, IParameterReader parameterReader, ICartActions cartActions, IVerificationManager verificationManager,
             IOrderNumberGenerator orderNumberGenerator, IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
         {
             _paymentManager = paymentManager;
@@ -31,19 +31,25 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
 
         public PaymentMethod Create(Mediachase.Commerce.Orders.Payment payment)
         {
+            Log.InfoFormat("Attempting to resolve the PaymentMethod for payment with ID:{0}. PaymentMethodId:{1}", payment.Id, payment.PaymentMethodId);
+
             if (!(payment is PayExPayment))
+            {
+                Log.ErrorFormat("Payment with ID:{0} is not a PayExPayment and therefore it cannot be processed by the PayEx Payment Provider!", payment.Id);
                 return null;
+            }
 
             PaymentMethodDto paymentMethodDto =
                 Mediachase.Commerce.Orders.Managers.PaymentManager.GetPaymentMethod(payment.PaymentMethodId);
             string systemKeyword = paymentMethodDto.PaymentMethod.FindByPaymentMethodId(payment.PaymentMethodId).SystemKeyword;
+            Log.InfoFormat("Resolving the PaymentMethod for payment with ID:{0}. The systemKeyword for this payment method is {1}", payment.Id, systemKeyword);
 
             switch (systemKeyword)
             {
                 case Constants.Payment.DirectDebit.SystemKeyword:
                     return new DirectBankDebit(payment, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case Constants.Payment.Giftcard.SystemKeyword:
-                    return new GiftCard(payment, _paymentManager, _parameterReader,_cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
+                    return new GiftCard(payment, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case Constants.Payment.Invoice.SystemKeyword:
                     return new Invoice(payment, _verificationManager, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case Constants.Payment.InvoiceLedger.SystemKeyword:
@@ -52,9 +58,12 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Factories
                     return new PartPayment(payment, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case Constants.Payment.PayPal.SystemKeyword:
                     return new PayPal(payment, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
-                default:
+                case Constants.Payment.CreditCard.SystemKeyword:
                     return new CreditCard(payment, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
             }
+
+            Log.ErrorFormat("Could not resolve the PaymentMethod for payment with ID:{0}. The systemKeyword for this payment method is {1}", payment.Id, systemKeyword);
+            return null;
         }
     }
 }

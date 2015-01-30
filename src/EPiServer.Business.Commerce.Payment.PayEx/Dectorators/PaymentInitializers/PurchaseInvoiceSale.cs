@@ -1,8 +1,10 @@
-﻿using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
+﻿using System;
+using EPiServer.Business.Commerce.Payment.PayEx.Contracts;
 using EPiServer.Business.Commerce.Payment.PayEx.Contracts.Commerce;
 using EPiServer.Business.Commerce.Payment.PayEx.Models;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
+using log4net;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers
 {
@@ -10,6 +12,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
     {
         private readonly IPaymentManager _paymentManager;
         private readonly IPaymentActions _paymentActions;
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
         public PurchaseInvoiceSale(IPaymentManager paymentManager, IPaymentActions paymentActions)
         {
@@ -19,12 +22,18 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
+            Log.InfoFormat("Calling PurchaseInvoiceSale for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             CustomerDetails customerDetails = CreateModel(currentPayment);
+            if (customerDetails == null)
+                throw new Exception("Payment class must be ExtendedPayExPayment when using this payment method");
+
             PurchaseInvoiceSaleResult result = _paymentManager.PurchaseInvoiceSale(orderRef, customerDetails);
             if (!result.Status.Success)
                 return new PaymentInitializeResult { ErrorMessage = result.Status.Description };
 
             _paymentActions.UpdatePaymentInformation(currentPayment, result.TransactionNumber, result.PaymentMethod);
+
+            Log.InfoFormat("Successfully called PurchaseInvoiceSale for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             return new PaymentInitializeResult { Success = true };
         }
 

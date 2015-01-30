@@ -7,6 +7,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 using EPiServer.Business.Commerce.Payment.PayEx.Models.Result;
 using EPiServer.Business.Commerce.Payment.PayEx.Price;
 using EPiServer.Globalization;
+using log4net;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializers
 {
@@ -17,6 +18,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
         private readonly IParameterReader _parameterReader;
         private readonly ICartActions _cartActions;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
+        protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
         public InitializePayment(IPaymentInitializer paymentInitializer, IPaymentManager paymentManager, IParameterReader parameterReader, ICartActions cartActions,
             IAdditionalValuesFormatter additionalValuesFormatter)
@@ -30,12 +32,14 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
+            Log.InfoFormat("Initializing payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             PaymentInformation paymentInformation = CreateModel(currentPayment, orderNumber);
 
             InitializeResult result = _paymentManager.Initialize(currentPayment.Cart, paymentInformation, currentPayment.IsDirectModel, currentPayment.IsDirectModel);
             if (!result.Status.Success)
                 return new PaymentInitializeResult { Success = false, ErrorMessage = result.Status.Description };
 
+            Log.InfoFormat("Setting PayEx order reference to {0} on payment with ID:{1} belonging to order with ID: {2}", result.OrderRef, currentPayment.Payment.Id, currentPayment.OrderGroupId);
             currentPayment.Payment.PayExOrderRef = result.OrderRef.ToString();
 
             _cartActions.UpdateCartInstanceId(currentPayment.Cart); // Save all the changes that have been done to the cart
