@@ -3,7 +3,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMethods;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
-    interface IPaymentCompleter
+    internal interface IPaymentCompleter
     {
         PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef);
     }

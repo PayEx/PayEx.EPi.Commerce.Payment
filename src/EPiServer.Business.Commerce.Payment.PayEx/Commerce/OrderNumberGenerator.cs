@@ -4,7 +4,7 @@ using Mediachase.Commerce.Orders;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
-    public class OrderNumberGenerator : IOrderNumberGenerator
+    internal class OrderNumberGenerator : IOrderNumberGenerator
     {
         public string Generate(Cart cart)
         {

@@ -13,13 +13,13 @@ using PaymentMethod = EPiServer.Business.Commerce.Payment.PayEx.Models.PaymentMe
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCompleters
 {
-    public class UpdateTransactionDetails : IPaymentCompleter
+    internal class UpdateTransactionDetails : IPaymentCompleter
     {
         private readonly IPaymentCompleter _paymentCompleter;
         private readonly IPaymentManager _paymentManager;
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        internal UpdateTransactionDetails(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager)
+        public UpdateTransactionDetails(IPaymentCompleter paymentCompleter, IPaymentManager paymentManager)
         {
             _paymentCompleter = paymentCompleter;
             _paymentManager = paymentManager;

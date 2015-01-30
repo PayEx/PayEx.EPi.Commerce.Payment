@@ -3,7 +3,7 @@ using EPiServer.Business.Commerce.Payment.PayEx.Models;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
 {
-    interface IHasher
+    internal interface IHasher
     {
         string Create(long accountNumber, PaymentInformation payment, string encryptionKey);
         string Create(long accountNumber, OrderLine orderLine, string encryptionKey);

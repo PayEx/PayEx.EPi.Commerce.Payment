@@ -117,6 +117,22 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
             }
         }
 
+        public int Vat
+        {
+            get
+            {
+                string vatString = GetString("Vat");
+                int vat;
+                if (Int32.TryParse(vatString, out vat))
+                    return vat;
+                return 0;
+            }
+            set
+            {
+                this["Vat"] = value;
+            }
+        }
+
         public PayExPayment()
             : base(PayExPaymentMetaClass)
         {

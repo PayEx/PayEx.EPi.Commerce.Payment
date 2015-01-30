@@ -7,7 +7,7 @@ using Mediachase.Data.Provider;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
-    public class PaymentActions : IPaymentActions
+    internal class PaymentActions : IPaymentActions
     {
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 

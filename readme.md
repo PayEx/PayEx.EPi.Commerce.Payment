@@ -132,6 +132,22 @@ After the customer has entered all necessary information during the checkout pro
 
 *description*: Merchant’s description of the product.
 
+##### Note #####
+
+Note that you also need to set the standard Mediachase.Commerce.Orders.Payment  properties, example code: 
+
+	 private void CreatePayment(Cart cart, PaymentMethodDto.PaymentMethodRow paymentMethod)
+     {
+        PayExPayment payExPayment = new PayExPayment("1.0.0.127", "1234",
+                "http://localhost?cancel", "http://localhost?return", "Description");
+        payExPayment.Amount = cart.Total;
+        payExPayment.OrderFormId = cart.OrderForms[0].Id;
+        payExPayment.PaymentMethodName = paymentMethod.Name;
+        payExPayment.PaymentMethodId = payExPayment.PaymentMethodId;
+        payExPayment.TransactionType = TransactionType.Authorization.ToString();
+        payExPayment.Status = PaymentStatus.Pending.ToString();
+      }
+
 ####Step 2####
 The payment process is initiated in the *ProcessPaymentActivity* in the *CartCheckoutWorkflow* and the user is redirected to PayEx. **Unless you've changed the default Commerce workflows for your Commerce website, you will not need to write any code for this to happen!**
 
@@ -229,6 +245,22 @@ After the customer has entered all necessary information during the checkout pro
 *email*: Customers email address
 
 *mobilePhone*: Customers mobile phone number. Phone number need to be formatted with country code and “+” – (+46XXXXXXXXX, +47XXXXXXXX etc.) RegEx validation: “[a-zA-Z0-9_:!;\”#<>=?\\[\\]@{}´\n\r %-/À-ÖØ-öø-úü]*”
+
+#####Note #####
+
+Note that you also need to set the standard Mediachase.Commerce.Orders.Payment  properties, example code: 
+
+	 private void CreatePayment(Cart cart, PaymentMethodDto.PaymentMethodRow paymentMethod)
+     {
+        ExtendedPayExPayment payExPayment = new ExtendedPayExPayment("1.0.0.127", "1234", "http://localhost?return", "Description", "12345678912", "SE", "myemail@contoso.com", "99999999");
+        payExPayment.Amount = cart.Total;
+        payExPayment.OrderFormId = cart.OrderForms[0].Id;
+        payExPayment.PaymentMethodName = paymentMethod.Name;
+        payExPayment.PaymentMethodId = payExPayment.PaymentMethodId;
+        payExPayment.TransactionType = TransactionType.Authorization.ToString();
+        payExPayment.Status = PaymentStatus.Pending.ToString();
+      }
+
 
 ####Step 2####
 The payment process is initiated in the *ProcessPaymentActivity* in the *CartCheckoutWorkflow* and the user is redirected to PayEx. **Unless you've changes the default Commerce workflows for your Commerce website, you will not need to write any code for this to happen!**
@@ -405,3 +437,13 @@ In order to specify dynamic values you can implement your own *IAdditionalValues
 	    }
 	}
 
+## Troubleshooting ##
+
+### Logging ###
+
+The PayEx Payment Provider logs to a logger named *EPiServer.Business.Commerce.Payment.PayEx*. Include the following logger in your EPiServerLog.config log: 
+	
+	<logger name="EPiServer.Business.Commerce.Payment.PayEx">
+    	<level value="All"/>
+    	<appender-ref ref="[Insert your appender here]" />
+  	</logger>

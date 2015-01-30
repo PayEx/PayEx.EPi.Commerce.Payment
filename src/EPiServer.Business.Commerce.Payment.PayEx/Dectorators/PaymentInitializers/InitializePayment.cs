@@ -57,7 +57,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
             string purchaseOperation = currentPayment.PurchaseOperation.ToString();
 
             return new PaymentInformation(
-               currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, 0,
+               currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, currentPayment.Payment.Vat,
                orderNumber, currentPayment.Payment.ProductNumber, currentPayment.Payment.Description, currentPayment.Payment.ClientIpAddress,
                additionalValues, currentPayment.Payment.ReturnUrl, currentPayment.DefaultView,
                currentPayment.Payment.CancelUrl, ContentLanguage.PreferredCulture.TextInfo.CultureName, purchaseOperation);

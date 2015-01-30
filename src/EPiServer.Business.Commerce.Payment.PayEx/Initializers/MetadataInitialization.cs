@@ -10,7 +10,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
 {
     [InitializableModule]
     [ModuleDependency(typeof(CommerceInitialization))]
-    public class MetadataInitialization : IInitializableModule
+    internal class MetadataInitialization : IInitializableModule
     {
         private class MetadataInfo
         {
@@ -115,6 +115,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
                 new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.ReturnUrl, MetaDataType.ShortString, 255, true, false, 
                     new List<string>{Constants.Metadata.Payment.PayExPaymentClassName, Constants.Metadata.Payment.ExtendedPayExPaymentClassName}),
                 new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.CustomerId, MetaDataType.ShortString, 255, true, false, 
+                    new List<string>{Constants.Metadata.Payment.PayExPaymentClassName, Constants.Metadata.Payment.ExtendedPayExPaymentClassName}),
+                new MetadataInfo(Constants.Metadata.Namespace.Order, Constants.Metadata.Payment.Vat, MetaDataType.Int, 0, true, false, 
                     new List<string>{Constants.Metadata.Payment.PayExPaymentClassName, Constants.Metadata.Payment.ExtendedPayExPaymentClassName}),
                 
                 // ExtendedPayExPayment meta fields

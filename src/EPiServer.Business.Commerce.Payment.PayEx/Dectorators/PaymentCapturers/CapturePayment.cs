@@ -32,7 +32,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCapturers
             Log.InfoFormat("PayEx transaction ID is {0} on payment with ID:{1} belonging to order with ID: {2}", transactionId, payment.Id, payment.OrderGroupId);
 
             long amount = payment.Amount.RoundToLong();
-            CaptureResult result = _paymentManager.Capture(transactionId, amount, currentPayment.PurchaseOrder.TrackingNumber, 0, string.Empty);
+            CaptureResult result = _paymentManager.Capture(transactionId, amount, currentPayment.PurchaseOrder.TrackingNumber, currentPayment.Payment.Vat, string.Empty);
 
             bool success = false;
             if (result.Success && !string.IsNullOrWhiteSpace(result.TransactionNumber))

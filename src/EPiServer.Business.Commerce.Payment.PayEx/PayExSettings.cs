@@ -7,7 +7,7 @@ using EPiServer.PlugIn;
 namespace EPiServer.Business.Commerce.Payment.PayEx
 {
     [GuiPlugIn(Area = PlugInArea.None, DisplayName = "Settings for the PayEx payment provider")]
-    public class PayExSettings : IPayExSettings
+    internal class PayExSettings : IPayExSettings
     {
         internal static Guid BroadcastSettingsChangedEventId = new Guid("75714741-2ec2-4317-8110-1b1b63818602");
         private static PayExSettings _instance;

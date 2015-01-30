@@ -14,7 +14,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
 {
     [ModuleDependency(typeof(CommerceInitialization))]
     [InitializableModule]
-    public class DependencyResolverModule : IConfigurableModule
+    internal class DependencyResolverModule : IConfigurableModule
     {
         private IContainer _container;
 

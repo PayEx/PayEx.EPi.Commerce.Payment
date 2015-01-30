@@ -54,5 +54,10 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Contracts
         /// The date and time this payment was created
         /// </summary>
         DateTime Created { get; set; }
+
+        /// <summary>
+        /// The vat is in percent and must be submitted as vat amount * 100: Example: 2500 = 25.00 %Set to 0 if you don’t need the vat to be specified.
+        /// </summary>
+        int Vat { get; set; }
     }
 }

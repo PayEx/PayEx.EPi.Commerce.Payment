@@ -33,7 +33,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentCreditors
 
             long amount = payment.Amount.RoundToLong();
             CreditResult result = _paymentManager.Credit(transactionId, amount,
-                currentPayment.PurchaseOrder.TrackingNumber, 0, string.Empty);
+                currentPayment.PurchaseOrder.TrackingNumber, currentPayment.Payment.Vat, string.Empty);
 
             bool success = false;
             if (result.Success && !string.IsNullOrWhiteSpace(result.TransactionNumber))

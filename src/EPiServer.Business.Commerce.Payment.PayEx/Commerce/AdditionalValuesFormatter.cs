@@ -2,7 +2,7 @@
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Commerce
 {
-    public class AdditionalValuesFormatter : IAdditionalValuesFormatter
+    internal class AdditionalValuesFormatter : IAdditionalValuesFormatter
     {
         /// <summary>
         /// Formats an additionalValues query string to be included in the PayEx payment initialization as described in the 

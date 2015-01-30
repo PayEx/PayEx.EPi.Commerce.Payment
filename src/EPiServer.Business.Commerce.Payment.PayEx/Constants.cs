@@ -1,7 +1,7 @@
 ﻿
 namespace EPiServer.Business.Commerce.Payment.PayEx
 {
-    public static class Constants
+    internal static class Constants
     {
         public static class Metadata
         {
@@ -31,6 +31,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
                 public const string CancelUrl = "CancelUrl";
                 public const string ReturnUrl = "ReturnUrl";
                 public const string CustomerId = "CustomerId";
+                public const string Vat = "Vat";
                 public const string SocialSecurityNumber = "SocialSecurityNumber";
                 public const string FirstName = "FirstName";
                 public const string LastName = "LastName";

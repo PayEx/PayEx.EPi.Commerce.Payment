@@ -7,7 +7,7 @@ using Mediachase.Commerce.Orders;
 
 namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
 {
-    public class PaymentManager : IPaymentManager
+    internal class PaymentManager : IPaymentManager
     {
         private readonly IOrderFacade _orderFacade;
         private readonly IHasher _hasher;
@@ -15,7 +15,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Facades
         private readonly IPayExSettings _payExSettings;
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        internal PaymentManager(IOrderFacade orderFacade, IHasher hasher, IResultParser resultParser, IPayExSettings payExSettings)
+        public PaymentManager(IOrderFacade orderFacade, IHasher hasher, IResultParser resultParser, IPayExSettings payExSettings)
         {
             _orderFacade = orderFacade;
             _hasher = hasher;

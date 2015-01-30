@@ -6,7 +6,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Initializers
 {
     [InitializableModule]
     [ModuleDependency(typeof(DependencyResolverModule))]
-    public class ModuleSettingsInitialization : IInitializableModule
+    internal class ModuleSettingsInitialization : IInitializableModule
     {
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
