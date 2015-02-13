@@ -92,8 +92,8 @@ namespace EPiServer.Business.Commerce.Payment.PayEx
 
             public static class PayPal
             {
-                public const string SystemKeyword = "PayEx_Paypal";
-                public const string Name = "PayEx Paypal";
+                public const string SystemKeyword = "PayEx_PayPal";
+                public const string Name = "PayEx PayPal";
             }
 
             public static class Giftcard
