@@ -19,6 +19,7 @@ namespace EPiServer.Business.Commerce.Payment.PayEx.Dectorators.PaymentInitializ
                 Log.InfoFormat("Redirecting user PayEx for payment with ID:{0} belonging to order with ID: {1}. ReturnUrl: {2}", currentPayment.Payment.Id, currentPayment.OrderGroupId, returnUrl);
                 HttpContext.Current.Response.Redirect(returnUrl, true);
                 result.Success = true;
+                return result;
             }
 
             Log.ErrorFormat("Could not redirect user to PayEx for payment with ID:{0} belonging to order with ID: {1}. ReturnUrl was empty!", currentPayment.Payment.Id, currentPayment.OrderGroupId);
