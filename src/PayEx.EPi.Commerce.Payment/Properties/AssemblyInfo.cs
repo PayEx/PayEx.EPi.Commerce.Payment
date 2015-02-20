@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 using Castle.Core.Internal;
 
-[assembly: AssemblyTitle("PayEx.EPi.Commerce.Payment​")]
+[assembly: AssemblyTitle("PayEx.EPi.Commerce.Payment")]
 [assembly: AssemblyDescription("PayEx payment provider for EPiServer Commerce")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("PayEx")]
-[assembly: AssemblyProduct("PayEx.EPi.Commerce.Payment​")]
+[assembly: AssemblyProduct("PayEx.EPi.Commerce.Payment")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

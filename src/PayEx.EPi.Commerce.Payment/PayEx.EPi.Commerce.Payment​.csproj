@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PayEx.EPi.Commerce.Payment</RootNamespace>
-    <AssemblyName>PayEx.EPi.Commerce.Payment​</AssemblyName>
+    <AssemblyName>PayEx.EPi.Commerce.Payment</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\kondomeriet-commerce\</SolutionDir>
