@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <id>EPiServer.Business.Commerce.Payment.PayEx.CommerceManager</id>
-    <title>EPiServer.Business.Commerce.Payment.PayEx.CommerceManager</title>
+    <id>PayEx.EPi.Commerce.Payment.CommerceManager</id>
+    <title>PayEx.EPi.Commerce.Payment.CommerceManager</title>
     <version>1.0.0.0</version>
     <authors>Epinova</authors>
     <owners>PayEx</owners>
@@ -11,7 +11,7 @@
     <copyright>Copyright 2015 - PayEx</copyright>
     <tags>EPiServer Commerce CommerceManager PayEx</tags>
     <dependencies>
-      <dependency id="EPiServer.Business.Commerce.Payment.PayEx" version="[1.0, 2.5)" />
+      <dependency id="PayEx.EPi.Commerce.Payment" version="[1.0, 2.5)" />
     </dependencies>
   </metadata>
   <files>
