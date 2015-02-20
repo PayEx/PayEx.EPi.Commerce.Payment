@@ -10,8 +10,25 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
 - [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
 
+## <a name='toc'>Table of Contents</a>
 
-## Prerequisites ##
+  1. [Prerequisites](#prereq)
+  1. [Installing the PayEx payment provider](#install)
+  1. [Configuring the PayEx payment provider](#configure)
+  1. [Using the PayEx payment provider](#using)
+  	1. [What is the redirect model?](#redirectmodel) 
+  	2. [What is the direct model?](#directmodel)
+  	3. [Implementing a payment method using the redirect model](#implredirect)
+  	4. [Implementing a payment method using the direct model](#impldirect)
+  1. [Extending the payment provider](#extending)
+	  1. [Generating order numbers](#ordernum)
+	  2. [Supplying VAT to PayEx](#vat)
+	  3. [Specifying the *additionalValues* parameter](#additionalValues)
+  1. [Troubleshooting](#troubleshooting)
+	  1. [Logging](#logging)
+
+
+##[[↑]](#toc) <a name='prereq'>Prerequisites</a>
 
 - EPiServer.CMS version 7.6.3 or higher
 - EPiServer.Commerce version 7.6.1 or higher
@@ -19,7 +36,7 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - You should also take a look at the [PayEx prerequisites](http://www.payexpim.com/quick-guide/prerequisites/)
 
 
-## Installing the PayEx payment provider ##
+##[[↑]](#toc) <a name='install'>Installing the PayEx payment provider</a>
 
 ###Step 1###
 Download the EPiServer.Business.Commerce.Payment.PayEx package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Web project**. 
@@ -31,7 +48,7 @@ Download the EPiServer.Business.Commerce.Payment.PayEx.CommerceManager package f
 Build your project and browse to the website
 
 
-## Configuring the PayEx payment provider ##
+##[[↑]](#toc) <a name='configure'>Configuring the PayEx payment provider</a>
 ###Step 1###
 Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Manager* under *Tool Settings*. Click on the *EPiServer.Business.Commerce.Payment.PayEx* plugin and fill in the following settings: 
 
@@ -78,12 +95,11 @@ Browse to your Commerce Manager, and do the following for all the payment method
 ###Step 3###
 If your shipping methods contain restrictions as to which payment methods they can be used in combination with, you need to browse to each of the shipping methods and define these restrictions.
 
-
-## Using the PayEx payment provider ##
+##[[↑]](#toc) <a name='using'>Using the PayEx payment provider</a>
 
 How you use the PayEx payment provider depends on which payment methods you wish to use. The payment methods can be separated into two groups: The ones that support the PayEx *redirect model* and the ones that support the PayEx *direct model*. 
 
-###What is the redirect model?###
+###[[↑]](#toc) <a name='redirectmodel'>What is the redirect model?</a>
 
 The redirect model states that the customer will be redirected from your Commerce website to PayEx. PayEx will collect the customers payment information before redirecting the customer back to your Commerce website. 
 
@@ -95,7 +111,7 @@ The following payment methods use the redirect model:
 - [Invoice Ledger](http://www.payexpim.com/payment-methods/invoice/)
 - [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
 
-###What is the direct model?###
+###[[↑]](#toc) <a name='directmodel'>What is the direct model?</a>
 The direct model states that all communication between your Commerce website and PayEx is done server-to-server. This means that the payment process runs from beginning to end without the customer leaving your website. 
 
 The following payment methods use the direct model:
@@ -103,7 +119,7 @@ The following payment methods use the direct model:
 - [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
 - [Invoice 2.0](http://www.payexpim.com/payment-methods/payex-faktura-2-0/)
 
-### Implementing a payment method using the redirect model ###
+###[[↑]](#toc) <a name='implredirect'>Implementing a payment method using the redirect model</a>
 
 ####Step 1####
 After the customer has entered all necessary information during the checkout process, create a new instance of the PayExPayment class and assign this to an OrderForm in the customers Cart. 
@@ -157,7 +173,7 @@ What's important is that the callback controller handles the following:
 - Calls *PayExPaymentGateway.ProcessSuccessfulTransaction* function in order to complete the payment
 - If *PayExPaymentGateway.ProcessSuccessfulTransaction* is successful, create a Purchase Order with the given order number and redirect the user to the order confiration page.
 
-### Implementing a payment method using the direct model ###
+###[[↑]](#toc) <a name='impldirect'>Implementing a payment method using the direct model</a>
 
 ####Step 1####
 After the customer has entered all necessary information during the checkout process, create a new instance of the ExtendedPayExPayment class and assign this to an OrderForm in the customers Cart. How you create the ExtendedPayExPayment class depends on which payment method has been selected:
@@ -264,10 +280,9 @@ The payment process is initiated in the *ProcessPaymentActivity* in the *CartChe
 ####Step 3####
 If the *CartCheckoutWorkflow* was successful, the payment has been initiated and you can create a purchase order from your cart, setting the order number equal to the order number found on the carts PayExPayment.
 
+##[[↑]](#toc) <a name='extending'>Extending the payment provider</a>
 
-## Extending the payment provider ##
-
-### Generating order numbers ###
+###[[↑]](#toc) <a name='ordernum'>Generating order numbers</a>
 
 The payment provider requires an order number in order to begin initialization of the payment. This means that the payment provider will generate an order number for you, but you have the ability to override this functionality to make order number sequences appropriate for your project. 
 
@@ -346,8 +361,7 @@ Remember that your implementation of *IOrderNumberGenerator* will have to be inj
     	}
 	}
 
-### Supplying VAT to PayEx
-
+###[[↑]](#toc) <a name='vat'>Supplying VAT to PayEx</a>
 
 
 If you want to display a VAT value per line item in PayEx, you will need to make some changes to the CalculateTaxActivity in Mediachase.Commerce.Workflow.Activities. 
@@ -390,7 +404,7 @@ If you wish to ensure that the VatAmout meta field and VatPercentage meta field 
 
 **Note:** The VAT values will only be displayed if you've selected the **Display individual order lines in PayEx** option in the *EPiServer.Business.Commerce.Payment.PayEx* Plug-In settings as described in Step 1 of "Configuring the PayEx payment provider" 
 
-### Specifying the *additionalValues* parameter
+###[[↑]](#toc) <a name='additionalValues'>Specifying the *additionalValues* parameter</a>
 
 During payment initialization, PayEx gives you the option of passing in *additionalValues* as a parameter. The *additionalValues* parameter is used for several things, for example enabling the payment menu, enabling responsive design or passing in invoice data. Take a look at the [PayEx documentation for the additionalValues parameter](http://www.payexpim.com/technical-reference/pxorder/initialize8/) to see all the options available.
 
@@ -432,9 +446,9 @@ In order to specify dynamic values you can implement your own *IAdditionalValues
 	    }
 	}
 
-## Troubleshooting ##
+##[[↑]](#toc) <a name='troubleshooting'>Troubleshooting</a>
 
-### Logging ###
+###[[↑]](#toc) <a name='logging'>Logging</a>
 
 The PayEx Payment Provider logs to a logger named *EPiServer.Business.Commerce.Payment.PayEx*. Include the following logger in your EPiServerLog.config log: 
 	
