@@ -10,7 +10,6 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
 - [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
 
-----------
 
 ## Prerequisites ##
 
@@ -19,7 +18,6 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - .NET Framework 4.5 or higher
 - You should also take a look at the [PayEx prerequisites](http://www.payexpim.com/quick-guide/prerequisites/)
 
-----------
 
 ## Installing the PayEx payment provider ##
 
@@ -32,7 +30,6 @@ Download the EPiServer.Business.Commerce.Payment.PayEx.CommerceManager package f
 ###Step 3###
 Build your project and browse to the website
 
-----------
 
 ## Configuring the PayEx payment provider ##
 ###Step 1###
@@ -81,7 +78,6 @@ Browse to your Commerce Manager, and do the following for all the payment method
 ###Step 3###
 If your shipping methods contain restrictions as to which payment methods they can be used in combination with, you need to browse to each of the shipping methods and define these restrictions.
 
-----------
 
 ## Using the PayEx payment provider ##
 
@@ -268,7 +264,6 @@ The payment process is initiated in the *ProcessPaymentActivity* in the *CartChe
 ####Step 3####
 If the *CartCheckoutWorkflow* was successful, the payment has been initiated and you can create a purchase order from your cart, setting the order number equal to the order number found on the carts PayExPayment.
 
-----------
 
 ## Extending the payment provider ##
 
