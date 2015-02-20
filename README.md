@@ -38,7 +38,7 @@ Build your project and browse to the website
 ###Step 1###
 Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Manager* under *Tool Settings*. Click on the *EPiServer.Business.Commerce.Payment.PayEx* plugin and fill in the following settings: 
 
-[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/ModuleSettings.PNG?raw)
+![PayEx Module Settings](https://raw.githubusercontent.com/PayEx/EPiServer.Business.Commerce.Payment.PayEx/master/doc/screenshots/ModuleSettings.PNG)
 
 **Merchants PayEx account number**: The merchants account number given to you by PayEx.
 
@@ -46,11 +46,11 @@ Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Ma
 
 **Display individual order lines in PayEx**: If this option is selected, the customer will be able to view their order lines in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the orderlines are displayed: 
 
-[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/OrderLines.PNG?raw)
+![Order lines](https://raw.githubusercontent.com/PayEx/EPiServer.Business.Commerce.Payment.PayEx/master/doc/screenshots/OrderLines.PNG)
 
 **Display customer address information in PayEx**: If this option is selected, the customer will be able to view their address information in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the address information is displayed: 
 
-[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/CustomerAddress.PNG?raw)
+![Customer address](https://raw.githubusercontent.com/PayEx/EPiServer.Business.Commerce.Payment.PayEx/master/doc/screenshots/CustomerAddress.PNG)
 
 **Disable automatic payment method creation during initialization**: During initialization of the website, all the supported payment methods are added to the Commerce Manager automatically. If you wish to disable this functionality, you can select this option.
 
@@ -64,7 +64,7 @@ Browse to your Commerce Manager, and do the following for all the payment method
 - If this is the default payment method, set IsDefault to true
 - Select the shipping methods available for this payment
 
-[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/PaymentMethodOverview.PNG?raw)
+![Payment methods in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/EPiServer.Business.Commerce.Payment.PayEx/master/doc/screenshots/PaymentMethodOverview.PNG)
 
 **In the *Parameters* tab**
 
@@ -72,7 +72,7 @@ Browse to your Commerce Manager, and do the following for all the payment method
 
 - If you wish to pass any *AdditionalValues* to PayEx according to the [PayEx documentation](http://www.payexpim.com/technical-reference/pxorder/initialize8/), you can specify those values here. If the value you wish to pass in is a dynamic value, you can choose to specify them in code as described in the *Specifying the additionalValues parameter* section.
 
-[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/PaymentMethodParameters.PNG?raw)
+![Payment method parameters in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/EPiServer.Business.Commerce.Payment.PayEx/master/doc/screenshots/PaymentMethodParameters.PNG)
 
 **In the *Markets* tab**
 
@@ -152,7 +152,7 @@ Note that you also need to set the standard Mediachase.Commerce.Orders.Payment  
 The payment process is initiated in the *ProcessPaymentActivity* in the *CartCheckoutWorkflow* and the user is redirected to PayEx. **Unless you've changed the default Commerce workflows for your Commerce website, you will not need to write any code for this to happen!**
 
 ####Step 3####
-After PayEx has collected the customers payment information, the customer will be redirected to the URL you supplied for the *returnUrl* parameter in step 1. If you're developing your Commerce website using ASP.NET MVC you can find an example callback controller here: [View example callback controller](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/examples/PayExCallbackController.cs?raw)
+After PayEx has collected the customers payment information, the customer will be redirected to the URL you supplied for the *returnUrl* parameter in step 1. If you're developing your Commerce website using ASP.NET MVC you can find an example callback controller here: [View example callback controller](https://raw.githubusercontent.com/PayEx/EPiServer.Business.Commerce.Payment.PayEx/master/doc/examples/PayExCallbackController.cs)
 
 **Important: The example callback controller is only an example, you will have to adjust it to your project**
 
@@ -391,7 +391,7 @@ What this piece of code does is calculate both the VAT amount and the VAT percen
 
 If you wish to ensure that the VatAmout meta field and VatPercentage meta field of the line items are saved as they should, you can take a look in the dbo.LineItemEx table in your Commerce Manager database. You should see that the values have been populated: 
 
-[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/VatDB.PNG?raw)
+![Database view of line item VAT](https://raw.githubusercontent.com/PayEx/EPiServer.Business.Commerce.Payment.PayEx/master/doc/screenshots/VatDB.PNG)
 
 **Note:** The VAT values will only be displayed if you've selected the **Display individual order lines in PayEx** option in the *EPiServer.Business.Commerce.Payment.PayEx* Plug-In settings as described in Step 1 of "Configuring the PayEx payment provider" 
 
@@ -408,7 +408,7 @@ If the value you wish to pass along with the *additionalValues* parameter is a p
 3. Click on the PayEx payment method you wish to add a parameter to
 4. Go to the *Parameters* tab and enter the AdditionalValue
 
-[View screenshot](http://stash.epinova.no/projects/EP/repos/episerver.business.commerce.payment.payex/browse/doc/screenshots/AdditionalValues.PNG?raw)
+![Additional values on payment method](https://raw.githubusercontent.com/PayEx/EPiServer.Business.Commerce.Payment.PayEx/master/doc/screenshots/AdditionalValues.PNG)
 
 #### ... if it is a dynamic value
 
