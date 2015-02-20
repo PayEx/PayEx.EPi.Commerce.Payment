@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Common.Logging.EntLib</id>
+    <version>1.2.0</version>
+    <title>Common.Logging.EntLib</title>
+    <authors>Aleksandar Seovic,  Mark Pollack,  Erich Eichinger</authors>
+    <owners>Aleksandar Seovic,  Mark Pollack,  Erich Eichinger</owners>
+    <projectUrl>http://netcommon.sourceforge.net/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Common.Logging library bindings for Enterprise Library logging framework.</description>
+    <summary>Common.Logging library bindings for Enterprise Library logging framework.</summary>
+    <dependencies>
+      <dependency id="Common.Logging" version="1.2.0" />
+    </dependencies>
+  </metadata>
+</package>
