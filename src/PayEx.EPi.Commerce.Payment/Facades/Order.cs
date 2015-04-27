@@ -26,7 +26,7 @@ namespace PayEx.EPi.Commerce.Payment.Facades
 
         public string AddOrderLine(long accountNumber, OrderLine orderLine, string hash)
         {
-            return Client.AddSingleOrderLine(accountNumber, orderLine.OrderRef, orderLine.ItemNumber, orderLine.Description, orderLine.Description2, orderLine.Description3, 
+            return Client.AddSingleOrderLine2(accountNumber, orderLine.OrderRef, orderLine.ItemNumber, orderLine.Description, orderLine.Description2, orderLine.Description3, 
                 orderLine.Description4, orderLine.Description5, orderLine.Quantity, orderLine.Amount, orderLine.VatAmount, orderLine.VatPercentage, hash);
         }
 
