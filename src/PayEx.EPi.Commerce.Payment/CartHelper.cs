@@ -7,9 +7,9 @@ using System.Web;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Dto;
 using Mediachase.Commerce.Orders.Managers;
+using PayEx.EPi.Commerce.Payment.Formatters;
 using PayEx.EPi.Commerce.Payment.Models;
 using PayEx.EPi.Commerce.Payment.Models.Result;
-using PayEx.EPi.Commerce.Payment.Price;
 
 namespace PayEx.EPi.Commerce.Payment
 {
