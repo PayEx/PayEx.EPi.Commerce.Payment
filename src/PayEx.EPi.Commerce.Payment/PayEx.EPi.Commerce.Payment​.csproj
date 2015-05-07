@@ -246,6 +246,7 @@
     <Compile Include="Facades\Verification.cs" />
     <Compile Include="Facades\VerificationManager.cs" />
     <Compile Include="Factories\PaymentMethodFactory.cs" />
+    <Compile Include="Formatters\OrderNumberFormatter.cs" />
     <Compile Include="Initializers\DependencyResolverModule.cs" />
     <Compile Include="Initializers\MetadataInitialization.cs" />
     <Compile Include="Initializers\ModuleSettingsInitialization.cs" />
@@ -285,7 +286,7 @@
     <Compile Include="Models\Result\TransactionResult.cs" />
     <Compile Include="Payment\ResultBase.cs" />
     <Compile Include="Payment\TransactionStatus.cs" />
-    <Compile Include="Price\PriceFormatter.cs" />
+    <Compile Include="Formatters\PriceFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\PxOrder\Reference.cs">
       <AutoGen>True</AutoGen>

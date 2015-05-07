@@ -3,10 +3,10 @@ using EPiServer.Globalization;
 using log4net;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
+using PayEx.EPi.Commerce.Payment.Formatters;
 using PayEx.EPi.Commerce.Payment.Models;
 using PayEx.EPi.Commerce.Payment.Models.PaymentMethods;
 using PayEx.EPi.Commerce.Payment.Models.Result;
-using PayEx.EPi.Commerce.Payment.Price;
 
 namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 {

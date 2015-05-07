@@ -1,5 +1,6 @@
 ﻿
 using Newtonsoft.Json;
+using PayEx.EPi.Commerce.Payment.Formatters;
 
 namespace PayEx.EPi.Commerce.Payment.Models
 {
@@ -38,7 +39,7 @@ namespace PayEx.EPi.Commerce.Payment.Models
 
             Currency = currency;
             Vat = vat;
-            OrderId = orderId;
+            OrderId = OrderNumberFormatter.MakeNumeric(orderId);
             ProductNumber = productNumber;
             Description = description;
             ClientIpAddress = clientIpAddress;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayEx.EPi.Commerce.Payment.Price
+namespace PayEx.EPi.Commerce.Payment.Formatters
 {
     internal static class PriceFormatter
     {

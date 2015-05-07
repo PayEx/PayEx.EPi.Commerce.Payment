@@ -20,7 +20,7 @@ namespace PayEx.EPi.Commerce.Payment.Facades
 
         public string Initialize(long accountNumber, PaymentInformation payment, string hash)
         {
-            return Client.Initialize8(accountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, MakeNumeric(payment.OrderId),
+            return Client.Initialize8(accountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId,
                                       payment.ProductNumber, payment.Description, payment.ClientIpAddress, payment.ClientIdentifier, payment.AdditionalValues,
                                       string.Empty, payment.ReturnUrl, payment.View, payment.AgreementRef, payment.CancelUrl, payment.ClientLanguage, hash);
         }
@@ -70,7 +70,7 @@ namespace PayEx.EPi.Commerce.Payment.Facades
 
         public string Capture(long accountNumber, int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues, string hash)
         {
-            return Client.Capture5(accountNumber, transactionNumber, amount, MakeNumeric(orderId), vatAmount, additionalValues, hash);
+            return Client.Capture5(accountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, hash);
         }
 
         public string GetTransactionDetails(long accountNumber, int transactionNumber, string hash)
@@ -80,23 +80,12 @@ namespace PayEx.EPi.Commerce.Payment.Facades
 
         public string Credit(long accountNumber, int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues, string hash)
         {
-            return Client.Credit5(accountNumber, transactionNumber, amount, MakeNumeric(orderId), vatAmount, additionalValues, hash);
+            return Client.Credit5(accountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, hash);
         }
 
         public string CreditOrderLine(long accountNumber, int transactionNumber, string itemNumber, string orderId, string hash)
         {
-            return Client.CreditOrderLine3(accountNumber, transactionNumber, itemNumber, MakeNumeric(orderId), hash);
-        }
-
-        private string MakeNumeric(string text)
-        {
-            string numericString = string.Empty;
-            for (int i = 0; i < text.Length; i++)
-            {
-                if (Char.IsDigit(text[i]))
-                    numericString += text[i];
-            }
-            return numericString;
+            return Client.CreditOrderLine3(accountNumber, transactionNumber, itemNumber, orderId, hash);
         }
     }
 }
