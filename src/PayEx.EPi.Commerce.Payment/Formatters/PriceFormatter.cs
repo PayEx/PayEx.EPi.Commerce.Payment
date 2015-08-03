@@ -6,12 +6,12 @@ namespace PayEx.EPi.Commerce.Payment.Formatters
     {
         public static int RoundToInt(this decimal price)
         {
-            return (int)(price.Round() * 100);
+            return (int) ((price*100).Round());
         }
 
         public static long RoundToLong(this decimal price)
         {
-            return (long)(price.Round() * 100);
+            return (long) ((price*100).Round());
         }
 
         private static decimal Round(this decimal price)
