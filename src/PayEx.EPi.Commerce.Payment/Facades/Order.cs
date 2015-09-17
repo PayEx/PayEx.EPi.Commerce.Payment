@@ -87,5 +87,29 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             return Client.CreditOrderLine3(accountNumber, transactionNumber, itemNumber, orderId, hash);
         }
+
+        public string GetApprovedDeliveryAddress(long accountNumber, string orderRef, string hash)
+        {
+            return Client.GetApprovedDeliveryAddress(accountNumber, orderRef, hash);
+        }
+
+        public string FinalizeTransaction(long accountNumber, string orderRef, long amount, long vatAmount, string clientIpAddress, string hash)
+        {
+            return Client.FinalizeTransaction(accountNumber, orderRef, amount, vatAmount, clientIpAddress, hash);
+        }
+
+        public string GetAddressByPaymentMethod(long accountNumber, string paymentMethod, string ssn, string zipcode, string countryCode, string ipAddress, string hash)
+        {
+            return Client.GetAddressByPaymentMethod(accountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress,
+                hash);
+        }
+
+        public string PurchaseFinancingInvoice(long accountNumber, string orderRef, string paymentMethod, CustomerDetails customerDetails, string hash)
+        {
+            return Client.PurchaseFinancingInvoice(accountNumber, orderRef, customerDetails.SocialSecurityNumber, customerDetails.FullName, 
+                customerDetails.StreetAddress, customerDetails.CoAddress, customerDetails.PostNumber, customerDetails.City, customerDetails.CountryCode, paymentMethod, customerDetails.Email,
+                customerDetails.MobilePhone, customerDetails.IpAddress, hash);
+        }
+
     }
 }

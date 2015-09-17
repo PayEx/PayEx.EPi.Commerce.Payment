@@ -190,5 +190,65 @@ namespace PayEx.EPi.Commerce.Payment.Facades
                     cart.Id, orderline, result);
             }
         }
+
+        public DeliveryAddressResult GetApprovedDeliveryAddress(string orderRef)
+        {
+            Log.InfoFormat("Calling GetApprovedDeliveryAddress for orderRef:{0}.", orderRef);
+
+            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.GetApprovedDeliveryAddress(_payExSettings.AccountNumber, orderRef, hash);
+
+            DeliveryAddressResult result = _resultParser.Deserialize<DeliveryAddressResult>(xmlResult);
+            if (result.Status.Success)
+                Log.InfoFormat("Successfully called GetApprovedDeliveryAddress for orderRef:{0}. Result:{1}", orderRef, xmlResult);
+            else
+                Log.ErrorFormat("Error when calling GetApprovedDeliveryAddress for orderRef:{0}. Result:{1}", orderRef, xmlResult);
+            return result;
+        }
+
+        public FinalizeTransactionResult FinalizeTransaction(string orderRef, long amount, long vatAmount, string clientIpAddress)
+        {
+            Log.InfoFormat("Calling FinalizeTransaction for orderRef:{0}.", orderRef);
+
+            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, amount, vatAmount, clientIpAddress, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.FinalizeTransaction(_payExSettings.AccountNumber, orderRef, amount, vatAmount, clientIpAddress, hash);
+
+            FinalizeTransactionResult result = _resultParser.Deserialize<FinalizeTransactionResult>(xmlResult);
+            if (result.Status.Success)
+                Log.InfoFormat("Successfully called FinalizeTransaction for orderRef:{0}. Result:{1}", orderRef, xmlResult);
+            else
+                Log.ErrorFormat("Error when calling FinalizeTransaction for orderRef:{0}. Result:{1}", orderRef, xmlResult);
+            return result;
+        }
+
+        public LegalAddressResult GetAddressByPaymentMethod(string paymentMethod, string ssn, string zipcode, string countryCode, string ipAddress)
+        {
+            Log.InfoFormat("Calling GetAddressByPaymentMethod for paymentMethod:{0}.", paymentMethod);
+
+            string hash = _hasher.Create(_payExSettings.AccountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.GetAddressByPaymentMethod(_payExSettings.AccountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress, hash);
+
+            LegalAddressResult result = _resultParser.Deserialize<LegalAddressResult>(xmlResult);
+            if (result.Status.Success)
+                Log.InfoFormat("Successfully called GetAddressByPaymentMethod for paymentMethod:{0}. Result:{1}", paymentMethod, xmlResult);
+            else
+                Log.ErrorFormat("Error when calling GetApprovedDeliveryAddress for paymentMethod:{0}. Result:{1}", paymentMethod, xmlResult);
+            return result;
+        }
+
+        public PurchaseInvoiceSaleResult PurchaseFinancingInvoice(string orderRef, string paymentMethod, CustomerDetails customerDetails)
+        {
+            Log.InfoFormat("Calling PurchaseFinancingInvoice for order with orderRef:{0}. CustomerDetails:{1}", orderRef, customerDetails);
+
+            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, paymentMethod, customerDetails, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.PurchaseFinancingInvoice(_payExSettings.AccountNumber, orderRef, paymentMethod, customerDetails, hash);
+
+            PurchaseInvoiceSaleResult result = _resultParser.Deserialize<PurchaseInvoiceSaleResult>(xmlResult);
+            if (result.Status.Success)
+                Log.InfoFormat("Successfully called PurchaseFinancingInvoice for order with orderRef:{0}. Result:{1}", orderRef, xmlResult);
+            else
+                Log.ErrorFormat("Error when calling PurchaseFinancingInvoice for order with orderRef:{0}. Result:{1}", orderRef, xmlResult);
+            return result;
+        }
     }
 }

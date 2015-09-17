@@ -377,12 +377,40 @@ namespace PayEx.EPi.Commerce.Payment.PxOrder {
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseOTT", ReplyAction="*")]
         System.Threading.Tasks.Task<string> PurchaseOTTAsync(long accountNumber, string orderRef, int identifierType, string identifierRef, string hash);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseWyWallet", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string PurchaseWyWallet(long accountNumber, string orderRef, string msisdn, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseWyWallet", ReplyAction="*")]
+        System.Threading.Tasks.Task<string> PurchaseWyWalletAsync(long accountNumber, string orderRef, string msisdn, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PreparePurchaseWyWallet", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string PreparePurchaseWyWallet(long accountNumber, string orderRef, string returnUrl, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PreparePurchaseWyWallet", ReplyAction="*")]
+        System.Threading.Tasks.Task<string> PreparePurchaseWyWalletAsync(long accountNumber, string orderRef, string returnUrl, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/AuthenticateCpa", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string AuthenticateCpa(long accountNumber, int authenticationType, string msisdn, string clientIPAddress, string moCode, string returnUrl, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/AuthenticateCpa", ReplyAction="*")]
+        System.Threading.Tasks.Task<string> AuthenticateCpaAsync(long accountNumber, int authenticationType, string msisdn, string clientIPAddress, string moCode, string returnUrl, string hash);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/SaleCPA", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string SaleCPA(long accountNumber, string orderRef, int userType, string userRef, string password, string hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/SaleCPA", ReplyAction="*")]
         System.Threading.Tasks.Task<string> SaleCPAAsync(long accountNumber, string orderRef, int userType, string userRef, string password, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseCpa", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string PurchaseCpa(long accountNumber, string orderRef, string msisdn, string verificationCode, string serviceCategory, string message, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseCpa", ReplyAction="*")]
+        System.Threading.Tasks.Task<string> PurchaseCpaAsync(long accountNumber, string orderRef, string msisdn, string verificationCode, string serviceCategory, string message, string hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/ReserveIVR", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -1078,6 +1106,20 @@ namespace PayEx.EPi.Commerce.Payment.PxOrder {
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchasePartPaymentSale", ReplyAction="*")]
         System.Threading.Tasks.Task<string> PurchasePartPaymentSaleAsync(long accountNumber, string orderRef, string socialSecurityNumber, string legalFirstName, string legalLastName, string legalStreetAddress, string legalCoAddress, string legalPostNumber, string legalCity, string legalCountryCode, string email, string msisdn, string ipAddress, string hash);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PreparePartPaymentSale", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string PreparePartPaymentSale(long accountNumber, string orderRef, string category, string socialSecurityNumber, string countryCode, string email, string msisdn, string ipAddress, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PreparePartPaymentSale", ReplyAction="*")]
+        System.Threading.Tasks.Task<string> PreparePartPaymentSaleAsync(long accountNumber, string orderRef, string category, string socialSecurityNumber, string countryCode, string email, string msisdn, string ipAddress, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/GetAddressByPaymentMethod", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string GetAddressByPaymentMethod(long accountNumber, string paymentMethod, string ssn, string zipcode, string countryCode, string ipAddress, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/GetAddressByPaymentMethod", ReplyAction="*")]
+        System.Threading.Tasks.Task<string> GetAddressByPaymentMethodAsync(long accountNumber, string paymentMethod, string ssn, string zipcode, string countryCode, string ipAddress, string hash);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/InvoiceLinkGet", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string InvoiceLinkGet(long accountNumber, int transactionNumber, string hash);
@@ -1099,19 +1141,26 @@ namespace PayEx.EPi.Commerce.Payment.PxOrder {
         [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseFinancing", ReplyAction="*")]
         System.Threading.Tasks.Task<string> PurchaseFinancingAsync(long accountNumber, string orderRef, string accountId, string socialSecurityNumber, string countryCode, string contractType, string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/AuthenticateCpa", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/GetApprovedDeliveryAddress", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        string AuthenticateCpa(long accountNumber, int authenticationType, string msisdn, string clientIPAddress, string moCode, string returnUrl, string hash);
+        string GetApprovedDeliveryAddress(long accountNumber, string orderRef, string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/AuthenticateCpa", ReplyAction="*")]
-        System.Threading.Tasks.Task<string> AuthenticateCpaAsync(long accountNumber, int authenticationType, string msisdn, string clientIPAddress, string moCode, string returnUrl, string hash);
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/GetApprovedDeliveryAddress", ReplyAction="*")]
+        System.Threading.Tasks.Task<string> GetApprovedDeliveryAddressAsync(long accountNumber, string orderRef, string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseCpa", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/FinalizeTransaction", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        string PurchaseCpa(long accountNumber, string orderRef, string msisdn, string verificationCode, string serviceCategory, string message, string hash);
+        string FinalizeTransaction(long accountNumber, string orderRef, long amount, long vatAmount, string clientIPAddress, string hash);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseCpa", ReplyAction="*")]
-        System.Threading.Tasks.Task<string> PurchaseCpaAsync(long accountNumber, string orderRef, string msisdn, string verificationCode, string serviceCategory, string message, string hash);
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/FinalizeTransaction", ReplyAction="*")]
+        System.Threading.Tasks.Task<string> FinalizeTransactionAsync(long accountNumber, string orderRef, long amount, long vatAmount, string clientIPAddress, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseFinancingInvoice", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string PurchaseFinancingInvoice(long accountNumber, string orderRef, string socialSecurityNumber, string legalName, string streetAddress, string coAddress, string zipCode, string city, string countryCode, string paymentMethod, string email, string msisdn, string ipAddress, string hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://external.payex.com/PxOrder/PurchaseFinancingInvoice", ReplyAction="*")]
+        System.Threading.Tasks.Task<string> PurchaseFinancingInvoiceAsync(long accountNumber, string orderRef, string socialSecurityNumber, string legalName, string streetAddress, string coAddress, string zipCode, string city, string countryCode, string paymentMethod, string email, string msisdn, string ipAddress, string hash);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1571,12 +1620,44 @@ namespace PayEx.EPi.Commerce.Payment.PxOrder {
             return base.Channel.PurchaseOTTAsync(accountNumber, orderRef, identifierType, identifierRef, hash);
         }
         
+        public string PurchaseWyWallet(long accountNumber, string orderRef, string msisdn, string hash) {
+            return base.Channel.PurchaseWyWallet(accountNumber, orderRef, msisdn, hash);
+        }
+        
+        public System.Threading.Tasks.Task<string> PurchaseWyWalletAsync(long accountNumber, string orderRef, string msisdn, string hash) {
+            return base.Channel.PurchaseWyWalletAsync(accountNumber, orderRef, msisdn, hash);
+        }
+        
+        public string PreparePurchaseWyWallet(long accountNumber, string orderRef, string returnUrl, string hash) {
+            return base.Channel.PreparePurchaseWyWallet(accountNumber, orderRef, returnUrl, hash);
+        }
+        
+        public System.Threading.Tasks.Task<string> PreparePurchaseWyWalletAsync(long accountNumber, string orderRef, string returnUrl, string hash) {
+            return base.Channel.PreparePurchaseWyWalletAsync(accountNumber, orderRef, returnUrl, hash);
+        }
+        
+        public string AuthenticateCpa(long accountNumber, int authenticationType, string msisdn, string clientIPAddress, string moCode, string returnUrl, string hash) {
+            return base.Channel.AuthenticateCpa(accountNumber, authenticationType, msisdn, clientIPAddress, moCode, returnUrl, hash);
+        }
+        
+        public System.Threading.Tasks.Task<string> AuthenticateCpaAsync(long accountNumber, int authenticationType, string msisdn, string clientIPAddress, string moCode, string returnUrl, string hash) {
+            return base.Channel.AuthenticateCpaAsync(accountNumber, authenticationType, msisdn, clientIPAddress, moCode, returnUrl, hash);
+        }
+        
         public string SaleCPA(long accountNumber, string orderRef, int userType, string userRef, string password, string hash) {
             return base.Channel.SaleCPA(accountNumber, orderRef, userType, userRef, password, hash);
         }
         
         public System.Threading.Tasks.Task<string> SaleCPAAsync(long accountNumber, string orderRef, int userType, string userRef, string password, string hash) {
             return base.Channel.SaleCPAAsync(accountNumber, orderRef, userType, userRef, password, hash);
+        }
+        
+        public string PurchaseCpa(long accountNumber, string orderRef, string msisdn, string verificationCode, string serviceCategory, string message, string hash) {
+            return base.Channel.PurchaseCpa(accountNumber, orderRef, msisdn, verificationCode, serviceCategory, message, hash);
+        }
+        
+        public System.Threading.Tasks.Task<string> PurchaseCpaAsync(long accountNumber, string orderRef, string msisdn, string verificationCode, string serviceCategory, string message, string hash) {
+            return base.Channel.PurchaseCpaAsync(accountNumber, orderRef, msisdn, verificationCode, serviceCategory, message, hash);
         }
         
         public string ReserveIVR(long accountNumber, string orderRef, string hash) {
@@ -2336,6 +2417,22 @@ namespace PayEx.EPi.Commerce.Payment.PxOrder {
             return base.Channel.PurchasePartPaymentSaleAsync(accountNumber, orderRef, socialSecurityNumber, legalFirstName, legalLastName, legalStreetAddress, legalCoAddress, legalPostNumber, legalCity, legalCountryCode, email, msisdn, ipAddress, hash);
         }
         
+        public string PreparePartPaymentSale(long accountNumber, string orderRef, string category, string socialSecurityNumber, string countryCode, string email, string msisdn, string ipAddress, string hash) {
+            return base.Channel.PreparePartPaymentSale(accountNumber, orderRef, category, socialSecurityNumber, countryCode, email, msisdn, ipAddress, hash);
+        }
+        
+        public System.Threading.Tasks.Task<string> PreparePartPaymentSaleAsync(long accountNumber, string orderRef, string category, string socialSecurityNumber, string countryCode, string email, string msisdn, string ipAddress, string hash) {
+            return base.Channel.PreparePartPaymentSaleAsync(accountNumber, orderRef, category, socialSecurityNumber, countryCode, email, msisdn, ipAddress, hash);
+        }
+        
+        public string GetAddressByPaymentMethod(long accountNumber, string paymentMethod, string ssn, string zipcode, string countryCode, string ipAddress, string hash) {
+            return base.Channel.GetAddressByPaymentMethod(accountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress, hash);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetAddressByPaymentMethodAsync(long accountNumber, string paymentMethod, string ssn, string zipcode, string countryCode, string ipAddress, string hash) {
+            return base.Channel.GetAddressByPaymentMethodAsync(accountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress, hash);
+        }
+        
         public string InvoiceLinkGet(long accountNumber, int transactionNumber, string hash) {
             return base.Channel.InvoiceLinkGet(accountNumber, transactionNumber, hash);
         }
@@ -2360,20 +2457,28 @@ namespace PayEx.EPi.Commerce.Payment.PxOrder {
             return base.Channel.PurchaseFinancingAsync(accountNumber, orderRef, accountId, socialSecurityNumber, countryCode, contractType, hash);
         }
         
-        public string AuthenticateCpa(long accountNumber, int authenticationType, string msisdn, string clientIPAddress, string moCode, string returnUrl, string hash) {
-            return base.Channel.AuthenticateCpa(accountNumber, authenticationType, msisdn, clientIPAddress, moCode, returnUrl, hash);
+        public string GetApprovedDeliveryAddress(long accountNumber, string orderRef, string hash) {
+            return base.Channel.GetApprovedDeliveryAddress(accountNumber, orderRef, hash);
         }
         
-        public System.Threading.Tasks.Task<string> AuthenticateCpaAsync(long accountNumber, int authenticationType, string msisdn, string clientIPAddress, string moCode, string returnUrl, string hash) {
-            return base.Channel.AuthenticateCpaAsync(accountNumber, authenticationType, msisdn, clientIPAddress, moCode, returnUrl, hash);
+        public System.Threading.Tasks.Task<string> GetApprovedDeliveryAddressAsync(long accountNumber, string orderRef, string hash) {
+            return base.Channel.GetApprovedDeliveryAddressAsync(accountNumber, orderRef, hash);
         }
         
-        public string PurchaseCpa(long accountNumber, string orderRef, string msisdn, string verificationCode, string serviceCategory, string message, string hash) {
-            return base.Channel.PurchaseCpa(accountNumber, orderRef, msisdn, verificationCode, serviceCategory, message, hash);
+        public string FinalizeTransaction(long accountNumber, string orderRef, long amount, long vatAmount, string clientIPAddress, string hash) {
+            return base.Channel.FinalizeTransaction(accountNumber, orderRef, amount, vatAmount, clientIPAddress, hash);
         }
         
-        public System.Threading.Tasks.Task<string> PurchaseCpaAsync(long accountNumber, string orderRef, string msisdn, string verificationCode, string serviceCategory, string message, string hash) {
-            return base.Channel.PurchaseCpaAsync(accountNumber, orderRef, msisdn, verificationCode, serviceCategory, message, hash);
+        public System.Threading.Tasks.Task<string> FinalizeTransactionAsync(long accountNumber, string orderRef, long amount, long vatAmount, string clientIPAddress, string hash) {
+            return base.Channel.FinalizeTransactionAsync(accountNumber, orderRef, amount, vatAmount, clientIPAddress, hash);
+        }
+        
+        public string PurchaseFinancingInvoice(long accountNumber, string orderRef, string socialSecurityNumber, string legalName, string streetAddress, string coAddress, string zipCode, string city, string countryCode, string paymentMethod, string email, string msisdn, string ipAddress, string hash) {
+            return base.Channel.PurchaseFinancingInvoice(accountNumber, orderRef, socialSecurityNumber, legalName, streetAddress, coAddress, zipCode, city, countryCode, paymentMethod, email, msisdn, ipAddress, hash);
+        }
+        
+        public System.Threading.Tasks.Task<string> PurchaseFinancingInvoiceAsync(long accountNumber, string orderRef, string socialSecurityNumber, string legalName, string streetAddress, string coAddress, string zipCode, string city, string countryCode, string paymentMethod, string email, string msisdn, string ipAddress, string hash) {
+            return base.Channel.PurchaseFinancingInvoiceAsync(accountNumber, orderRef, socialSecurityNumber, legalName, streetAddress, coAddress, zipCode, city, countryCode, paymentMethod, email, msisdn, ipAddress, hash);
         }
     }
 }

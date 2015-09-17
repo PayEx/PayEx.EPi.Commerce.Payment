@@ -78,6 +78,12 @@ namespace PayEx.EPi.Commerce.Payment
                 public const string Name = "PayEx Invoice 2.0";
             }
 
+            public static class FinancingInvoice
+            {
+                public const string SystemKeyword = "PayEx_FinancingInvoice";
+                public const string Name = "PayEx Financing Invoice";
+            }
+
             public static class DirectDebit
             {
                 public const string SystemKeyword = "PayEx_DirectDebit";
@@ -101,6 +107,13 @@ namespace PayEx.EPi.Commerce.Payment
                 public const string SystemKeyword = "PayEx_GiftCard";
                 public const string Name = "PayEx GiftCard";
             }
+
+            public static class MasterPass
+            {
+                public const string SystemKeyword = "PayEx_MasterPass";
+                public const string Name = "PayEx MasterPass";
+            }
+
         }
 
         public static class Logging

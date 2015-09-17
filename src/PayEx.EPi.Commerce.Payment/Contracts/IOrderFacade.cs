@@ -24,5 +24,16 @@ namespace PayEx.EPi.Commerce.Payment.Contracts
 
         string PurchasePartPaymentSale(long accountNumber, string orderRef, CustomerDetails customerDetails,
             string hash);
+
+        string GetApprovedDeliveryAddress(long accountNumber, string orderRef, string hash);
+
+        string FinalizeTransaction(long accountNumber, string orderRef, long amount, long vatAmount,
+            string clientIpAddress, string hash);
+
+        string GetAddressByPaymentMethod(long accountNumber, string paymentMethod, string ssn, string zipcode,
+            string countryCode, string ipAddress, string hash);
+
+        string PurchaseFinancingInvoice(long accountNumber, string orderRef, string paymentMethod,
+            CustomerDetails customerDetails, string hash);
     }
 }

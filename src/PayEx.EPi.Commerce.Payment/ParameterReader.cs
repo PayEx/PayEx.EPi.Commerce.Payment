@@ -19,7 +19,7 @@ namespace PayEx.EPi.Commerce.Payment
             return GetParameterByName(paymentMethodDto, PriceListArgsParameter).Value;
         }
 
-        internal PaymentMethodDto.PaymentMethodParameterRow GetParameterByName(PaymentMethodDto paymentMethodDto, string name)
+        public static PaymentMethodDto.PaymentMethodParameterRow GetParameterByName(PaymentMethodDto paymentMethodDto, string name)
         {
             PaymentMethodDto.PaymentMethodParameterRow[] rowArray = (PaymentMethodDto.PaymentMethodParameterRow[])paymentMethodDto.PaymentMethodParameter.Select(string.Format("Parameter = '{0}'", name));
             if (rowArray.Length > 0)

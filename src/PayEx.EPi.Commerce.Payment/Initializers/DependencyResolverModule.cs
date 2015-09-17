@@ -38,6 +38,7 @@ namespace PayEx.EPi.Commerce.Payment.Initializers
                 x.For<IResultParser>().Use<ResultParser>();
                 x.For<IVerificationManager>().Use<VerificationManager>();
                 x.For<IVerificationFacade>().Use<Verification>();
+                x.For<IPayExService>().Use<PayExService>();
             });
         }
 

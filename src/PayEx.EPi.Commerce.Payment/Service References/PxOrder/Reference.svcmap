@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="45a2f397-17fc-4485-8902-b5aa1fc4bea0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="df62aed4-c0f1-483c-aff0-b320147eb0e6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,7 +22,7 @@
     <MetadataSource Address="https://external.payex.com/pxorder/pxorder.asmx?WSDL" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="pxorder.wsdl" MetadataType="Wsdl" ID="9f13f698-7008-43dc-8c74-5859df8d5f7a" SourceId="1" SourceUrl="https://external.payex.com/pxorder/pxorder.asmx?WSDL" />
+    <MetadataFile FileName="pxorder.wsdl" MetadataType="Wsdl" ID="abf30bf7-6c77-47ce-8356-033f39bbeddc" SourceId="1" SourceUrl="https://external.payex.com/pxorder/pxorder.asmx?WSDL" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

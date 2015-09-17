@@ -65,6 +65,13 @@ namespace PayEx.EPi.Commerce.Payment.Payment
             return CreateHash(stringToHash);
         }
 
+        public string Create(long accountNumber, string orderRef, string paymentMethod, CustomerDetails customerDetails, string encryptionKey)
+        {
+            var stringToHash = string.Concat(accountNumber, orderRef, customerDetails.SocialSecurityNumber, customerDetails.FullName, customerDetails.StreetAddress, customerDetails.CoAddress,
+                customerDetails.PostNumber, customerDetails.City, customerDetails.CountryCode, paymentMethod, customerDetails.Email, customerDetails.MobilePhone, customerDetails.IpAddress, encryptionKey);
+            return CreateHash(stringToHash);
+        }
+
         public string Create(long accountNumber, int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues, string encryptionKey)
         {
             var stringToHash = string.Concat(accountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, encryptionKey);
@@ -74,6 +81,18 @@ namespace PayEx.EPi.Commerce.Payment.Payment
         public string Create(long accountNumber, int transactionNumber, string itemNumber, string orderId, string encryptionKey)
         {
             var stringToHash = string.Concat(accountNumber, transactionNumber, itemNumber, orderId, encryptionKey);
+            return CreateHash(stringToHash);
+        }
+
+        public string Create(long accountNumber, string orderRef, long amount, long vatAmount, string clientIpAddress, string encryptionKey)
+        {
+            var stringToHash = string.Concat(accountNumber, orderRef, amount, vatAmount, clientIpAddress, encryptionKey);
+            return CreateHash(stringToHash);
+        }
+
+        public string Create(long accountNumber, string paymentMethod, string ssn, string zipcode, string countryCode, string ipAddress, string encryptionKey)
+        {
+            var stringToHash = string.Concat(accountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress, encryptionKey);
             return CreateHash(stringToHash);
         }
 
@@ -90,5 +109,6 @@ namespace PayEx.EPi.Commerce.Payment.Payment
 
             return stringBuilder.ToString();
         }
+
     }
 }

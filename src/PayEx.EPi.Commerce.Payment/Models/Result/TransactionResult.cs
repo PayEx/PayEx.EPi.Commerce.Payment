@@ -1,5 +1,6 @@
 ﻿using System.Xml.Serialization;
 using Newtonsoft.Json;
+using PayEx.EPi.Commerce.Payment.Contracts;
 
 namespace PayEx.EPi.Commerce.Payment.Models.Result
 {

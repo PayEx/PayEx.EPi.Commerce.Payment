@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4CF049EB-D17F-42DC-8215-E112961CF84A}</ProjectGuid>
+    <ProjectGuid>{628D6016-5950-467A-BC67-AEB4DCDD3AB1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PayEx.EPi.Commerce.Payment.CommerceManager</RootNamespace>
@@ -42,6 +42,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Apps\Order\Payments\Plugins\PayEx_FinancingInvoice\ConfigurePayment.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Apps\Order\Payments\Plugins\PayEx_MasterPass\ConfigurePayment.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Apps\Order\Payments\Plugins\PayEx_CreditCard\ConfigurePayment.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>

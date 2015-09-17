@@ -17,5 +17,10 @@ namespace PayEx.EPi.Commerce.Payment.Contracts
         string Create(long accountNumber, int transactionNumber, string itemNumber, string orderId, string encryptionKey);
         string Create(long accountNumber, string socialSecurityNumber, string countryCode, string encryptionKey);
         string Create(long accountNumber, string orderRef, CustomerDetails customerDetails, string encryptionKey);
+        string Create(long accountNumber, string orderRef, string paymentMethod, CustomerDetails customerDetails, string encryptionKey);
+
+        string Create(long accountNumber, string orderRef, long amount, long vatAmount, string clientIpAddress, string encryptionKey);
+
+        string Create(long accountNumber, string paymentMethod, string ssn, string zipcode, string countryCode, string ipAddress, string encryptionKey);
     }
 }

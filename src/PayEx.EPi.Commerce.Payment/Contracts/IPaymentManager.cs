@@ -14,5 +14,11 @@ namespace PayEx.EPi.Commerce.Payment.Contracts
         CreditResult CreditOrderLine(int transactionNumber, string itemNumber, string orderId);
         CreditResult Credit(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues);
         CaptureResult Capture(int transactionNumber, long amount, string orderId, int vatAmount, string additionalValues);
+        DeliveryAddressResult GetApprovedDeliveryAddress(string orderRef);
+        FinalizeTransactionResult FinalizeTransaction(string orderRef, long amount, long vatAmount,
+            string clientIpAddress);
+        LegalAddressResult GetAddressByPaymentMethod(string paymentMethod, string ssn, string zipcode,
+            string countryCode, string ipAddress);
+        PurchaseInvoiceSaleResult PurchaseFinancingInvoice(string orderRef, string paymentMethod, CustomerDetails customerDetails);
     }
 }
