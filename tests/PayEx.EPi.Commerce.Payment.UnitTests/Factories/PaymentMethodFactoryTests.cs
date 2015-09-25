@@ -20,9 +20,15 @@ namespace PayEx.EPi.Commerce.Payment.UnitTests.Factories
             Mock<IOrderNumberGenerator> orderNumberGeneratorMock = new Mock<IOrderNumberGenerator>();
             Mock<IAdditionalValuesFormatter> additionalValuesFormatterMock = new Mock<IAdditionalValuesFormatter>();
             Mock<IPaymentActions> paymentActionsMock = new Mock<IPaymentActions>();
+            Mock<IFinancialInvoicingOrderLineFormatter> financialInvoicingOrderLineFormatter = new Mock<IFinancialInvoicingOrderLineFormatter>();
+            Mock<IUpdateAddressHandler> updateAddressHandler = new Mock<IUpdateAddressHandler>();
+            Mock<IMasterPassShoppingCartFormatter> masterPassShoppingCartXmlFormatter = new Mock<IMasterPassShoppingCartFormatter>();
 
-            PaymentMethodFactory factory = new PaymentMethodFactory(paymentManagerMock.Object, parameterReaderMock.Object, cartActionsMock.Object,
-                verificationManagerMock.Object, orderNumberGeneratorMock.Object, additionalValuesFormatterMock.Object, paymentActionsMock.Object);
+            PaymentMethodFactory factory = new PaymentMethodFactory(paymentManagerMock.Object,
+                parameterReaderMock.Object, cartActionsMock.Object,
+                verificationManagerMock.Object, orderNumberGeneratorMock.Object, additionalValuesFormatterMock.Object,
+                paymentActionsMock.Object, financialInvoicingOrderLineFormatter.Object, updateAddressHandler.Object,
+                masterPassShoppingCartXmlFormatter.Object);
             PaymentMethod result = factory.Create(null);
 
             Assert.IsNull(result);

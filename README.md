@@ -25,7 +25,7 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
   	5. [Going into production](#production)
   1. [Extra steps needed for payment methods](#extrasteps)
   	1. [MasterPass](#masterpass) 
-  	1. [Financing Invoicing](#financinginvoicing) 
+  	2. [Financing Invoicing](#financinginvoicing) 
   1. [Extending the payment provider](#extending)
 	  1. [Generating order numbers](#ordernum)
 	  2. [Supplying VAT to PayEx](#vat)
