@@ -18,5 +18,11 @@ namespace PayEx.EPi.Commerce.Payment.Formatters
         {
             return Math.Round(price, MidpointRounding.AwayFromZero);
         }
+
+        public static decimal RoundToTwoDecimal(this decimal price)
+        {
+            return ((price * 100).Round()) / 100;
+        }
+
     }
 }

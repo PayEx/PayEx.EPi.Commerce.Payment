@@ -32,8 +32,9 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
                 return new PaymentInitializeResult { ErrorMessage = result.Status.Description };
 
             _paymentActions.UpdatePaymentInformation(currentPayment, result.TransactionNumber, result.PaymentMethod);
+            _paymentActions.SetPaymentProcessed(currentPayment);
 
-            Log.InfoFormat("Successfully called PurchaseInvoiceSale for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.InfoFormat("Successfully called PurchaseFinancingInvoice for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             return new PaymentInitializeResult { Success = true };
         }
 

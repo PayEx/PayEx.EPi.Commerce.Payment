@@ -16,13 +16,16 @@ namespace PayEx.EPi.Commerce.Payment.Factories
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IPaymentActions _paymentActions;
         private readonly IFinancialInvoicingOrderLineFormatter _financialInvoicingOrderLineFormatter;
+        private readonly IMasterPassShoppingCartFormatter _masterPassShoppingCartXmlFormatter;
 
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
+        private readonly IUpdateAddressHandler _updateAddressHandler;
 
         public PaymentMethodFactory(IPaymentManager paymentManager, IParameterReader parameterReader,
             ICartActions cartActions, IVerificationManager verificationManager,
             IOrderNumberGenerator orderNumberGenerator, IAdditionalValuesFormatter additionalValuesFormatter,
-            IPaymentActions paymentActions, IFinancialInvoicingOrderLineFormatter financialInvoicingOrderLineFormatter)
+            IPaymentActions paymentActions, IFinancialInvoicingOrderLineFormatter financialInvoicingOrderLineFormatter,
+            IUpdateAddressHandler updateAddressHandler, IMasterPassShoppingCartFormatter masterPassShoppingCartXmlFormatter)
         {
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
@@ -32,6 +35,8 @@ namespace PayEx.EPi.Commerce.Payment.Factories
             _additionalValuesFormatter = additionalValuesFormatter;
             _paymentActions = paymentActions;
             _financialInvoicingOrderLineFormatter = financialInvoicingOrderLineFormatter;
+            _updateAddressHandler = updateAddressHandler;
+            _masterPassShoppingCartXmlFormatter = masterPassShoppingCartXmlFormatter;
         }
 
         public PaymentMethod Create(Mediachase.Commerce.Orders.Payment payment)
@@ -82,11 +87,15 @@ namespace PayEx.EPi.Commerce.Payment.Factories
                         _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case Constants.Payment.MasterPass.SystemKeyword:
                     return new MasterPass(payment, _paymentManager, _parameterReader, _cartActions,
-                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
-                case Constants.Payment.FinancingInvoice.SystemKeyword:
+                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions, _masterPassShoppingCartXmlFormatter);
+                case Constants.Payment.FinancingInvoiceNorway.SystemKeyword:
                     return new FinancingInvoice(payment, _paymentManager, _parameterReader, _cartActions,
                         _orderNumberGenerator, _additionalValuesFormatter, _financialInvoicingOrderLineFormatter,
-                        _paymentActions);
+                        _paymentActions, Constants.Payment.FinancingInvoiceNorway.PaymentMethodCode, _updateAddressHandler);
+                case Constants.Payment.FinancingInvoiceSweden.SystemKeyword:
+                    return new FinancingInvoice(payment, _paymentManager, _parameterReader, _cartActions,
+                        _orderNumberGenerator, _additionalValuesFormatter, _financialInvoicingOrderLineFormatter,
+                        _paymentActions, Constants.Payment.FinancingInvoiceSweden.PaymentMethodCode, _updateAddressHandler);
             }
 
             Log.ErrorFormat(

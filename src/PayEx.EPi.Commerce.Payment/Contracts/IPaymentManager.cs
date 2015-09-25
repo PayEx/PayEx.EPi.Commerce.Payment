@@ -20,5 +20,6 @@ namespace PayEx.EPi.Commerce.Payment.Contracts
         LegalAddressResult GetAddressByPaymentMethod(string paymentMethod, string ssn, string zipcode,
             string countryCode, string ipAddress);
         PurchaseInvoiceSaleResult PurchaseFinancingInvoice(string orderRef, string paymentMethod, CustomerDetails customerDetails);
+        InvoiceLinkResult GetInvoiceLinkForFinancingInvoicePurchase(int transactionNumber);
     }
 }

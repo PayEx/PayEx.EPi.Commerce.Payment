@@ -42,7 +42,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Apps\Order\Payments\Plugins\PayEx_FinancingInvoice\ConfigurePayment.ascx">
+    <Content Include="Apps\Order\Payments\Plugins\PayEx_FinancingInvoiceSE\ConfigurePayment.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Apps\Order\Payments\Plugins\PayEx_FinancingInvoiceNO\ConfigurePayment.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Apps\Order\Payments\Plugins\PayEx_MasterPass\ConfigurePayment.ascx">

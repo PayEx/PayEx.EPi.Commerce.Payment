@@ -38,7 +38,8 @@ namespace PayEx.EPi.Commerce.Payment.Initializers
                 new PaymentMethodInfo(Constants.Payment.PayPal.SystemKeyword, Constants.Payment.PayPal.Name, paymentGatewayClassname, payExPaymentClassName, 1500),
                 new PaymentMethodInfo(Constants.Payment.Giftcard.SystemKeyword, Constants.Payment.Giftcard.Name, paymentGatewayClassname, payExPaymentClassName, 1600),
                 new PaymentMethodInfo(Constants.Payment.MasterPass.SystemKeyword, Constants.Payment.MasterPass.Name, paymentGatewayClassname, payExPaymentClassName, 1700),
-                new PaymentMethodInfo(Constants.Payment.FinancingInvoice.SystemKeyword, Constants.Payment.FinancingInvoice.Name, paymentGatewayClassname, extendedPayExPaymentClassName, 1800),
+                new PaymentMethodInfo(Constants.Payment.FinancingInvoiceNorway.SystemKeyword, Constants.Payment.FinancingInvoiceNorway.Name, paymentGatewayClassname, extendedPayExPaymentClassName, 1800),
+                new PaymentMethodInfo(Constants.Payment.FinancingInvoiceSweden.SystemKeyword, Constants.Payment.FinancingInvoiceSweden.Name, paymentGatewayClassname, extendedPayExPaymentClassName, 1900),
             };
 
             CreateForEnabledLanguages(paymentMethodInfo);

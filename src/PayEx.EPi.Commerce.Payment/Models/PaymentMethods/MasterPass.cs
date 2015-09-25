@@ -27,18 +27,22 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IPaymentActions _paymentActions;
 
-        public MasterPass() { } // Needed for unit testing
+        public MasterPass()
+        {
+        } // Needed for unit testing
 
-        public MasterPass(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager, 
-            IParameterReader parameterReader, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
-            IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
+        public MasterPass(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
+            IParameterReader parameterReader, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator,
+            IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions,
+            IMasterPassShoppingCartFormatter masterPassShoppingCartFormatter)
             : base(payment)
         {
             _paymentManager = paymentManager;
             _parameterReader = new MasterPassParameterReader(parameterReader);
             _cartActions = cartActions;
             _orderNumberGenerator = orderNumberGenerator;
-            _additionalValuesFormatter = new MasterPassAdditionalValuesFormatter(additionalValuesFormatter);
+            _additionalValuesFormatter = new MasterPassAdditionalValuesFormatter(additionalValuesFormatter,
+                _parameterReader.AddShoppingCartXml(this.PaymentMethodDto), masterPassShoppingCartFormatter);
             _paymentActions = paymentActions;
         }
 

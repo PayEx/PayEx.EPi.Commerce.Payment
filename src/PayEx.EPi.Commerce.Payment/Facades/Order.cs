@@ -111,5 +111,9 @@ namespace PayEx.EPi.Commerce.Payment.Facades
                 customerDetails.MobilePhone, customerDetails.IpAddress, hash);
         }
 
+        public string InvoiceLinkGet(long accountNumber, int transactionNumber, string hash)
+        {
+            return Client.InvoiceLinkGet(accountNumber, transactionNumber, hash);
+        }
     }
 }

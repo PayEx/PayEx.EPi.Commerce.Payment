@@ -20,8 +20,8 @@ namespace PayEx.EPi.Commerce.Payment.Models.Result
         [XmlElement("city")]
         public string City { get; set; }
 
-        [XmlElement("country")]
-        public string Country { get; set; }
+        [XmlElement("countryCode")]
+        public string CountryCode { get; set; }
 
         [XmlElement("coAddress")]
         public string CoAddress { get; set; }

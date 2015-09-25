@@ -250,5 +250,20 @@ namespace PayEx.EPi.Commerce.Payment.Facades
                 Log.ErrorFormat("Error when calling PurchaseFinancingInvoice for order with orderRef:{0}. Result:{1}", orderRef, xmlResult);
             return result;
         }
+
+        public InvoiceLinkResult GetInvoiceLinkForFinancingInvoicePurchase(int transactionNumber)
+        {
+            Log.InfoFormat("Calling InvoiceLinkGet for order with transactionNumber:{0}.", transactionNumber);
+
+            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.InvoiceLinkGet(_payExSettings.AccountNumber, transactionNumber, hash);
+
+            InvoiceLinkResult result = _resultParser.Deserialize<InvoiceLinkResult>(xmlResult);
+            if (result.Status.Success)
+                Log.InfoFormat("Successfully called InvoiceLinkGet for order with transactionNumber:{0}. Result:{1}", transactionNumber, xmlResult);
+            else
+                Log.ErrorFormat("Error when calling InvoiceLinkGet for order with transactionNumber:{0}. Result:{1}", transactionNumber, xmlResult);
+            return result;
+        }
     }
 }

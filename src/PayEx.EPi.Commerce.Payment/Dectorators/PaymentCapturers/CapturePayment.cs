@@ -1,8 +1,11 @@
-﻿using log4net;
+﻿using System;
+using log4net;
+using Mediachase.Commerce.Orders;
+using Mediachase.Commerce.Orders.Managers;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Formatters;
-using PayEx.EPi.Commerce.Payment.Models.PaymentMethods;
 using PayEx.EPi.Commerce.Payment.Models.Result;
+using PaymentMethod = PayEx.EPi.Commerce.Payment.Models.PaymentMethods.PaymentMethod;
 
 namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCapturers
 {
@@ -20,6 +23,11 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCapturers
 
         public bool Capture(PaymentMethod currentPayment)
         {
+            return Capture(currentPayment, string.Empty);
+        }
+
+        public bool Capture(PaymentMethod currentPayment, string additionalValues)
+        {
             Mediachase.Commerce.Orders.Payment payment = (Mediachase.Commerce.Orders.Payment) currentPayment.Payment;
             Log.InfoFormat("Capturing payment with ID:{0} belonging to order with ID: {1}", payment.Id, payment.OrderGroupId);
 
@@ -33,13 +41,14 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCapturers
 
             long amount = payment.Amount.RoundToLong();
             string orderNumber = OrderNumberFormatter.MakeNumeric(currentPayment.PurchaseOrder.TrackingNumber);
-            CaptureResult result = _paymentManager.Capture(transactionId, amount, orderNumber, currentPayment.Payment.Vat, string.Empty);
+            CaptureResult result = _paymentManager.Capture(transactionId, amount, orderNumber, currentPayment.Payment.Vat, additionalValues);
 
             bool success = false;
             if (result.Success && !string.IsNullOrWhiteSpace(result.TransactionNumber))
             {
                 Log.InfoFormat("Setting PayEx transaction number to {0} on payment with ID:{1} belonging to order with ID: {2} during capture", result.TransactionNumber, payment.Id, payment.OrderGroupId);
-                payment.ValidationCode = result.TransactionNumber;
+                payment.ValidationCode = result.TransactionNumber;    
+                PaymentStatusManager.ProcessPayment(payment);                
                 payment.AcceptChanges();
                 success = true;
                 Log.InfoFormat("Successfully captured payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);

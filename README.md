@@ -1,4 +1,4 @@
-# PayEx payment provider #
+﻿# PayEx payment provider #
 
 The PayEx payment provider for EPiServer Commerce supports the following payment methods: 
 
@@ -6,9 +6,11 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - [PayPal](http://www.payexpim.com/payment-methods/paypal/)
 - [Gift Cards](http://www.payexpim.com/payment-methods/gift-cards-generic-cards/)
 - [Invoice Ledger](http://www.payexpim.com/payment-methods/invoice/)
-- [Invoice 2.0](http://www.payexpim.com/payment-methods/payex-faktura-2-0/)
-- [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
+- [Invoice 2.0](http://www.payexpim.com/payment-methods/payex-faktura-2-0/) (Payment method is depricated. Use Financing Invoicing instead)
+- [Financing Invoice](http://www.payexpim.com/payment-methods/financing-invoice/)
+- [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/) 
 - [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
+- [MasterPass](http://www.payexpim.com/payment-methods/masterpass/)
 
 ## <a name='toc'>Table of Contents</a>
 
@@ -21,18 +23,22 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
   	3. [Implementing a payment method using the redirect model](#implredirect)
   	4. [Implementing a payment method using the direct model](#impldirect)
   	5. [Going into production](#production)
+  1. [Extra steps needed for payment methods](#extrasteps)
+  	1. [MasterPass](#masterpass) 
+  	1. [Financing Invoicing](#financinginvoicing) 
   1. [Extending the payment provider](#extending)
 	  1. [Generating order numbers](#ordernum)
 	  2. [Supplying VAT to PayEx](#vat)
 	  3. [Specifying the *additionalValues* parameter](#additionalValues)
+	  4. [Avoid payment being set to processed when redirected to PayEx](#handleisredir)
   1. [Troubleshooting](#troubleshooting)
 	  1. [Logging](#logging)
 
 
 ##[[↑]](#toc) <a name='prereq'>Prerequisites</a>
 
-- EPiServer.CMS version 7.6.3 or higher
-- EPiServer.Commerce version 7.6.1 or higher
+- EPiServer.CMS version 8.0.0 or higher
+- EPiServer.Commerce version 8.8.0 or higher
 - .NET Framework 4.5 or higher
 - You should also take a look at the [PayEx prerequisites](http://www.payexpim.com/quick-guide/prerequisites/)
 
@@ -289,6 +295,69 @@ When your project is ready for production, you must remember to update the follo
 - "PayEx Encryption Key" in the PayEx.EPi.Commerce.Payment module settings
 - The PayEx endpoint URL in web.config must be changed from https://test-external.payex.com to https://external.payex.com
 
+##[[↑]](#toc) <a name='extrasteps'>Extra steps needed for payment methods</a>
+
+###[[↑]](#toc) <a name='masterpass'>MasterPass</a>
+
+There are two purchase flows when working with MasterPass, best practice and redirect flow. This payment method support both.
+
+To select which flow to use, go to the MasterPass payment method in Commerce Manager and select the parameters tab. In this view you you can check the Use best practice flow to enable this option as shown in the screenshoot below.
+ 
+![MasterPass parameters in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/MasterPassParameters.PNG)
+
+AdditionalValues paramters RESPONSIVE and USEMASTERPASS are automatically set and should not be set in Commerce Manager for this payment method.
+
+Select "Add shopping cart items to MasterPass" if you add want to send shopping cart data to PayEx to be shown in the MasterPass view. If you want to override the standard formatting of shopping cart, you can implement IMasterPassShoppingCartFormatter and register it with StructureMap.
+	
+	_container.Configure(x =>
+	    {	
+		    x.For<IMasterPassShoppingCartFormatter()
+		    .Use<YourMasterPassShoppingCartXmlFormatter>();
+	    }
+
+####MasterPass Best Practice####
+Detailed information regarding this option can be found at http://www.payexpim.com/payment-methods/masterpass/
+
+When this option is enabled, you should add a checkout button at the beginning of the checkout experience, prior to the collection of shipping and billing information as described in the PayEx documentation. When this button is clicked, you will need to get the payment method for MasterPass from EPiServer Commerce and add it to the carts payments as shown in CreatePayments example above.  When you save your cart as an order the user will be redirected to PayEx to select their wallet and are redirected back to the returnurl set on the payment in Commerce. This url will contain an orderRef query parameter that you should use to get the customers address from PayEx and set this as the shipping address on the cart as shown in example below.
+
+            var payExService = ServiceLocator.Current.GetInstance<IPayExPaymentService>();
+            var address = payExService.GetDeliveryAddressFromPayEx(orderRef);
+ 
+The consumer should be able to review the order before finalizing the purchase. Prices for shipping could be affected by the selected shipping address inside the MasterPass Wallet and the customer should be made aware of this. 
+
+When the customer finalizes the order *PayExPaymentGateway.ProcessSuccessfulTransaction* function must be called, in order to complete the payment.
+- If *PayExPaymentGateway.ProcessSuccessfulTransaction* is successful, create a Purchase Order with the given order number and redirect the user to the order confiration page.
+
+####Regular redirect flow####
+This payment method requires no extra steps and can be used in the same manner as the other redirect options.
+
+###[[↑]](#toc) <a name='financinginvoicing'>Financing Invoicing</a>
+
+There are two available payment methods for Financing Invoicing. One for swedish and one for norwegian end customers. To limit what payment option is shown to the customer, you can use markets in EPiServer Commerce.
+
+There are some extra parameters that need to be set to be able to use the Financing Invoicing payment option.
+Go to the Financing Invoicing payment method in Commerce Manager and select the parameters tab. 
+
+![Financing Invoicing parameters in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/FinancingInvoicingParameters.PNG)
+
+You can select "get the customers legal address" for the swedish payment method. When this is selected, legal address is retrieved from PayEx and address is updated on the ExtendedPayExPayment. If you want this address updated on the billing address on the order, you will need to implement IUpdateAddressHandler and register the class with StructureMap.
+	
+	_container.Configure(x =>
+		    {		              
+			     x.For<IUpdateAddressHandler()
+			     .Use<YourUpdateAddressHandler>();
+			});
+			
+If you select one-phase transaction, the transactions will be captured immediately when checkout workflow is executed. If this option is enabled order line information is needed by PayEx. This is handled automatically, but requires adjustments to the CalculateTaxActivity in Commerce workflow as described in section about [Supplying VAT to PayEx](#vat). Discounts, shipping and handling costs are summed up in one row and sent to PayEx. If you would like to change this implementation, you will need add your own implementation of IFinancialInvoicingOrderLineFormatter and register it with StructureMap like in the following example:
+   
+     _container.Configure(x =>
+	    {		              
+		     x.For<IFinancialInvoicingOrderLineFormatter()
+		     .Use<YourFinancialInvoicingOrderLineFormatter>();
+		});
+
+
+
 ##[[↑]](#toc) <a name='extending'>Extending the payment provider</a>
 
 ###[[↑]](#toc) <a name='ordernum'>Generating order numbers</a>
@@ -455,6 +524,31 @@ In order to specify dynamic values you can implement your own *IAdditionalValues
 	    }
 	}
 
+###[[↑]](#toc) <a name='handleisredir'>Avoid payment being set to processed when redirected to PayEx</a>
+
+If you don't want Commerce to set the payments to processed when the customer is redirected to PayEx to enter payment information, you can modify the workflow activity ProcessPaymentActivity to include a check if user is being redirected in the ProcessPayment method.
+
+	var httpContext = HttpContext.Current;
+	var isRedirecting = httpContext != null 
+					    && httpContext.Response.IsRequestBeingRedirected;
+
+    // update payment status
+    if (processPaymentResult && !isRedirecting)
+    {
+		PaymentStatusManager.ProcessPayment(payment);
+    }
+    else
+    {
+		if (isRedirecting)
+	       message = "User is being redirected to payment provider for registring payment and cart cannot be saved as order yet.";
+
+	    throw new PaymentException(PaymentException.ErrorType.ProviderError
+								    , "", String.Format(message));
+	}
+	
+    Logger.Debug(String.Format("Payment processed."));
+    
+ 
 ##[[↑]](#toc) <a name='troubleshooting'>Troubleshooting</a>
 
 ###[[↑]](#toc) <a name='logging'>Logging</a>

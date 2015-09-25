@@ -1,5 +1,4 @@
-﻿using PayEx.EPi.Commerce.Payment.Commerce;
-using PayEx.EPi.Commerce.Payment.Contracts;
+﻿using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Dectorators.AdditionalValuesFormatters;
 using PayEx.EPi.Commerce.Payment.Dectorators.ParameterReaders;
@@ -18,31 +17,42 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IPaymentActions _paymentActions;
-        public FinancingInvoice() { }
+        private readonly string _paymentMethodCode;
+        private readonly IFinancialInvoicingOrderLineFormatter _financialInvoicingOrderLineFormatter;
+        private readonly IUpdateAddressHandler _updateAddressHandler;
+
+        public FinancingInvoice()
+        {
+        } // Needed for unit testing
 
         public FinancingInvoice(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
             IParameterReader parameterReader,
             ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator,
             IAdditionalValuesFormatter additionalValuesFormatter,
-            IFinancialInvoicingOrderLineFormatter financialInvoicingOrderLineFormatter, IPaymentActions paymentActions)
+            IFinancialInvoicingOrderLineFormatter financialInvoicingOrderLineFormatter, IPaymentActions paymentActions,
+            string paymentMethodCode, IUpdateAddressHandler updateAddressHandler)
             : base(payment)
         {
             _paymentManager = paymentManager;
             _parameterReader = new FinancingInvoiceParameterReader(parameterReader);
             _cartActions = cartActions;
             _orderNumberGenerator = orderNumberGenerator;
+
+            _financialInvoicingOrderLineFormatter = financialInvoicingOrderLineFormatter;
             financialInvoicingOrderLineFormatter.IncludeOrderLines =
                 _parameterReader.UseOnePhaseTransaction(this.PaymentMethodDto);
             _additionalValuesFormatter = new FinancingInvoiceAdditionalValuesFormatter(additionalValuesFormatter,
                 financialInvoicingOrderLineFormatter);
             _paymentActions = paymentActions;
+            _paymentMethodCode = paymentMethodCode;
+            _updateAddressHandler = updateAddressHandler;
         }
 
         public override string PaymentMethodCode
         {
             get
             {
-                return _parameterReader.GetPaymentMethodCode(this.PaymentMethodDto);
+                return _paymentMethodCode;
             }
         }
 
@@ -67,8 +77,15 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         {
             get
             {
-                var useOnePhaseTransaction = _parameterReader.UseOnePhaseTransaction(this.PaymentMethodDto);
-                return useOnePhaseTransaction ? PurchaseOperation.SALE : PurchaseOperation.AUTHORIZATION;
+                return UseOnePhaseTransaction ? PurchaseOperation.SALE : PurchaseOperation.AUTHORIZATION;
+            }
+        }
+
+        private bool UseOnePhaseTransaction
+        {
+            get
+            {
+                return _parameterReader.UseOnePhaseTransaction(this.PaymentMethodDto);
             }
         }
 
@@ -78,7 +95,7 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
                 new GetConsumerLegalAddressForFinancingInvoice(
                     new InitializePayment(
                         new PurchaseFinancingInvoice(_paymentManager, _paymentActions), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter)
-                        , _paymentActions, _paymentManager), _orderNumberGenerator);
+                        , _paymentActions, _paymentManager, _updateAddressHandler), _orderNumberGenerator);
             return initializer.Initialize(this, null, null, null);
         }
 
@@ -89,11 +106,16 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
 
         public override bool Capture()
         {
-            if (PurchaseOperation == PurchaseOperation.SALE)
-                return true; // Financing Invoice is done with PurchaseOperation=SALE, so Capture is not possible. Return true to continue execution.
+            if (UseOnePhaseTransaction)
+                return true; 
 
             IPaymentCapturer capturer = new CapturePayment(null, _paymentManager);
-            return capturer.Capture(this);
+
+            var financialInvoicingOrderLineFormatter = _financialInvoicingOrderLineFormatter;
+            financialInvoicingOrderLineFormatter.IncludeOrderLines = true;
+            var financingInvoiceAdditionalValuesFormatter = new FinancingInvoiceAdditionalValuesFormatter(null,
+                financialInvoicingOrderLineFormatter);
+            return capturer.Capture(this, financingInvoiceAdditionalValuesFormatter.Format(this.Payment as PayExPayment));
         }
 
         public override bool Credit()

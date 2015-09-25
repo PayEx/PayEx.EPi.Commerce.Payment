@@ -7,5 +7,6 @@ namespace PayEx.EPi.Commerce.Payment.Contracts.Commerce
     {
         void UpdatePaymentInformation(PaymentMethod paymentMethod, string authorizationCode, string paymentMethodCode);
         void UpdateConsumerInformation(PaymentMethod paymentMethod, ConsumerLegalAddressResult consumerLegalAddress);
+        void SetPaymentProcessed(PaymentMethod currentPayment);
     }
 }

@@ -6,5 +6,6 @@ namespace PayEx.EPi.Commerce.Payment.Contracts
     internal interface IPaymentCapturer
     {
        bool Capture(PaymentMethod currentPayment);
+       bool Capture(PaymentMethod currentPayment, string additionalValues);
     }
 }

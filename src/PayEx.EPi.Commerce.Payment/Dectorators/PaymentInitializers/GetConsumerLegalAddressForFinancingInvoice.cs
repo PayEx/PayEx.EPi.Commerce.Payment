@@ -14,13 +14,15 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
         private readonly IPaymentInitializer _paymentInitializer;
         private readonly IPaymentManager _paymentManager;
         private readonly IPaymentActions _paymentActions;
+        private readonly IUpdateAddressHandler _updateAddressHandler;
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
-        public GetConsumerLegalAddressForFinancingInvoice(IPaymentInitializer paymentInitializer, IPaymentActions paymentActions, IPaymentManager paymentManager)
+        public GetConsumerLegalAddressForFinancingInvoice(IPaymentInitializer paymentInitializer, IPaymentActions paymentActions, IPaymentManager paymentManager, IUpdateAddressHandler updateAddressHandler)
         {
             _paymentInitializer = paymentInitializer;
             _paymentActions = paymentActions;
             _paymentManager = paymentManager;
+            _updateAddressHandler = updateAddressHandler;
         }
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
@@ -42,6 +44,10 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 
                 var convertToConsumerAddress = ConvertToConsumerAddress(result);
                 _paymentActions.UpdateConsumerInformation(currentPayment, convertToConsumerAddress);
+
+                var extendedPayment = currentPayment.Payment as ExtendedPayExPayment;
+                _updateAddressHandler.UpdateAddress(currentPayment.Cart, extendedPayment);
+
                 Log.InfoFormat(
                     "Successfully retrieved consumer legal address for payment with ID:{0} belonging to order with ID: {1}",
                     currentPayment.Payment.Id, currentPayment.OrderGroupId);
@@ -70,9 +76,10 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
                 Status = result.Status,
                 Address = result.StreetAddress,
                 City = result.City,
-                Country = result.Country,
+                Country = result.CountryCode,
                 FirstName = firstName,
-                LastName = lastName
+                LastName = lastName,
+                PostNumber = result.ZipCode
             };
             return consumerLegalAddressResult;
         }

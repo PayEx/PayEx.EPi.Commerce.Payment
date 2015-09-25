@@ -1,5 +1,6 @@
 ﻿using System;
 using log4net;
+using Mediachase.Commerce.Orders.Managers;
 using Mediachase.Data.Provider;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Models.PaymentMethods;
@@ -72,6 +73,14 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
                     "Could not update consumer information for payment with ID:{0}. ConsumerLegalAddressResult:{1}.",
                     payment.Id, consumerLegalAddress);
             }
+        }
+
+        public void SetPaymentProcessed(PaymentMethod paymentMethod)
+        {
+            var payment = (Mediachase.Commerce.Orders.Payment) paymentMethod.Payment;
+            PaymentStatusManager.ProcessPayment(payment);
+            payment.AcceptChanges();
+            Log.InfoFormat("Successfully set payment status to pros for payment with ID:{0} belonging to order with ID: {1}", paymentMethod.Payment.Id, paymentMethod.OrderGroupId);
         }
     }
 }

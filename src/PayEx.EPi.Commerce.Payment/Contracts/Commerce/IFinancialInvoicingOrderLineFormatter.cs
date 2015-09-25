@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using PayEx.EPi.Commerce.Payment.Models;
 
 namespace PayEx.EPi.Commerce.Payment.Contracts.Commerce

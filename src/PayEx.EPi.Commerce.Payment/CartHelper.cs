@@ -117,7 +117,16 @@ namespace PayEx.EPi.Commerce.Payment
             return orderLines;
         }
 
-        private static decimal GetVatAmount(LineItem lineItem)
+        public static List<LineItem> GetLineItems(PayExPayment payExPayment)
+        {
+            var lineItems = new List<LineItem>();
+            foreach (Shipment shipment in payExPayment.Parent.Shipments)
+                lineItems.AddRange(Shipment.GetShipmentLineItems(shipment));
+
+            return lineItems;
+        }
+
+        internal static decimal GetVatAmount(LineItem lineItem)
         {
             var vatObject = lineItem["LineItemVatAmount"];
             if (vatObject != null)
@@ -125,7 +134,7 @@ namespace PayEx.EPi.Commerce.Payment
             return 0;
         }
 
-        private static decimal GetVatPercentage(LineItem lineItem)
+        internal static decimal GetVatPercentage(LineItem lineItem)
         {
             var vatPercentObject = lineItem["LineItemVatPercentage"];
             if (vatPercentObject != null)
@@ -133,7 +142,7 @@ namespace PayEx.EPi.Commerce.Payment
             return 0;
         }
 
-        private static decimal GetShippingVatPercentage()
+        internal static decimal GetShippingVatPercentage()
         {
             TaxDto taxDto = TaxManager.GetTaxDto(TaxType.ShippingTax);
             if (taxDto.TaxValue.Count == 0)

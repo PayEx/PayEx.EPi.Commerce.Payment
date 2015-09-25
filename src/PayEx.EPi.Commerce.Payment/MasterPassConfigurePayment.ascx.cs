@@ -11,6 +11,7 @@ namespace PayEx.EPi.Commerce.Payment
         private const string PriceListArgsParameter = "PriceListArgs";
         private const string AdditionalValuesParameter = "AdditionalValues";
         private const string UseBestPracticeFlowParameter = "UseBestPracticeFlow";
+        private const string AddShoppingCartXmlParameter = "AddShoppingCartXml";
 
         public string ValidationGroup { get; set; }
 
@@ -45,6 +46,12 @@ namespace PayEx.EPi.Commerce.Payment
                 if (parameterByName != null)
                 {
                     UseBestPracticeFlow.Checked = "true".Equals(parameterByName.Value, StringComparison.InvariantCultureIgnoreCase);
+                }
+
+                parameterByName = GetParameterByName(AddShoppingCartXmlParameter);
+                if (parameterByName != null)
+                {
+                    AddShoppingCartXml.Checked = "true".Equals(parameterByName.Value, StringComparison.InvariantCultureIgnoreCase);
                 }
             }
             else
@@ -103,6 +110,16 @@ namespace PayEx.EPi.Commerce.Payment
                     else
                     {
                         CreateParameter(_paymentMethodDto, UseBestPracticeFlowParameter, UseBestPracticeFlow.Checked.ToString(), paymentMethodId);
+                    }
+
+                    parameterByName = GetParameterByName(AddShoppingCartXmlParameter);
+                    if (parameterByName != null)
+                    {
+                        parameterByName.Value = AddShoppingCartXml.Checked.ToString();
+                    }
+                    else
+                    {
+                        CreateParameter(_paymentMethodDto, AddShoppingCartXmlParameter, AddShoppingCartXml.Checked.ToString(), paymentMethodId);
                     }
                 }
             }

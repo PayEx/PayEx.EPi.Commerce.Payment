@@ -5,7 +5,8 @@ namespace PayEx.EPi.Commerce.Payment.Models
 {
     public class OnlineInvoice
     {
-        [XmlElement("OrderLine")]
+        [XmlArray(ElementName = "OrderLines")]
+        [XmlArrayItem("OrderLine", Type = typeof(OnlineInvoiceOrderLine))]
         public List<OnlineInvoiceOrderLine> OrderLines { get; protected set; }
 
         public OnlineInvoice()
@@ -20,7 +21,7 @@ namespace PayEx.EPi.Commerce.Payment.Models
         public string ProductName { get; set; }
 
         [XmlElement("Qty")]
-        public decimal Quantity { get; set; }
+        public int Quantity { get; set; }
 
         public decimal UnitPrice { get; set; }
         public int VatRate { get; set; }

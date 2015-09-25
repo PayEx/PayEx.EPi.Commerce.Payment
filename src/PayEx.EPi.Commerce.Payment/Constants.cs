@@ -78,10 +78,18 @@ namespace PayEx.EPi.Commerce.Payment
                 public const string Name = "PayEx Invoice 2.0";
             }
 
-            public static class FinancingInvoice
+            public static class FinancingInvoiceNorway
             {
-                public const string SystemKeyword = "PayEx_FinancingInvoice";
-                public const string Name = "PayEx Financing Invoice";
+                public const string SystemKeyword = "PayEx_FinancingInvoiceNO";
+                public const string Name = "PayEx Financing Invoice Norway";
+                public const string PaymentMethodCode = "PXFINANCINGINVOICENO";
+            }
+
+            public static class FinancingInvoiceSweden
+            {
+                public const string SystemKeyword = "PayEx_FinancingInvoiceSE";
+                public const string Name = "PayEx Financing Invoice Sweden";
+                public const string PaymentMethodCode = "PXFINANCINGINVOICESE";
             }
 
             public static class DirectDebit

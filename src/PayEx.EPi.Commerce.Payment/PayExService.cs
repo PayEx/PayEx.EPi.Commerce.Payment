@@ -17,5 +17,11 @@ namespace PayEx.EPi.Commerce.Payment
         {
             return _paymentManager.GetApprovedDeliveryAddress(orderRef);
         }
+
+        public InvoiceLinkResult GetInvoiceLinkForFinancingInvoicePurchase(int transactionNumber)
+        {
+            return _paymentManager.GetInvoiceLinkForFinancingInvoicePurchase(transactionNumber);
+        }
+
     }
 }

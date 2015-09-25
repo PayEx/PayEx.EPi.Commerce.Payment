@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MasterPassConfigurePayment.ascx.cs" Inherits="PayEx.EPi.Commerce.Payment.MasterPassConfigurePayment" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FinancingInvoiceConfigurePayment.ascx.cs" Inherits="PayEx.EPi.Commerce.Payment.FinancingInvoiceConfigurePayment" %>
 <div id="DataForm">
     <table cellpadding="0" cellspacing="2">
 	    <tr>
@@ -8,15 +8,15 @@
     <br />
     <table class="DataForm">
 	    <tr>
-		    <td class="FormLabelCell"><asp:Literal runat="server" Text="Use best practice flow" />:</td>
-		    <td class="FormFieldCell"><asp:CheckBox runat="server" ID="UseBestPracticeFlow"></asp:CheckBox></td>
+		    <td class="FormLabelCell"><asp:Literal runat="server" Text="Get the customers legal address" />:</td>
+		    <td class="FormFieldCell"><asp:CheckBox runat="server" ID="GetLegalAddress"></asp:CheckBox></td>
 	    </tr>
-         <tr>
+        <tr>
             <td colspan="2" class="FormSpacerCell"></td>
         </tr>
 	    <tr>
-		    <td class="FormLabelCell"><asp:Literal runat="server" Text="Add shopping cart items to MasterPass" />:</td>
-		    <td class="FormFieldCell"><asp:CheckBox runat="server" ID="AddShoppingCartXml"></asp:CheckBox></td>
+		    <td class="FormLabelCell"><asp:Literal runat="server" Text="Use one-phase transaction" />:</td>
+		    <td class="FormFieldCell"><asp:CheckBox runat="server" ID="UseOnePhaseTransaction"></asp:CheckBox></td>
 	    </tr>
          <tr>
             <td colspan="2" class="FormSpacerCell"></td>

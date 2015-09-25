@@ -54,16 +54,6 @@ namespace PayEx.EPi.Commerce.Payment
                 {
                     GetLegalAddress.Checked = "true".Equals(parameterByName.Value, StringComparison.InvariantCultureIgnoreCase);
                 }
-
-                parameterByName = GetParameterByName(PaymentMethodCodeParameter);
-                if (parameterByName != null)
-                {
-                    if (PaymentMethodCode.SelectedIndex > -1)
-                        PaymentMethodCode.SelectedItem.Selected = false;
-
-                    var listItem = PaymentMethodCode.Items.FindByValue(parameterByName.Value);
-                    listItem.Selected = true;
-                }
             }
             else
             {
@@ -131,16 +121,6 @@ namespace PayEx.EPi.Commerce.Payment
                     else
                     {
                         CreateParameter(_paymentMethodDto, GetLegalAddressParameter, GetLegalAddress.Checked.ToString(), paymentMethodId);
-                    }
-
-                    parameterByName = GetParameterByName(PaymentMethodCodeParameter);
-                    if (parameterByName != null)
-                    {
-                        parameterByName.Value = PaymentMethodCode.SelectedValue;
-                    }
-                    else
-                    {
-                        CreateParameter(_paymentMethodDto, PaymentMethodCodeParameter, PaymentMethodCode.SelectedValue, paymentMethodId);
                     }
                 }
             }

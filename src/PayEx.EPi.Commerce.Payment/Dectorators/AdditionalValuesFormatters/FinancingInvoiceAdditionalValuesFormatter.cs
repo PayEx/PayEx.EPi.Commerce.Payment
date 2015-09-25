@@ -1,13 +1,10 @@
 ﻿using System;
-using System.IO;
-using System.Web;
-using System.Xml.Serialization;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Models;
 
 namespace PayEx.EPi.Commerce.Payment.Dectorators.AdditionalValuesFormatters
 {
-    public class FinancingInvoiceAdditionalValuesFormatter : IAdditionalValuesFormatter
+    internal class FinancingInvoiceAdditionalValuesFormatter : IAdditionalValuesFormatter
     {
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IFinancialInvoicingOrderLineFormatter _financialInvoicingOrderLineFormatter;
@@ -48,22 +45,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.AdditionalValuesFormatters
         {
             var onlineInvoice = new OnlineInvoice();
             onlineInvoice.OrderLines.AddRange(_financialInvoicingOrderLineFormatter.CreateOrderLines(payExPayment));
-            return ConvertOnlineInvoiceToString(onlineInvoice);
-        }
-
-        public static string ConvertOnlineInvoiceToString(OnlineInvoice onlineInvoice)
-        {
-            string result;
-            var xmlSerializer = new XmlSerializer(onlineInvoice.GetType());
-
-            using (var textWriter = new StringWriter())
-            {
-                xmlSerializer.Serialize(textWriter, onlineInvoice);
-                result = textWriter.ToString();
-            }
-
-            result = HttpUtility.UrlEncode(result);
-            return result;
+            return PayExXmlSerializer.Serialize(onlineInvoice);
         }
     }
 }

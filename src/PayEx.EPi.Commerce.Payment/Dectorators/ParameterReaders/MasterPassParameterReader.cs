@@ -9,6 +9,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.ParameterReaders
     {
         private readonly IParameterReader _parameterReader;
         private const string UseBestPracticeFlowParameter = "UseBestPracticeFlow";
+        private const string AddShoppingCartXmlParameter = "AddShoppingCartXml";
         private readonly ILog _log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 
         public MasterPassParameterReader(IParameterReader parameterReader)
@@ -38,6 +39,25 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.ParameterReaders
                     return useBestPracticeFlow;
 
                 _log.Warn("Could not convert parameter value for UseBestPracticeFlow to a boolean and is therefor handled as false.");
+            }
+            catch (ArgumentNullException)
+            {
+                return false;
+            }
+
+            return false;
+        }
+
+        public bool AddShoppingCartXml(PaymentMethodDto paymentMethodDto)
+        {
+            try
+            {
+                var addShoppingCartXmlValue = ParameterReader.GetParameterByName(paymentMethodDto, AddShoppingCartXmlParameter).Value;
+                bool addShoppingCartXml;
+                if (bool.TryParse(addShoppingCartXmlValue, out addShoppingCartXml))
+                    return addShoppingCartXml;
+
+                _log.Warn("Could not convert parameter value for addShoppingCartXml to a boolean and is therefor handled as false.");
             }
             catch (ArgumentNullException)
             {
