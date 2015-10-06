@@ -23,5 +23,9 @@ namespace PayEx.EPi.Commerce.Payment
             return _paymentManager.GetInvoiceLinkForFinancingInvoicePurchase(transactionNumber);
         }
 
+        public CompleteResult Complete(string orderRef)
+        {
+            return _paymentManager.Complete(orderRef);
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace PayEx.EPi.Commerce.Payment.Contracts
     {
         DeliveryAddressResult GetDeliveryAddress(string orderRef);
         InvoiceLinkResult GetInvoiceLinkForFinancingInvoicePurchase(int transactionNumber);
+        CompleteResult Complete(string orderRef);
     }
 }
