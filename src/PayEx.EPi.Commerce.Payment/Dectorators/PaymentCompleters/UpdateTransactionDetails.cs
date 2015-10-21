@@ -137,7 +137,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
         public OrderAddress GetShippingAddress(OrderGroup orderGroup)
         {
             var orderForm = orderGroup.OrderForms.ToArray().First();
-            if (orderForm == null || orderForm.Shipments == null || orderForm.Shipments.Count == 0 || string.IsNullOrEmpty(orderForm.Shipments[0].ShippingAddressId))
+            if (orderForm?.Shipments == null || orderForm.Shipments.Count == 0 || string.IsNullOrEmpty(orderForm.Shipments[0].ShippingAddressId))
                 return null;
             return orderGroup.OrderAddresses.ToArray().FirstOrDefault(x => x.Name.Equals(orderForm.Shipments[0].ShippingAddressId, StringComparison.OrdinalIgnoreCase));
         }
