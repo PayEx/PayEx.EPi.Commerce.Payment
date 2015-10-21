@@ -27,14 +27,14 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
 
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
         {
-            Log.InfoFormat("Updating transaction details for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Updating transaction details for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             string transactionString = ((Mediachase.Commerce.Orders.Payment)currentPayment.Payment).AuthorizationCode;
-            Log.InfoFormat("Transaction number is:{0} for payment with ID:{1} belonging to order with ID: {2}", transactionString, currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Transaction number is:{transactionString} for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
 
             int transactionNumber;
             if (!Int32.TryParse(transactionString, out transactionNumber))
             {
-                Log.ErrorFormat("Could not parse Transaction number:{0} to an Int for payment with ID:{1} belonging to order with ID: {2}", transactionString, currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Error($"Could not parse Transaction number:{transactionString} to an Int for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
                 return new PaymentCompleteResult();
             }
 
@@ -48,7 +48,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
                 result = _paymentCompleter.Complete(currentPayment, orderRef);
 
             if (updated)
-                Log.InfoFormat("Successfully updated transaction details for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Info($"Successfully updated transaction details for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
 
             result.Success = updated;
             return result;
@@ -56,11 +56,10 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
 
         private bool UpdateOrderAddress(PaymentMethod currentPayment, TransactionResult transactionDetails2)
         {
-            Log.InfoFormat("Updating order address for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Updating order address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             if (!currentPayment.RequireAddressUpdate)
             {
-                Log.InfoFormat("This payment method ({0}) does not require an order address update. Payment with ID:{1} belonging to order with ID: {2}",
-                    currentPayment.PaymentMethodCode, currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Info($"This payment method ({currentPayment.PaymentMethodCode}) does not require an order address update. Payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
                 return true;
             }
 
@@ -72,7 +71,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
             OrderAddress shippingAddress = GetShippingAddress(cart);
             if (shippingAddress == null)
             {
-                Log.ErrorFormat("Could not update address for payment with ID:{0} belonging to order with ID: {1}. Reason: Shipping address was not found!", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Error($"Could not update address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}. Reason: Shipping address was not found!");
                 return false;
             }
 
@@ -91,8 +90,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
 
             if (!string.IsNullOrWhiteSpace(newAddress.Fullname))
             {
-                Log.InfoFormat("Setting customer name of cart to {0} on payment with ID:{1} belonging to order with ID: {2}",
-                    newAddress.Fullname, currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Info($"Setting customer name of cart to {newAddress.Fullname} on payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
                 cart.CustomerName = newAddress.Fullname;
             }
 
@@ -112,7 +110,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
             catch (Exception e)
             {
                 Log.Error("Could not update address for payment. See next log statement for more information", e);
-                Log.ErrorFormat("Could not update address for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Error($"Could not update address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
                 return false;
             }
         }
