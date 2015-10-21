@@ -2,7 +2,6 @@
 using Mediachase.Commerce.Orders.Managers;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Formatters;
-using PayEx.EPi.Commerce.Payment.Models.Result;
 using PaymentMethod = PayEx.EPi.Commerce.Payment.Models.PaymentMethods.PaymentMethod;
 
 namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCapturers
@@ -26,7 +25,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCapturers
 
         public bool Capture(PaymentMethod currentPayment, string additionalValues)
         {
-            Mediachase.Commerce.Orders.Payment payment = (Mediachase.Commerce.Orders.Payment) currentPayment.Payment;
+            var payment = (Mediachase.Commerce.Orders.Payment) currentPayment.Payment;
             Log.Info($"Capturing payment with ID:{payment.Id} belonging to order with ID: {payment.OrderGroupId}");
 
             int transactionId;
@@ -37,11 +36,11 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCapturers
             }
             Log.Info($"PayEx transaction ID is {transactionId} on payment with ID:{payment.Id} belonging to order with ID: {payment.OrderGroupId}");
 
-            long amount = payment.Amount.RoundToLong();
-            string orderNumber = OrderNumberFormatter.MakeNumeric(currentPayment.PurchaseOrder.TrackingNumber);
-            CaptureResult result = _paymentManager.Capture(transactionId, amount, orderNumber, currentPayment.Payment.Vat, additionalValues);
+            var amount = payment.Amount.RoundToLong();
+            var orderNumber = OrderNumberFormatter.MakeNumeric(currentPayment.PurchaseOrder.TrackingNumber);
+            var result = _paymentManager.Capture(transactionId, amount, orderNumber, currentPayment.Payment.Vat, additionalValues);
 
-            bool success = false;
+            var success = false;
             if (result.Success && !string.IsNullOrWhiteSpace(result.TransactionNumber))
             {
                 Log.Info($"Setting PayEx transaction number to {result.TransactionNumber} on payment with ID:{payment.Id} belonging to order with ID: {payment.OrderGroupId} during capture");
