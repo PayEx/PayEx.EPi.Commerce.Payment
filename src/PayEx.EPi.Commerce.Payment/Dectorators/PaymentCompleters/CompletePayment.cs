@@ -24,7 +24,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
         {
             Log.Info($"Completing payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
-            CompleteResult completeResult = _paymentManager.Complete(orderRef);
+            var completeResult = _paymentManager.Complete(orderRef);
             if (!completeResult.Success || string.IsNullOrWhiteSpace(completeResult.TransactionNumber))
                 return new PaymentCompleteResult { TransactionErrorCode = completeResult.ErrorDetails != null ? completeResult.ErrorDetails.TransactionErrorCode : string.Empty };
 
@@ -38,7 +38,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
 
             _paymentActions.UpdatePaymentInformation(currentPayment, completeResult.TransactionNumber, completeResult.PaymentMethod);
 
-            PaymentCompleteResult result = new PaymentCompleteResult { Success = true };
+            var result = new PaymentCompleteResult { Success = true };
             if (_paymentCompleter != null)
                 result = _paymentCompleter.Complete(currentPayment, orderRef);
 
