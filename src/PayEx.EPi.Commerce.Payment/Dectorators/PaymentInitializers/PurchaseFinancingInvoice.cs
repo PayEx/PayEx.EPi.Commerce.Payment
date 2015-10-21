@@ -22,7 +22,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
-            Log.InfoFormat("Calling PurchaseFinancingInvoice for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Calling PurchaseFinancingInvoice for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             CustomerDetails customerDetails = CreateModel(currentPayment);
             if (customerDetails == null)
                 throw new Exception("Payment class must be ExtendedPayExPayment when using this payment method");
@@ -34,7 +34,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             _paymentActions.UpdatePaymentInformation(currentPayment, result.TransactionNumber, result.PaymentMethod);
             _paymentActions.SetPaymentProcessed(currentPayment);
 
-            Log.InfoFormat("Successfully called PurchaseFinancingInvoice for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Successfully called PurchaseFinancingInvoice for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             return new PaymentInitializeResult { Success = true };
         }
 
