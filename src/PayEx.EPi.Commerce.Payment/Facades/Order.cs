@@ -1,5 +1,4 @@
-﻿using System;
-using PayEx.EPi.Commerce.Payment.Contracts;
+﻿using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Models;
 
 namespace PayEx.EPi.Commerce.Payment.Facades
@@ -8,15 +7,7 @@ namespace PayEx.EPi.Commerce.Payment.Facades
     {
         private PxOrder.PxOrderSoapClient _client;
 
-        private PxOrder.PxOrderSoapClient Client
-        {
-            get
-            {
-                if (_client == null)
-                    _client = new PxOrder.PxOrderSoapClient();
-                return _client;
-            }
-        }
+        private PxOrder.PxOrderSoapClient Client => _client ?? (_client = new PxOrder.PxOrderSoapClient());
 
         public string Initialize(long accountNumber, PaymentInformation payment, string hash)
         {
