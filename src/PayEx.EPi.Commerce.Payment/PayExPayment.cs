@@ -11,15 +11,7 @@ namespace PayEx.EPi.Commerce.Payment
     {
         private static MetaClass _metaClass;
 
-        public static MetaClass PayExPaymentMetaClass
-        {
-            get
-            {
-                if (_metaClass == null)
-                    _metaClass = MetaClass.Load(OrderContext.MetaDataContext, "PayExPayment");
-                return _metaClass;
-            }
-        }
+        public static MetaClass PayExPaymentMetaClass => _metaClass ?? (_metaClass = MetaClass.Load(OrderContext.MetaDataContext, "PayExPayment"));
 
         public string OrderNumber
         {
