@@ -31,30 +31,15 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             _paymentActions = paymentActions;
         }
 
-        public override string PaymentMethodCode
-        {
-            get { return "INVOICESALE"; }
-        }
+        public override string PaymentMethodCode => "INVOICESALE";
 
-        public override string DefaultView
-        {
-            get { return "FACTORING"; }
-        }
+        public override string DefaultView => "FACTORING";
 
-        public override bool RequireAddressUpdate
-        {
-            get { return false; }
-        }
+        public override bool RequireAddressUpdate => false;
 
-        public override bool IsDirectModel
-        {
-            get { return true; }
-        }
+        public override bool IsDirectModel => true;
 
-        public override PurchaseOperation PurchaseOperation
-        {
-            get { return PurchaseOperation.AUTHORIZATION; }
-        }
+        public override PurchaseOperation PurchaseOperation => PurchaseOperation.AUTHORIZATION;
 
         public override PaymentInitializeResult Initialize()
         {
