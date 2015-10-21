@@ -92,7 +92,7 @@ namespace PayEx.EPi.Commerce.Payment
         private PaymentMethodDto.PaymentMethodParameterRow GetParameterByName(string name)
         {
             var rowArray = (PaymentMethodDto.PaymentMethodParameterRow[])_paymentMethodDto.PaymentMethodParameter.Select($"Parameter = '{name}'");
-            if ((rowArray != null) && (rowArray.Length > 0))
+            if ((rowArray.Length > 0))
             {
                 return rowArray[0];
             }
