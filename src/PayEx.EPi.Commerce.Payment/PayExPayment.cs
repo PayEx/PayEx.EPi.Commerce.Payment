@@ -158,15 +158,15 @@ namespace PayEx.EPi.Commerce.Payment
         public PayExPayment(string clientIpAddress, string productNumber, string cancelUrl, string returnUrl, string description)
             : base(PayExPaymentMetaClass)
         {
-            if (clientIpAddress == null || string.IsNullOrWhiteSpace(clientIpAddress))
+            if (string.IsNullOrWhiteSpace(clientIpAddress))
                 throw new ArgumentException("clientIpAddress cannot be null or empty", "clientIpAddress");
-            if (productNumber == null || string.IsNullOrWhiteSpace(productNumber))
+            if (string.IsNullOrWhiteSpace(productNumber))
                 throw new ArgumentException("productNumber cannot be null or empty", "productNumber");
-            if (cancelUrl == null || string.IsNullOrWhiteSpace(cancelUrl))
+            if (string.IsNullOrWhiteSpace(cancelUrl))
                 throw new ArgumentException("cancelUrl cannot be null or empty", "cancelUrl");
-            if (returnUrl == null || string.IsNullOrWhiteSpace(returnUrl))
+            if (string.IsNullOrWhiteSpace(returnUrl))
                 throw new ArgumentException("returnUrl cannot be null or empty", "returnUrl");
-            if (description == null || string.IsNullOrWhiteSpace(description))
+            if (string.IsNullOrWhiteSpace(description))
                 throw new ArgumentException("description cannot be null or empty", "description");
 
             ClientIpAddress = clientIpAddress;
