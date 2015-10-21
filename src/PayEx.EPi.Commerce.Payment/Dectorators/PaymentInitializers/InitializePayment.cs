@@ -31,14 +31,14 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
-            Log.InfoFormat("Initializing payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Initializing payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             PaymentInformation paymentInformation = CreateModel(currentPayment, orderNumber);
 
             InitializeResult result = _paymentManager.Initialize(currentPayment.Cart, paymentInformation, currentPayment.IsDirectModel, currentPayment.IsDirectModel);
             if (!result.Status.Success)
                 return new PaymentInitializeResult { Success = false, ErrorMessage = result.Status.Description };
 
-            Log.InfoFormat("Setting PayEx order reference to {0} on payment with ID:{1} belonging to order with ID: {2}", result.OrderRef, currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Setting PayEx order reference to {result.OrderRef} on payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             currentPayment.Payment.PayExOrderRef = result.OrderRef.ToString();
 
             _cartActions.UpdateCartInstanceId(currentPayment.Cart); // Save all the changes that have been done to the cart
