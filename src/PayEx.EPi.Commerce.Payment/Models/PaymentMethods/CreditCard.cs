@@ -31,30 +31,15 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             _paymentActions = paymentActions;
         }
 
-        public override string PaymentMethodCode
-        {
-            get { return "VISA"; }
-        }
+        public override string PaymentMethodCode => "VISA";
 
-        public override string DefaultView
-        {
-            get { return "CREDITCARD"; }
-        }
+        public override string DefaultView => "CREDITCARD";
 
-        public override bool RequireAddressUpdate
-        {
-            get { return false; }
-        }
+        public override bool RequireAddressUpdate => false;
 
-        public override bool IsDirectModel
-        {
-            get { return false; }
-        }
+        public override bool IsDirectModel => false;
 
-        public override PurchaseOperation PurchaseOperation
-        {
-            get { return PurchaseOperation.AUTHORIZATION; }
-        }
+        public override PurchaseOperation PurchaseOperation => PurchaseOperation.AUTHORIZATION;
 
         public override PaymentInitializeResult Initialize()
         {
