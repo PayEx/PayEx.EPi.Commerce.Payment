@@ -44,13 +44,10 @@ namespace PayEx.EPi.Commerce.Payment.Factories
             if (payment == null)
                 return null;
 
-            Log.InfoFormat("Attempting to resolve the PaymentMethod for payment with ID:{0}. PaymentMethodId:{1}",
-                payment.Id, payment.PaymentMethodId);
+            Log.Info($"Attempting to resolve the PaymentMethod for payment with ID:{payment.Id}. PaymentMethodId:{payment.PaymentMethodId}");
             if (!(payment is PayExPayment))
             {
-                Log.ErrorFormat(
-                    "Payment with ID:{0} is not a PayExPayment and therefore it cannot be processed by the PayEx Payment Provider!",
-                    payment.Id);
+                Log.Error($"Payment with ID:{payment.Id} is not a PayExPayment and therefore it cannot be processed by the PayEx Payment Provider!");
                 return null;
             }
 
@@ -58,9 +55,7 @@ namespace PayEx.EPi.Commerce.Payment.Factories
                 Mediachase.Commerce.Orders.Managers.PaymentManager.GetPaymentMethod(payment.PaymentMethodId);
             string systemKeyword =
                 paymentMethodDto.PaymentMethod.FindByPaymentMethodId(payment.PaymentMethodId).SystemKeyword;
-            Log.InfoFormat(
-                "Resolving the PaymentMethod for payment with ID:{0}. The systemKeyword for this payment method is {1}",
-                payment.Id, systemKeyword);
+            Log.Info($"Resolving the PaymentMethod for payment with ID:{payment.Id}. The systemKeyword for this payment method is {systemKeyword}");
 
             switch (systemKeyword)
             {
@@ -98,9 +93,7 @@ namespace PayEx.EPi.Commerce.Payment.Factories
                         _paymentActions, Constants.Payment.FinancingInvoiceSweden.PaymentMethodCode, _updateAddressHandler);
             }
 
-            Log.ErrorFormat(
-                "Could not resolve the PaymentMethod for payment with ID:{0}. The systemKeyword for this payment method is {1}",
-                payment.Id, systemKeyword);
+            Log.Error($"Could not resolve the PaymentMethod for payment with ID:{payment.Id}. The systemKeyword for this payment method is {systemKeyword}");
             return null;
         }
     }
