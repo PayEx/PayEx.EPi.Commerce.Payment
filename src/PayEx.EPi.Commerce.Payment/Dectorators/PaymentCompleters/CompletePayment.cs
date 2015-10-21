@@ -23,14 +23,14 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
 
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
         {
-            Log.InfoFormat("Completing payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Completing payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             CompleteResult completeResult = _paymentManager.Complete(orderRef);
             if (!completeResult.Success || string.IsNullOrWhiteSpace(completeResult.TransactionNumber))
                 return new PaymentCompleteResult { TransactionErrorCode = completeResult.ErrorDetails != null ? completeResult.ErrorDetails.TransactionErrorCode : string.Empty };
 
             if (completeResult.GetTransactionDetails)
             {
-                Log.InfoFormat("Retrieving transaction details for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Info($"Retrieving transaction details for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
                 if (_paymentCompleter == null)
                     _paymentCompleter = new UpdateTransactionDetails(null, _paymentManager);
                 _paymentCompleter = new UpdateTransactionDetails(_paymentCompleter, _paymentManager);
@@ -42,7 +42,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
             if (_paymentCompleter != null)
                 result = _paymentCompleter.Complete(currentPayment, orderRef);
 
-            Log.InfoFormat("Successfully completed payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Successfully completed payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             return result;
         }
     }
