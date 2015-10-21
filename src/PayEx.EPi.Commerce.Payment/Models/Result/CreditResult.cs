@@ -15,9 +15,6 @@ namespace PayEx.EPi.Commerce.Payment.Models.Result
         [XmlElement("transactionNumber")]
         public string TransactionNumber { get; set; }
 
-        public bool Success
-        {
-            get { return Status.Success && TransactionStatus == TransactionStatus.Credit; }
-        }
+        public bool Success => Status.Success && TransactionStatus == TransactionStatus.Credit;
     }
 }
