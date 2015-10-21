@@ -11,7 +11,7 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
         {
             var shoppingCart = new ShoppingCart();
             var lineItems = CartHelper.GetLineItems(payExPayment);
-            shoppingCart.ShoppingCartItem = lineItems.Select(x => new ShoppingCartItem()
+            shoppingCart.ShoppingCartItem = lineItems.Select(x => new ShoppingCartItem
             {
                 Description = x.DisplayName,
                 Quantity = x.Quantity.RoundToLong(),
