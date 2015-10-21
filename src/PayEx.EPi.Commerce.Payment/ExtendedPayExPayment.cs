@@ -10,15 +10,7 @@ namespace PayEx.EPi.Commerce.Payment
     {
         private static MetaClass _metaClass;
 
-        public static MetaClass ExtendedPayExPaymentMetaClass
-        {
-            get
-            {
-                if (_metaClass == null)
-                    _metaClass = MetaClass.Load(OrderContext.MetaDataContext, "ExtendedPayExPayment");
-                return _metaClass;
-            }
-        }
+        public static MetaClass ExtendedPayExPaymentMetaClass => _metaClass ?? (_metaClass = MetaClass.Load(OrderContext.MetaDataContext, "ExtendedPayExPayment"));
 
         public string SocialSecurityNumber
         {
