@@ -81,13 +81,13 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
                 return null;
             }
 
-            string lastName = string.Empty;
-            string[] names = transactionResult.Invoice.CustomerName.Split(' ');
-            string firstName = names[0];
+            var lastName = string.Empty;
+            var names = transactionResult.Invoice.CustomerName.Split(' ');
+            var firstName = names[0];
             if (names.Length > 1)
                 lastName = string.Join(" ", names.Skip(1));
 
-            Address address = new Address
+            var address = new Address
             {
                 FirstName = firstName,
                 LastName = lastName,
