@@ -73,7 +73,7 @@ namespace PayEx.EPi.Commerce.Payment
         {
             var payexAddress = new PayExAddress(result.OrderRef.ToString());
 
-            if (cart == null || cart.OrderForms == null || cart.OrderForms.Count == 0)
+            if (cart?.OrderForms == null || cart.OrderForms.Count == 0)
                 return payexAddress;
 
             var orderForm = cart.OrderForms[0];
@@ -95,11 +95,11 @@ namespace PayEx.EPi.Commerce.Payment
         public static List<OrderLine> OrderLines(Cart cart, PaymentInformation payment, InitializeResult result)
         {
             var orderLines = new List<OrderLine>();
-            if (cart == null || cart.OrderForms == null || cart.OrderForms.Count == 0)
+            if (cart?.OrderForms == null || cart.OrderForms.Count == 0)
                 return orderLines;
 
             var orderForm = cart.OrderForms[0];
-            if (orderForm == null || orderForm.LineItems == null || orderForm.LineItems.Count == 0)
+            if (orderForm?.LineItems == null || orderForm.LineItems.Count == 0)
                 return orderLines;
 
             foreach (LineItem lineItem in orderForm.LineItems)
