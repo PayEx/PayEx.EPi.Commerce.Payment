@@ -30,30 +30,15 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             _paymentActions = paymentActions;
         }
 
-        public override string PaymentMethodCode
-        {
-            get { return "DD"; }
-        }
+        public override string PaymentMethodCode => "DD";
 
-        public override string DefaultView
-        {
-            get { return "DIRECTDEBIT"; }
-        }
+        public override string DefaultView => "DIRECTDEBIT";
 
-        public override bool RequireAddressUpdate
-        {
-            get { return false; }
-        }
+        public override bool RequireAddressUpdate => false;
 
-        public override bool IsDirectModel
-        {
-            get { return false; }
-        }
+        public override bool IsDirectModel => false;
 
-        public override PurchaseOperation PurchaseOperation
-        {
-            get { return PurchaseOperation.SALE; }
-        }
+        public override PurchaseOperation PurchaseOperation => PurchaseOperation.SALE;
 
         public override PaymentInitializeResult Initialize()
         {
