@@ -30,9 +30,6 @@ namespace PayEx.EPi.Commerce.Payment.Models.Result
         [XmlElement("productNumber")]
         public string ProductNumber { get; set; }
 
-        public bool Success
-        {
-            get { return Status.Success; }
-        }
+        public bool Success => Status.Success;
     }
 }
