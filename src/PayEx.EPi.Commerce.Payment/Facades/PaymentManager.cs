@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using log4net;
+﻿using log4net;
 using Mediachase.Commerce.Orders;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Models;
@@ -83,11 +82,11 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling Credit for TransactionNumber:{transactionNumber}. Amount:{amount}. OrderId:{orderId}. VatAmount:{vatAmount}. AdditionalValues:{additionalValues}");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.Credit(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount,
+            var hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.Credit(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount,
               additionalValues, hash);
 
-            CreditResult result = _resultParser.Deserialize<CreditResult>(xmlResult);
+            var result = _resultParser.Deserialize<CreditResult>(xmlResult);
             if (result.Success)
                 Log.Info($"Successfully called Credit for TransactionNumber:{transactionNumber}. Amount:{amount}. OrderId:{orderId}. VatAmount:{vatAmount}. AdditionalValues:{additionalValues}. Result:{xmlResult}");
             else
@@ -99,10 +98,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling CreditOrderLine for TransactionNumber:{transactionNumber}. ItemNumber:{itemNumber}. OrderId:{orderId}.");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, itemNumber, orderId, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.CreditOrderLine(_payExSettings.AccountNumber, transactionNumber, itemNumber, orderId, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, itemNumber, orderId, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.CreditOrderLine(_payExSettings.AccountNumber, transactionNumber, itemNumber, orderId, hash);
 
-            CreditResult result = _resultParser.Deserialize<CreditResult>(xmlResult);
+            var result = _resultParser.Deserialize<CreditResult>(xmlResult);
             if (result.Success)
                 Log.Info($"Successfully called CreditOrderLine for TransactionNumber:{transactionNumber}. ItemNumber:{itemNumber}. OrderId:{orderId}.");
             else
@@ -114,10 +113,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling GetTransactionDetails for TransactionNumber:{transactionNumber}.");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.GetTransactionDetails(_payExSettings.AccountNumber, transactionNumber, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.GetTransactionDetails(_payExSettings.AccountNumber, transactionNumber, hash);
 
-            TransactionResult result = _resultParser.Deserialize<TransactionResult>(xmlResult);
+            var result = _resultParser.Deserialize<TransactionResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called GetTransactionDetails for TransactionNumber:{transactionNumber}. Result:{xmlResult}");
             else
@@ -129,10 +128,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling PurchaseInvoiceSale for order with orderRef:{orderRef}. CustomerDetails:{customerDetails}");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, customerDetails, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.PurchaseInvoiceSale(_payExSettings.AccountNumber, orderRef, customerDetails, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, customerDetails, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.PurchaseInvoiceSale(_payExSettings.AccountNumber, orderRef, customerDetails, hash);
 
-            PurchaseInvoiceSaleResult result = _resultParser.Deserialize<PurchaseInvoiceSaleResult>(xmlResult);
+            var result = _resultParser.Deserialize<PurchaseInvoiceSaleResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called PurchaseInvoiceSale for order with orderRef:{orderRef}. Result:{xmlResult}");
             else
@@ -144,10 +143,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling PurchasePartPaymentSale for order with orderRef:{orderRef}. CustomerDetails:{customerDetails}");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, customerDetails, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.PurchasePartPaymentSale(_payExSettings.AccountNumber, orderRef, customerDetails, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, customerDetails, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.PurchasePartPaymentSale(_payExSettings.AccountNumber, orderRef, customerDetails, hash);
 
-            PurchasePartPaymentSaleResult result = _resultParser.Deserialize<PurchasePartPaymentSaleResult>(xmlResult);
+            var result = _resultParser.Deserialize<PurchasePartPaymentSaleResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called PurchasePartPaymentSale for order with orderRef:{orderRef}. Result:{xmlResult}");
             else
@@ -159,9 +158,9 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling AddOrderAddress for cart with ID:{cart.Id}. PaymentInformation:{payment}. InitializeResult:{initializeResult}");
 
-            PayExAddress address = CartHelper.OrderAddress(cart, payment, initializeResult);
-            string hash = _hasher.Create(_payExSettings.AccountNumber, address, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.AddOrderAddress(_payExSettings.AccountNumber, address, hash);
+            var address = CartHelper.OrderAddress(cart, payment, initializeResult);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, address, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.AddOrderAddress(_payExSettings.AccountNumber, address, hash);
 
             Log.Info($"Finished calling AddOrderAddress for cart with ID:{cart.Id}. PaymentInformation:{payment}. InitializeResult:{initializeResult}. Result:{xmlResult}");
         }
@@ -170,11 +169,11 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling AddOrderLineItems for cart with ID:{cart.Id}. PaymentInformation:{payment}. InitializeResult:{initializeResult}");
 
-            List<OrderLine> orderlines = CartHelper.OrderLines(cart, payment, initializeResult);
-            foreach (OrderLine orderline in orderlines)
+            var orderlines = CartHelper.OrderLines(cart, payment, initializeResult);
+            foreach (var orderline in orderlines)
             {
-                string hash = _hasher.Create(_payExSettings.AccountNumber, orderline, _payExSettings.EncryptionKey);
-                string result = _orderFacade.AddOrderLine(_payExSettings.AccountNumber, orderline, hash);
+                var hash = _hasher.Create(_payExSettings.AccountNumber, orderline, _payExSettings.EncryptionKey);
+                var result = _orderFacade.AddOrderLine(_payExSettings.AccountNumber, orderline, hash);
 
                 Log.Info($"Added OrderLineItem for cart with ID:{cart.Id}. OrderLine:{orderline}. Result:{result}");
             }
@@ -184,10 +183,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling GetApprovedDeliveryAddress for orderRef:{orderRef}.");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.GetApprovedDeliveryAddress(_payExSettings.AccountNumber, orderRef, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.GetApprovedDeliveryAddress(_payExSettings.AccountNumber, orderRef, hash);
 
-            DeliveryAddressResult result = _resultParser.Deserialize<DeliveryAddressResult>(xmlResult);
+            var result = _resultParser.Deserialize<DeliveryAddressResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called GetApprovedDeliveryAddress for orderRef:{orderRef}. Result:{xmlResult}");
             else
@@ -199,10 +198,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling FinalizeTransaction for orderRef:{orderRef}.");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, amount, vatAmount, clientIpAddress, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.FinalizeTransaction(_payExSettings.AccountNumber, orderRef, amount, vatAmount, clientIpAddress, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, amount, vatAmount, clientIpAddress, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.FinalizeTransaction(_payExSettings.AccountNumber, orderRef, amount, vatAmount, clientIpAddress, hash);
 
-            FinalizeTransactionResult result = _resultParser.Deserialize<FinalizeTransactionResult>(xmlResult);
+            var result = _resultParser.Deserialize<FinalizeTransactionResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called FinalizeTransaction for orderRef:{orderRef}. Result:{xmlResult}");
             else
@@ -214,10 +213,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling GetAddressByPaymentMethod for paymentMethod:{paymentMethod}.");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.GetAddressByPaymentMethod(_payExSettings.AccountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.GetAddressByPaymentMethod(_payExSettings.AccountNumber, paymentMethod, ssn, zipcode, countryCode, ipAddress, hash);
 
-            LegalAddressResult result = _resultParser.Deserialize<LegalAddressResult>(xmlResult);
+            var result = _resultParser.Deserialize<LegalAddressResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called GetAddressByPaymentMethod for paymentMethod:{paymentMethod}. Result:{xmlResult}");
             else
@@ -229,10 +228,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling PurchaseFinancingInvoice for order with orderRef:{orderRef}. CustomerDetails:{customerDetails}");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, paymentMethod, customerDetails, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.PurchaseFinancingInvoice(_payExSettings.AccountNumber, orderRef, paymentMethod, customerDetails, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, paymentMethod, customerDetails, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.PurchaseFinancingInvoice(_payExSettings.AccountNumber, orderRef, paymentMethod, customerDetails, hash);
 
-            PurchaseInvoiceSaleResult result = _resultParser.Deserialize<PurchaseInvoiceSaleResult>(xmlResult);
+            var result = _resultParser.Deserialize<PurchaseInvoiceSaleResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called PurchaseFinancingInvoice for order with orderRef:{orderRef}. Result:{xmlResult}");
             else
@@ -244,10 +243,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling InvoiceLinkGet for order with transactionNumber:{transactionNumber}.");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.InvoiceLinkGet(_payExSettings.AccountNumber, transactionNumber, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.InvoiceLinkGet(_payExSettings.AccountNumber, transactionNumber, hash);
 
-            InvoiceLinkResult result = _resultParser.Deserialize<InvoiceLinkResult>(xmlResult);
+            var result = _resultParser.Deserialize<InvoiceLinkResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called InvoiceLinkGet for order with transactionNumber:{transactionNumber}. Result:{xmlResult}");
             else
