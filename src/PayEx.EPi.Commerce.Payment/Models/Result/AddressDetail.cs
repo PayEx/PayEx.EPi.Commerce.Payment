@@ -22,6 +22,6 @@ namespace PayEx.EPi.Commerce.Payment.Models.Result
         [XmlElement("country")]
         public string Country { get; set; }
 
-        public string CustomerName { get { return string.Join(" ", FirstName, LastName); } }
+        public string CustomerName => string.Join(" ", FirstName, LastName);
     }
 }
