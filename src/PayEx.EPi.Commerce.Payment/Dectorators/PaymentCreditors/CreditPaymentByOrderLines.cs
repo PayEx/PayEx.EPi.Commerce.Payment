@@ -43,7 +43,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCreditors
             }
 
             var success = false;
-            if (result != null && !string.IsNullOrWhiteSpace(result.TransactionNumber))
+            if (!string.IsNullOrWhiteSpace(result?.TransactionNumber))
             {
                 Log.Info($"Setting PayEx transaction number to {result.TransactionNumber} on payment with ID:{payment.Id} belonging to order with ID: {payment.OrderGroupId} during credit");
                 payment.TransactionID = result.TransactionNumber;
