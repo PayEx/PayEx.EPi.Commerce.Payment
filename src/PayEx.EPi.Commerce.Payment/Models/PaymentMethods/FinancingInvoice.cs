@@ -17,7 +17,6 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IPaymentActions _paymentActions;
-        private readonly string _paymentMethodCode;
         private readonly IFinancialInvoicingOrderLineFormatter _financialInvoicingOrderLineFormatter;
         private readonly IUpdateAddressHandler _updateAddressHandler;
 
@@ -44,50 +43,21 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             _additionalValuesFormatter = new FinancingInvoiceAdditionalValuesFormatter(additionalValuesFormatter,
                 financialInvoicingOrderLineFormatter);
             _paymentActions = paymentActions;
-            _paymentMethodCode = paymentMethodCode;
+            PaymentMethodCode = paymentMethodCode;
             _updateAddressHandler = updateAddressHandler;
         }
 
-        public override string PaymentMethodCode
-        {
-            get
-            {
-                return _paymentMethodCode;
-            }
-        }
+        public override string PaymentMethodCode { get; }
 
-        public override string DefaultView
-        {
-            get { return "FINANCING"; }
-        }
+        public override string DefaultView => "FINANCING";
 
-        public override bool RequireAddressUpdate
-        {
-            get {
-                return _parameterReader.GetLegalAddress(this.PaymentMethodDto); 
-            }
-        }
+        public override bool RequireAddressUpdate => _parameterReader.GetLegalAddress(PaymentMethodDto);
 
-        public override bool IsDirectModel
-        {
-            get { return true; }
-        }
+        public override bool IsDirectModel => true;
 
-        public override PurchaseOperation PurchaseOperation
-        {
-            get
-            {
-                return UseOnePhaseTransaction ? PurchaseOperation.SALE : PurchaseOperation.AUTHORIZATION;
-            }
-        }
+        public override PurchaseOperation PurchaseOperation => UseOnePhaseTransaction ? PurchaseOperation.SALE : PurchaseOperation.AUTHORIZATION;
 
-        private bool UseOnePhaseTransaction
-        {
-            get
-            {
-                return _parameterReader.UseOnePhaseTransaction(this.PaymentMethodDto);
-            }
-        }
+        private bool UseOnePhaseTransaction => _parameterReader.UseOnePhaseTransaction(this.PaymentMethodDto);
 
         public override PaymentInitializeResult Initialize()
         {
