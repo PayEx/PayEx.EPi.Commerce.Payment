@@ -22,7 +22,7 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
                     paymentMethodCode = paymentMethod.PaymentMethodCode;
                 }
 
-                using (TransactionScope scope = new TransactionScope())
+                using (var scope = new TransactionScope())
                 {
                     Log.Info($"Setting authorization code:{authorizationCode} for payment with ID:{paymentMethod.Payment.Id} belonging to order with ID: {paymentMethod.OrderGroupId}");
                     Log.Info($"Setting payment method code:{paymentMethodCode} for payment with ID:{paymentMethod.Payment.Id} belonging to order with ID: {paymentMethod.OrderGroupId}");
@@ -49,10 +49,10 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
                 return;
             }
 
-            ExtendedPayExPayment payment = paymentMethod.Payment as ExtendedPayExPayment;
+            var payment = paymentMethod.Payment as ExtendedPayExPayment;
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+                using (var scope = new TransactionScope())
                 {
                     payment.FirstName = consumerLegalAddress.FirstName;
                     payment.LastName = consumerLegalAddress.LastName;
