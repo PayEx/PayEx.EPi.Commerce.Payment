@@ -11,9 +11,6 @@ namespace PayEx.EPi.Commerce.Payment.Models.Result
         [XmlElement("url")]
         public string Url { get; set; }
 
-        public bool Success
-        {
-            get { return Status.Success; }
-        }
+        public bool Success => Status.Success;
     }
 }
