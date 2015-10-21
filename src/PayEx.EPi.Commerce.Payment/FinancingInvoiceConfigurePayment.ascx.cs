@@ -31,7 +31,7 @@ namespace PayEx.EPi.Commerce.Payment
         {
             if ((_paymentMethodDto != null) && (_paymentMethodDto.PaymentMethodParameter != null))
             {
-                PaymentMethodDto.PaymentMethodParameterRow parameterByName = GetParameterByName(PriceListArgsParameter);
+                var parameterByName = GetParameterByName(PriceListArgsParameter);
                 if (parameterByName != null)
                 {
                     PriceArgList.Text = parameterByName.Value;
@@ -77,13 +77,13 @@ namespace PayEx.EPi.Commerce.Payment
                 _paymentMethodDto = dto as PaymentMethodDto;
                 if ((_paymentMethodDto != null) && (_paymentMethodDto.PaymentMethodParameter != null))
                 {
-                    Guid paymentMethodId = Guid.Empty;
+                    var paymentMethodId = Guid.Empty;
                     if (_paymentMethodDto.PaymentMethod.Count > 0)
                     {
                         paymentMethodId = _paymentMethodDto.PaymentMethod[0].PaymentMethodId;
                     }
 
-                    PaymentMethodDto.PaymentMethodParameterRow parameterByName = GetParameterByName(PriceListArgsParameter);
+                    var parameterByName = GetParameterByName(PriceListArgsParameter);
                     if (parameterByName != null)
                     {
                         parameterByName.Value = PriceArgList.Text;
@@ -129,7 +129,7 @@ namespace PayEx.EPi.Commerce.Payment
 
         private PaymentMethodDto.PaymentMethodParameterRow GetParameterByName(string name)
         {
-            PaymentMethodDto.PaymentMethodParameterRow[] rowArray = (PaymentMethodDto.PaymentMethodParameterRow[])_paymentMethodDto.PaymentMethodParameter.Select(string.Format("Parameter = '{0}'", name));
+            var rowArray = (PaymentMethodDto.PaymentMethodParameterRow[])_paymentMethodDto.PaymentMethodParameter.Select(string.Format("Parameter = '{0}'", name));
             if ((rowArray != null) && (rowArray.Length > 0))
             {
                 return rowArray[0];
@@ -139,7 +139,7 @@ namespace PayEx.EPi.Commerce.Payment
 
         private void CreateParameter(PaymentMethodDto dto, string name, string value, Guid paymentMethodId)
         {
-            PaymentMethodDto.PaymentMethodParameterRow row = dto.PaymentMethodParameter.NewPaymentMethodParameterRow();
+            var row = dto.PaymentMethodParameter.NewPaymentMethodParameterRow();
             row.PaymentMethodId = paymentMethodId;
             row.Parameter = name;
             row.Value = value;
