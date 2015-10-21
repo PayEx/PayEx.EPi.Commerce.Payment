@@ -16,7 +16,7 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
         {
             try
             {
-                Log.InfoFormat("Updating payment information for payment with ID:{0} belonging to order with ID: {1}", paymentMethod.Payment.Id, paymentMethod.OrderGroupId);
+                Log.Info($"Updating payment information for payment with ID:{paymentMethod.Payment.Id} belonging to order with ID: {paymentMethod.OrderGroupId}");
                 if (string.IsNullOrWhiteSpace(paymentMethodCode))
                 {
                     paymentMethodCode = paymentMethod.PaymentMethodCode;
@@ -24,8 +24,8 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
 
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    Log.InfoFormat("Setting authorization code:{0} for payment with ID:{1} belonging to order with ID: {2}", authorizationCode, paymentMethod.Payment.Id, paymentMethod.OrderGroupId);
-                    Log.InfoFormat("Setting payment method code:{0} for payment with ID:{1} belonging to order with ID: {2}", paymentMethodCode, paymentMethod.Payment.Id, paymentMethod.OrderGroupId);
+                    Log.Info($"Setting authorization code:{authorizationCode} for payment with ID:{paymentMethod.Payment.Id} belonging to order with ID: {paymentMethod.OrderGroupId}");
+                    Log.Info($"Setting payment method code:{paymentMethodCode} for payment with ID:{paymentMethod.Payment.Id} belonging to order with ID: {paymentMethod.OrderGroupId}");
                     ((Mediachase.Commerce.Orders.Payment)paymentMethod.Payment).AuthorizationCode = authorizationCode;
                     ((Mediachase.Commerce.Orders.Payment)paymentMethod.Payment).AcceptChanges();
                     paymentMethod.OrderGroup.OrderForms[0]["PaymentMethodCode"] = paymentMethodCode;
@@ -36,17 +36,16 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
             catch (Exception e)
             {
                 Log.Error("Could not update payment information. See next log item for more information.", e);
-                Log.ErrorFormat("Could not update payment information for orderForm with ID:{0}. AuthorizationCode:{1}. PaymentMethodCode:{2}",
-                    paymentMethod.OrderGroup.OrderForms[0].Id, authorizationCode, paymentMethodCode);
+                Log.Error($"Could not update payment information for orderForm with ID:{paymentMethod.OrderGroup.OrderForms[0].Id}. AuthorizationCode:{authorizationCode}. PaymentMethodCode:{paymentMethodCode}");
             }
         }
 
         public void UpdateConsumerInformation(PaymentMethod paymentMethod, ConsumerLegalAddressResult consumerLegalAddress)
         {
-            Log.InfoFormat("Updating consumer information for payment with ID:{0} belonging to order with ID: {1}", paymentMethod.Payment.Id, paymentMethod.OrderGroupId);
+            Log.Info($"Updating consumer information for payment with ID:{paymentMethod.Payment.Id} belonging to order with ID: {paymentMethod.OrderGroupId}");
             if (!(paymentMethod.Payment is ExtendedPayExPayment))
             {
-                Log.ErrorFormat("Payment with ID:{0} belonging to order with ID: {1} is not an ExtendedPayExPayment, cannot update consumer information", paymentMethod.Payment.Id, paymentMethod.OrderGroupId);
+                Log.Error($"Payment with ID:{paymentMethod.Payment.Id} belonging to order with ID: {paymentMethod.OrderGroupId} is not an ExtendedPayExPayment, cannot update consumer information");
                 return;
             }
 
@@ -63,15 +62,13 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
                     payment.CountryCode = consumerLegalAddress.Country;
                     payment.AcceptChanges();
                     scope.Complete();
-                    Log.InfoFormat("Successfully updated consumer information for payment with ID:{0} belonging to order with ID: {1}", paymentMethod.Payment.Id, paymentMethod.OrderGroupId);
+                    Log.Info($"Successfully updated consumer information for payment with ID:{paymentMethod.Payment.Id} belonging to order with ID: {paymentMethod.OrderGroupId}");
                 }
             }
             catch (Exception e)
             {
                 Log.Error("Could not update consumer information. See next log item for more information", e);
-                Log.ErrorFormat(
-                    "Could not update consumer information for payment with ID:{0}. ConsumerLegalAddressResult:{1}.",
-                    payment.Id, consumerLegalAddress);
+                Log.Error($"Could not update consumer information for payment with ID:{payment.Id}. ConsumerLegalAddressResult:{consumerLegalAddress}.");
             }
         }
 
@@ -80,7 +77,7 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
             var payment = (Mediachase.Commerce.Orders.Payment) paymentMethod.Payment;
             PaymentStatusManager.ProcessPayment(payment);
             payment.AcceptChanges();
-            Log.InfoFormat("Successfully set payment status to pros for payment with ID:{0} belonging to order with ID: {1}", paymentMethod.Payment.Id, paymentMethod.OrderGroupId);
+            Log.Info($"Successfully set payment status to pros for payment with ID:{paymentMethod.Payment.Id} belonging to order with ID: {paymentMethod.OrderGroupId}");
         }
     }
 }
