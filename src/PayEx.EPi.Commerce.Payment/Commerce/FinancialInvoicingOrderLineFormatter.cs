@@ -10,24 +10,15 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
 {
     public class FinancialInvoicingOrderLineFormatter : IFinancialInvoicingOrderLineFormatter
     {
-        public virtual string RestProductName
-        {
-            get { return "Frakt og rabatt"; }
-        }
+        public virtual string RestProductName => "Frakt og rabatt";
 
-        public virtual int RestVatRate
-        {
-            get
-            {
-                return 0;
-            }
-        }
+        public virtual int RestVatRate => 0;
 
         public virtual bool IncludeOrderLines { get; set; }
 
         public virtual List<OnlineInvoiceOrderLine> CreateOrderLines(PayExPayment payExPayment)
         {
-            List<OnlineInvoiceOrderLine> orderLines = new List<OnlineInvoiceOrderLine>();
+            var orderLines = new List<OnlineInvoiceOrderLine>();
             var lineItems = CartHelper.GetLineItems(payExPayment);
             decimal lineItemTotal = 0;
             foreach (var item in lineItems)
@@ -37,7 +28,7 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
                                  item.LineItemDiscountAmount) / item.Quantity;
                 lineItemTotal += item.ExtendedPrice;
 
-                orderLines.Add(new OnlineInvoiceOrderLine()
+                orderLines.Add(new OnlineInvoiceOrderLine
                 {
                     UnitPrice = unitprice.RoundToTwoDecimal(),
                     ProductName = item.DisplayName,
@@ -50,7 +41,7 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
 
             var restAmount = payExPayment.Parent.Parent.Total - lineItemTotal;
             var restVatAmount = restAmount*((decimal) RestVatRate%100);
-            orderLines.Add(new OnlineInvoiceOrderLine()
+            orderLines.Add(new OnlineInvoiceOrderLine
             {
                 UnitPrice = restAmount.RoundToTwoDecimal(),
                 ProductName = RestProductName,
