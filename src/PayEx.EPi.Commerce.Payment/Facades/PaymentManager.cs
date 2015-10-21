@@ -27,10 +27,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling Initialize for cart with ID:{cart.Id}. PaymentInformation:{payment}");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, payment, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.Initialize(_payExSettings.AccountNumber, payment, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, payment, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.Initialize(_payExSettings.AccountNumber, payment, hash);
 
-            InitializeResult result = _resultParser.Deserialize<InitializeResult>(xmlResult);
+            var result = _resultParser.Deserialize<InitializeResult>(xmlResult);
             if (!result.Status.Success)
             {
                 Log.Error($"Error when calling Initialize for cart with ID:{cart.Id}. Result:{xmlResult}");
@@ -52,10 +52,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling Complete for orderRef:{orderRef}.");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.Complete(_payExSettings.AccountNumber, orderRef, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.Complete(_payExSettings.AccountNumber, orderRef, hash);
 
-            CompleteResult result = _resultParser.Deserialize<CompleteResult>(xmlResult);
+            var result = _resultParser.Deserialize<CompleteResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called Complete for orderRef:{orderRef}. Result:{xmlResult}");
             else
@@ -67,11 +67,11 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling Capture for TransactionNumber:{transactionNumber}. Amount:{amount}. OrderId:{orderId}. VatAmount:{vatAmount}. AdditionalValues:{additionalValues}");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, _payExSettings.EncryptionKey);
-            string xmlResult = _orderFacade.Capture(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount,
+            var hash = _hasher.Create(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount, additionalValues, _payExSettings.EncryptionKey);
+            var xmlResult = _orderFacade.Capture(_payExSettings.AccountNumber, transactionNumber, amount, orderId, vatAmount,
                 additionalValues, hash);
 
-            CaptureResult result = _resultParser.Deserialize<CaptureResult>(xmlResult);
+            var result = _resultParser.Deserialize<CaptureResult>(xmlResult);
             if (result.Success)
                 Log.Info($"Successfully called Capture for TransactionNumber:{transactionNumber}. Amount:{amount}. OrderId:{orderId}. VatAmount:{vatAmount}. AdditionalValues:{additionalValues}. Result:{xmlResult}");
             else
