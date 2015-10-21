@@ -46,33 +46,15 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             _paymentActions = paymentActions;
         }
 
-        public override string PaymentMethodCode
-        {
-            get { return "MASTERPASS"; }
-        }
+        public override string PaymentMethodCode => "MASTERPASS";
 
-        public override string DefaultView
-        {
-            get { return "CREDITCARD"; }
-        }
+        public override string DefaultView => "CREDITCARD";
 
-        public override bool RequireAddressUpdate
-        {
-            get
-            {
-                return _parameterReader.UseBestPracticeFlow(this.PaymentMethodDto); 
-            }
-        }
+        public override bool RequireAddressUpdate => _parameterReader.UseBestPracticeFlow(PaymentMethodDto);
 
-        public override bool IsDirectModel
-        {
-            get { return false; }
-        }
+        public override bool IsDirectModel => false;
 
-        public override PurchaseOperation PurchaseOperation
-        {
-            get { return PurchaseOperation.AUTHORIZATION; }
-        }
+        public override PurchaseOperation PurchaseOperation => PurchaseOperation.AUTHORIZATION;
 
         public override PaymentInitializeResult Initialize()
         {
