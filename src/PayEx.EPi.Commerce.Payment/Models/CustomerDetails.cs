@@ -15,10 +15,7 @@ namespace PayEx.EPi.Commerce.Payment.Models
         public string Email { get; set; }
         public string MobilePhone { get; set; }
 
-        public string FullName
-        {
-            get { return string.Format("{0} {1}", FirstName, LastName); }
-        }
+        public string FullName => $"{FirstName} {LastName}";
 
         private string _ipAddress;
         public string IpAddress
