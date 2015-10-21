@@ -13,16 +13,16 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
             PaymentInitializeResult result = new PaymentInitializeResult();
-            Log.InfoFormat("Begin redirect to PayEx for payment with ID:{0} belonging to order with ID: {1}.", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Begin redirect to PayEx for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}.");
             if (!string.IsNullOrWhiteSpace(returnUrl))
             {
-                Log.InfoFormat("Redirecting user PayEx for payment with ID:{0} belonging to order with ID: {1}. ReturnUrl: {2}", currentPayment.Payment.Id, currentPayment.OrderGroupId, returnUrl);
+                Log.Info($"Redirecting user PayEx for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}. ReturnUrl: {returnUrl}");
                 HttpContext.Current.Response.Redirect(returnUrl, true);
                 result.Success = true;
                 return result;
             }
 
-            Log.ErrorFormat("Could not redirect user to PayEx for payment with ID:{0} belonging to order with ID: {1}. ReturnUrl was empty!", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Error($"Could not redirect user to PayEx for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}. ReturnUrl was empty!");
             return result;
         }
     }
