@@ -24,7 +24,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
-            Log.InfoFormat("Retrieving consumer legal address for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Retrieving consumer legal address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             CustomerDetails customerDetails = CreateModel(currentPayment);
             if (customerDetails == null)
                 throw new Exception("Payment class must be ExtendedPayExPayment when using this payment method");
@@ -34,7 +34,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
                 return new PaymentInitializeResult { ErrorMessage = result.Status.Description };
 
             _paymentActions.UpdateConsumerInformation(currentPayment, result);
-            Log.InfoFormat("Successfully retrieved consumer legal address for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
+            Log.Info($"Successfully retrieved consumer legal address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
 
             return _paymentInitializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef);
         }
