@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using log4net;
 using Mediachase.Commerce.Orders;
 using Mediachase.Data.Provider;
@@ -28,22 +27,22 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
         {
             Log.Info($"Updating transaction details for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
-            string transactionString = ((Mediachase.Commerce.Orders.Payment)currentPayment.Payment).AuthorizationCode;
+            var transactionString = ((Mediachase.Commerce.Orders.Payment)currentPayment.Payment).AuthorizationCode;
             Log.Info($"Transaction number is:{transactionString} for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
 
             int transactionNumber;
-            if (!Int32.TryParse(transactionString, out transactionNumber))
+            if (!int.TryParse(transactionString, out transactionNumber))
             {
                 Log.Error($"Could not parse Transaction number:{transactionString} to an Int for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
                 return new PaymentCompleteResult();
             }
 
-            TransactionResult transactionDetails = _paymentManager.GetTransactionDetails(transactionNumber);
-            bool updated = false;
+            var transactionDetails = _paymentManager.GetTransactionDetails(transactionNumber);
+            var updated = false;
             if (transactionDetails != null)
                 updated = UpdateOrderAddress(currentPayment, transactionDetails);
 
-            PaymentCompleteResult result = new PaymentCompleteResult { Success = true };
+            var result = new PaymentCompleteResult { Success = true };
             if (_paymentCompleter != null)
                 result = _paymentCompleter.Complete(currentPayment, orderRef);
 
@@ -63,19 +62,19 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
                 return true;
             }
 
-            Address newAddress = currentPayment.GetAddressFromPayEx(transactionDetails2);
+            var newAddress = currentPayment.GetAddressFromPayEx(transactionDetails2);
             if (newAddress == null)
                 return false;
 
-            Cart cart = currentPayment.Cart;
-            OrderAddress shippingAddress = GetShippingAddress(cart);
+            var cart = currentPayment.Cart;
+            var shippingAddress = GetShippingAddress(cart);
             if (shippingAddress == null)
             {
                 Log.Error($"Could not update address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}. Reason: Shipping address was not found!");
                 return false;
             }
 
-            Dictionary<string, string> propertiesToUpdate = new Dictionary<string, string>()
+            var propertiesToUpdate = new Dictionary<string, string>()
             {
                 {GetPropertyName(() => shippingAddress.FirstName), newAddress.FirstName},
                 {GetPropertyName(() => shippingAddress.LastName), newAddress.LastName},
@@ -86,7 +85,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
                 {GetPropertyName(() => shippingAddress.Email), newAddress.Email},
             };
 
-            bool updated = UpdatePropertyValues(shippingAddress, propertiesToUpdate);
+            var updated = UpdatePropertyValues(shippingAddress, propertiesToUpdate);
 
             if (!string.IsNullOrWhiteSpace(newAddress.Fullname))
             {
@@ -98,7 +97,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
             {
                 if (updated)
                 {
-                    using (TransactionScope scope = new TransactionScope())
+                    using (var scope = new TransactionScope())
                     {
                         shippingAddress.AcceptChanges();
                         cart.AcceptChanges();
@@ -117,13 +116,13 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
 
         private bool UpdatePropertyValues(OrderAddress address, Dictionary<string, string> properties)
         {
-            bool updated = false;
-            foreach (KeyValuePair<string, string> property in properties)
+            var updated = false;
+            foreach (var property in properties)
             {
                 if (string.IsNullOrWhiteSpace(property.Value))
                     continue;
 
-                PropertyInfo propertyInfo = address.GetType().GetProperty(property.Key);
+                var propertyInfo = address.GetType().GetProperty(property.Key);
                 propertyInfo.SetValue(address, property.Value, null);
                 updated = true;
             }
@@ -137,7 +136,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
 
         public OrderAddress GetShippingAddress(OrderGroup orderGroup)
         {
-            OrderForm orderForm = orderGroup.OrderForms.ToArray().First();
+            var orderForm = orderGroup.OrderForms.ToArray().First();
             if (orderForm == null || orderForm.Shipments == null || orderForm.Shipments.Count == 0 || string.IsNullOrEmpty(orderForm.Shipments[0].ShippingAddressId))
                 return null;
             return orderGroup.OrderAddresses.ToArray().FirstOrDefault(x => x.Name.Equals(orderForm.Shipments[0].ShippingAddressId, StringComparison.OrdinalIgnoreCase));
