@@ -29,9 +29,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
         {
             if (currentPayment.RequireAddressUpdate)
             {
-                Log.InfoFormat(
-                    "Retrieving consumer legal address for payment with ID:{0} belonging to order with ID: {1}",
-                    currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Info($"Retrieving consumer legal address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
                 CustomerDetails customerDetails = CreateModel(currentPayment);
                 if (customerDetails == null)
                     throw new Exception("Payment class must be ExtendedPayExPayment when using this payment method");
@@ -48,15 +46,11 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
                 var extendedPayment = currentPayment.Payment as ExtendedPayExPayment;
                 _updateAddressHandler.UpdateAddress(currentPayment.Cart, extendedPayment);
 
-                Log.InfoFormat(
-                    "Successfully retrieved consumer legal address for payment with ID:{0} belonging to order with ID: {1}",
-                    currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Info($"Successfully retrieved consumer legal address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             }
             else
             {
-                Log.InfoFormat(
-                    "Payment method is configured to not use consumer legal address for payment with ID:{0} belonging to order with ID: {1}",
-                    currentPayment.Payment.Id, currentPayment.OrderGroupId);                
+                Log.Info($"Payment method is configured to not use consumer legal address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             }
 
             return _paymentInitializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef);
