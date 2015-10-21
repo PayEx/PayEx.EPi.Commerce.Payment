@@ -29,7 +29,7 @@ namespace PayEx.EPi.Commerce.Payment
 
         public void BindData()
         {
-            if ((_paymentMethodDto != null) && (_paymentMethodDto.PaymentMethodParameter != null))
+            if (_paymentMethodDto?.PaymentMethodParameter != null)
             {
                 var parameterByName = GetParameterByName(PriceListArgsParameter);
                 if (parameterByName != null)
@@ -75,7 +75,7 @@ namespace PayEx.EPi.Commerce.Payment
             if (!Visible) return;
 
             _paymentMethodDto = dto as PaymentMethodDto;
-            if ((_paymentMethodDto == null) || (_paymentMethodDto.PaymentMethodParameter == null)) return;
+            if (_paymentMethodDto?.PaymentMethodParameter == null) return;
 
             var paymentMethodId = Guid.Empty;
             if (_paymentMethodDto.PaymentMethod.Count > 0)
