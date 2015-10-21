@@ -8,7 +8,7 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
     {
         public string Generate(Cart cart)
         {
-            string num = new Random().Next(1000, 9999).ToString();
+            var num = new Random().Next(1000, 9999).ToString();
             return $"{cart.OrderGroupId}{num}";
         }
     }
