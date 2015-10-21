@@ -95,14 +95,13 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
 
             try
             {
-                if (updated)
+                if (!updated) return true;
+
+                using (var scope = new TransactionScope())
                 {
-                    using (var scope = new TransactionScope())
-                    {
-                        shippingAddress.AcceptChanges();
-                        cart.AcceptChanges();
-                        scope.Complete();
-                    }
+                    shippingAddress.AcceptChanges();
+                    cart.AcceptChanges();
+                    scope.Complete();
                 }
                 return true;
             }
