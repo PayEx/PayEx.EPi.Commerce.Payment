@@ -26,9 +26,11 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
         {
             ParameterizedThreadStart threadStart = UpdateCartCallbackFunction;
             var thread = new Thread(threadStart);
-            var cartInfo = new Hashtable();
-            cartInfo[CurrentCartKey] = cart;
-            cartInfo[CurrentContextKey] = HttpContext.Current;
+            var cartInfo = new Hashtable
+            {
+                [CurrentCartKey] = cart,
+                [CurrentContextKey] = HttpContext.Current
+            };
             thread.Start(cartInfo);
             thread.Join();
         }
