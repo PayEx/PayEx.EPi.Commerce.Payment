@@ -2,7 +2,6 @@
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Formatters;
 using PayEx.EPi.Commerce.Payment.Models.PaymentMethods;
-using PayEx.EPi.Commerce.Payment.Models.Result;
 
 namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCreditors
 {
