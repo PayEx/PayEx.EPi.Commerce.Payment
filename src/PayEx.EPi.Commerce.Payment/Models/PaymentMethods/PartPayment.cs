@@ -33,30 +33,15 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             _paymentActions = paymentActions;
         }
 
-        public override string PaymentMethodCode
-        {
-            get { return "PARTPAYMENTSALE"; }
-        }
+        public override string PaymentMethodCode => "PARTPAYMENTSALE";
 
-        public override string DefaultView
-        {
-            get { return "CREDITACCOUNT"; }
-        }
+        public override string DefaultView => "CREDITACCOUNT";
 
-        public override bool RequireAddressUpdate
-        {
-            get { return false; }
-        }
+        public override bool RequireAddressUpdate => false;
 
-        public override bool IsDirectModel
-        {
-            get { return true; }
-        }
+        public override bool IsDirectModel => true;
 
-        public override PurchaseOperation PurchaseOperation
-        {
-            get { return PurchaseOperation.AUTHORIZATION; }
-        }
+        public override PurchaseOperation PurchaseOperation => PurchaseOperation.AUTHORIZATION;
 
         public override PaymentInitializeResult Initialize()
         {
