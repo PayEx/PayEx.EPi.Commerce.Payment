@@ -6,15 +6,7 @@ namespace PayEx.EPi.Commerce.Payment.Facades
     {
         private PxVerification.PxVerificationSoapClient _client;
 
-        private PxVerification.PxVerificationSoapClient Client
-        {
-            get
-            {
-                if (_client == null)
-                    _client = new PxVerification.PxVerificationSoapClient();
-                return _client;
-            }
-        }
+        private PxVerification.PxVerificationSoapClient Client => _client ?? (_client = new PxVerification.PxVerificationSoapClient());
 
         public string GetConsumerLegalAddress(long accountNumber, string socialSecurityNumber, string countryCode, string hash)
         {
