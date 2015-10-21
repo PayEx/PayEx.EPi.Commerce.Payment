@@ -25,8 +25,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
             if (currentPayment.RequireAddressUpdate)
             {
                 Log.Info("MasterPass is using best practice flow");
-                Log.InfoFormat("Finalizing transaction for payment with ID:{0} belonging to order with ID: {1}",
-                    currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Info($"Finalizing transaction for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
                 var total = currentPayment.Cart.Total.RoundToLong();
                 var totalVat = currentPayment.Cart.TaxTotal.RoundToLong();
                 var finalizeTransactionResult = _paymentManager.FinalizeTransaction(orderRef, total, totalVat,
@@ -34,17 +33,11 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
                 
                 if (!finalizeTransactionResult.Success)
                 {
-                    Log.InfoFormat(
-                        "Finalize transaction failed for payment with ID:{0} belonging to order with ID: {1}. Reason ErrorCode: {2} Description: {3}",
-                        currentPayment.Payment.Id, currentPayment.OrderGroupId,
-                        finalizeTransactionResult.Status.ErrorCode,
-                        finalizeTransactionResult.Status.Description);
+                    Log.Info($"Finalize transaction failed for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}. Reason ErrorCode: {finalizeTransactionResult.Status.ErrorCode} Description: {finalizeTransactionResult.Status.Description}");
                     return result;
                 }
 
-                Log.InfoFormat(
-                    "Successfully called finalize transaction for payment with ID:{0} belonging to order with ID: {1}",
-                    currentPayment.Payment.Id, currentPayment.OrderGroupId);
+                Log.Info($"Successfully called finalize transaction for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
             }
             else
             {
