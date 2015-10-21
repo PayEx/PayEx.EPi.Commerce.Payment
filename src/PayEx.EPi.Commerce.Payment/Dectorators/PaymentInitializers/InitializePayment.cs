@@ -32,9 +32,9 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
             Log.Info($"Initializing payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
-            PaymentInformation paymentInformation = CreateModel(currentPayment, orderNumber);
+            var paymentInformation = CreateModel(currentPayment, orderNumber);
 
-            InitializeResult result = _paymentManager.Initialize(currentPayment.Cart, paymentInformation, currentPayment.IsDirectModel, currentPayment.IsDirectModel);
+            var result = _paymentManager.Initialize(currentPayment.Cart, paymentInformation, currentPayment.IsDirectModel, currentPayment.IsDirectModel);
             if (!result.Status.Success)
                 return new PaymentInitializeResult { Success = false, ErrorMessage = result.Status.Description };
 
@@ -51,9 +51,9 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 
         private PaymentInformation CreateModel(PaymentMethod currentPayment, string orderNumber)
         {
-            string additionalValues = FormatAdditionalValues(currentPayment);
-            string priceArgsList = _parameterReader.GetPriceArgsList(currentPayment.PaymentMethodDto);
-            string purchaseOperation = currentPayment.PurchaseOperation.ToString();
+            var additionalValues = FormatAdditionalValues(currentPayment);
+            var priceArgsList = _parameterReader.GetPriceArgsList(currentPayment.PaymentMethodDto);
+            var purchaseOperation = currentPayment.PurchaseOperation.ToString();
 
             return new PaymentInformation(
                currentPayment.Cart.Total.RoundToLong(), priceArgsList, currentPayment.Cart.BillingCurrency, currentPayment.Payment.Vat,
@@ -64,10 +64,10 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 
         private string FormatAdditionalValues(PaymentMethod currentPayment)
         {
-            string staticAdditionalValues = _parameterReader.GetAdditionalValues(currentPayment.PaymentMethodDto);
-            StringBuilder stringBuilder = new StringBuilder(staticAdditionalValues);
+            var staticAdditionalValues = _parameterReader.GetAdditionalValues(currentPayment.PaymentMethodDto);
+            var stringBuilder = new StringBuilder(staticAdditionalValues);
 
-            string dynamicAdditionalValues = _additionalValuesFormatter.Format(currentPayment.Payment as PayExPayment);
+            var dynamicAdditionalValues = _additionalValuesFormatter.Format(currentPayment.Payment as PayExPayment);
             if (!string.IsNullOrWhiteSpace(dynamicAdditionalValues))
             {
                 if (!string.IsNullOrWhiteSpace(staticAdditionalValues))
