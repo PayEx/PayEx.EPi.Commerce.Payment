@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using Mediachase.Commerce.Orders;
-using Mediachase.Commerce.Orders.Dto;
 using Mediachase.Commerce.Orders.Managers;
 using PayEx.EPi.Commerce.Payment.Formatters;
 using PayEx.EPi.Commerce.Payment.Models;
@@ -52,21 +51,21 @@ namespace PayEx.EPi.Commerce.Payment
             }
 
             var cart = cartInfo[CurrentCartKey] as Cart;
-            if (cart != null)
+            if (cart == null) return;
+
+            cart.InstanceId = Guid.NewGuid();
+            if (HttpContext.Current == null && cartInfo.ContainsKey(CurrentContextKey))
             {
-                cart.InstanceId = Guid.NewGuid();
-                if (HttpContext.Current == null && cartInfo.ContainsKey(CurrentContextKey))
-                {
-                    HttpContext.Current = cartInfo[CurrentContextKey] as HttpContext;
-                }
-                try
-                {
-                    cart.AcceptChanges();
-                }
-                catch (Exception ex)
-                {
-                    //TODO
-                }
+                HttpContext.Current = cartInfo[CurrentContextKey] as HttpContext;
+            }
+
+            try
+            {
+                cart.AcceptChanges();
+            }
+            catch (Exception ex)
+            {
+                //TODO
             }
         }
 
