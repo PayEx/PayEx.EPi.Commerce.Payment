@@ -20,7 +20,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCreditors
 
         public bool Credit(PaymentMethod currentPayment)
         {
-            Mediachase.Commerce.Orders.Payment payment = (Mediachase.Commerce.Orders.Payment)currentPayment.Payment;
+            var payment = (Mediachase.Commerce.Orders.Payment)currentPayment.Payment;
             Log.Info($"Crediting payment with ID:{payment.Id} belonging to order with ID: {payment.OrderGroupId}");
 
             int transactionId;
@@ -31,12 +31,12 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCreditors
             }
             Log.Info($"PayEx transaction ID is {transactionId} on payment with ID:{payment.Id} belonging to order with ID: {payment.OrderGroupId}");
 
-            long amount = payment.Amount.RoundToLong();
-            string orderNumber = OrderNumberFormatter.MakeNumeric(currentPayment.PurchaseOrder.TrackingNumber);
-            CreditResult result = _paymentManager.Credit(transactionId, amount,
+            var amount = payment.Amount.RoundToLong();
+            var orderNumber = OrderNumberFormatter.MakeNumeric(currentPayment.PurchaseOrder.TrackingNumber);
+            var result = _paymentManager.Credit(transactionId, amount,
                 orderNumber, currentPayment.Payment.Vat, string.Empty);
 
-            bool success = false;
+            var success = false;
             if (result.Success && !string.IsNullOrWhiteSpace(result.TransactionNumber))
             {
                 Log.Info($"Setting PayEx transaction number to {result.TransactionNumber} on payment with ID:{payment.Id} belonging to order with ID: {payment.OrderGroupId} during credit");
