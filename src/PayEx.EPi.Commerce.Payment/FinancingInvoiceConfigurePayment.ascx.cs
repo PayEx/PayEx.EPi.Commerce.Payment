@@ -72,59 +72,56 @@ namespace PayEx.EPi.Commerce.Payment
         /// <param name="dto">The dto.</param>
         public void SaveChanges(object dto)
         {
-            if (Visible)
+            if (!Visible) return;
+
+            _paymentMethodDto = dto as PaymentMethodDto;
+            if ((_paymentMethodDto == null) || (_paymentMethodDto.PaymentMethodParameter == null)) return;
+
+            var paymentMethodId = Guid.Empty;
+            if (_paymentMethodDto.PaymentMethod.Count > 0)
             {
-                _paymentMethodDto = dto as PaymentMethodDto;
-                if ((_paymentMethodDto != null) && (_paymentMethodDto.PaymentMethodParameter != null))
-                {
-                    var paymentMethodId = Guid.Empty;
-                    if (_paymentMethodDto.PaymentMethod.Count > 0)
-                    {
-                        paymentMethodId = _paymentMethodDto.PaymentMethod[0].PaymentMethodId;
-                    }
-
-                    var parameterByName = GetParameterByName(PriceListArgsParameter);
-                    if (parameterByName != null)
-                    {
-                        parameterByName.Value = PriceArgList.Text;
-                    }
-                    else
-                    {
-                        CreateParameter(_paymentMethodDto, PriceListArgsParameter, PriceArgList.Text, paymentMethodId);
-                    }
-
-                    parameterByName = GetParameterByName(AdditionalValuesParameter);
-                    if (parameterByName != null)
-                    {
-                        parameterByName.Value = AdditionalValues.Text;
-                    }
-                    else
-                    {
-                        CreateParameter(_paymentMethodDto, AdditionalValuesParameter, AdditionalValues.Text, paymentMethodId);
-                    }
-
-                    parameterByName = GetParameterByName(UseOnePhaseTransactionParameter);
-                    if (parameterByName != null)
-                    {
-                        parameterByName.Value = UseOnePhaseTransaction.Checked.ToString();
-                    }
-                    else
-                    {
-                        CreateParameter(_paymentMethodDto, UseOnePhaseTransactionParameter, UseOnePhaseTransaction.Checked.ToString(), paymentMethodId);
-                    }
-
-                    parameterByName = GetParameterByName(GetLegalAddressParameter);
-                    if (parameterByName != null)
-                    {
-                        parameterByName.Value = GetLegalAddress.Checked.ToString();
-                    }
-                    else
-                    {
-                        CreateParameter(_paymentMethodDto, GetLegalAddressParameter, GetLegalAddress.Checked.ToString(), paymentMethodId);
-                    }
-                }
+                paymentMethodId = _paymentMethodDto.PaymentMethod[0].PaymentMethodId;
             }
 
+            var parameterByName = GetParameterByName(PriceListArgsParameter);
+            if (parameterByName != null)
+            {
+                parameterByName.Value = PriceArgList.Text;
+            }
+            else
+            {
+                CreateParameter(_paymentMethodDto, PriceListArgsParameter, PriceArgList.Text, paymentMethodId);
+            }
+
+            parameterByName = GetParameterByName(AdditionalValuesParameter);
+            if (parameterByName != null)
+            {
+                parameterByName.Value = AdditionalValues.Text;
+            }
+            else
+            {
+                CreateParameter(_paymentMethodDto, AdditionalValuesParameter, AdditionalValues.Text, paymentMethodId);
+            }
+
+            parameterByName = GetParameterByName(UseOnePhaseTransactionParameter);
+            if (parameterByName != null)
+            {
+                parameterByName.Value = UseOnePhaseTransaction.Checked.ToString();
+            }
+            else
+            {
+                CreateParameter(_paymentMethodDto, UseOnePhaseTransactionParameter, UseOnePhaseTransaction.Checked.ToString(), paymentMethodId);
+            }
+
+            parameterByName = GetParameterByName(GetLegalAddressParameter);
+            if (parameterByName != null)
+            {
+                parameterByName.Value = GetLegalAddress.Checked.ToString();
+            }
+            else
+            {
+                CreateParameter(_paymentMethodDto, GetLegalAddressParameter, GetLegalAddress.Checked.ToString(), paymentMethodId);
+            }
         }
 
         private PaymentMethodDto.PaymentMethodParameterRow GetParameterByName(string name)
