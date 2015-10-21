@@ -10,14 +10,16 @@ namespace PayEx.EPi.Commerce.Payment
         public static string Serialize<T>(T arg)
         {
             string result;
-            var settings = new XmlWriterSettings();
-            settings.Indent = false;
-            settings.NewLineHandling = NewLineHandling.None;
+            var settings = new XmlWriterSettings
+            {
+                Indent = false,
+                NewLineHandling = NewLineHandling.None
+            };
             var xmlSerializer = new XmlSerializer(arg.GetType());
 
             using (var textWriter = new StringWriter())
             {
-                using (XmlWriter writer = XmlWriter.Create(textWriter, settings))
+                using (var writer = XmlWriter.Create(textWriter, settings))
                 {
                     xmlSerializer.Serialize(writer, arg);
                     result = textWriter.ToString();
@@ -30,12 +32,12 @@ namespace PayEx.EPi.Commerce.Payment
 
         private static string RemoveLineEndings(string value)
         {
-            if (String.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
             {
                 return value;
             }
-            string lineSeparator = ((char)0x2028).ToString();
-            string paragraphSeparator = ((char)0x2029).ToString();
+            var lineSeparator = ((char)0x2028).ToString();
+            var paragraphSeparator = ((char)0x2029).ToString();
 
             return
                 value.Replace("\r\n", string.Empty)
