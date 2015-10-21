@@ -1,5 +1,4 @@
 ﻿using log4net;
-using Mediachase.Commerce.Orders.Dto;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Models.PaymentMethods;
@@ -51,9 +50,9 @@ namespace PayEx.EPi.Commerce.Payment.Factories
                 return null;
             }
 
-            PaymentMethodDto paymentMethodDto =
+            var paymentMethodDto =
                 Mediachase.Commerce.Orders.Managers.PaymentManager.GetPaymentMethod(payment.PaymentMethodId);
-            string systemKeyword =
+            var systemKeyword =
                 paymentMethodDto.PaymentMethod.FindByPaymentMethodId(payment.PaymentMethodId).SystemKeyword;
             Log.Info($"Resolving the PaymentMethod for payment with ID:{payment.Id}. The systemKeyword for this payment method is {systemKeyword}");
 
