@@ -26,9 +26,6 @@ namespace PayEx.EPi.Commerce.Payment.Models.Result
         [XmlElement("coAddress")]
         public string CoAddress { get; set; }
 
-        public bool Success
-        {
-            get { return Status.Success; }
-        }
+        public bool Success => Status.Success;
     }
 }
