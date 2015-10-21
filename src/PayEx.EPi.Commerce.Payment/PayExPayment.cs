@@ -113,11 +113,9 @@ namespace PayEx.EPi.Commerce.Payment
         {
             get
             {
-                string vatString = GetString("Vat");
+                var vatString = GetString("Vat");
                 int vat;
-                if (Int32.TryParse(vatString, out vat))
-                    return vat;
-                return 0;
+                return int.TryParse(vatString, out vat) ? vat : 0;
             }
             set
             {
