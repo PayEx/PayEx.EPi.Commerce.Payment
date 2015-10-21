@@ -38,11 +38,8 @@ namespace PayEx.EPi.Commerce.Payment.Models.Result
         [XmlElement("eMail")]
         public string Email { get; set; }
 
-        public string CustomerName { get { return string.Join(" ", FirstName, LastName); } }
+        public string CustomerName => string.Join(" ", FirstName, LastName);
 
-        public bool Success
-        {
-            get { return Status.Success; }
-        }
+        public bool Success => Status.Success;
     }
 }
