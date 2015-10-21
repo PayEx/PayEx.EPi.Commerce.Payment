@@ -22,16 +22,16 @@ namespace PayEx.EPi.Commerce.Payment.Facades
 
         public ConsumerLegalAddressResult GetConsumerLegalAddress(string socialSecurityNumber, string countryCode)
         {
-            Log.InfoFormat("Calling GetConsumerLegalAddress for SocialSecurityNumber:{0}. CountryCode:{1}.", socialSecurityNumber, countryCode);
+            Log.Info($"Calling GetConsumerLegalAddress for SocialSecurityNumber:{socialSecurityNumber}. CountryCode:{countryCode}.");
 
             string hash = _hasher.Create(_payExSettings.AccountNumber, socialSecurityNumber, countryCode, _payExSettings.EncryptionKey);
             string xmlResult = _verificationFacade.GetConsumerLegalAddress(_payExSettings.AccountNumber, socialSecurityNumber, countryCode, hash);
 
             ConsumerLegalAddressResult result = _resultParser.Deserialize<ConsumerLegalAddressResult>(xmlResult);
             if (result.Status.Success)
-                Log.InfoFormat("Successfully called GetConsumerLegalAddress for SocialSecurityNumber:{0}. CountryCode:{1}. Result:{2}", socialSecurityNumber, countryCode, xmlResult);
+                Log.Info($"Successfully called GetConsumerLegalAddress for SocialSecurityNumber:{socialSecurityNumber}. CountryCode:{countryCode}. Result:{xmlResult}");
             else
-                Log.ErrorFormat("Error when calling GetConsumerLegalAddress for SocialSecurityNumber:{0}. CountryCode:{1}. Result:{2}", socialSecurityNumber, countryCode, xmlResult);
+                Log.Error($"Error when calling GetConsumerLegalAddress for SocialSecurityNumber:{socialSecurityNumber}. CountryCode:{countryCode}. Result:{xmlResult}");
             return result;
         }
     }
