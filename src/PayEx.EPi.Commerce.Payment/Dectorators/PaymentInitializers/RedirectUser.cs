@@ -12,7 +12,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
-            PaymentInitializeResult result = new PaymentInitializeResult();
+            var result = new PaymentInitializeResult();
             Log.Info($"Begin redirect to PayEx for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}.");
             if (!string.IsNullOrWhiteSpace(returnUrl))
             {
