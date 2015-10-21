@@ -24,10 +24,10 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         {
             Log.Info($"Calling GetConsumerLegalAddress for SocialSecurityNumber:{socialSecurityNumber}. CountryCode:{countryCode}.");
 
-            string hash = _hasher.Create(_payExSettings.AccountNumber, socialSecurityNumber, countryCode, _payExSettings.EncryptionKey);
-            string xmlResult = _verificationFacade.GetConsumerLegalAddress(_payExSettings.AccountNumber, socialSecurityNumber, countryCode, hash);
+            var hash = _hasher.Create(_payExSettings.AccountNumber, socialSecurityNumber, countryCode, _payExSettings.EncryptionKey);
+            var xmlResult = _verificationFacade.GetConsumerLegalAddress(_payExSettings.AccountNumber, socialSecurityNumber, countryCode, hash);
 
-            ConsumerLegalAddressResult result = _resultParser.Deserialize<ConsumerLegalAddressResult>(xmlResult);
+            var result = _resultParser.Deserialize<ConsumerLegalAddressResult>(xmlResult);
             if (result.Status.Success)
                 Log.Info($"Successfully called GetConsumerLegalAddress for SocialSecurityNumber:{socialSecurityNumber}. CountryCode:{countryCode}. Result:{xmlResult}");
             else
