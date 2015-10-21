@@ -20,7 +20,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters
 
         public PaymentCompleteResult Complete(PaymentMethod currentPayment, string orderRef)
         {
-            PaymentCompleteResult result = new PaymentCompleteResult() { Success = false }; 
+            var result = new PaymentCompleteResult() { Success = false }; 
             
             if (currentPayment.RequireAddressUpdate)
             {
