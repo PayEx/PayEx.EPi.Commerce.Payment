@@ -21,14 +21,8 @@ namespace PayEx.EPi.Commerce.Payment.Models.Result
         [XmlElement("errorDetails")]
         public ErrorDetails ErrorDetails { get; set; }
 
-        public bool GetTransactionDetails
-        {
-            get { return TransactionStatus == TransactionStatus.Initialize; }
-        }
+        public bool GetTransactionDetails => TransactionStatus == TransactionStatus.Initialize;
 
-        public bool Success
-        {
-            get { return Status.Success && TransactionStatus != TransactionStatus.Failure; }
-        }
+        public bool Success => Status.Success && TransactionStatus != TransactionStatus.Failure;
     }
 }
