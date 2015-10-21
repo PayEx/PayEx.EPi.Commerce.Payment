@@ -18,8 +18,8 @@ namespace PayEx.EPi.Commerce.Payment.Payment
             if (obj != null)
                 return (T)obj;
 
-            Log.Fatal(string.Format("Could not deserialize XML result from PayEx to object of type:{0}! xml:{1}", typeof(T).Name, xml));
-            throw new Exception(string.Format("Could not deserialize XML result from PayEx to object of type:{0}! xml:{1}", typeof(T).Name, xml));
+            Log.Fatal($"Could not deserialize XML result from PayEx to object of type:{typeof (T).Name}! xml:{xml}");
+            throw new Exception($"Could not deserialize XML result from PayEx to object of type:{typeof (T).Name}! xml:{xml}");
         }
     }
 }
