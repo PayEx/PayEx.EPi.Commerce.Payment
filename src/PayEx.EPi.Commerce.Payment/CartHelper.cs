@@ -30,9 +30,11 @@ namespace PayEx.EPi.Commerce.Payment
         {
             ParameterizedThreadStart threadStart = UpdateCartCallbackFunction;
             var thread = new Thread(threadStart);
-            var cartInfo = new Hashtable();
-            cartInfo[CurrentCartKey] = cart;
-            cartInfo[CurrentContextKey] = HttpContext.Current;
+            var cartInfo = new Hashtable
+            {
+                [CurrentCartKey] = cart,
+                [CurrentContextKey] = HttpContext.Current
+            };
             thread.Start(cartInfo);
             thread.Join();
         }
@@ -61,7 +63,7 @@ namespace PayEx.EPi.Commerce.Payment
                 {
                     cart.AcceptChanges();
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     //TODO
                 }
@@ -70,20 +72,20 @@ namespace PayEx.EPi.Commerce.Payment
 
         public static PayExAddress OrderAddress(Cart cart, PaymentInformation payment, InitializeResult result)
         {
-            PayExAddress payexAddress = new PayExAddress(result.OrderRef.ToString());
+            var payexAddress = new PayExAddress(result.OrderRef.ToString());
 
             if (cart == null || cart.OrderForms == null || cart.OrderForms.Count == 0)
                 return payexAddress;
 
-            OrderForm orderForm = cart.OrderForms[0];
+            var orderForm = cart.OrderForms[0];
 
-            OrderAddress billingAddress = cart.OrderAddresses.ToArray().FirstOrDefault(x => x.Name == orderForm.BillingAddressId);
+            var billingAddress = cart.OrderAddresses.ToArray().FirstOrDefault(x => x.Name == orderForm.BillingAddressId);
             if (billingAddress != null)
                 payexAddress.BillingAddress.Populate(billingAddress);
 
             if (orderForm.Shipments != null && orderForm.Shipments.Count > 0 && orderForm.Shipments[0] != null)
             {
-                OrderAddress shippingAddress = cart.OrderAddresses.ToArray().FirstOrDefault(x => x.Name == orderForm.Shipments[0].ShippingAddressId);
+                var shippingAddress = cart.OrderAddresses.ToArray().FirstOrDefault(x => x.Name == orderForm.Shipments[0].ShippingAddressId);
                 if (shippingAddress != null)
                     payexAddress.ShippingAddress.Populate(shippingAddress);
             }
@@ -93,11 +95,11 @@ namespace PayEx.EPi.Commerce.Payment
 
         public static List<OrderLine> OrderLines(Cart cart, PaymentInformation payment, InitializeResult result)
         {
-            List<OrderLine> orderLines = new List<OrderLine>();
+            var orderLines = new List<OrderLine>();
             if (cart == null || cart.OrderForms == null || cart.OrderForms.Count == 0)
                 return orderLines;
 
-            OrderForm orderForm = cart.OrderForms[0];
+            var orderForm = cart.OrderForms[0];
             if (orderForm == null || orderForm.LineItems == null || orderForm.LineItems.Count == 0)
                 return orderLines;
 
@@ -107,10 +109,10 @@ namespace PayEx.EPi.Commerce.Payment
                     lineItem.ExtendedPrice.RoundToInt(), GetVatAmount(lineItem), GetVatPercentage(lineItem)));
             }
 
-            decimal shippingVatPercentage = GetShippingVatPercentage();
+            var shippingVatPercentage = GetShippingVatPercentage();
             foreach (Shipment shipment in orderForm.Shipments)
             {
-                decimal shippingVatAmount = cart.ShippingTotal * (shippingVatPercentage / 100);
+                var shippingVatAmount = cart.ShippingTotal * (shippingVatPercentage / 100);
                 orderLines.Add(new OrderLine(result.OrderRef.ToString(), string.Empty, GetShippingMethodName(shipment), 1,
                     cart.ShippingTotal.RoundToInt(), shippingVatAmount, shippingVatPercentage));
             }
@@ -144,7 +146,7 @@ namespace PayEx.EPi.Commerce.Payment
 
         internal static decimal GetShippingVatPercentage()
         {
-            TaxDto taxDto = TaxManager.GetTaxDto(TaxType.ShippingTax);
+            var taxDto = TaxManager.GetTaxDto(TaxType.ShippingTax);
             if (taxDto.TaxValue.Count == 0)
                 return 0;
             return (decimal)taxDto.TaxValue[0].Percentage;
@@ -152,7 +154,7 @@ namespace PayEx.EPi.Commerce.Payment
 
         private static string GetShippingMethodName(Shipment shipment)
         {
-            ShippingMethodDto.ShippingMethodRow shippingMethodRow = ShippingManager.GetShippingMethod(shipment.ShippingMethodId)
+            var shippingMethodRow = ShippingManager.GetShippingMethod(shipment.ShippingMethodId)
                 .ShippingMethod.Single(s => s.ShippingMethodId == shipment.ShippingMethodId);
             if (shippingMethodRow != null)
                 return shippingMethodRow.DisplayName;
