@@ -30,7 +30,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             if (currentPayment.RequireAddressUpdate)
             {
                 Log.Info($"Retrieving consumer legal address for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
-                CustomerDetails customerDetails = CreateModel(currentPayment);
+                var customerDetails = CreateModel(currentPayment);
                 if (customerDetails == null)
                     throw new Exception("Payment class must be ExtendedPayExPayment when using this payment method");
 
@@ -58,14 +58,14 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 
         private static ConsumerLegalAddressResult ConvertToConsumerAddress(LegalAddressResult result)
         {
-            string lastName = string.Empty;
-            string[] names = result.Name.Split(' ');
-            string firstName = names[0];
+            var lastName = string.Empty;
+            var names = result.Name.Split(' ');
+            var firstName = names[0];
             if (names.Length > 1)
                 lastName = string.Join(" ", names.Skip(1));
 
 
-            ConsumerLegalAddressResult consumerLegalAddressResult = new ConsumerLegalAddressResult()
+            var consumerLegalAddressResult = new ConsumerLegalAddressResult
             {
                 Status = result.Status,
                 Address = result.StreetAddress,
@@ -83,7 +83,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             if (!(currentPayment.Payment is ExtendedPayExPayment))
                 return null;
 
-            ExtendedPayExPayment payment = currentPayment.Payment as ExtendedPayExPayment;
+            var payment = currentPayment.Payment as ExtendedPayExPayment;
             return new CustomerDetails
             {
                 SocialSecurityNumber = payment.SocialSecurityNumber,
