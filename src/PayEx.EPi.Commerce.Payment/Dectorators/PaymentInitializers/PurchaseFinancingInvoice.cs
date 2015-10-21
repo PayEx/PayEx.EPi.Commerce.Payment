@@ -4,7 +4,6 @@ using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Models;
 using PayEx.EPi.Commerce.Payment.Models.PaymentMethods;
-using PayEx.EPi.Commerce.Payment.Models.Result;
 
 namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 {
@@ -23,11 +22,11 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
         public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
         {
             Log.Info($"Calling PurchaseFinancingInvoice for payment with ID:{currentPayment.Payment.Id} belonging to order with ID: {currentPayment.OrderGroupId}");
-            CustomerDetails customerDetails = CreateModel(currentPayment);
+            var customerDetails = CreateModel(currentPayment);
             if (customerDetails == null)
                 throw new Exception("Payment class must be ExtendedPayExPayment when using this payment method");
 
-            PurchaseInvoiceSaleResult result = _paymentManager.PurchaseFinancingInvoice(orderRef, currentPayment.PaymentMethodCode, customerDetails);
+            var result = _paymentManager.PurchaseFinancingInvoice(orderRef, currentPayment.PaymentMethodCode, customerDetails);
             if (!result.Status.Success)
                 return new PaymentInitializeResult { ErrorMessage = result.Status.Description };
 
@@ -43,7 +42,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             if (!(currentPayment.Payment is ExtendedPayExPayment))
                 return null;
 
-            ExtendedPayExPayment payment = currentPayment.Payment as ExtendedPayExPayment;
+            var payment = currentPayment.Payment as ExtendedPayExPayment;
 
             return new CustomerDetails
             {
