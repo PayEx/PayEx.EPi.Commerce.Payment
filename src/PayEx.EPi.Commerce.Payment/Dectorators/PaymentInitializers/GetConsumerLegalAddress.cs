@@ -22,7 +22,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             _paymentActions = paymentActions;
         }
 
-        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
+        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef, Action<string> redirectAction)
         {
             Log.InfoFormat("Retrieving consumer legal address for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             CustomerDetails customerDetails = CreateModel(currentPayment);
@@ -36,7 +36,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             _paymentActions.UpdateConsumerInformation(currentPayment, result);
             Log.InfoFormat("Successfully retrieved consumer legal address for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
 
-            return _paymentInitializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef);
+            return _paymentInitializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef, redirectAction);
         }
 
         private CustomerDetails CreateModel(PaymentMethod currentPayment)

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using EPiServer.Globalization;
 using log4net;
 using PayEx.EPi.Commerce.Payment.Contracts;
@@ -29,7 +30,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             _additionalValuesFormatter = additionalValuesFormatter;
         }
 
-        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
+        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef, Action<string> redirectAction)
         {
             Log.InfoFormat("Initializing payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             PaymentInformation paymentInformation = CreateModel(currentPayment, orderNumber);
@@ -44,7 +45,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             _cartActions.UpdateCartInstanceId(currentPayment.Cart); // Save all the changes that have been done to the cart
 
             if (_paymentInitializer != null)
-                return _paymentInitializer.Initialize(currentPayment, orderNumber, result.RedirectUrl, result.OrderRef.ToString());
+                return _paymentInitializer.Initialize(currentPayment, orderNumber, result.RedirectUrl, result.OrderRef.ToString(), redirectAction);
 
             return new PaymentInitializeResult { Success = true };
         }

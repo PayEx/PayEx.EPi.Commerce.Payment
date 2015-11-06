@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using EPiServer.ServiceLocation;
 using log4net;
 using Mediachase.Commerce.Orders;
@@ -11,11 +12,13 @@ namespace PayEx.EPi.Commerce.Payment
 {
     public class PayExPaymentGateway : AbstractPaymentGateway
     {
+        private readonly Action<string> _redirectAction;
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
         private readonly IPaymentMethodFactory _paymentMethodFactory;
 
-        public PayExPaymentGateway()
+        public PayExPaymentGateway(Action<string> redirectAction = null)
         {
+            _redirectAction = redirectAction;
             _paymentMethodFactory = ServiceLocator.Current.GetInstance<IPaymentMethodFactory>();
         }
 
@@ -74,7 +77,7 @@ namespace PayEx.EPi.Commerce.Payment
             }
 
             Log.InfoFormat("Initializing payment with ID:{0} belonging to order with ID: {1}", payment.Id, payment.OrderGroupId);
-            PaymentInitializeResult result = currentPayment.Initialize();
+            PaymentInitializeResult result = currentPayment.Initialize(_redirectAction);
             message = result.ErrorMessage ?? string.Empty;
 
             if (!result.Success)

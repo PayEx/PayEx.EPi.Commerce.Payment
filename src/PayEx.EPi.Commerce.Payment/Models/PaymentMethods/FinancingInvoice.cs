@@ -1,4 +1,5 @@
-﻿using PayEx.EPi.Commerce.Payment.Contracts;
+﻿using System;
+using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Dectorators.AdditionalValuesFormatters;
 using PayEx.EPi.Commerce.Payment.Dectorators.ParameterReaders;
@@ -89,14 +90,14 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             }
         }
 
-        public override PaymentInitializeResult Initialize()
+        public override PaymentInitializeResult Initialize(Action<string> redirectAction)
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(
                 new GetConsumerLegalAddressForFinancingInvoice(
                     new InitializePayment(
                         new PurchaseFinancingInvoice(_paymentManager, _paymentActions), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter)
                         , _paymentActions, _paymentManager, _updateAddressHandler), _orderNumberGenerator);
-            return initializer.Initialize(this, null, null, null);
+            return initializer.Initialize(this, null, null, null, null);
         }
 
         public override PaymentCompleteResult Complete(string orderRef)

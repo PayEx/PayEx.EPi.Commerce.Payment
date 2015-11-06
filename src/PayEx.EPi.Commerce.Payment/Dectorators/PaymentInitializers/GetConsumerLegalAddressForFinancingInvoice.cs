@@ -25,7 +25,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             _updateAddressHandler = updateAddressHandler;
         }
 
-        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
+        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef, Action<string> redirectAction)
         {
             if (currentPayment.RequireAddressUpdate)
             {
@@ -59,7 +59,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
                     currentPayment.Payment.Id, currentPayment.OrderGroupId);                
             }
 
-            return _paymentInitializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef);
+            return _paymentInitializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef, redirectAction);
         }
 
         private static ConsumerLegalAddressResult ConvertToConsumerAddress(LegalAddressResult result)
