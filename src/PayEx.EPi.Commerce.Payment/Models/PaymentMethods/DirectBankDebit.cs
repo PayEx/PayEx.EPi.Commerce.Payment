@@ -15,11 +15,15 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IPaymentActions _paymentActions;
-        public DirectBankDebit()  {  }
+        private readonly IRedirectUser _redirectUser;
+
+        public DirectBankDebit()
+        {
+        }
 
         public DirectBankDebit(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
             IParameterReader parameterReader, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
-            IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
+            IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions, IRedirectUser redirectUser)
             : base(payment)
         {
             _paymentManager = paymentManager;
@@ -28,6 +32,7 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             _orderNumberGenerator = orderNumberGenerator;
             _additionalValuesFormatter = additionalValuesFormatter;
             _paymentActions = paymentActions;
+            _redirectUser = redirectUser;
         }
 
         public override string PaymentMethodCode
@@ -59,7 +64,7 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(
                 new InitializePayment(
-                new RedirectUser(), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _orderNumberGenerator);
+                _redirectUser, _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _orderNumberGenerator);
             return initializer.Initialize(this, null, null, null);
         }
 

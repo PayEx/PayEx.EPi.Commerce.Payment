@@ -261,6 +261,7 @@
     <Compile Include="Contracts\Commerce\IMasterPassShoppingCartFormatter.cs" />
     <Compile Include="Contracts\Commerce\IUpdateAddressHandler.cs" />
     <Compile Include="Contracts\IPayExService.cs" />
+    <Compile Include="Contracts\IRedirectUser.cs" />
     <Compile Include="Dectorators\AdditionalValuesFormatters\FinancingInvoiceAdditionalValuesFormatter.cs" />
     <Compile Include="Dectorators\ParameterReaders\FinancingInvoiceParameterReader.cs" />
     <Compile Include="Dectorators\PaymentCompleters\MasterPassFinalizeTransaction.cs" />
