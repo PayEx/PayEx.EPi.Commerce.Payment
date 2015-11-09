@@ -17,6 +17,7 @@ namespace PayEx.EPi.Commerce.Payment.Factories
         private readonly IPaymentActions _paymentActions;
         private readonly IFinancialInvoicingOrderLineFormatter _financialInvoicingOrderLineFormatter;
         private readonly IMasterPassShoppingCartFormatter _masterPassShoppingCartXmlFormatter;
+        private readonly IRedirectUser _redirectUser;
 
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
         private readonly IUpdateAddressHandler _updateAddressHandler;
@@ -25,7 +26,7 @@ namespace PayEx.EPi.Commerce.Payment.Factories
             ICartActions cartActions, IVerificationManager verificationManager,
             IOrderNumberGenerator orderNumberGenerator, IAdditionalValuesFormatter additionalValuesFormatter,
             IPaymentActions paymentActions, IFinancialInvoicingOrderLineFormatter financialInvoicingOrderLineFormatter,
-            IUpdateAddressHandler updateAddressHandler, IMasterPassShoppingCartFormatter masterPassShoppingCartXmlFormatter)
+            IUpdateAddressHandler updateAddressHandler, IMasterPassShoppingCartFormatter masterPassShoppingCartXmlFormatter, IRedirectUser redirectUser)
         {
             _paymentManager = paymentManager;
             _parameterReader = parameterReader;
@@ -37,6 +38,7 @@ namespace PayEx.EPi.Commerce.Payment.Factories
             _financialInvoicingOrderLineFormatter = financialInvoicingOrderLineFormatter;
             _updateAddressHandler = updateAddressHandler;
             _masterPassShoppingCartXmlFormatter = masterPassShoppingCartXmlFormatter;
+            _redirectUser = redirectUser;
         }
 
         public PaymentMethod Create(Mediachase.Commerce.Orders.Payment payment)
@@ -66,28 +68,28 @@ namespace PayEx.EPi.Commerce.Payment.Factories
             {
                 case Constants.Payment.DirectDebit.SystemKeyword:
                     return new DirectBankDebit(payment, _paymentManager, _parameterReader, _cartActions,
-                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
+                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions, _redirectUser);
                 case Constants.Payment.Giftcard.SystemKeyword:
                     return new GiftCard(payment, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator,
-                        _additionalValuesFormatter, _paymentActions);
+                        _additionalValuesFormatter, _paymentActions, _redirectUser);
                 case Constants.Payment.Invoice.SystemKeyword:
                     return new Invoice(payment, _verificationManager, _paymentManager, _parameterReader, _cartActions,
                         _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case Constants.Payment.InvoiceLedger.SystemKeyword:
                     return new InvoiceLedger(payment, _paymentManager, _parameterReader, _cartActions,
-                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
+                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions, _redirectUser);
                 case Constants.Payment.PartPayment.SystemKeyword:
                     return new PartPayment(payment, _paymentManager, _parameterReader, _cartActions,
                         _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
                 case Constants.Payment.PayPal.SystemKeyword:
                     return new PayPal(payment, _paymentManager, _parameterReader, _cartActions, _orderNumberGenerator,
-                        _additionalValuesFormatter, _paymentActions);
+                        _additionalValuesFormatter, _paymentActions, _redirectUser);
                 case Constants.Payment.CreditCard.SystemKeyword:
                     return new CreditCard(payment, _paymentManager, _parameterReader, _cartActions,
-                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
+                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions, _redirectUser);
                 case Constants.Payment.MasterPass.SystemKeyword:
                     return new MasterPass(payment, _paymentManager, _parameterReader, _cartActions,
-                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions, _masterPassShoppingCartXmlFormatter);
+                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions, _masterPassShoppingCartXmlFormatter, _redirectUser);
                 case Constants.Payment.FinancingInvoiceNorway.SystemKeyword:
                     return new FinancingInvoice(payment, _paymentManager, _parameterReader, _cartActions,
                         _orderNumberGenerator, _additionalValuesFormatter, _financialInvoicingOrderLineFormatter,
