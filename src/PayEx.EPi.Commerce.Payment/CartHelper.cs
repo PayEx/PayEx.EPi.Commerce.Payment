@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -129,16 +130,24 @@ namespace PayEx.EPi.Commerce.Payment
         internal static decimal GetVatAmount(LineItem lineItem)
         {
             var vatObject = lineItem["LineItemVatAmount"];
-            if (vatObject != null)
-                return (decimal)vatObject;
+            var vatAsDecimal = vatObject as decimal?;
+            if (vatAsDecimal.HasValue)
+                return vatAsDecimal.Value;
+            var vatAsString = vatObject as string;
+            if (vatAsString != null)
+                return decimal.Parse(vatAsString, CultureInfo.InvariantCulture);
             return 0;
         }
 
         internal static decimal GetVatPercentage(LineItem lineItem)
         {
             var vatPercentObject = lineItem["LineItemVatPercentage"];
-            if (vatPercentObject != null)
-                return (decimal)vatPercentObject;
+            var vatPercentAsDecimal = vatPercentObject as decimal?;
+            if (vatPercentAsDecimal.HasValue)
+                return vatPercentAsDecimal.Value;
+            var vatPercentAsString = vatPercentObject as string;
+            if (vatPercentAsString != null)
+                return decimal.Parse(vatPercentAsString, CultureInfo.InvariantCulture);
             return 0;
         }
 
