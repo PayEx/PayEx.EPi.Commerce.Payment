@@ -96,6 +96,9 @@ namespace PayEx.EPi.Commerce.Payment.Factories
                     return new FinancingInvoice(payment, _paymentManager, _parameterReader, _cartActions,
                         _orderNumberGenerator, _additionalValuesFormatter, _financialInvoicingOrderLineFormatter,
                         _paymentActions, Constants.Payment.FinancingInvoiceSweden.PaymentMethodCode, _updateAddressHandler);
+                case Constants.Payment.Swish.SystemKeyword:
+                    return new Swish(payment, _paymentManager, _parameterReader, _cartActions,
+                        _orderNumberGenerator, _additionalValuesFormatter, _paymentActions);
             }
 
             Log.ErrorFormat(

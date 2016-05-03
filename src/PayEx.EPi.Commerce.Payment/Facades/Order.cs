@@ -20,9 +20,11 @@ namespace PayEx.EPi.Commerce.Payment.Facades
 
         public string Initialize(long accountNumber, PaymentInformation payment, string hash)
         {
+            
             return Client.Initialize8(accountNumber, payment.PurchaseOperation, payment.Price, payment.PriceArgList, payment.Currency, payment.Vat, payment.OrderId,
                                       payment.ProductNumber, payment.Description, payment.ClientIpAddress, payment.ClientIdentifier, payment.AdditionalValues,
                                       string.Empty, payment.ReturnUrl, payment.View, payment.AgreementRef, payment.CancelUrl, payment.ClientLanguage, hash);
+                                 
         }
 
         public string AddOrderLine(long accountNumber, OrderLine orderLine, string hash)
@@ -114,6 +116,11 @@ namespace PayEx.EPi.Commerce.Payment.Facades
         public string InvoiceLinkGet(long accountNumber, int transactionNumber, string hash)
         {
             return Client.InvoiceLinkGet(accountNumber, transactionNumber, hash);
+        }
+
+        public string PreparePurchaseSwish(long accountNumber, string orderRef, string msisdn, string ipAddress, string hash)
+        {
+            return Client.PreparePurchaseSwish(accountNumber, orderRef, msisdn, ipAddress, hash);
         }
     }
 }
