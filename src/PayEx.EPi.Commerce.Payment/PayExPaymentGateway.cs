@@ -1,6 +1,6 @@
 ﻿using System.Web;
 using EPiServer.ServiceLocation;
-using log4net;
+using EPiServer.Logging.Compatibility;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Plugins.Payment;
 using PayEx.EPi.Commerce.Payment.Contracts;
@@ -77,6 +77,8 @@ namespace PayEx.EPi.Commerce.Payment
             PaymentInitializeResult result = currentPayment.Initialize();
             message = result.ErrorMessage ?? string.Empty;
 
+            
+
             if (!result.Success)
                 Log.ErrorFormat("Could not initialize payment with ID:{0} belonging to order with ID: {1}. Message: {2}", payment.Id, payment.OrderGroupId, message);
             else
@@ -88,7 +90,7 @@ namespace PayEx.EPi.Commerce.Payment
         public bool ProcessSuccessfulTransaction(PayExPayment payExPayment, string orderNumber, string orderRef, Cart cart, out string transactionErrorCode)
         {
             transactionErrorCode = null;
-
+            
             Log.InfoFormat("Processing a transaction for payment with ID:{0} belonging to order with ID: {1}. Order number: {2}. Order reference: {3}", 
                 payExPayment.Id, payExPayment.OrderGroupId, orderNumber, orderRef);
 

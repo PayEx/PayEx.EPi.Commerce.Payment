@@ -1,5 +1,5 @@
 ﻿using System;
-using log4net;
+using EPiServer.Logging.Compatibility;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Dectorators.AdditionalValuesFormatters;
@@ -26,6 +26,7 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IPaymentActions _paymentActions;
+        private readonly IRedirectUser _redirectUser;
 
         public MasterPass()
         {
@@ -34,7 +35,7 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         public MasterPass(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
             IParameterReader parameterReader, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator,
             IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions,
-            IMasterPassShoppingCartFormatter masterPassShoppingCartFormatter)
+            IMasterPassShoppingCartFormatter masterPassShoppingCartFormatter, IRedirectUser redirectUser)
             : base(payment)
         {
             _paymentManager = paymentManager;
@@ -44,6 +45,7 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             _additionalValuesFormatter = new MasterPassAdditionalValuesFormatter(additionalValuesFormatter,
                 _parameterReader.AddShoppingCartXml(this.PaymentMethodDto), masterPassShoppingCartFormatter);
             _paymentActions = paymentActions;
+            _redirectUser = redirectUser;
         }
 
         public override string PaymentMethodCode
@@ -78,7 +80,7 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(
                 new InitializePayment(
-                new RedirectUser(), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter),
+                _redirectUser, _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter),
                 _orderNumberGenerator);
 
             return initializer.Initialize(this, null, null, null);

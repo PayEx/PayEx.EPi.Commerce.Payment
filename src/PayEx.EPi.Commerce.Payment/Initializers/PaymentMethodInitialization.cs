@@ -5,7 +5,7 @@ using EPiServer.DataAbstraction;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
-using log4net;
+using EPiServer.Logging.Compatibility;
 using Mediachase.Commerce;
 using Mediachase.Commerce.Core;
 using Mediachase.Commerce.Orders.Dto;
@@ -40,6 +40,7 @@ namespace PayEx.EPi.Commerce.Payment.Initializers
                 new PaymentMethodInfo(Constants.Payment.MasterPass.SystemKeyword, Constants.Payment.MasterPass.Name, paymentGatewayClassname, payExPaymentClassName, 1700),
                 new PaymentMethodInfo(Constants.Payment.FinancingInvoiceNorway.SystemKeyword, Constants.Payment.FinancingInvoiceNorway.Name, paymentGatewayClassname, extendedPayExPaymentClassName, 1800),
                 new PaymentMethodInfo(Constants.Payment.FinancingInvoiceSweden.SystemKeyword, Constants.Payment.FinancingInvoiceSweden.Name, paymentGatewayClassname, extendedPayExPaymentClassName, 1900),
+                new PaymentMethodInfo(Constants.Payment.Swish.SystemKeyword, Constants.Payment.Swish.Name, paymentGatewayClassname, payExPaymentClassName, 2000),
             };
 
             CreateForEnabledLanguages(paymentMethodInfo);

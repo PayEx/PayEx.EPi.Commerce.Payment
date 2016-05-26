@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Threading;
 using System.Web;
-using log4net;
+using EPiServer.Logging.Compatibility;
 using Mediachase.Commerce.Orders;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 

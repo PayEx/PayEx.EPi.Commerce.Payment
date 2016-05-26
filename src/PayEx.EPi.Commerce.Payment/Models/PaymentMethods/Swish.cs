@@ -1,5 +1,6 @@
 ﻿using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
+using PayEx.EPi.Commerce.Payment.Dectorators.PaymentCapturers;
 using PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters;
 using PayEx.EPi.Commerce.Payment.Dectorators.PaymentCreditors;
 using PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers;
@@ -7,7 +8,7 @@ using PayEx.EPi.Commerce.Payment.Models.Result;
 
 namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
 {
-    internal class DirectBankDebit : PaymentMethod
+    internal class Swish : PaymentMethod
     {
         private readonly IPaymentManager _paymentManager;
         private readonly IParameterReader _parameterReader;
@@ -15,15 +16,11 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         private readonly IOrderNumberGenerator _orderNumberGenerator;
         private readonly IAdditionalValuesFormatter _additionalValuesFormatter;
         private readonly IPaymentActions _paymentActions;
-        private readonly IRedirectUser _redirectUser;
+        public Swish() { } // Needed for unit testing
 
-        public DirectBankDebit()
-        {
-        }
-
-        public DirectBankDebit(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
+        public Swish(Mediachase.Commerce.Orders.Payment payment, IPaymentManager paymentManager,
             IParameterReader parameterReader, ICartActions cartActions, IOrderNumberGenerator orderNumberGenerator, 
-            IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions, IRedirectUser redirectUser)
+            IAdditionalValuesFormatter additionalValuesFormatter, IPaymentActions paymentActions)
             : base(payment)
         {
             _paymentManager = paymentManager;
@@ -32,17 +29,16 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             _orderNumberGenerator = orderNumberGenerator;
             _additionalValuesFormatter = additionalValuesFormatter;
             _paymentActions = paymentActions;
-            _redirectUser = redirectUser;
         }
 
         public override string PaymentMethodCode
         {
-            get { return "DD"; }
+            get { return "SWISH"; }
         }
 
         public override string DefaultView
         {
-            get { return "DIRECTDEBIT"; }
+            get { return "SWISH"; }
         }
 
         public override bool RequireAddressUpdate
@@ -64,19 +60,21 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(
                 new InitializePayment(
-                _redirectUser, _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _orderNumberGenerator);
+                new RedirectUser(), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _orderNumberGenerator);
             return initializer.Initialize(this, null, null, null);
         }
 
         public override PaymentCompleteResult Complete(string orderRef)
         {
-            IPaymentCompleter completer = new CompletePayment(null, _paymentManager, _paymentActions);
+            IPaymentCompleter completer = new CompletePayment(
+                new UpdateTransactionDetails(null, _paymentManager), _paymentManager, _paymentActions);
             return completer.Complete(this, orderRef);
         }
 
         public override bool Capture()
         {
-            return true; // Direct Bank Debit is done with PurchaseOperation=SALE, so Capture is not possible. Return true to continue execution.
+            return true;
+
         }
 
         public override bool Credit()

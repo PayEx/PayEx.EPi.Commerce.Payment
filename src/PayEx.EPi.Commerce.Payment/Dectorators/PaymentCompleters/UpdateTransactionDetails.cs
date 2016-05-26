@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using log4net;
+using EPiServer.Logging.Compatibility;
 using Mediachase.Commerce.Orders;
 using Mediachase.Data.Provider;
 using PayEx.EPi.Commerce.Payment.Contracts;

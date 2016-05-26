@@ -11,7 +11,7 @@
     <copyright>Copyright 2015 - PayEx</copyright>
     <tags>EPiServer Commerce CommerceManager PayEx</tags>
     <dependencies>
-      <dependency id="PayEx.EPi.Commerce.Payment" version="[8.0, 9)" />
+      <dependency id="PayEx.EPi.Commerce.Payment" version="[9.0, 10)" />
     </dependencies>
   </metadata>
   <files>

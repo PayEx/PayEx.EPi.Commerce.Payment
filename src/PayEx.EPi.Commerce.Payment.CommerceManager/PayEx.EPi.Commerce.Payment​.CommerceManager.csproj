@@ -69,6 +69,9 @@
     <Content Include="Apps\Order\Payments\Plugins\PayEx_PartPayment\ConfigurePayment.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Apps\Order\Payments\Plugins\PayEx_Swish\ConfigurePayment.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Apps\Order\Payments\Plugins\PayEx_PayPal\ConfigurePayment.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
