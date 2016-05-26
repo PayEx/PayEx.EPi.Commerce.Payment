@@ -1,4 +1,4 @@
-﻿using log4net;
+﻿using EPiServer.Logging.Compatibility;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Models;

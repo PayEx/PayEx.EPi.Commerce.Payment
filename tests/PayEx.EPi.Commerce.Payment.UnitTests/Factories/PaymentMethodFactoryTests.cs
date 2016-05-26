@@ -23,12 +23,13 @@ namespace PayEx.EPi.Commerce.Payment.UnitTests.Factories
             Mock<IFinancialInvoicingOrderLineFormatter> financialInvoicingOrderLineFormatter = new Mock<IFinancialInvoicingOrderLineFormatter>();
             Mock<IUpdateAddressHandler> updateAddressHandler = new Mock<IUpdateAddressHandler>();
             Mock<IMasterPassShoppingCartFormatter> masterPassShoppingCartXmlFormatter = new Mock<IMasterPassShoppingCartFormatter>();
+            Mock<IRedirectUser> redirectUserMock = new Mock<IRedirectUser>();
 
             PaymentMethodFactory factory = new PaymentMethodFactory(paymentManagerMock.Object,
                 parameterReaderMock.Object, cartActionsMock.Object,
                 verificationManagerMock.Object, orderNumberGeneratorMock.Object, additionalValuesFormatterMock.Object,
                 paymentActionsMock.Object, financialInvoicingOrderLineFormatter.Object, updateAddressHandler.Object,
-                masterPassShoppingCartXmlFormatter.Object);
+                masterPassShoppingCartXmlFormatter.Object, redirectUserMock.Object);
             PaymentMethod result = factory.Create(null);
 
             Assert.IsNull(result);

@@ -37,5 +37,7 @@ namespace PayEx.EPi.Commerce.Payment.Contracts
             CustomerDetails customerDetails, string hash);
 
         string InvoiceLinkGet(long accountNumber, int transactionNumber, string hash);
+
+        string PreparePurchaseSwish(long accountNumber, string orderRef, string msisdn, string ipAddress, string hash);
     }
 }

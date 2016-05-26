@@ -1,6 +1,6 @@
 ﻿using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
-using log4net;
+using EPiServer.Logging.Compatibility;
 
 namespace PayEx.EPi.Commerce.Payment.Initializers
 {

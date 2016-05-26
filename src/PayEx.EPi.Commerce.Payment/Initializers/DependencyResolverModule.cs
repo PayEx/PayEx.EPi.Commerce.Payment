@@ -5,6 +5,7 @@ using Mediachase.Commerce.Initialization;
 using PayEx.EPi.Commerce.Payment.Commerce;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
+using PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers;
 using PayEx.EPi.Commerce.Payment.Facades;
 using PayEx.EPi.Commerce.Payment.Factories;
 using PayEx.EPi.Commerce.Payment.Payment;
@@ -42,6 +43,7 @@ namespace PayEx.EPi.Commerce.Payment.Initializers
                 x.For<IPayExService>().Use<PayExService>();
                 x.For<IUpdateAddressHandler>().Use<UpdateAddressHandler>();
                 x.For<IMasterPassShoppingCartFormatter>().Use<MasterPassShoppingCartXmlFormatter>();
+                x.For<IRedirectUser>().Use<RedirectUser>();
             });
         }
 

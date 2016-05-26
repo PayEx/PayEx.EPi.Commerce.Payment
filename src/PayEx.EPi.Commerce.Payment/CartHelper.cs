@@ -61,7 +61,7 @@ namespace PayEx.EPi.Commerce.Payment
                 {
                     cart.AcceptChanges();
                 }
-                catch (System.Exception ex)
+                catch
                 {
                     //TODO
                 }
@@ -103,7 +103,7 @@ namespace PayEx.EPi.Commerce.Payment
 
             foreach (LineItem lineItem in orderForm.LineItems)
             {
-                orderLines.Add(new OrderLine(result.OrderRef.ToString(), lineItem.CatalogEntryId, lineItem.DisplayName, (int)lineItem.Quantity,
+                orderLines.Add(new OrderLine(result.OrderRef.ToString(), lineItem.Code, lineItem.DisplayName, (int)lineItem.Quantity,
                     lineItem.ExtendedPrice.RoundToInt(), GetVatAmount(lineItem), GetVatPercentage(lineItem)));
             }
 

@@ -1,4 +1,4 @@
-﻿using log4net;
+﻿using EPiServer.Logging.Compatibility;
 using Mediachase.Commerce.Orders;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Formatters;
@@ -38,7 +38,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentCreditors
             {
                 foreach (LineItem lineItem in orderForm.LineItems)
                 {
-                    result = _paymentManager.CreditOrderLine(transactionId, lineItem.CatalogEntryId, orderNumber);
+                    result = _paymentManager.CreditOrderLine(transactionId, lineItem.Code, orderNumber);
                 }
             }
 

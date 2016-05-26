@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
-using log4net;
+using EPiServer.Logging.Compatibility;
 using PayEx.EPi.Commerce.Payment.Contracts;
 
 namespace PayEx.EPi.Commerce.Payment.Payment

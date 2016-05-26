@@ -38,6 +38,7 @@ namespace PayEx.EPi.Commerce.Payment.Models
             }
 
             Currency = currency;
+           // Currency = "SEK";
             Vat = vat;
             OrderId = OrderNumberFormatter.MakeNumeric(orderId);
             ProductNumber = productNumber;

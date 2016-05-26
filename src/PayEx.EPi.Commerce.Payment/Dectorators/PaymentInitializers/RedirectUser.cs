@@ -1,12 +1,12 @@
 ﻿using System.Web;
-using log4net;
+using EPiServer.Logging.Compatibility;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Models;
 using PayEx.EPi.Commerce.Payment.Models.PaymentMethods;
 
 namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
 {
-    internal class RedirectUser : IPaymentInitializer
+    internal class RedirectUser : IRedirectUser
     {
         protected readonly ILog Log = LogManager.GetLogger(Constants.Logging.DefaultLoggerName);
 

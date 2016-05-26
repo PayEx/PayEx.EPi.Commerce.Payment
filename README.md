@@ -11,6 +11,7 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/) 
 - [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
 - [MasterPass](http://www.payexpim.com/payment-methods/masterpass/)
+- [Swish](http://www.payexpim.com/payment-methods/swish-for-handel/)
 
 ## <a name='toc'>Table of Contents</a>
 
@@ -303,7 +304,7 @@ There are two purchase flows when working with MasterPass, best practice and red
 
 To select which flow to use, go to the MasterPass payment method in Commerce Manager and select the parameters tab. In this view you you can check the Use best practice flow to enable this option as shown in the screenshoot below.
  
-![MasterPass parameters in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/MasterPassParameters.png)
+![MasterPass parameters in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/MasterPassParameters.PNG)
 
 AdditionalValues paramters RESPONSIVE and USEMASTERPASS are automatically set and should not be set in Commerce Manager for this payment method.
 
@@ -338,7 +339,7 @@ There are two available payment methods for Financing Invoicing. One for swedish
 There are some extra parameters that need to be set to be able to use the Financing Invoicing payment option.
 Go to the Financing Invoicing payment method in Commerce Manager and select the parameters tab. 
 
-![Financing Invoicing parameters in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/FinancingInvoicingParameters.png)
+![Financing Invoicing parameters in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/FinancingInvoicingParameters.PNG)
 
 You can select "get the customers legal address" for the swedish payment method. When this is selected, legal address is retrieved from PayEx and address is updated on the ExtendedPayExPayment. If you want this address updated on the billing address on the order, you will need to implement IUpdateAddressHandler and register the class with StructureMap.
 	

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Formatters;
 using PayEx.EPi.Commerce.Payment.Models;
@@ -14,7 +15,7 @@ namespace PayEx.EPi.Commerce.Payment.Commerce
             shoppingCart.ShoppingCartItem = lineItems.Select(x => new ShoppingCartItem()
             {
                 Description = x.DisplayName,
-                Quantity = x.Quantity.RoundToLong(),
+                Quantity = (long)Math.Round(x.Quantity, MidpointRounding.AwayFromZero),
                 Value = x.ExtendedPrice.RoundToLong()
             }).ToArray();
             shoppingCart.Subtotal = payExPayment.Amount.RoundToLong();
