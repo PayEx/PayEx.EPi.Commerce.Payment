@@ -1,0 +1,3099 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>EPiServer.Enterprise</name>
+  </assembly>
+  <members>
+    <member name="T:EPiServer.Enterprise.ContentExportedEventArgs">
+      <summary>
+            Argument for event raised when a content item have been exported.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.ContentExportedEventArgs.#ctor(EPiServer.Core.ContentReference,System.Type)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.Enterprise.ContentExportedEventArgs" /> class.
+            </summary>
+      <param name="contentReference">The content reference.</param>
+      <param name="exporter">The exporter.</param>
+    </member>
+    <member name="P:EPiServer.Enterprise.ContentExportedEventArgs.ContentLink">
+      <summary>
+            Gets the reference to the content item that was exported.
+            </summary>
+      <value>The content link.</value>
+    </member>
+    <member name="T:EPiServer.Enterprise.ContentExportingEventArgs">
+      <summary>
+             Argument for event raised when a content item is about to be exported.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.ContentExportingEventArgs.#ctor(EPiServer.Core.ContentReference,System.Type,EPiServer.Core.Transfer.ITransferContentData)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.Enterprise.ContentExportingEventArgs" /> class.
+            </summary>
+      <param name="contentReference">The content reference.</param>
+      <param name="exporter">The exporter.</param>
+      <param name="transferContentData">The transfer content data.</param>
+    </member>
+    <member name="P:EPiServer.Enterprise.ContentExportingEventArgs.Cancel">
+      <summary>
+            Gets or sets a value indicating whether the export of the content item should be cancelled.
+            </summary>
+      <value>
+        <c>true</c> if cancel; otherwise, <c>false</c>.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.ContentExportingEventArgs.TransferContentData">
+      <summary>
+            Gets the transfer content data.
+            </summary>
+      <value>The transfer content data.</value>
+    </member>
+    <member name="T:EPiServer.Enterprise.ContentImportedEventArgs">
+      <summary>
+            Argument for event raised when a content item have been imported.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.ContentImportedEventArgs.#ctor(EPiServer.Core.ContentReference,System.Type)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.Enterprise.ContentImportedEventArgs" /> class.
+            </summary>
+      <param name="contentLink">The content link.</param>
+      <param name="importer">The importer.</param>
+    </member>
+    <member name="P:EPiServer.Enterprise.ContentImportedEventArgs.ContentLink">
+      <summary>
+            Gets the reference to the imported content.
+            </summary>
+      <value>The reference to the imported content.</value>
+    </member>
+    <member name="T:EPiServer.Enterprise.ContentImportingEventArgs">
+      <summary>
+            Argument for event raised when a content item is about to be imported.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.ContentImportingEventArgs.#ctor(EPiServer.Core.Transfer.ITransferContentData,System.Type)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.Enterprise.ContentImportingEventArgs" /> class.
+            </summary>
+      <param name="transferContentData">The transfer content data.</param>
+      <param name="importer">The importer.</param>
+    </member>
+    <member name="P:EPiServer.Enterprise.ContentImportingEventArgs.TransferContentData">
+      <summary>
+            Gets the transfer content data.
+            </summary>
+      <value>The transfer content data.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.ContentImportingEventArgs.Cancel">
+      <summary>
+            Gets or sets a value indicating whether the import of the content item should be cancelled.
+            </summary>
+      <value>
+        <c>true</c> if cancel; otherwise, <c>false</c>.</value>
+    </member>
+    <member name="T:EPiServer.Enterprise.DataExporterContextEventArgs">
+      <summary>
+            Used from <see cref="E:EPiServer.Enterprise.IDataExportEvents.Starting" />.
+            Event handlers can for example access <see cref="T:EPiServer.Core.Transfer.TransferHandlerBase" /> implmentation such as <see cref="T:EPiServer.Enterprise.IDynamicDataTransfer" />.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterContextEventArgs.#ctor(EPiServer.Enterprise.IDataExporter,EPiServer.Core.Transfer.ITransferHandlerContext)">
+      <summary>
+            Creates a new instance of <see cref="T:EPiServer.Enterprise.DataExporterContextEventArgs" /></summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.DataExporterContextEventArgs.DataExporter">
+      <summary>
+            Gets the data exporter instance
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.DataExporterContextEventArgs.TransferHandlerContext">
+      <summary>
+            Gets the transfer handler context
+            </summary>
+      <value>The transfer handlers.</value>
+    </member>
+    <member name="T:EPiServer.Enterprise.DataImporterContextEventArgs">
+      <summary>
+            Used from <see cref="E:EPiServer.Enterprise.IDataImportEvents.Starting" />.
+            Event handlers can for example access <see cref="T:EPiServer.Core.Transfer.TransferHandlerBase" /> implmentation such as <see cref="T:EPiServer.Enterprise.IDynamicDataTransfer" />.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataImporterContextEventArgs.#ctor(EPiServer.Enterprise.IDataImporter,EPiServer.Core.Transfer.ITransferHandlerContext)">
+      <summary>
+            Creates a new instance of <see cref="T:EPiServer.Enterprise.DataImporterContextEventArgs" /></summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.DataImporterContextEventArgs.DataImporter">
+      <summary>
+            Gets the data importer instance
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.DataImporterContextEventArgs.TransferHandlerContext">
+      <summary>
+            Gets the transfer handler context
+            </summary>
+      <value>The transfer handlers.</value>
+    </member>
+    <member name="T:EPiServer.Enterprise.DynamicDataTransferHandler">
+      <summary>
+            Handle transfering Dynamic Data
+            (e.g. PropertySettingsWrapper Setting of PropertyDefinition and Pageobjects on page data are the DDS items)
+            It register self to RegisterTransferHandlers when the system be starts by IInitializableModule (Initialize)
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.DynamicDataTransferHandler.DeserializingFromXml">
+      <summary>
+            Occurs at deserilalization for items that has been modified by event <see cref="E:EPiServer.Enterprise.DynamicDataTransferHandler.SerializingToXml" />.
+            </summary>
+      <remarks>This event is only raised when an objects serilization format has been relplace by an eventhandler
+            to <see cref="E:EPiServer.Enterprise.DynamicDataTransferHandler.SerializingToXml" />.</remarks>
+    </member>
+    <member name="E:EPiServer.Enterprise.DynamicDataTransferHandler.DeserializedObject">
+      <summary>
+            Occurs when a DDS object is deserialized but not yet saved to DDS. An eventhandler
+            has possibility to alter object or cancel save operation.
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.DynamicDataTransferHandler.SerializingObject">
+      <summary>
+            Occurs when a DDS object is about to be serilaized to stream. An eventhandler
+            has possibility to alter object or cancel save operation.
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.DynamicDataTransferHandler.SerializingToXml">
+      <summary>
+            Occurs when a DDS object or a object reference has been serialized. An eventhandler
+            has possibility to replace the serialized format of the object. If an item is modified
+            then an eventhandler to <see cref="E:EPiServer.Enterprise.DynamicDataTransferHandler.DeserializingFromXml" /> must be registered to handle
+            recreation of object.
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.DynamicDataTransferHandler.ImportCompleted">
+      <summary>
+            Occurs when [import completed].
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.DynamicDataTransferHandler.ContentTransferContext">
+      <inheritdoc />
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.Enterprise.DynamicDataTransferHandler" /> class.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.ContentTransfering(EPiServer.Core.RawContent)">
+      <summary>
+            Try to collect DDS item on (e.g pageObject) on the RawPage object for exporting
+            </summary>
+      <param name="content">The page.</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.ContentTypesTransfering(System.Collections.Generic.IEnumerable{EPiServer.DataAbstraction.ContentType},System.Boolean)">
+      <summary>
+            If the transferPropertySettings parameter set to true then PropertySettings for each property definition on page types be transfered.
+            </summary>
+      <param name="contentTypes">The page types.</param>
+      <param name="transferPropertySettings">if set to <c>true</c> [transfer property settings].</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.DynamicPropertiesTransfering(System.Collections.Generic.IList{EPiServer.DataAbstraction.PropertyDefinition},System.Boolean)">
+      <summary>
+            If the transferPropertySettings parameter set to true then PropertySettings for each property definition is transfered.
+            </summary>
+      <param name="propertyDefinitions">The property definitions.</param>
+      <param name="transferPropertySettings">if set to <c>true</c> [transfer property settings].</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.Write(System.IO.Stream)">
+      <summary>
+            Serialize all Dynamic Data objects and write them to a stream
+            Change the identity of the object.
+            </summary>
+      <param name="writer">The writer.</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.Read(System.IO.Stream)">
+      <summary>
+            Reads all serialized Dynamic Data objects and tries to deserailize and store them in Dynamic Data Store.
+            </summary>
+      <param name="reader">The reader.</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.OnDeserializingFromXml(System.Object,EPiServer.Data.Serialization.DeserializingItemEventArgs)">
+      <summary>
+            Called to raise event <see cref="E:EPiServer.Enterprise.DynamicDataTransferHandler.DeserializingFromXml" /></summary>
+      <param name="sender">The sender.</param>
+      <param name="e">The <see cref="T:EPiServer.Data.Serialization.DeserializingItemEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.OnSerializingToXml(System.Object,EPiServer.Data.Serialization.SerializingItemEventArgs)">
+      <summary>
+            Called to raise event <see cref="E:EPiServer.Enterprise.DynamicDataTransferHandler.SerializingToXml" /></summary>
+      <param name="sender">The sender.</param>
+      <param name="e">The <see cref="T:EPiServer.Data.Serialization.SerializingItemEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.OnSerializingObject(System.Object,EPiServer.Data.Serialization.SerializationEventArgs)">
+      <summary>
+            Called to raise event <see cref="E:EPiServer.Enterprise.DynamicDataTransferHandler.SerializingObject" /></summary>
+      <param name="sender">The sender.</param>
+      <param name="eventArgs">The <see cref="T:EPiServer.Data.Serialization.SerializationEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.OnDeserializedObject(System.Object,EPiServer.Data.Serialization.SerializationEventArgs)">
+      <summary>
+            Called when to raise event <see cref="E:EPiServer.Enterprise.DynamicDataTransferHandler.DeserializedObject" /></summary>
+      <param name="sender">The sender.</param>
+      <param name="eventArgs">The <see cref="T:EPiServer.Data.Serialization.SerializationEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.AddToExport(System.Guid,System.String)">
+      <summary>
+            Adds an item from dynamic data store to export package.
+            </summary>
+      <param name="id">The guid based identifier for the item</param>
+      <param name="storeName">Name of the store.</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DynamicDataTransferHandler.AddToExport(System.Guid,System.String,System.Boolean)">
+      <summary>
+            Adds an item from dynamic data store to export package without change identity.
+            </summary>
+      <param name="id">The id.</param>
+      <param name="storeName">Name of the store.</param>
+      <param name="keepIdentity">if set to <c>true</c> [keep identity].</param>
+    </member>
+    <member name="T:EPiServer.Enterprise.ExportOptions">
+      <summary>
+            Specifies options used for <see cref="M:EPiServer.Enterprise.IDataExporter.Export(System.IO.Stream,System.Collections.Generic.IEnumerable{EPiServer.Core.Transfer.ExportSource},EPiServer.Enterprise.ExportOptions)" /> method.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ExportOptions.DefaultOptions">
+      <summary>
+            Default options for export execution
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ExportOptions.AutoCloseStream">
+      <summary>
+            Specifies if the stream should be automatically closed after import
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ExportOptions.RequiredSourceAccess">
+      <summary>
+            Specifies the required access level for content exporting.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ExportOptions.ExcludeFiles">
+      <summary>
+            Gets or sets a value indicating whether to exclude referenced files.
+            </summary>
+      <value>
+        <c>true</c> if files should be excluded; otherwise, <c>false</c>.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.ExportOptions.IsTest">
+      <summary>
+            If the current export should be started in test mode.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ExportOptions.IncludeReferencedContentTypes">
+      <summary>
+            Specifies if referenced content types should be exported.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ExportOptions.ExportPropertySettings">
+      <summary>
+            Specifies if proerpty settings should be included in the export package
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ExportOptions.TransferType">
+      <summary>
+            Specifies which type of export it should be executed as.
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.IDataExporter">
+      <summary>
+            Component responsible for exporting data to an exportable package
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.IDataExporter.Export(System.IO.Stream,System.Collections.Generic.IEnumerable{EPiServer.Core.Transfer.ExportSource},EPiServer.Enterprise.ExportOptions)">
+      <summary>
+            Export the specified data to an export package specified by <see cref="T:System.IO.Stream" /></summary>
+      <remarks>
+        <para>
+            Potential errors and warnings are logged to returned logger
+            </para>
+        <para>
+            Continuous progress can be retreieved from <see cref="P:EPiServer.Enterprise.IDataExporter.Status" />.
+            </para>
+      </remarks>
+      <param name="options">Specify settings for how the export should be done</param>
+      <param name="sourceRoots">The list of content roots to export</param>
+      <param name="stream">The stream to where the export packages is saved</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.IDataExporter.Abort">
+      <summary>
+            Abort the running export.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IDataExporter.ExportableItems">
+      <summary>
+            Can be used to add instances to the export package
+            </summary>
+      <remarks>
+            Supported key/types are ContentType/<see cref="T:EPiServer.DataAbstraction.ContentType" />, Category/<see cref="T:EPiServer.DataAbstraction.Category" />, VisistorGroup/<see cref="T:EPiServer.Personalization.VisitorGroups.VisitorGroup" />, 
+            TabDefinition/<see cref="T:EPiServer.DataAbstraction.TabDefinition" />, Frame/<see cref="T:EPiServer.DataAbstraction.Frame" />
+            and ContentLanguages/<see cref="T:System.Globalization.CultureInfo" />. 
+            </remarks>
+      <returns>A collection that instances can be added to</returns>
+    </member>
+    <member name="P:EPiServer.Enterprise.IDataExporter.Status">
+      <summary>
+            Gets status information about the ongoing export job
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.Export(EPiServer.Enterprise.IDataExporter,System.IO.Stream)">
+      <summary>
+            Export the specified data to an export package specified by <see cref="T:System.IO.Stream" /></summary>
+      <remarks>
+        <para>
+            Potential errors and warnings are logged to returned logger
+            </para>
+        <para>
+            Continuous progress can be retreieved from <see cref="P:EPiServer.Enterprise.IDataExporter.Status" />.
+            </para>
+      </remarks>
+      <param name="dataExporter">The exporter that is being extended</param>
+      <param name="stream">The stream to where the export packages is saved</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.Export(EPiServer.Enterprise.IDataExporter,System.IO.Stream,EPiServer.Enterprise.ExportOptions)">
+      <summary>
+            Export the specified data to an export package specified by <see cref="T:System.IO.Stream" /></summary>
+      <remarks>
+        <para>
+            Potential errors and warnings are logged to returned logger
+            </para>
+        <para>
+            Continuous progress can be retreieved from <see cref="P:EPiServer.Enterprise.IDataExporter.Status" />.
+            </para>
+      </remarks>
+      <param name="dataExporter">The exporter that is being extended</param>
+      <param name="options">Specify settings for how the export should be done</param>
+      <param name="stream">The stream to where the export packages is saved</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.Export(EPiServer.Enterprise.IDataExporter,System.IO.Stream,System.Collections.Generic.IList{EPiServer.Core.Transfer.ExportSource})">
+      <summary>
+            Export the specified data to an export package specified by <see cref="T:System.IO.Stream" /></summary>
+      <remarks>
+        <para>
+            Potential errors and warnings are logged to returned logger
+            </para>
+        <para>
+            Continuous progress can be retreieved from <see cref="P:EPiServer.Enterprise.IDataExporter.Status" />.
+            </para>
+      </remarks>
+      <param name="dataExporter">The exporter that is being extended</param>
+      <param name="sourceRoots">The list of content roots to export</param>
+      <param name="stream">The stream to where the export packages is saved</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.AddCategory(EPiServer.Enterprise.IDataExporter,EPiServer.DataAbstraction.Category)">
+      <summary>
+            Adds a category to the list of categories to export.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.AddContentType(EPiServer.Enterprise.IDataExporter,EPiServer.DataAbstraction.ContentType)">
+      <summary>
+            Adds a category to the list of categories to export.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.AddContentLanguage(EPiServer.Enterprise.IDataExporter,System.Globalization.CultureInfo)">
+      <summary>
+            Adds a language to the list of content languages to export.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.AddFrame(EPiServer.Enterprise.IDataExporter,EPiServer.DataAbstraction.Frame)">
+      <summary>
+            Adds a frame to the list of frames to export.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.AddTabDefinition(EPiServer.Enterprise.IDataExporter,EPiServer.DataAbstraction.TabDefinition)">
+      <summary>
+            Adds a tab definition to the list of tab definitions to export.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.AddVisitorGroup(EPiServer.Enterprise.IDataExporter,EPiServer.Personalization.VisitorGroups.VisitorGroup)">
+      <summary>
+            Adds a visitor group to the list of visitor groups to export.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataExporterExtensions.AddDynamicProperty(EPiServer.Enterprise.IDataExporter,EPiServer.DataAbstraction.PropertyDefinition)">
+      <summary>
+            Adds a dynamic property definition to the list of dynamic properties to export.
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ExportingEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataExportEvents.Starting" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ExportingBlobEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataExportEvents.BlobExporting" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ExportedBlobEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataExportEvents.BlobExported" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ExportingContentEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataExportEvents.ContentExporting" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ExportedContentEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataExportEvents.ContentExported" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ExportPropertyEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataExportEvents.PropertyExporting" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.IDataExportEvents">
+      <summary>
+            Contains events that are raised during export execution on <see cref="T:EPiServer.Enterprise.IDataExporter" />.
+            Event handlers can be registered to modify data during export.
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataExportEvents.Starting">
+      <summary>
+            Occurs when the import is starting
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataExportEvents.ContentExporting">
+      <summary>
+            Occurs before a content item is exported  
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataExportEvents.ContentExported">
+      <summary>
+            Occurs after a page has been exported
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataExportEvents.BlobExporting">
+      <summary>
+            Occurs before a blob is exported  
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataExportEvents.BlobExported">
+      <summary>
+            Occurs after a blob has been exported
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataExportEvents.PropertyExporting">
+      <summary>
+            Occurs when a proeprty is to be exported. An eventhandler can register to take care of property serializing
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.IDataImporter">
+      <summary>
+            Component responsible for importing data from an import package to the system
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.IDataImporter.Import(System.IO.Stream,EPiServer.Core.ContentReference,EPiServer.Enterprise.ImportOptions)">
+      <summary>
+            Imports the import packages specified by <see cref="T:System.IO.Stream" /></summary>
+      <remarks>
+        <para>
+            Potential errors and warnings are logged to returned logger
+            </para>
+        <para>
+            Continuous progress can be retreieved from <see cref="P:EPiServer.Enterprise.IDataImporter.Status" />.
+            </para>
+      </remarks>
+      <param name="stream">The stream to the import package</param>
+      <param name="options">Options that specify settings for the import</param>
+      <param name="destinationRoot">The root where content items will be imported under</param>
+      <returns>A logger with result</returns>
+    </member>
+    <member name="M:EPiServer.Enterprise.IDataImporter.Abort">
+      <summary>
+            Abort the running import.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IDataImporter.Status">
+      <summary>
+            Contains continuosly updates of the import process
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataImporterExtensions.Import(EPiServer.Enterprise.IDataImporter,System.IO.Stream,EPiServer.Enterprise.ImportOptions)">
+      <summary>
+            Imports the import packages specified by <see cref="T:System.IO.Stream" /></summary>
+      <remarks>
+        <para>
+            Potential errors and warnings are logged to returned logger
+            </para>
+        <para>
+            Continuous progress can be retreieved from <see cref="P:EPiServer.Enterprise.IDataExporter.Status" />.
+            </para>
+      </remarks>
+      <param name="dataImporter">The exporter that is being extended</param>
+      <param name="stream">The stream to the import package</param>
+      <param name="options">Options that specify settings for the import</param>
+      <returns>A logger with result</returns>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataImporterExtensions.Import(EPiServer.Enterprise.IDataImporter,System.IO.Stream)">
+      <summary>
+            Imports an import package that does not contain content specified by <see cref="T:System.IO.Stream" />. 
+            </summary>
+      <remarks>
+        <para>
+            Potential errors and warnings are logged to returned logger
+            </para>
+        <para>
+            Continuous progress can be retreieved from <see cref="P:EPiServer.Enterprise.IDataExporter.Status" />.
+            </para>
+      </remarks>
+      <param name="dataImporter">The exporter that is being extended</param>
+      <param name="stream">The stream to the import package</param>
+      <returns>A logger with result</returns>
+    </member>
+    <member name="M:EPiServer.Enterprise.DataImporterExtensions.Import(EPiServer.Enterprise.IDataImporter,System.IO.Stream,EPiServer.Core.ContentReference)">
+      <summary>
+            Imports the import packages specified by <see cref="T:System.IO.Stream" /></summary>
+      <remarks>
+        <para>
+            Potential errors and warnings are logged to returned logger
+            </para>
+        <para>
+            Continuous progress can be retreieved from <see cref="P:EPiServer.Enterprise.IDataExporter.Status" />.
+            </para>
+      </remarks>
+      <param name="dataImporter">The exporter that is being extended</param>
+      <param name="stream">The stream to the import package</param>
+      <param name="destinationRoot">The root where content items will be imported under</param>
+      <returns>A logger with result</returns>
+    </member>
+    <member name="T:EPiServer.Enterprise.ImportingEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataImportEvents.Starting" /> and <see cref="E:EPiServer.Enterprise.IDataImportEvents.Completed" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ImportingBlobEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataImportEvents.BlobImporting" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ImportedBlobEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataImportEvents.BlobImporting" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ImportingContentEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataImportEvents.ContentImporting" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ImportedContentEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataImportEvents.ContentImporting" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ImportingPropertyEventHandler">
+      <summary>
+            Event handler signature for <see cref="E:EPiServer.Enterprise.IDataImportEvents.PropertyImporting" /></summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.IDataImportEvents">
+      <summary>
+            Contains events that are raised during import execution on <see cref="T:EPiServer.Enterprise.IDataImporter" />.
+            Event handlers can be registered to modify data during import.
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataImportEvents.Starting">
+      <summary>
+            Occurs when the import is starting
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataImportEvents.Completed">
+      <summary>
+            Occurs when the import is completed
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataImportEvents.ContentImporting">
+      <summary>
+            Occurs before a content item is imported  
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataImportEvents.ContentImported">
+      <summary>
+            Occurs after a page has been imported
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataImportEvents.BlobImporting">
+      <summary>
+            Occurs before a blob is imported  
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataImportEvents.BlobImported">
+      <summary>
+            Occurs after a blob has been imported
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDataImportEvents.PropertyImporting">
+      <summary>
+            Occurs when a proeprty is to be imported. An eventhandler can register to take care of property deserializing
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.IDynamicDataTransfer">
+      <summary>
+            Handle transfering data from Dynamic Data Stores in import packages.
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDynamicDataTransfer.DeserializingFromXml">
+      <summary>
+            Occurs at deserilalization for items that has been modified by event <see cref="E:EPiServer.Enterprise.IDynamicDataTransfer.SerializingToXml" />.
+            </summary>
+      <remarks>This event is only raised when an objects serilization format has been relplace by an eventhandler
+            to <see cref="E:EPiServer.Enterprise.IDynamicDataTransfer.SerializingToXml" />.</remarks>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDynamicDataTransfer.DeserializedObject">
+      <summary>
+            Occurs when a DDS object is deserialized but not yet saved to DDS. An eventhandler
+            has possibility to alter object or cancel save operation.
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDynamicDataTransfer.SerializingObject">
+      <summary>
+            Occurs when a DDS object is about to be serilaized to stream. An eventhandler
+            has possibility to alter object or cancel save operation.
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDynamicDataTransfer.SerializingToXml">
+      <summary>
+            Occurs when a DDS object or a object reference has been serialized. An eventhandler
+            has possibility to replace the serialized format of the object. If an item is modified
+            then an eventhandler to <see cref="E:EPiServer.Enterprise.IDynamicDataTransfer.DeserializingFromXml" /> must be registered to handle
+            recreation of object.
+            </summary>
+    </member>
+    <member name="E:EPiServer.Enterprise.IDynamicDataTransfer.ImportCompleted">
+      <summary>
+            Occurs when [import completed].
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IDynamicDataTransfer.ContentTransferContext">
+      <summary>
+            The context for the import or export.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.IDynamicDataTransfer.AddToExport(System.Guid,System.String,System.Boolean)">
+      <summary>
+            Adds an item from dynamic data store to export package.
+            </summary>
+      <param name="id">The id.</param>
+      <param name="storeName">Name of the store.</param>
+      <param name="keepIdentity">if set to <c>true</c> the identity of the item is preserved during import.</param>
+    </member>
+    <member name="T:EPiServer.Enterprise.IExportStatus">
+      <summary>
+            Contains continuosly updated information about an export execution
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IExportStatus.IsDone">
+      <summary>
+            Indicates if the current import execution is done
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IExportStatus.IsAborting">
+      <summary>
+            Indicates if the current import execution is aborting
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IExportStatus.Log">
+      <summary>
+            Gets the logger for the import context.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IExportStatus.ContentTypesCount">
+      <summary>
+            Number of content types exported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IExportStatus.TabDefinitionsCount">
+      <summary>
+            Number of tab definitions exported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IExportStatus.CategoriesCount">
+      <summary>
+            Number of categories exported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IExportStatus.VisitorGroupsCount">
+      <summary>
+            Number of visitor groups exported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IExportStatus.FramesCount">
+      <summary>
+            Number of frames exported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IExportStatus.DynamicPropertyDefinitionsCount">
+      <summary>
+            Number of dynamic property definitions exported
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.IImportStatus">
+      <summary>
+            Contains continuosly updated information about an import execution
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.IsDone">
+      <summary>
+            Indicates if the current import execution is done
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.IsAborting">
+      <summary>
+            Indicates if the current import execution is aborting
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.ImportedRoot">
+      <summary>
+            Gets the top level content item that was imported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.Log">
+      <summary>
+            Gets the logger for the import context.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.ContainedVppFiles">
+      <summary>
+            Gets information if current import contained files from a Virtual Path Provider
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.TabDefinitions">
+      <summary>
+            Gets information about which tab definitions that where imported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.Categories">
+      <summary>
+            Gets information about which categories that where imported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.VisitorGroups">
+      <summary>
+            Gets information about which Visitor groups that where imported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.Frames">
+      <summary>
+            Gets information about which frames that where imported
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.ContentLanguages">
+      <summary>
+            Specifies the content languages that has been imported.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.ContentTypes">
+      <summary>
+            Specifies the content types that has been imported.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.NumberOfContentItems">
+      <summary>
+            Gets the number of content items to import.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.IImportStatus.DynamicPropertyDefinitions">
+      <summary>
+            Gets information about which dynamic property definitions that where imported
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ImportOptions">
+      <summary>
+            Specifies options used for <see cref="M:EPiServer.Enterprise.IDataImporter.Import(System.IO.Stream,EPiServer.Core.ContentReference,EPiServer.Enterprise.ImportOptions)" /> method.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ImportOptions.DefaultOptions">
+      <summary>
+            Default options for import execution
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ImportOptions.SaveAction">
+      <summary>
+            Gets or sets the action that should be used when importing content.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ImportOptions.KeepIdentity">
+      <summary>
+            Gets or sets if identities for imported items should be preserved.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ImportOptions.IsTest">
+      <summary>
+            Specifies if the import should be executed in test mode. It will then process package without doing any actual import.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ImportOptions.ContentLanguages">
+      <summary>
+            Specifies the content languages to transfer, if no list of languages is in the list all languages is transfered.
+            </summary>
+      <value>The languages to be transfered.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.ImportOptions.AutoCloseStream">
+      <summary>
+            Specifies if the stream should be automatically closed after import
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ImportOptions.TransferType">
+      <summary>
+            Specifies which type of import it should be executed as.
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ITransferLog">
+      <summary>
+            Contains warnings and/or errors captured during an import or export operation
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ITransferLog.Errors">
+      <summary>
+            A collection of errors that has been captured during execution.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.ITransferLog.Warnings">
+      <summary>
+            A collection of warnings that has been captured during execution.
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.Internal.DefaultDataExporter">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Export pages to ziped XML format.
+            </summary>
+      <example>
+            Example that demonstrates how to export a page to a file
+            <code source="../CodeSamples/EPiServer/Enterprise/DataExporterSamples.cs" region="ExportContent" lang="cs" /></example>
+      <exclude />
+    </member>
+    <member name="F:EPiServer.Enterprise.Internal.DefaultDataExporter.ExporterVersion">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. The exported file version. 
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.#ctor">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Internal.DefaultDataExporter" /></summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.#ctor(EPiServer.Enterprise.Internal.IDataExportEventsRaiser,EPiServer.Enterprise.IDataExportEvents,EPiServer.Personalization.VisitorGroups.IVisitorGroupRepository,EPiServer.Core.Transfer.IRawContentRetriever,EPiServer.IContentRepository,EPiServer.Web.IPermanentLinkMapper,EPiServer.DataAbstraction.IContentTypeRepository,EPiServer.Core.IContentProviderManager,EPiServer.DataAbstraction.ContentTypeAvailabilityService,EPiServer.DataAbstraction.IAvailableSettingsRepository,EPiServer.Core.Transfer.IContentTransfer,EPiServer.Core.Transfer.Internal.PropertyCategoryTransform)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes the <see cref="T:EPiServer.Enterprise.Internal.DefaultDataExporter" /> class. And set up the default property transform event handlers for export.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataExporter.Culture">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the culture to use.
+            </summary>
+      <value>The culture.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataExporter.RequiredSourceAccess">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the required access level for page exporting.
+            </summary>
+      <value>The required source access.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataExporter.NumberOfExportedVisitorGroup">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the number of exported visitor group.
+            </summary>
+      <value>The number of exported visitor group.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataExporter.Status">
+      <inheritdoc />
+      <exclude />
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice.</summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataExporter.ExportableItems">
+      <inheritdoc />
+      <exclude />
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice.</summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.Export(System.IO.Stream,System.Collections.Generic.IEnumerable{EPiServer.Core.Transfer.ExportSource},EPiServer.Enterprise.ExportOptions)">
+      <inheritdoc />
+      <exclude />
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice.</summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.Export">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Starting the export. The export can be done several times to empty
+            the exporter.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.ExportRaw">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Exports the raw.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.IsCompressible(System.IO.Stream)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Estimates if a stream is compressible by reading part of it (up to ~85 kb) and compressing
+            the data with DeflateStream. The stream is considered compressible if the size of that part is
+            reduced by at least 10%.
+            </summary>
+      <param name="fileStream">The stream whose compressibility to estimate.</param>
+      <returns>True if the stream is compressible, False otherwise.</returns>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.ExportContentAndFireEvents(System.Xml.XmlTextWriter,EPiServer.Core.ContentReference,EPiServer.Core.Transfer.IContentTransfer,EPiServer.Core.Transfer.IContentTransferContext,EPiServer.Security.AccessLevel)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Fires the 'page exporting' event, calls the 'ExportPage' method and fires the 'page exported' event
+            </summary>
+      <param name="xml">The writer</param>
+      <param name="contentToExport">Tha page to export</param>
+      <param name="contentTransfer">The exporter</param>
+      <param name="context">Transfer context</param>
+      <param name="requiredSourceAccess">Access level</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.ExportContent(System.Xml.XmlTextWriter,EPiServer.Core.ContentReference,EPiServer.Core.Transfer.IContentTransferContext,EPiServer.Core.Transfer.ITransferContentData)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Exports one content item to the XML writer.
+            </summary>
+      <param name="xml">The XML.</param>
+      <param name="contentToExport">The content to export.</param>
+      <param name="context">The context.</param>
+      <param name="transferContent">Content of the transfer.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.NotifyExportHandlers(EPiServer.Core.Transfer.ITransferContentData)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Notifies the transfer handlers about transfering of page.
+            </summary>
+      <param name="transferContent">The transfer page.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.NotifyExportHandlers(System.Collections.Generic.IEnumerable{EPiServer.DataAbstraction.ContentType})">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Notifies the transfer handlers about transfering of blocktypes.
+            </summary>
+      <param name="conentTypes">The blocktypes.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.NotifyDynamicPropertiesExporting(System.Collections.Generic.IList{EPiServer.DataAbstraction.PropertyDefinition})">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Notifies the transfer handlers about transfering of dynamic properties.
+            </summary>
+      <param name="propertyDefinitions">The property definitions.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.BroadcastContentExportingEvent(EPiServer.Enterprise.ContentExportingEventArgs)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Sends Page or file exporting event to all listeners.
+            </summary>
+      <remarks>If someone cancel the exporting of the page, the exporting of the page will be cancelled and no other listener will get the event for the page</remarks>
+      <param name="exportingEventArgs">The event args</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.BroadcastFileExportingEvent(EPiServer.Enterprise.FileExportingEventArgs)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Sends File or file exporting event to all listeners.
+            </summary>
+      <remarks>If someone cancel the exporting of the file, the exporting of the file will be cancelled and no other listener will get the event for the page</remarks>
+      <param name="exportingEventArgs">The event args</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.GetRawContentInfo(EPiServer.Core.ContentReference)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the RawContentInfo corresponding to the referenced content
+            </summary>
+      <param name="contentLink">The content link.</param>
+      <returns>A RawPageInfo instance</returns>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.Close">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Closes the under laying XML writer.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataExporter.Dispose">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Disposes the exporter and close the under laying XML writer.
+            </summary>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Internal.DefaultDataImporter">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Import pages from binary format
+            </summary>
+      <example>
+            An example that demonstrates how to import a package that has been exported with the DataExporter 
+            class. The package is imported directly under the root page in the destination site. 
+            <code source="../CodeSamples/EPiServer/Enterprise/DataImporterSamples.cs" region="ImportPage" lang="cs" /></example>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataImporter.#ctor">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Internal.DefaultDataImporter" /> class
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataImporter.ImportedVppFiles">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets a value indicating whether the importer imported vpp based files.
+            </summary>
+      <value>
+        <c>true</c> if vpp based files where imported; otherwise, <c>false</c>.
+            </value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataImporter.AutoDetectCulture">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets a value indicating whether [auto detect culture].
+            </summary>
+      <value>
+        <c>true</c> if [auto detect culture]; otherwise, <c>false</c>.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataImporter.NumberOfPagesToImport">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the all the pages to import.
+            </summary>
+      <value>The number of pages to import.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataImporter.NumberOfVisitorGroupToImport">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the number of visitor group to import.
+            </summary>
+      <value>The number of visitor group to import.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataImporter.IgnoreDynamicProperties">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. If dynamic properties in import packages should be ignored
+            </summary>
+      <value>If value is not set the default value will be based on if dynamic properties are enabled or not in configuration</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.DefaultDataImporter.Status">
+      <inheritdoc />
+      <exclude />
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice.</summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataImporter.Import(System.IO.Stream,EPiServer.Core.ContentReference,EPiServer.Enterprise.ImportOptions)">
+      <inheritdoc />
+      <exclude />
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice.</summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataImporter.Import">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Execute the import.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataImporter.BroadcastContentImportingEvent(EPiServer.Enterprise.ContentImportingEventArgs)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Sends Page importing event to all listeners.
+            </summary>
+      <remarks>If someone cancel the importing of the page, the importing of the page will be cancelled and no other listener will get the event for the page</remarks>
+      <param name="contentImportingEventArgs">The event args</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.DefaultDataImporter.BroadcastFileImportingEvent(EPiServer.Enterprise.FileImportingEventArgs)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Sends File importing event to all listeners.
+            </summary>
+      <remarks>If someone cancel the importing of the file, the importing of the file will be cancelled and no other listener will get the event for the page</remarks>
+      <param name="fileImportingEventArgs">The event args</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Internal.ExportImportBase">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Base class for export and import of pages
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.IsAborting">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. If the current operation has been aborted by a call to the Abort method.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.ContinueOnError">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets a value indicating whether [continue on error].
+            </summary>
+      <value>
+        <c>true</c> if [continue on error]; otherwise, <c>false</c>.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.AutoCloseStream">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. If input stream should be closed automatically after the import/export method has been called.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.PackageDefinitionName">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the name of the file to store the definition of content (content type def, category def and etc).
+            </summary>
+      <value>The name of the content package.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.PackageContentName">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the name of the package content.
+            </summary>
+      <value>
+            The name of the package content.
+            </value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.PackagePostContentName">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the name of the package post content.
+            </summary>
+      <value>
+            The name of the package post content.
+            </value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.PackageMediaName">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the name of the package that contains media binary.
+            </summary>
+      <value>
+            The name of the package that contain media binary.
+            </value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.PackageExtension">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the transfer package extension.
+            </summary>
+      <value>The extension of the export/import file.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.DynamicDataTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the dynamic data transfer handler instance.
+            </summary>
+      <remarks>This instance takes care of transfer of DDS objects.</remarks>
+      <value>The dynamic data transfer handler.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.IdMappingName">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the name of the file to store the EPiServer content to.
+            </summary>
+      <value>The name of the content package.</value>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.ExportImportBase.Abort">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Abort the running export/import.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.ExportImportBase.CreateWritePackage">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Create a package for exporting.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.ExportImportBase.OpenReadPackage">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Open a package for importing.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.ExportImportBase.CloseStreamsAndPackages">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Close streams opened by CreateReadStream/CreateWriteStream.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.IsDone">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. If the current import/export is done.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.Stream">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. The stream that should be used to write or read the actual package.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.DeleteContent">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the page collection for pages to delete.
+            </summary>
+      <value>The pages to delete.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.VisitorGroups">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the visitor groups Id.
+            </summary>
+      <value>The visitor groups.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.DeletedVisitorGroups">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the deleted visitor groups.
+            </summary>
+      <value>The deleted visitor groups.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.DeleteContentLanguages">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the page collection for page languages to delete.
+            </summary>
+      <value>
+            The page languages to delete.
+            </value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.MoveContent">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the pages identies to move.
+            </summary>
+      <value>A dictionary of pages identities to move to a new parent identity.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.ExportPropertySettings">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets a value indicating export property settings.
+            </summary>
+      <value>
+        <c>true</c> if [export property settings]; otherwise, <c>false</c>.
+            </value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.Frames">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Frames that should be exported or has been imported.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.TabDefinitions">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Tabs that should be exported or has been imported.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.Categories">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Categories that should be exported or has been imported.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.DynamicPropertyDefinitions">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Definitions of dynamic properties that should be exported or has been imported.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.IsTest">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. If the current import should be started in test mode.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.CurrentContext">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Access the current export/import context without access to the original class.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Internal.ExportImportBase.FileTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the file transfer object, that holds the functionality to transfer files..
+            </summary>
+      <value>The file transfer object.</value>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.ExportImportBase.OnExportProperty(EPiServer.Core.Transfer.TransformPropertyEventArgs)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Raises the ExportProperty event.
+            </summary>
+      <param name="e">The <see cref="T:EPiServer.Core.Transfer.TransformPropertyEventArgs" /> instance containing the event data to export a property.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.ExportImportBase.OnImportProperty(EPiServer.Core.Transfer.TransformPropertyEventArgs)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Raises the ImportProperty event.
+            </summary>
+      <param name="e">The <see cref="T:EPiServer.Core.Transfer.TransformPropertyEventArgs" /> instance containing the event data to import a property.</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Internal.SerialiazableGuidEntry">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Represents a Xml serializable Guid,Guid dictionary entry.
+            </summary>
+      <exclude />
+    </member>
+    <member name="F:EPiServer.Enterprise.Internal.SerialiazableGuidEntry.Key">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. The key of the dictionary item
+            </summary>
+      <exclude />
+    </member>
+    <member name="F:EPiServer.Enterprise.Internal.SerialiazableGuidEntry.Value">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. The value of the dictionary item
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.SerialiazableGuidEntry.#ctor">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Internal.SerialiazableGuidEntry" /> class.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Internal.SerialiazableGuidEntry.#ctor(System.Guid,System.Guid)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Internal.SerialiazableGuidEntry" /> class.
+            </summary>
+      <param name="key">The key.</param>
+      <param name="value">The value.</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Internal.DefaultSiteContentInitialization">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Supports automatic setup of default site content (used by templates to bootstrap a site with content)
+            </summary>
+      <remarks>Place a file ~/App_Data/DefaultSiteContent.episerverdata on the web site to automatically import and configure a new site. Site will
+            only be created where there are no other sites defined and there are no content under the root page beside the wastebasket.</remarks>
+      <exclude />
+    </member>
+    <member name="E:EPiServer.Enterprise.Internal.DefaultSiteContentInitialization.ImportedSiteContent">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Triggered when setup process has been completed
+            </summary>
+      <remarks>This event is called inside a lock, so no other HTTP requests can be processed until all event handlers listening to this event return.</remarks>
+      <exclude />
+    </member>
+    <member name="E:EPiServer.Enterprise.Internal.DefaultSiteContentInitialization.ImportingSiteContent">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Triggered when setup process is started
+            </summary>
+      <remarks>This event is called inside a lock, so no other HTTP requests can be processed until all event handlers listening to this event return.</remarks>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.LanguageContentReference">
+      <summary>
+            Represents a reference to a content item in a specific language
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.LanguageContentReference.ContentGuid">
+      <summary>
+            Gets or sets the Guid based identifier for the content.
+            </summary>
+      <value>The content GUID.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.LanguageContentReference.LanguageBranch">
+      <summary>
+            Gets or sets the language branch for the content item.
+            </summary>
+      <value>The language branch.</value>
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.ITransferContext">
+      <summary>
+            Additional context for a import/export transfer
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.Frames">
+      <summary>
+            Gets the frames that is part of the import/export package.
+            </summary>
+      <value>The frames.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.TabDefinitions">
+      <summary>
+            Gets the tab definitions that is part of the import/export package.
+            </summary>
+      <value>The tab definitions.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.Categories">
+      <summary>
+            Gets the categories that is part of the import/export package.
+            </summary>
+      <value>The categories.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.DynamicPropertyDefinitions">
+      <summary>
+            Gets the dynamic property definitions that is part of the import/export package.
+            </summary>
+      <value>The dynamic property definitions.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.DeleteContent">
+      <summary>
+            Gets the identities for content that is about to be deleted during process of this package.
+            </summary>
+      <value>The content of the delete.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.DeleteContentLanguages">
+      <summary>
+            Gets the identities for language version of a content that is about to be deleted during process of this package.
+            </summary>
+      <value>The delete content languages.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.DeleteChildrenGuids">
+      <summary>
+            Gets guid identify for all content items whos children is to be deleted.
+            </summary>
+      <value>The delete children guids.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.MoveContent">
+      <summary>
+            Gets a set of identities of contents that are being moved during proces of this package.
+            </summary>
+      <value>The content of the move.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.IsTest">
+      <summary>
+            Gets a value indicating whether the current package process is executed in test/validation mode.
+            </summary>
+      <value>
+        <c>true</c> if this instance is test; otherwise, <c>false</c>.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITransferContext.VersionID">
+      <summary>
+            Gets the version ID of this package.
+            </summary>
+      <value>The version ID.</value>
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.ITypeTransferHandler">
+      <summary>
+            Specifies methods used to "override" serilaization of DDS items.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.ITypeTransferHandler.HandledType">
+      <summary>
+            Gets the type that is hanlded by this implemenation.
+            </summary>
+      <value>The type of the hanlded.</value>
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.ITypeTransferHandler.SerializeItem(EPiServer.Enterprise.DynamicDataTransferHandler,System.Object)">
+      <summary>
+            Takes care of serialization of item with an own serialized format.
+            </summary>
+      <param name="transferHandler">The transfer handler.</param>
+      <param name="instance">The instance that beeing serialized.</param>
+      <returns>Replaced serialized format</returns>
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.ITypeTransferHandler.CreateInstance(EPiServer.Enterprise.DynamicDataTransferHandler,System.Xml.Linq.XElement)">
+      <summary>
+            Creates an instance of handled type from serialized format.
+            </summary>
+      <param name="transferHandler">The transfer handler.</param>
+      <param name="serializedItem">The serialized item.</param>
+      <returns>An instance of handled type</returns>
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypesTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Handles Import/Export of settings for available PageTypes
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypesTransfer.#ctor(EPiServer.Enterprise.Transfer.ITransferContext,EPiServer.DataAbstraction.ContentTypeAvailabilityService,EPiServer.DataAbstraction.IAvailableSettingsRepository,EPiServer.DataAbstraction.IContentTypeRepository)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypesTransfer" /> class.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="availablePageTypeService">The available page type service.</param>
+      <param name="availablePageTypesRepository">The available page types repository.</param>
+      <param name="contentTypeRepository">The page type repository.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypesTransfer.ImportLegacy(System.Xml.XmlTextReader)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Imports settings for available page types.
+            </summary>
+      <param name="input">The input.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypesTransfer.Import(System.Xml.XmlTextReader)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Imports settings for available page types.
+            </summary>
+      <param name="input">The input.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypesTransfer.Export(System.Xml.XmlTextWriter)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Export settings for available page types.
+            </summary>
+      <param name="output">The output.</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypeDTO">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. DataTransferObject for <see cref="T:EPiServer.DataAbstraction.AvailableSetting" /></summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypeDTO.#ctor">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypeDTO" /> class.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypeDTO.#ctor(System.String,EPiServer.DataAbstraction.AvailableSetting)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypeDTO" /> class.
+            </summary>
+      <param name="contentTypeName">Name of the content type.</param>
+      <param name="allowedSettings">The allowed settings.</param>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypeDTO.ContentTypeName">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the name of the page type.
+            </summary>
+      <value>The name of the page type.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypeDTO.Availability">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the availability.
+            </summary>
+      <value>The availability.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypeDTO.RelatedContentTypeNames">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the related page type names.
+            </summary>
+      <value>The related page type names.</value>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.AllowedPageTypeDTO">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. DataTransferObject for <see cref="T:EPiServer.DataAbstraction.AvailableSetting" /></summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.AllowedPageTypeDTO.#ctor">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.AllowedContentTypeDTO" /> class.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.AllowedPageTypeDTO.PageTypeName">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the name of the page type.
+            </summary>
+      <value>The name of the page type.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.AllowedPageTypeDTO.RelatedPageTypeNames">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the related page type names.
+            </summary>
+      <value>The related page type names.</value>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.AllowedPageTypeDTO.Availability">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the availability.
+            </summary>
+      <value>The availability.</value>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.CategoryTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Transfer category tree information
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.CategoryTransfer.#ctor(EPiServer.Enterprise.Transfer.ITransferContext)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.CategoryTransfer" /> class.
+            </summary>
+      <param name="context">The transfer context.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.CategoryTransfer.Import(System.Xml.XmlTextReader)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Imports a category collection from XML stream.
+            </summary>
+      <param name="input">The input as a XML stream.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.CategoryTransfer.Export(System.Xml.XmlTextWriter)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Exports all categories to a XML stream.
+            </summary>
+      <param name="output">The XML stream.</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.ContentCopyHandler">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Handles copy operations by creating an export package that is then imported.
+            <remarks>
+            If number of pages is below EPiServer.Configuration.Settings.BackgroundCopyThreshold then the operation is 
+            performed on a MemoryStream and. Otherwise the copy operation will be perfomred using a temporary file.
+            </remarks></summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.ContentCopyHandler.Copy(EPiServer.Core.ContentReference,EPiServer.Core.ContentReference,EPiServer.Security.AccessLevel,System.Boolean)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Copy pages to another container.
+            </summary>
+      <param name="pageLink">The link to the content data to copy.</param>
+      <param name="destinationLink">The container where the page will be copied</param>
+      <param name="requiredSourceAccess">The required source access to check access against</param>
+      <param name="publishOnDestination">If the new pages should be published on the destination</param>
+      <returns>
+      </returns>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.ContentTransferForTest">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Transfer pages
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.ContentTransferForTest.PageLanguages">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the page languages to transfer, if no list of languages is in the list all languages is transfered.
+            </summary>
+      <value>The page languages to be transfered.</value>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.IContentTransferValidator">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Marker interface for validate for transfering of content. It use in the import context.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.ContentTypeTransfer.PropertyTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the property transfer.
+            </summary>
+      <remarks>
+            This is exposed for test purposes.
+            </remarks>
+      <value>
+            The property transfer.
+            </value>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.DeletePageLanguageTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Summary description for DeletePageLanguageTransfer.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.DeletePageLanguageTransfer.Import(System.Xml.XmlTextReader)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Delete languages defined in the import reader.
+            </summary>
+      <param name="input">The input reader.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.DeletePageLanguageTransfer.Export(System.Xml.XmlTextWriter)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Transfer the content language to an exportable format
+            </summary>
+      <param name="output">The Xml writer to write the result to.</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.DeleteContentTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Summary description for DeletedPagesTransfer.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.DeleteVisitorGroupsTransfer.#ctor(EPiServer.Enterprise.Transfer.ITransferContext)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.DeleteVisitorGroupsTransfer" /> class.
+            </summary>
+      <param name="context">The context.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.DeleteVisitorGroupsTransfer.Import(System.Xml.XmlTextReader)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Deleted the Visitor Groups that are in the context.
+            </summary>
+      <param name="input">The input.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.DeleteVisitorGroupsTransfer.Export(System.Xml.XmlTextWriter)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Added the deleted visitor group item in context.
+            </summary>
+      <param name="output">The output.</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.DependentData">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Generic provider for loading linked objects
+            </summary>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.EntityReferenceTransferHandler">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Hanldes transfer of EntityRefernce instances stored in DynamicDataStore.
+            </summary>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.EntityReferenceTransferHandler.HandledType">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the type that is hanlded by this implemenation.
+            <remarks>returns typeof(EntityReference)</remarks></summary>
+      <value>The type that is hanlded by this .</value>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.EntityReferenceTransferHandler.SerializeItem(EPiServer.Enterprise.IDynamicDataTransfer,System.Object)">
+      <inheritdoc />
+      <exclude />
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice.</summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.EntityReferenceTransferHandler.CreateInstance(EPiServer.Enterprise.IDynamicDataTransfer,System.Xml.Linq.XElement)">
+      <inheritdoc />
+      <exclude />
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice.</summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.EntityReferenceTransferHandler.SerializeItem(EPiServer.Enterprise.DynamicDataTransferHandler,System.Object)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Replaces the serialized item with an own serialized format.
+            </summary>
+      <param name="transferHandler">The transfer handler.</param>
+      <param name="instance">The instance that beeing serialized.</param>
+      <returns>Replaced serialized format</returns>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.EntityReferenceTransferHandler.CreateInstance(EPiServer.Enterprise.DynamicDataTransferHandler,System.Xml.Linq.XElement)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Creates an instance of handled type from serialized format.
+            </summary>
+      <param name="transferHandler">The transfer handler.</param>
+      <param name="serializedItem">The serialized item.</param>
+      <returns>An instance of handled type</returns>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.FrameTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Transfer frames
+            </summary>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.ObjectTransferBase">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Base class for object transfer
+            </summary>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.PropertyDefinitionTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Transfer object for all properties, redirects to the correct transfer object.
+            </summary>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.TabDefinitionTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Transfer tabs
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.VisitorGroupsTransfer.#ctor(EPiServer.Enterprise.Transfer.ITransferContext)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.VisitorGroupsTransfer" /> class.
+            </summary>
+      <param name="context">The context.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.VisitorGroupsTransfer.Import(System.Xml.XmlTextReader)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Deserialize  the visitor groups in to the context
+            </summary>
+      <param name="input">The input.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.VisitorGroupsTransfer.Export(System.Xml.XmlTextWriter)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Serialize the visitor group in to stream
+            </summary>
+      <param name="output">The output.</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.XmlTransferBase">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Base class for object transfer
+            </summary>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.DynamicPropertyDefinitionTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Transfer dynamic properties
+            </summary>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.DynamicPropertyDefinitionTransfer.PropertyDefinitionListWrapper">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. This is an internal class only used for serialization during import/export.
+                The reason it is public is because it is needed for the serializer.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.DynamicPropertyDefinitionTransfer.PropertyDefinitionListWrapper.#ctor">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.DynamicPropertyDefinitionTransfer.PropertyDefinitionListWrapper" /> class.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.DynamicPropertyDefinitionTransfer.PropertyDefinitionListWrapper.#ctor(System.Collections.Generic.IList{EPiServer.DataAbstraction.PropertyDefinition})">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.DynamicPropertyDefinitionTransfer.PropertyDefinitionListWrapper" /> class.
+            </summary>
+      <param name="definitions">The definitions.</param>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.DynamicPropertyDefinitionTransfer.PropertyDefinitionListWrapper.Definitions">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the list of property definitions.
+            </summary>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.PageReferenceTransferHandler">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Hanldes transfer of PageReferences stored in DDS
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.PageReferenceTransferHandler.#ctor(EPiServer.Web.IPermanentLinkMapper)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Transfer.Internal.PageReferenceTransferHandler" /> class.
+            </summary>
+      <param name="permanentLinkMapper">The permanent link mapper.</param>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.PageReferenceTransferHandler.HandledType">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the type that is hanlded by this implemenation.
+            <remarks>returns typeof(PageReference)</remarks></summary>
+      <value>The type that is hanlded by this .</value>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.PageReferenceTransferHandler.SerializeItem(EPiServer.Enterprise.IDynamicDataTransfer,System.Object)">
+      <inheritdoc />
+      <exclude />
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice.</summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.PageReferenceTransferHandler.CreateInstance(EPiServer.Enterprise.IDynamicDataTransfer,System.Xml.Linq.XElement)">
+      <inheritdoc />
+      <exclude />
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice.</summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.PageReferenceTransferHandler.SerializeItem(EPiServer.Enterprise.DynamicDataTransferHandler,System.Object)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Replaces the serialized item with an own serialized format.
+            </summary>
+      <param name="transferHandler">The transfer handler.</param>
+      <param name="instance">The instance that beeing serialized.</param>
+      <returns>Replaced serialized format</returns>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.PageReferenceTransferHandler.CreateInstance(EPiServer.Enterprise.DynamicDataTransferHandler,System.Xml.Linq.XElement)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Creates an instance of PageReference from serialized format.
+            </summary>
+      <param name="transferHandler">The transfer handler.</param>
+      <param name="serializedItem">The serialized item.</param>
+      <returns>An instance of handled type</returns>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.VisitorGroupTransferDataHandler">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Handle transfering of visitorgroup data in the export/import and mirrroring context
+            <remarks>
+                Visitor group and visitor group criteria are in the DDS items and it uses the DynamicDataTrafsferHandler 
+            </remarks></summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.VisitorGroupTransferDataHandler.GetExisitingVistitorGroups">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets the exisiting vistitor groups.
+            </summary>
+      <returns>
+      </returns>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Internal.VisitorGroupTransferDataHandler.VisitorGroupRepository">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Gets or sets the visitor group repository.
+            </summary>
+      <value>
+            The visitor group repository.
+            </value>
+      <remarks>This is mainly exposed to be settable in unit tests. During runtime it is fetched from IOC container.</remarks>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.VisitorGroupTransferDataHandler.AddVisitorGroupToExportPackage(EPiServer.Enterprise.IDataExporter,EPiServer.Core.Transfer.ITransferHandlerContext)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Adds the visitor group to export package.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.VisitorGroupTransferDataHandler.Initialize(EPiServer.Framework.Initialization.InitializationEngine)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes the Visitor group transfer handler. Listen to changing of visitor group repository
+            </summary>
+      <param name="context">The context.</param>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.VisitorGroupTransferDataHandler.Uninitialize(EPiServer.Framework.Initialization.InitializationEngine)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Uninitializes the Visitor group transfer handler. Disconnect from changing of visitor group repository
+            </summary>
+      <param name="context">The context.</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Internal.XFormFolderIdTransfer">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. checks if a xForm uses a custom folder and if so adds folder to package.
+            </summary>
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Internal.XFormFolderIdTransfer.ExportEventHandler(System.Object,EPiServer.Core.Transfer.TransformPropertyEventArgs)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. The event handler for export.
+            </summary>
+      <param name="sender">The sender.</param>
+      <param name="e">The <see cref="T:EPiServer.Core.Transfer.TransformPropertyEventArgs" /> instance containing the event data.</param>
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.Transfer.Xml.IDynamicDataTransferTypeHandler">
+      <summary>
+            Specifies methods used to "override" serilaization of DDS items.
+            </summary>
+    </member>
+    <member name="P:EPiServer.Enterprise.Transfer.Xml.IDynamicDataTransferTypeHandler.HandledType">
+      <summary>
+            Gets the type that is hanlded by this implemenation.
+            </summary>
+      <value>The type of the hanlded.</value>
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Xml.IDynamicDataTransferTypeHandler.SerializeItem(EPiServer.Enterprise.IDynamicDataTransfer,System.Object)">
+      <summary>
+            Takes care of serialization of item with an own serialized format.
+            </summary>
+      <param name="transferHandler">The transfer handler.</param>
+      <param name="instance">The instance that beeing serialized.</param>
+      <returns>Replaced serialized format</returns>
+    </member>
+    <member name="M:EPiServer.Enterprise.Transfer.Xml.IDynamicDataTransferTypeHandler.CreateInstance(EPiServer.Enterprise.IDynamicDataTransfer,System.Xml.Linq.XElement)">
+      <summary>
+            Creates an instance of handled type from serialized format.
+            </summary>
+      <param name="transferHandler">The transfer handler.</param>
+      <param name="serializedItem">The serialized item.</param>
+      <returns>An instance of handled type</returns>
+    </member>
+    <member name="T:EPiServer.Enterprise.ParseUrlEventHandler">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.ContentExportingEventHandler">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.ContentExportedEventHandler">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.FileExportingEventHandler">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.FileExportedEventHandler">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.ParseUrlEventArgs">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.DataExporter">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.ContentImportingEventHandler">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.ContentImportedEventHandler">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.FileImportingEventHandler">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.FileImportedEventHandler">
+      <exclude />
+    </member>
+    <member name="T:EPiServer.Enterprise.DataImporter">
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.DataImporter.ImportedVppFiles">
+      <summary>
+            Gets or sets a value indicating whether the importer imported vpp based files.
+            </summary>
+      <value>
+        <c>true</c> if vpp based files where imported; otherwise, <c>false</c>.
+            </value>
+    </member>
+    <member name="P:EPiServer.Enterprise.DataImporter.AutoDetectCulture">
+      <summary>
+            Gets or sets a value indicating whether [auto detect culture].
+            </summary>
+      <value>
+        <c>true</c> if [auto detect culture]; otherwise, <c>false</c>.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.DataImporter.NumberOfPagesToImport">
+      <summary>
+            Gets or sets the all the pages to import.
+            </summary>
+      <value>The number of pages to import.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.DataImporter.NumberOfVisitorGroupToImport">
+      <summary>
+            Gets or sets the number of visitor group to import.
+            </summary>
+      <value>The number of visitor group to import.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.DataImporter.IgnoreDynamicProperties">
+      <summary>
+            If dynamic properties in import packages should be ignored
+            </summary>
+      <value>If value is not set the default value will be based on if dynamic properties are enabled or not in configuration</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.DataImporter.Status">
+      <inheritdoc />
+    </member>
+    <member name="M:EPiServer.Enterprise.DataImporter.Import(System.IO.Stream,EPiServer.Core.ContentReference,EPiServer.Enterprise.ImportOptions)">
+      <inheritdoc />
+    </member>
+    <member name="M:EPiServer.Enterprise.DataImporter.Import">
+      <summary>
+            Execute the import.
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.ResolveFileTransferTypeArgs">
+      <exclude />
+    </member>
+    <member name="M:EPiServer.Enterprise.ResolveFileTransferTypeArgs.#ctor(EPiServer.Enterprise.Internal.DefaultDataImporter,System.String)">
+      <summary>Unsupported INTERNAL API! Not covered by semantic versioning; might change without notice. Initializes a new instance of the <see cref="T:EPiServer.Enterprise.ResolveFileTransferTypeArgs" /> class.
+            </summary>
+      <param name="dataImporter">The data importer.</param>
+      <param name="xmlElementName">Name of the XML element.</param>
+      <exclude />
+    </member>
+    <member name="P:EPiServer.Enterprise.ResolveFileTransferTypeArgs.XmlElementName">
+      <summary>
+            Gets or sets the name of the XML element that is to be deserialized. This is the name of the concrete class that was serialized.
+            </summary>
+      <value>The name of the XML element.</value>
+    </member>
+    <member name="P:EPiServer.Enterprise.ResolveFileTransferTypeArgs.FileTransferType">
+      <summary>
+            Gets or sets the type of the file transfer that corresponds to <see cref="P:EPiServer.Enterprise.ResolveFileTransferTypeArgs.XmlElementName" />.
+            </summary>
+      <value>The type of the file transfer.</value>
+    </member>
+    <member name="M:EPiServer.Enterprise.Mirroring.MirroringDataExporter.#ctor(System.Collections.Generic.IList{System.String},System.Collections.Generic.IDictionary{System.Guid,System.Guid})">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Mirroring.MirroringDataExporter" /> class.
+            </summary>
+      <param name="langsToMirror">The langs to mirror.</param>
+      <param name="linkGuidMap">The link GUID map.</param>
+    </member>
+    <member name="M:EPiServer.Enterprise.Mirroring.MirroringDataImporter.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.Enterprise.Mirroring.MirroringDataImporter" /> class.
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.Mirroring.MirroringManager">
+      <summary>
+            Summary description for RemoteExportImport.
+            </summary>
+    </member>
+    <member name="M:EPiServer.Enterprise.Mirroring.MirroringManager.ExpandPagesWithDynamicProperties(System.Collections.Generic.List{System.Guid})">
+      <summary>
+            Expands the pages with dynamic properties.
+            </summary>
+      <param name="pagesWithDynamicProperties">The pages with dynamic properties.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:EPiServer.Enterprise.Util.FilteredPageSource">
+      <summary>
+            Summary description for FilteredPageSource.
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.Util.IntLookup">
+      <summary>
+            Summary description for IntLookup.
+            </summary>
+    </member>
+    <member name="T:EPiServer.Enterprise.Util.PageReferenceReader">
+      <summary>
+            Allows forward-only enumeration over a collection of page references without having all pages in-memory
+            </summary>
+      <remarks>Built for amdinistrative purposes and does not check access rights</remarks>
+    </member>
+    <member name="T:EPiServer.Enterprise.Util.StringInjection">
+      <summary>
+            Summary description for StringInjection.
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.ExternalDataTracker">
+      <summary>
+            This class has tracker on external mirroring data such as VisitorGroup, ContetType and etc. 
+            As soon as the entities changed then it sets the entities state as changed in mirroring data
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringData">
+      <summary>
+            Holds configruation data and state information about a mirroring task.
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringData.ItemChangingState">
+      <summary>
+            State of processing of item
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringData.ItemChangingState.NotChanged">
+      <summary>
+            The item has not been changed
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringData.ItemChangingState.Changed">
+      <summary>
+            The Item Has been changed
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringData.ItemChangingState.Executing">
+      <summary>
+            The item is under executing
+            </summary>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringData.Params">
+      <summary>
+            Gets or sets the endpoint name that can be used by the MTP
+            </summary>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringData.GuidMap">
+      <summary>
+            Gets or sets the GUID map used to remap the export packages page guids.
+            </summary>
+      <value>The GUID map.</value>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringData.TransferAction">
+      <summary>
+            Gets or sets the transfer action.
+            </summary>
+      <value>The transfer action.</value>
+    </member>
+    <member name="T:EPiServer.MirroringService.Cache.RuntimeCacheEvents">
+      <summary>
+            Handles event notifications between EPiServer Runtime and a site
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.Cache.RuntimeCacheEvents.BlockedCacheEventId">
+      <summary>
+            The signature for the event that is sent when a original event in runtime was raised but blocked.
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.Cache.RuntimeCacheEvents.FlushStoredCacheEventId">
+      <summary>
+            The signature for the event that is sent when all previously blocked events should be handled
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.Cache.RuntimeCacheEvents.RuntimeCacheEventsRaiserId">
+      <summary>
+            The id of the raiser of the blocked events
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.Cache.RuntimeCacheEvents.Initialize">
+      <summary>
+            Sets up listening for blocked event notifications
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.ChangeLog.ChangeLogDependencyHandler">
+      <summary>
+            Registers the EPiServer Mirroring dependencies on the Change Log system.
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.ChangeLog.ImplicitChangeLogItem">
+      <summary>
+            Represents an item that has been implicitly added to package.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.ChangeLog.ImplicitChangeLogItem.#ctor(EPiServer.Core.ContentReference,System.Guid,System.Int32,System.String,EPiServer.ChangeLog.ChangeLogContent.ActionType,System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.MirroringService.ChangeLog.ImplicitChangeLogItem" /> class.
+            </summary>
+      <param name="contentLink">The content link.</param>
+      <param name="contentGuid">The content GUID.</param>
+      <param name="contentTypeId">The content type id.</param>
+      <param name="name">The name.</param>
+      <param name="action">The action.</param>
+      <param name="changedBy">The changed by.</param>
+    </member>
+    <member name="T:EPiServer.MirroringService.ChangeLog.MirroringChangeLogFilter">
+      <exclude />
+    </member>
+    <member name="M:EPiServer.MirroringService.ChangeLog.MirroringChangeLogFilter.GetFileChanges(System.Int64)">
+      <summary>
+            Gets relevant file changes for current mirroring channel
+            </summary>
+      <param name="lastSequenceNumberRead">The last sequence number read.</param>
+      <returns>file changes</returns>
+    </member>
+    <member name="M:EPiServer.MirroringService.ChangeLog.MirroringChangeLogFilter.IsFileLinkedFromPageInChannel(System.String)">
+      <summary>
+            Determines whether specified file is linked to from any page within current channel
+            </summary>
+      <param name="virtualPath">The virtual path for the file</param>
+      <returns>
+        <c>true</c> if file is linked to; otherwise, <c>false</c>.
+            </returns>
+    </member>
+    <member name="T:EPiServer.MirroringService.Common.MirroringQueueData`1">
+      <summary>
+            The Generic queue data 
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="P:EPiServer.MirroringService.Common.MirroringQueueData`1.MirroringTransferData">
+      <summary>
+            Gets or sets the mirroring transfer data.
+            </summary>
+      <value>The mirroring transfer data.</value>
+    </member>
+    <member name="P:EPiServer.MirroringService.Common.MirroringQueueData`1.Context">
+      <summary>
+            Gets or sets the context. Used to be mirroring channel id
+            </summary>
+      <value>The context.</value>
+    </member>
+    <member name="P:EPiServer.MirroringService.Common.MirroringQueueData`1.Action">
+      <summary>
+            Gets or sets the action. Used to be a method handler
+            </summary>
+      <value>The action.</value>
+    </member>
+    <member name="T:EPiServer.MirroringService.Common.QueueManager`1">
+      <summary>
+            This class holds a queue and is thread safe
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="M:EPiServer.MirroringService.Common.QueueManager`1.Enqueue(`0)">
+      <summary>
+            Enqueues the specified mirroing queue item.
+            When the item be inserted in the queue then does a pulse to waiting thread for continuing executing
+            </summary>
+      <param name="mirroingQueueItem">The mirroing queue item.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.Common.QueueManager`1.TryToDequeue(`0@)">
+      <summary>
+            Tries to dequeue.
+            </summary>
+      <param name="queueItem">The queue item.</param>
+      <returns>true if the queue is not empty</returns>
+    </member>
+    <member name="P:EPiServer.MirroringService.Common.QueueManager`1.Empty">
+      <summary>
+            Gets a value indicating whether this <see cref="T:EPiServer.MirroringService.Common.QueueManager`1" /> is empty.
+            </summary>
+      <value>
+        <c>true</c> if empty; otherwise, <c>false</c>.</value>
+    </member>
+    <member name="M:EPiServer.MirroringService.Common.QueueManager`1.Clear">
+      <summary>
+            Clears the queue.
+            </summary>
+    </member>
+    <member name="P:EPiServer.MirroringService.Common.QueueManager`1.LockedObject">
+      <summary>
+            Gets the locked object.
+            </summary>
+      <value>The locked object.</value>
+    </member>
+    <member name="M:EPiServer.MirroringService.Common.PackageFileHandler.ValidateContextDirectory(System.IO.DirectoryInfo,System.Guid)">
+      <summary>
+            Validates the context directory.
+            </summary>
+      <remarks>
+            This will throw exception if e.g. the current account has not access rights to directory.
+            </remarks>
+      <param name="rootDirectory">The root directory.</param>
+      <param name="contextId">The context id.</param>
+    </member>
+    <member name="T:EPiServer.MirroringService.DataAccess.ContentTypesDB">
+      <summary>
+            Help to get page type directly from tblapage. 
+            </summary>
+      <remarks>
+                If the tblpage and contentpath has been changed this class should be modified .
+            </remarks>
+    </member>
+    <member name="M:EPiServer.MirroringService.DataAccess.ContentTypesDB.#ctor(EPiServer.Data.IDatabaseHandler,EPiServer.DataAbstraction.IContentTypeRepository)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.MirroringService.DataAccess.ContentTypesDB" /> class.
+            </summary>
+      <param name="databaseHandler">The database handler.</param>
+      <param name="contentTypeRepository">The content type repository.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.DataAccess.ContentTypesDB.GetDescendantContentTypes(EPiServer.Core.ContentReference)">
+      <summary>
+            Gets the descendant page types.
+            </summary>
+      <param name="contentLink">The content link.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringMonitoring.IMirroringMonitoringEventSystem">
+      <summary>
+      </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.IMirroringMonitoringEventSystem.Subscribe">
+      <summary>
+            Subscribes this instance.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.IMirroringMonitoringEventSystem.Unsubscribe">
+      <summary>
+            Unsubscribes this instance.
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringMonitoring.IMirroringMonitoringEventSystemCallback">
+      <summary>
+      </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringMonitoring.MonitoringJSONData">
+      <summary>
+            This class used for Ajax 
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringMonitoring.MirroringDataJSONCreator">
+      <summary>
+            This class create list of MonitoringJSONData to send to client
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient">
+      <summary>
+            This class is proxy to Mirroring Monitoring Service 
+            A Mirrroing Monitoing application can create an instance of this and subscribe to monitoring event.
+            The Mirroring Monitoring Service should configuerd with a binding which support duplex communication such as WsDual/netTcp. 
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient" /> class.
+            </summary>
+      <param name="endpoint">The endpoint. is name of the client name in config file</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.CreateChannelFactory">
+      <summary>
+            Creates the channel factory.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.Initialize">
+      <summary>
+      </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.CloseCommunication(System.Exception)">
+      <summary>
+            Closes the communication.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.HandleCommunicationException(System.ServiceModel.CommunicationException)">
+      <summary>
+            Handles the communication exception.
+            </summary>
+      <param name="communicationEx">The communication ex.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.HandleApplicationException(System.ServiceModel.FaultException)">
+      <summary>
+            Handles the appplication exception.
+            </summary>
+      <param name="faultException">The fault exception.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.HandleException(System.Exception)">
+      <summary>
+            Handles the exception.
+            </summary>
+      <param name="ex">The ex.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.MirroringSourceChannel_Faulted(System.Object,System.EventArgs)">
+      <summary>
+            Handles the Faulted event of the MirroringSourceChannel control.
+            </summary>
+      <param name="sender">The source of the event.</param>
+      <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.MirroringSourceChannel_Closed(System.Object,System.EventArgs)">
+      <summary>
+            Handles the Closed event of the MirroringSourceChannel control.
+            </summary>
+      <param name="sender">The source of the event.</param>
+      <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringClient.GetCommunicationState">
+      <summary>
+            Gets the state of the communication.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver">
+      <summary>
+            This class is a helper class to save MirrorinMonitoringData to file 
+            Load the MirrorinMonitoringData from file in memory
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver.#ctor(System.Guid)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver" /> class.
+            </summary>
+      <param name="context">The context.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver.#ctor(System.IO.FileInfo)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver" /> class.
+            </summary>
+      <param name="fileInfo">Information for the offline log file.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver.Add(EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs)">
+      <summary>
+            Adds the specified data.
+            </summary>
+      <param name="data">The <see cref="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver.Save">
+      <summary>
+            Saves this instance.
+            </summary>
+      <remarks> Save the MirroringMonitoringData to file. If the file is already exist then try to 
+            create a unique file name with current time stamp</remarks>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver.Initialize">
+      <summary>
+            Initialize an output stream to write monitoring data into it.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver.Append(System.Boolean)">
+      <summary>
+            Appends monitoring data.
+            </summary>
+      <param name="forceSave">if set to <c>true</c> then save all monitoring data to file</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver.LoadData(System.String)">
+      <summary>
+            Loads monitoring data from file path.
+            </summary>
+      <param name="filepath">path of the file.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver.Clear">
+      <summary>
+            Clears this instance.
+            </summary>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringDataSaver.MirroringMonitoringData">
+      <summary>
+            Gets or sets the mirroring monitoring data.
+            </summary>
+      <value>The mirroring monitoring data.</value>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringData">
+      <summary>
+            The MirroringMonitoringData is a Serializable/Deserializable data which contains MirroringMonitoringData
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringData.Add(EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs)">
+      <summary>
+            Adds the specified item.
+            </summary>
+      <param name="item">The <see cref="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringData.Items">
+      <summary>
+            Gets or sets the items.
+            </summary>
+      <value>The items.</value>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringEnvironment">
+      <summary>
+            The MirroringMonitoringEnvironment class is helper class for creating filename and unique file name
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringLogger">
+      <summary>
+            The MirroringMonitoringLogger class do logging of the Mirroring Monitoring Data
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringLogger.Add(EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs)">
+      <summary>
+            Adds the MirroringStatusEventArgs data to Mirroring Monitoring Data.
+            </summary>
+      <param name="data">The <see cref="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringLogger.Save(System.Guid)">
+      <summary>
+            Saves the Mirroring Monitoring Data to DataSaver.
+            </summary>
+      <param name="context">The context.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringLogger.Save">
+      <summary>
+            Saves .
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringMonitoring.MirroringMonitoringLogger.Remove(System.Guid)">
+      <summary>
+            Removes the specified saver from list.
+            </summary>
+      <param name="context">The context.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.IMirroringSource.StartMirroring(System.String,System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.ValidationContext)">
+      <summary>
+            Starts the mirroring.
+            </summary>
+      <param name="siteId">The site id.</param>
+      <param name="contextId">The context id.</param>
+      <param name="validationContext">The validation context.</param>
+      <returns>true if new job was started and false if a job was already running</returns>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient">
+      <summary>
+            The MirroringSourceClient is a proxy (client) to MirroringSourceServer
+            </summary>
+    </member>
+    <member name="E:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient._channelFactoryCreating">
+      <summary>
+            Occurs when [_channel factory creating] it is common to be fired in the WCF Certificate configueration .
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient._mirroringSourceProxy">
+      <summary>
+            The WCF Channel
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient._MirroringSourceChannel">
+      <summary>
+            The WCF Channel Factory
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient._customMirroringSourceChannel">
+      <summary>
+            The customer channel factory. It's be substituted with the _MirroringSourceChannel
+            It uses when the Cetificate uses
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient._proxyUserName">
+      <summary>
+            Application credentials
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient" /> class.
+            </summary>
+      <param name="endpoint">The endpoint.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.#ctor(System.String,System.String,System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient" /> class.
+            </summary>
+      <param name="endpoint">The endpoint.</param>
+      <param name="proxyUserName">Name of the proxy user.</param>
+      <param name="proxyPassword">The proxy password.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.CreateChannelFactory">
+      <summary>
+            Creates the channel factory.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.SetProxyCredentials">
+      <summary>
+            Sets the proxy credentials.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.Inited">
+      <summary>
+            Initeds this instance.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.CloseCommunication">
+      <summary>
+            Closes the communication.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.HandleCommunicationException(System.ServiceModel.CommunicationException)">
+      <summary>
+            Handles the communication exception.
+            </summary>
+      <param name="communicationEx">The communication ex.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.HandleAppplicationException(System.ServiceModel.FaultException)">
+      <summary>
+            Handles the appplication exception.
+            </summary>
+      <param name="faultException">The fault exception.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.HandleException(System.Exception)">
+      <summary>
+            Handles the exception.
+            </summary>
+      <param name="ex">The ex.</param>
+    </member>
+    <member name="E:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.ChannelFactoryCreating">
+      <summary>
+            Occurs when [channel factory creating].
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.MirroringSourceChannel_Faulted(System.Object,System.EventArgs)">
+      <summary>
+            Handles the Faulted event of the MirroringSourceChannel control.
+            </summary>
+      <param name="sender">The source of the event.</param>
+      <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.MirroringSourceChannel_Closed(System.Object,System.EventArgs)">
+      <summary>
+            Handles the Closed event of the MirroringSourceChannel control.
+            </summary>
+      <param name="sender">The source of the event.</param>
+      <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringSourceService.MirroringSourceClient.GetCommunicationState">
+      <summary>
+            Gets the state of the communication.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.ChannelFactoryEventArgs`1.#ctor(System.ServiceModel.ChannelFactory{`0})">
+      <summary>
+            Initializes a new instance of the <see cref="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.ChannelFactoryEventArgs`1" /> class.
+            </summary>
+      <param name="channelFactory">The channel factory.</param>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringTransferProtocol.Common.ChannelFactoryEventArgs`1.ChannelFactory">
+      <summary>
+            Gets or sets the channel factory.
+            </summary>
+      <value>The channel factory.</value>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.IMirroringDataTransfer">
+      <summary>
+            Defines the Transfer protocol interfaces
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.IMirroringDataTransfer.InitializeMirroring(System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringInitializeData@)">
+      <summary>
+            Initializes the mirroring.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="mirroringInitializeData">The mirroring initialize data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.IMirroringDataTransfer.StartMirroringPackage(System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringPackageHeader)">
+      <summary>
+            Starts the mirroring package.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="mirroringPackageHeader">The mirroring package header.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.IMirroringDataTransfer.AppendMirroringPackage(System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferData)">
+      <summary>
+            Appends the mirroring package.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="mirroringTransferData">The mirroring transfer data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.IMirroringDataTransfer.CompleteMirroringPackage(System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringPackageHeader)">
+      <summary>
+            Completes the mirroring package.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="mirroringPackageHeader">The mirroring package header.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.IMirroringDataTransfer.ProcessPackage(System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringPackageHeader)">
+      <summary>
+            Processes the package.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="mirroringPackageHeader">The mirroring package header.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.IMirroringDataTransfer.GetMirroringStatus(System.Guid)">
+      <summary>
+            Gets the status.
+            </summary>
+      <param name="context">The context.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.IMirroringDataTransfer.CompleteMirroring(System.Guid)">
+      <summary>
+            Completes the mirroring.
+            </summary>
+      <param name="context">The context.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.IMirroringDataTransfer.Cleanup(System.Guid)">
+      <summary>
+            Cleanups the specified context.
+            </summary>
+      <param name="context">The context.</param>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferData">
+      <summary>
+      </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringInitializeData">
+      <summary>
+      </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringPackageHeader">
+      <summary>
+      </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferAction">
+      <summary>
+            Decides how the mirroring pages should be saved.
+            Default value (None) indicates the new page should be saved as new version.
+            
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferAction.None">
+      <summary>
+      </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferAction.ForceCurrentVersion">
+      <summary>
+            Force on the current version.
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringPackageBody">
+      <summary>
+      </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringFaultExceptionDetail">
+      <summary>
+      </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.WrapperMirroringTransferStatusEventHandler">
+      <summary>
+            The WrapperMirroringTransferStatusEventHandler class used to send the MirroringStatusEventArgs between proxy objects
+            when there are instances of objects between two appcomain which are intrested in MirroringTransferStatusEventHandler
+            </summary>
+    </member>
+    <member name="E:EPiServer.MirroringService.MirroringTransferProtocol.Common.WrapperMirroringTransferStatusEventHandler.WrapperMessageReceived">
+      <summary>
+            Occurs when [wrapper message received].
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.WrapperMirroringTransferStatusEventHandler.WrapperMessageReceivedHandler(EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs)">
+      <summary>
+            Wrappers the message received handler.
+            </summary>
+      <param name="e">The <see cref="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.WrapperMirroringTransferStatusEventHandler.InitializeLifetimeService">
+      <summary>
+            Obtains a lifetime service object to control the lifetime policy for this instance.
+            </summary>
+      <returns>
+            An object of type <see cref="T:System.Runtime.Remoting.Lifetime.ILease" /> used to control the lifetime policy for this instance. This is the current lifetime service object for this instance if one exists; otherwise, a new lifetime service object initialized to the value of the <see cref="P:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime" /> property.
+            </returns>
+      <exception cref="T:System.Security.SecurityException">
+            The immediate caller does not have infrastructure permission.
+            </exception>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs">
+      <summary>
+      </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState">
+      <summary>
+            The state of mirroring job 
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.Undefined">
+      <summary>
+            An undefined state. It used be an defualt value
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.MirroringJobInitialized">
+      <summary>
+            When a Mirroring job is intialized
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.MirroringJobCompleted">
+      <summary>
+            When a Mirroring job is completed
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.Transfering">
+      <summary>
+            When a Mirroring package is sending to target
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.Transferred">
+      <summary>
+            When a Mirroring package is transfered to target
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.Importing">
+      <summary>
+            When a Mirroring package is importing 
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.MirroringPackageInitialized">
+      <summary>
+            When a Mirroring package is intialized
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.MirroringPackageCompleted">
+      <summary>
+            When a Mirroring package is completed
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.TransferingError">
+      <summary>
+            When there is problem in transfering 
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.ImportingError">
+      <summary>
+            When there is problem in importing
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringState.ExportingError">
+      <summary>
+            When there is problem in exporting
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatus">
+      <summary>
+            the status of an mirrroing
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase">
+      <summary>
+            The bas class for transfering mirroring job. The Mirrorring transfering protocol is based on provider base 
+            for the custom implementation should inherits this class. 
+            There are a few abstract method which be called on the instance when the mirrorin is starting
+            The InitializeMirroring is a synchronize method which returns a MirroringStatus. If the Status is OK 
+            then the mirroring frameworks(Export component) calls other methods which are asyncronize.
+            The communication between the MirroringFramework(Export component) and the MTP (Mirrroing transfer protocol) should be via MirroringTransferStatusEvent
+            If there is problem in transfering an MirroringTransferStatusEvent should be fired.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+      <summary>
+            Initializes the provider.
+            </summary>
+      <param name="name">The friendly name of the provider.</param>
+      <param name="config">A collection of the name/value pairs representing the provider-specific attributes specified in the configuration for this provider.</param>
+      <exception cref="T:System.ArgumentNullException">
+            The name of the provider is null.
+            </exception>
+      <exception cref="T:System.ArgumentException">
+            The name of the provider has a length of zero.
+            </exception>
+      <exception cref="T:System.InvalidOperationException">
+            An attempt is made to call <see cref="M:System.Configuration.Provider.ProviderBase.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> on a provider after the provider has already been initialized.
+            </exception>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.Validate(System.Collections.Specialized.NameValueCollection,System.String@)">
+      <summary>
+      </summary>
+      <param name="configurationParameters">The parameters to validate</param>
+      <param name="errorMessage">Error message that will be displayed, if any</param>
+      <returns>true if valid else false</returns>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.DestinationPath">
+      <summary>
+            Gets or sets the destination path.
+            </summary>
+      <value>The destination path.</value>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.SourcePath">
+      <summary>
+            Gets or sets the source path.
+            </summary>
+      <value>The source path.</value>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.NumberofPagesInpackage">
+      <summary>
+            Gets or sets the numberof pages inpackage.
+            </summary>
+      <value>The numberof pages inpackage.</value>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.NumberofFilesInpackage">
+      <summary>
+            Gets or sets the numberof files inpackage.
+            </summary>
+      <value>The numberof files inpackage.</value>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.DestinationConnectionStringName">
+      <summary>
+            Gets or sets the name of the destination connection string.
+            </summary>
+      <value>The name of the destination connection string.</value>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.DestinationBasePath">
+      <summary>
+            Gets or sets the basePath for EPiServer.Framework.AppData.BasePath for destination service.
+            </summary>
+      <value>The name of the destination connection string.</value>
+    </member>
+    <member name="E:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.MirroringTransferStatusEventHandler">
+      <summary>
+            Occurs when [mirroring transfer status event handler].
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.OnMirroringStatus(EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs)">
+      <summary>
+            Raises the <see cref="E:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.MirroringTransferStatusEventHandler" /> event.
+            </summary>
+      <param name="e">The <see cref="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.InitializeMirroring(System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringInitializeData)">
+      <summary>
+            Initializes the mirroring.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="mirroringInitializeData">The mirroring initialize data.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.ProcessPackage(System.Guid,System.String)">
+      <summary>
+            Processes the package.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="filePath">The file path.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.ProcessFilePackage(System.Guid,System.String)">
+      <summary>
+            Processes the file package.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="filePath">The file path.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.CompleteMirroring(System.Guid)">
+      <summary>
+            Completes the mirroring.
+            </summary>
+      <param name="context">The context.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringTransferProviderBase.Cleanup(System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatus)">
+      <summary>
+            Cleanups the Mirroring job.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="mirroringStatus">The mirroring status.</param>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.TransferQueueManager">
+      <summary>
+            The main function of MirroringQueueExecuterManager class is manage the queue item (MirroringTransferData) and 
+            if the item is bigger than chunksize divide them in small packages and forwarding to the Client (IMirroringDataTransfer).
+            It has a private queue which the owner can send action item for executing.
+            There are three type of action 
+                    1- Initialize action tells to Client a miiroring job is initialized
+                    2- SendPackage action sends the Mirroring job to server
+                    3- Complete action tells to Client the mirroring job is complete
+                    4- Clean up action clean up queue and wait to client is back from server call
+            All actions are stored in a private queue and the menager executes them one after one. 
+            This class chunked the transfer data if the data is bigger the chunksize and send them in small packet the client.
+            </summary>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.TransferQueueManager.QueueThreadState">
+      <summary>
+            The thread state
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.TransferQueueManager.QueueThreadState.Busy">
+      <summary>
+            Indicates the thread is busy
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.TransferQueueManager.QueueThreadState.Idle">
+      <summary>
+            Indicates the thread is idle
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.Common.TransferQueueManager.QueueThreadState.Error">
+      <summary>
+      </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.Common.TransferQueueManager.AddToQueue(EPiServer.MirroringService.Common.MirroringQueueData{EPiServer.MirroringService.MirroringTransferProtocol.Common.TransferQueueManager.TypeOfTransferAction})">
+      <summary>
+            Adds to queue.
+            </summary>
+      <param name="mirroingQueueItem">The mirroing queue item.</param>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.PageTypeData">
+      <summary>
+            Contains Pagetype information
+            </summary>
+    </member>
+    <member name="P:EPiServer.MirroringService.MirroringTransferProtocol.Common.PageTypeData.PageDefinitionCollection">
+      <summary>
+            Gets or sets the page definition collection.
+            Key is pagetypeName
+            Value is PageDefinitionType
+            </summary>
+      <value>The page definition collection.</value>
+    </member>
+    <member name="T:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient">
+      <summary>
+            The MirroringTransferClient class take care the mirroring package and send to transfer component
+            the MirroringTransferClient has a TransferQueueManager class which queue the mirroing packages.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+      <summary>
+            Initializes the provider.
+            </summary>
+      <param name="name">The friendly name of the provider.</param>
+      <param name="config">A collection of the name/value pairs representing the provider-specific attributes specified in the configuration for this provider.</param>
+      <exception cref="T:System.ArgumentNullException">
+            The name of the provider is null.
+            </exception>
+      <exception cref="T:System.ArgumentException">
+            The name of the provider has a length of zero.
+            </exception>
+      <exception cref="T:System.InvalidOperationException">
+            An attempt is made to call <see cref="M:System.Configuration.Provider.ProviderBase.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> on a provider after the provider has already been initialized.
+            </exception>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.InitializeMirroring(System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringInitializeData)">
+      <summary>
+            Initializes the mirroring.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="mirroringInitializeData">The mirroring initialize data.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.ProcessPackage(System.Guid,System.String)">
+      <summary>
+            Processes the package.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="filePath">The file path.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.ProcessFilePackage(System.Guid,System.String)">
+      <summary>
+            Processes the file package.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="filePath">The file path.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.CompleteMirroring(System.Guid)">
+      <summary>
+            Completes the mirroring.
+            </summary>
+      <param name="context">The context.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.ProcessPackageInternal(System.Guid,EPiServer.MirroringService.MirroringTransferProtocol.Common.TypeOfMirroringData,System.String)">
+      <summary>
+            Processes the package internal.
+            </summary>
+      <param name="context">The context.</param>
+      <param name="typeOfData">The type of data.</param>
+      <param name="filePath">The file path.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.TransferQueueManager_MirroingStatusEvent(System.Object,EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs)">
+      <summary>
+            Handles the MirroingStatusEvent event of the TransferQueueManager control.
+            </summary>
+      <param name="sender">The source of the event.</param>
+      <param name="e">The <see cref="T:EPiServer.MirroringService.MirroringTransferProtocol.Common.MirroringStatusEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.CreateMirroringDataTransfer">
+      <summary>
+            Creates the mirroring data transfer if it is configuerd.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.CreateInitializeData(System.Guid)">
+      <summary>
+            Creates the initialize data.
+            </summary>
+      <param name="context">The context.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferClient.GetMirroringData(System.Guid)">
+      <summary>
+            Gets the mirroring data.
+            </summary>
+      <param name="context">The context.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="E:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy._channelFactoryCreating">
+      <summary>
+            Occurs when [_channel factory creating] it is common to be fired in the WCF Certificate configueration .
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy._mirroringDataTransferProxy">
+      <summary>
+            The WCF Channel
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy._mirroringDataTransferChannel">
+      <summary>
+            The WCF Channel Factory
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy._custommirroringDataTransferChannel">
+      <summary>
+            The customer channel factory. It's be substituted with the _mirroringDataTransferChannel
+            It uses when the Cetificate uses
+            </summary>
+    </member>
+    <member name="F:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy._proxyUserName">
+      <summary>
+            Application credentials
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.SetMirroringDataTransferChannel">
+      <summary>
+            Creates the mirroringDataTransferChannel and sets the correct endpoint address
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.EndpointExists">
+      <summary>
+            Checks if the endpoint is defined in the configuration file
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.CreateChannelFactory">
+      <summary>
+            Creates the channel factory.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.SetProxyCredentials">
+      <summary>
+            Sets the proxy credentials.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.Inited">
+      <summary>
+            Initeds this instance.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.CloseCommunication">
+      <summary>
+            Closes the communication.
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.HandleCommunicationException(System.ServiceModel.CommunicationException)">
+      <summary>
+            Handles the communication exception.
+            </summary>
+      <param name="communicationEx">The communication ex.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.HandleApplicationException(System.ServiceModel.FaultException)">
+      <summary>
+            Handles the appplication exception.
+            </summary>
+      <param name="faultException">The fault exception.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.HandleException(System.Exception)">
+      <summary>
+            Handles the exception.
+            </summary>
+      <param name="ex">The ex.</param>
+    </member>
+    <member name="E:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.ChannelFactoryCreating">
+      <summary>
+            Occurs when [channel factory creating].
+            </summary>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.MirroringRecieverChannel_Faulted(System.Object,System.EventArgs)">
+      <summary>
+            Handles the Faulted event of the RemoteProviderChannel control.
+            </summary>
+      <param name="sender">The source of the event.</param>
+      <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.MirroringRecieverChannel_Closed(System.Object,System.EventArgs)">
+      <summary>
+            Handles the Closed event of the RemoteProviderChannel control.
+            </summary>
+      <param name="sender">The source of the event.</param>
+      <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:EPiServer.MirroringService.MirroringTransferProtocol.WCF.MirroringTransferProxy.GetCommunicationState">
+      <summary>
+            Gets the state of the communication.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+  </members>
+</doc>
