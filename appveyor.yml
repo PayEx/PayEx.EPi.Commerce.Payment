@@ -1,6 +1,5 @@
 before_build:
   - nuget restore
-  - dir /s /b
 
 build:
   project: PayEx.EPi.Commerce.Payment.sln
