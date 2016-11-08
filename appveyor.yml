@@ -1,0 +1,9 @@
+before_build:
+  - nuget restore
+
+build:
+  project: PayEx.EPi.Commerce.Payment.sln
+
+test:
+  assemblies:
+    - 'tests/**/bin/*/*Tests.dll'
