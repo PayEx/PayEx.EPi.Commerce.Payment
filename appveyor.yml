@@ -1,0 +1,14 @@
+before_build:
+  - nuget restore
+
+build:
+  project: PayEx.EPi.Commerce.Payment.sln
+
+test:
+  assemblies:
+    - 'tests/**/bin/*/*Tests.dll'
+
+notifications:
+  on_build_success: false
+  on_build_failure: false
+  on_build_status_changed: true

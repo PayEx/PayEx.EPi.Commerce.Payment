@@ -5,7 +5,7 @@ using PayEx.EPi.Commerce.Payment.Payment;
 namespace PayEx.EPi.Commerce.Payment.UnitTests.Models.Result
 {
     [TestFixture]
-    internal class CompleteResultTests
+    public class CompleteResultTests
     {
         [TestCase(TransactionStatus.Initialize, true, true)]
         [TestCase(TransactionStatus.Authorize, true, true)]
