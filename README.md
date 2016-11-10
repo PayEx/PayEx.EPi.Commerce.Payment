@@ -1,6 +1,6 @@
-﻿# PayEx payment provider #
+# PayEx Payment Provider [![Build status](https://ci.appveyor.com/api/projects/status/sisc29w1o38ifjct?svg=true)](https://ci.appveyor.com/project/PayEx/payex-epi-commerce-payment)
 
-The PayEx payment provider for EPiServer Commerce supports the following payment methods: 
+The PayEx payment provider for EPiServer Commerce supports the following payment methods:
 
 - [Credit Card](http://www.payexpim.com/payment-methods/credit-cards/)
 - [PayPal](http://www.payexpim.com/payment-methods/paypal/)
@@ -8,7 +8,7 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 - [Invoice Ledger](http://www.payexpim.com/payment-methods/invoice/)
 - [Invoice 2.0](http://www.payexpim.com/payment-methods/payex-faktura-2-0/) (Payment method is depricated. Use Financing Invoicing instead)
 - [Financing Invoice](http://www.payexpim.com/payment-methods/financing-invoice/)
-- [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/) 
+- [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
 - [PayEx Part Payment](http://www.payexpim.com/payment-methods/payex-part-payment/)
 - [MasterPass](http://www.payexpim.com/payment-methods/masterpass/)
 
@@ -18,14 +18,14 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
   1. [Installing the PayEx payment provider](#install)
   1. [Configuring the PayEx payment provider](#configure)
   1. [Using the PayEx payment provider](#using)
-  	1. [What is the redirect model?](#redirectmodel) 
+  	1. [What is the redirect model?](#redirectmodel)
   	2. [What is the direct model?](#directmodel)
   	3. [Implementing a payment method using the redirect model](#implredirect)
   	4. [Implementing a payment method using the direct model](#impldirect)
   	5. [Going into production](#production)
   1. [Extra steps needed for payment methods](#extrasteps)
-  	1. [MasterPass](#masterpass) 
-  	2. [Financing Invoicing](#financinginvoicing) 
+  	1. [MasterPass](#masterpass)
+  	2. [Financing Invoicing](#financinginvoicing)
   1. [Extending the payment provider](#extending)
 	  1. [Generating order numbers](#ordernum)
 	  2. [Supplying VAT to PayEx](#vat)
@@ -46,7 +46,7 @@ The PayEx payment provider for EPiServer Commerce supports the following payment
 ##[[↑]](#toc) <a name='install'>Installing the PayEx payment provider</a>
 
 ###Step 1###
-Download the PayEx.EPi.Commerce.Payment​ package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Web project**. 
+Download the PayEx.EPi.Commerce.Payment​ package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Web project**.
 
 ###Step 2###
 Download the PayEx.EPi.Commerce.Payment​.CommerceManager package from the [EPiServer NuGet feed](https://nuget.episerver.com/en/Feed/). Add the package to your **Commerce Manager project**.
@@ -57,7 +57,7 @@ Build your project and browse to the website
 
 ##[[↑]](#toc) <a name='configure'>Configuring the PayEx payment provider</a>
 ###Step 1###
-Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Manager* under *Tool Settings*. Click on the *PayEx.EPi.Commerce.Payment​* plugin and fill in the following settings: 
+Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Manager* under *Tool Settings*. Click on the *PayEx.EPi.Commerce.Payment​* plugin and fill in the following settings:
 
 ![PayEx Module Settings](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/ModuleSettings.PNG)
 
@@ -65,11 +65,11 @@ Login to EPiServer Admin, click on the *Config* tab and click on the *Plug-in Ma
 
 **PayEx Encryption Key**: The encryption key generated in PayEx Admin
 
-**Display individual order lines in PayEx**: If this option is selected, the customer will be able to view their order lines in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the orderlines are displayed: 
+**Display individual order lines in PayEx**: If this option is selected, the customer will be able to view their order lines in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the orderlines are displayed:
 
 ![Order lines](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/OrderLines.PNG)
 
-**Display customer address information in PayEx**: If this option is selected, the customer will be able to view their address information in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the address information is displayed: 
+**Display customer address information in PayEx**: If this option is selected, the customer will be able to view their address information in PayEx when completing the purchase. This option only applies to payment methods that support the redirect method. The following screenshot shows how the address information is displayed:
 
 ![Customer address](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/CustomerAddress.PNG)
 
@@ -80,7 +80,7 @@ Browse to your Commerce Manager, and do the following for all the payment method
 
 **In the *Overview* tab**
 
-- Edit the name and description. 
+- Edit the name and description.
 - Set IsActive to true
 - If this is the default payment method, set IsDefault to true
 - Select the shipping methods available for this payment
@@ -104,13 +104,13 @@ If your shipping methods contain restrictions as to which payment methods they c
 
 ##[[↑]](#toc) <a name='using'>Using the PayEx payment provider</a>
 
-How you use the PayEx payment provider depends on which payment methods you wish to use. The payment methods can be separated into two groups: The ones that support the PayEx *redirect model* and the ones that support the PayEx *direct model*. 
+How you use the PayEx payment provider depends on which payment methods you wish to use. The payment methods can be separated into two groups: The ones that support the PayEx *redirect model* and the ones that support the PayEx *direct model*.
 
 ###[[↑]](#toc) <a name='redirectmodel'>What is the redirect model?</a>
 
-The redirect model states that the customer will be redirected from your Commerce website to PayEx. PayEx will collect the customers payment information before redirecting the customer back to your Commerce website. 
+The redirect model states that the customer will be redirected from your Commerce website to PayEx. PayEx will collect the customers payment information before redirecting the customer back to your Commerce website.
 
-The following payment methods use the redirect model: 
+The following payment methods use the redirect model:
 
 - [Credit Card](http://www.payexpim.com/payment-methods/credit-cards/)
 - [PayPal](http://www.payexpim.com/payment-methods/paypal/)
@@ -119,7 +119,7 @@ The following payment methods use the redirect model:
 - [Direct Bank Debit](http://www.payexpim.com/payment-methods/direct-bank-debit/)
 
 ###[[↑]](#toc) <a name='directmodel'>What is the direct model?</a>
-The direct model states that all communication between your Commerce website and PayEx is done server-to-server. This means that the payment process runs from beginning to end without the customer leaving your website. 
+The direct model states that all communication between your Commerce website and PayEx is done server-to-server. This means that the payment process runs from beginning to end without the customer leaving your website.
 
 The following payment methods use the direct model:
 
@@ -129,13 +129,13 @@ The following payment methods use the direct model:
 ###[[↑]](#toc) <a name='implredirect'>Implementing a payment method using the redirect model</a>
 
 ####Step 1####
-After the customer has entered all necessary information during the checkout process, create a new instance of the PayExPayment class and assign this to an OrderForm in the customers Cart. 
+After the customer has entered all necessary information during the checkout process, create a new instance of the PayExPayment class and assign this to an OrderForm in the customers Cart.
 
 	public PayExPayment(
 		string clientIpAddress,
-		string productNumber, 
-		string cancelUrl, 
-		string returnUrl, 
+		string productNumber,
+		string cancelUrl,
+		string returnUrl,
 		string description
 	)
 
@@ -153,7 +153,7 @@ After the customer has entered all necessary information during the checkout pro
 
 ##### Note #####
 
-Note that you also need to set the standard Mediachase.Commerce.Orders.Payment  properties, example code: 
+Note that you also need to set the standard Mediachase.Commerce.Orders.Payment  properties, example code:
 
 	 private void CreatePayment(Cart cart, PaymentMethodDto.PaymentMethodRow paymentMethod)
      {
@@ -175,7 +175,7 @@ After PayEx has collected the customers payment information, the customer will b
 
 **Important: The example callback controller is only an example, you will have to adjust it to your project**
 
-What's important is that the callback controller handles the following: 
+What's important is that the callback controller handles the following:
 
 - Calls *PayExPaymentGateway.ProcessSuccessfulTransaction* function in order to complete the payment
 - If *PayExPaymentGateway.ProcessSuccessfulTransaction* is successful, create a Purchase Order with the given order number and redirect the user to the order confiration page.
@@ -189,12 +189,12 @@ After the customer has entered all necessary information during the checkout pro
 
 	public ExtendedPayExPayment(
 		string clientIpAddress,
-		string productNumber,  
-		string returnUrl, 
-		string description, 
-		string socialSecurityNumber, 
-		string countryCode, 
-		string email, 
+		string productNumber,
+		string returnUrl,
+		string description,
+		string socialSecurityNumber,
+		string countryCode,
+		string email,
 		string mobilePhone
 	)
 
@@ -220,18 +220,18 @@ After the customer has entered all necessary information during the checkout pro
 
 	public ExtendedPayExPayment(
 		string clientIpAddress,
-		string productNumber,  
-		string returnUrl, 
-		string description, 
-		string socialSecurityNumber, 
-		string firstname, 
+		string productNumber,
+		string returnUrl,
+		string description,
+		string socialSecurityNumber,
+		string firstname,
 		string lastname,
-        string streetAddress, 
-		string coAddress, 
-		string city, 
-		string postNumber, 
-		string countryCode, 
-		string email, 
+        string streetAddress,
+		string coAddress,
+		string city,
+		string postNumber,
+		string countryCode,
+		string email,
 		string mobilePhone
 	)
 
@@ -267,7 +267,7 @@ After the customer has entered all necessary information during the checkout pro
 
 #####Note #####
 
-Note that you also need to set the standard Mediachase.Commerce.Orders.Payment  properties, example code: 
+Note that you also need to set the standard Mediachase.Commerce.Orders.Payment  properties, example code:
 
 	 private void CreatePayment(Cart cart, PaymentMethodDto.PaymentMethodRow paymentMethod)
      {
@@ -289,7 +289,7 @@ If the *CartCheckoutWorkflow* was successful, the payment has been initiated and
 
 ###[[↑]](#toc) <a name='production'>Going into production</a>
 
-When your project is ready for production, you must remember to update the following settings: 
+When your project is ready for production, you must remember to update the following settings:
 
 - "Merchants PayEx account number" in the PayEx.EPi.Commerce.Payment module settings
 - "PayEx Encryption Key" in the PayEx.EPi.Commerce.Payment module settings
@@ -302,15 +302,15 @@ When your project is ready for production, you must remember to update the follo
 There are two purchase flows when working with MasterPass, best practice and redirect flow. This payment method support both.
 
 To select which flow to use, go to the MasterPass payment method in Commerce Manager and select the parameters tab. In this view you you can check the Use best practice flow to enable this option as shown in the screenshoot below.
- 
+
 ![MasterPass parameters in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/MasterPassParameters.png)
 
 AdditionalValues paramters RESPONSIVE and USEMASTERPASS are automatically set and should not be set in Commerce Manager for this payment method.
 
 Select "Add shopping cart items to MasterPass" if you add want to send shopping cart data to PayEx to be shown in the MasterPass view. If you want to override the standard formatting of shopping cart, you can implement IMasterPassShoppingCartFormatter and register it with StructureMap.
-	
+
 	_container.Configure(x =>
-	    {	
+	    {
 		    x.For<IMasterPassShoppingCartFormatter()
 		    .Use<YourMasterPassShoppingCartXmlFormatter>();
 	    }
@@ -322,8 +322,8 @@ When this option is enabled, you should add a checkout button at the beginning o
 
             var payExService = ServiceLocator.Current.GetInstance<IPayExPaymentService>();
             var address = payExService.GetDeliveryAddressFromPayEx(orderRef);
- 
-The consumer should be able to review the order before finalizing the purchase. Prices for shipping could be affected by the selected shipping address inside the MasterPass Wallet and the customer should be made aware of this. 
+
+The consumer should be able to review the order before finalizing the purchase. Prices for shipping could be affected by the selected shipping address inside the MasterPass Wallet and the customer should be made aware of this.
 
 When the customer finalizes the order *PayExPaymentGateway.ProcessSuccessfulTransaction* function must be called, in order to complete the payment.
 - If *PayExPaymentGateway.ProcessSuccessfulTransaction* is successful, create a Purchase Order with the given order number and redirect the user to the order confiration page.
@@ -336,22 +336,22 @@ This payment method requires no extra steps and can be used in the same manner a
 There are two available payment methods for Financing Invoicing. One for swedish and one for norwegian end customers. To limit what payment option is shown to the customer, you can use markets in EPiServer Commerce.
 
 There are some extra parameters that need to be set to be able to use the Financing Invoicing payment option.
-Go to the Financing Invoicing payment method in Commerce Manager and select the parameters tab. 
+Go to the Financing Invoicing payment method in Commerce Manager and select the parameters tab.
 
 ![Financing Invoicing parameters in EPiServer Commerce](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/FinancingInvoicingParameters.png)
 
 You can select "get the customers legal address" for the swedish payment method. When this is selected, legal address is retrieved from PayEx and address is updated on the ExtendedPayExPayment. If you want this address updated on the billing address on the order, you will need to implement IUpdateAddressHandler and register the class with StructureMap.
-	
+
 	_container.Configure(x =>
-		    {		              
+		    {
 			     x.For<IUpdateAddressHandler()
 			     .Use<YourUpdateAddressHandler>();
 			});
-			
+
 If you select one-phase transaction, the transactions will be captured immediately when checkout workflow is executed. If this option is enabled order line information is needed by PayEx. This is handled automatically, but requires adjustments to the CalculateTaxActivity in Commerce workflow as described in section about [Supplying VAT to PayEx](#vat). Discounts, shipping and handling costs are summed up in one row and sent to PayEx. If you would like to change this implementation, you will need add your own implementation of IFinancialInvoicingOrderLineFormatter and register it with StructureMap like in the following example:
-   
+
      _container.Configure(x =>
-	    {		              
+	    {
 		     x.For<IFinancialInvoicingOrderLineFormatter()
 		     .Use<YourFinancialInvoicingOrderLineFormatter>();
 		});
@@ -362,9 +362,9 @@ If you select one-phase transaction, the transactions will be captured immediate
 
 ###[[↑]](#toc) <a name='ordernum'>Generating order numbers</a>
 
-The payment provider requires an order number in order to begin initialization of the payment. This means that the payment provider will generate an order number for you, but you have the ability to override this functionality to make order number sequences appropriate for your project. 
+The payment provider requires an order number in order to begin initialization of the payment. This means that the payment provider will generate an order number for you, but you have the ability to override this functionality to make order number sequences appropriate for your project.
 
-The default order number generation looks like this: 
+The default order number generation looks like this:
 
     public string Generate(Cart cart)
 	{
@@ -394,7 +394,7 @@ If you want the order numbers to look differently for your project, you can impl
 
 **Important: PayEx requires order numbers to be numeric. If you generate a non-numeric order number, payment initialization will fail.**
 
-After implementing your own *IOrderNumberGenerator*, it will have to be injected into your dependency injection container to override the default implementation (examples below use StructureMap): 
+After implementing your own *IOrderNumberGenerator*, it will have to be injected into your dependency injection container to override the default implementation (examples below use StructureMap):
 
 	x.For<IOrderNumberGenerator>().Use<OrderNumberGenerator>();
 
@@ -442,7 +442,7 @@ Remember that your implementation of *IOrderNumberGenerator* will have to be inj
 ###[[↑]](#toc) <a name='vat'>Supplying VAT to PayEx</a>
 
 
-If you want to display a VAT value per line item in PayEx, you will need to make some changes to the CalculateTaxActivity in Mediachase.Commerce.Workflow.Activities. 
+If you want to display a VAT value per line item in PayEx, you will need to make some changes to the CalculateTaxActivity in Mediachase.Commerce.Workflow.Activities.
 
 Find the following piece of code in CalculateTaxActivity.cs ...
 
@@ -455,7 +455,7 @@ Find the following piece of code in CalculateTaxActivity.cs ...
         }
     }
 
-...and replace it with this: 
+...and replace it with this:
 
 	if (taxes.Length > 0)
     {
@@ -476,11 +476,11 @@ Find the following piece of code in CalculateTaxActivity.cs ...
 
 What this piece of code does is calculate both the VAT amount and the VAT percentage and save the result to the lineItems. The PayEx provider will find the values saved on the LineItem and pass these on to PayEx.
 
-If you wish to ensure that the VatAmout meta field and VatPercentage meta field of the line items are saved as they should, you can take a look in the dbo.LineItemEx table in your Commerce Manager database. You should see that the values have been populated: 
+If you wish to ensure that the VatAmout meta field and VatPercentage meta field of the line items are saved as they should, you can take a look in the dbo.LineItemEx table in your Commerce Manager database. You should see that the values have been populated:
 
 ![Database view of line item VAT](https://raw.githubusercontent.com/PayEx/PayEx.EPi.Commerce.Payment/master/doc/screenshots/VatDB.PNG)
 
-**Note:** The VAT values will only be displayed if you've selected the **Display individual order lines in PayEx** option in the *PayEx.EPi.Commerce.Payment​* Plug-In settings as described in Step 1 of "Configuring the PayEx payment provider" 
+**Note:** The VAT values will only be displayed if you've selected the **Display individual order lines in PayEx** option in the *PayEx.EPi.Commerce.Payment​* Plug-In settings as described in Step 1 of "Configuring the PayEx payment provider"
 
 ###[[↑]](#toc) <a name='additionalValues'>Specifying the *additionalValues* parameter</a>
 
@@ -488,7 +488,7 @@ During payment initialization, PayEx gives you the option of passing in *additio
 
 #### ... if it is a plain string
 
-If the value you wish to pass along with the *additionalValues* parameter is a plain string (such as "PAYMENTMENU=TRUE"), you can specify it in the parameters tab for the payment method in Commerce Manager: 
+If the value you wish to pass along with the *additionalValues* parameter is a plain string (such as "PAYMENTMENU=TRUE"), you can specify it in the parameters tab for the payment method in Commerce Manager:
 
 1. In the Commerce Manager, click on Administration -> Order System -> Payments
 2. Click on the language folder you wish to view
@@ -507,7 +507,7 @@ In order to specify dynamic values you can implement your own *IAdditionalValues
 	using PayEx.EPi.Commerce.Payment​.Contracts.Commerce;
 	using System;
 	using System.Text;
-	
+
 	namespace PayExProviderDemo.Commerce.Core.Payment.PayEx
 	{
 	    public class AdditionalValuesFormatter : IAdditionalValuesFormatter
@@ -516,7 +516,7 @@ In order to specify dynamic values you can implement your own *IAdditionalValues
 	        {
 	            StringBuilder stringBuilder = new StringBuilder();
 	            stringBuilder.AppendFormat("INVOICE_CUSTOMERID={0}", payExPayment.CustomerId);
-	
+
 	            DateTime sixDaysForward = payExPayment.Created.AddDays(6);
 	            stringBuilder.AppendFormat("&INVOICE_DUEDATE={0}", new DateTime(sixDaysForward.Year, sixDaysForward.Month, sixDaysForward.Day).ToString("yyyy-MM-dd"));
 	            return stringBuilder.ToString();
@@ -529,7 +529,7 @@ In order to specify dynamic values you can implement your own *IAdditionalValues
 If you don't want Commerce to set the payments to processed when the customer is redirected to PayEx to enter payment information, you can modify the workflow activity ProcessPaymentActivity to include a check if user is being redirected in the ProcessPayment method.
 
 	var httpContext = HttpContext.Current;
-	var isRedirecting = httpContext != null 
+	var isRedirecting = httpContext != null
 					    && httpContext.Response.IsRequestBeingRedirected;
 
     // update payment status
@@ -545,16 +545,16 @@ If you don't want Commerce to set the payments to processed when the customer is
 	    throw new PaymentException(PaymentException.ErrorType.ProviderError
 								    , "", String.Format(message));
 	}
-	
+
     Logger.Debug(String.Format("Payment processed."));
-    
- 
+
+
 ##[[↑]](#toc) <a name='troubleshooting'>Troubleshooting</a>
 
 ###[[↑]](#toc) <a name='logging'>Logging</a>
 
-The PayEx Payment Provider logs to a logger named *PayEx.EPi.Commerce.Payment​*. Include the following logger in your EPiServerLog.config log: 
-	
+The PayEx Payment Provider logs to a logger named *PayEx.EPi.Commerce.Payment​*. Include the following logger in your EPiServerLog.config log:
+
 	<logger name="PayEx.EPi.Commerce.Payment​">
     	<level value="All"/>
     	<appender-ref ref="[Insert your appender here]" />
