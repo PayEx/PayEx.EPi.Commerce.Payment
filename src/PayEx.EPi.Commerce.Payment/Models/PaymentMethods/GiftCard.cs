@@ -1,4 +1,5 @@
-﻿using PayEx.EPi.Commerce.Payment.Contracts;
+﻿using System;
+using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Dectorators.PaymentCapturers;
 using PayEx.EPi.Commerce.Payment.Dectorators.PaymentCompleters;
@@ -56,12 +57,12 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
             get { return PurchaseOperation.AUTHORIZATION; }
         }
 
-        public override PaymentInitializeResult Initialize()
+        public override PaymentInitializeResult Initialize(Action<string> redirectAction)
         {
             IPaymentInitializer initializer = new GenerateOrderNumber(
                 new InitializePayment(
                 new RedirectUser(), _paymentManager, _parameterReader, _cartActions, _additionalValuesFormatter), _orderNumberGenerator);
-            return initializer.Initialize(this, null, null, null);
+            return initializer.Initialize(this, null, null, null, redirectAction);
         }
 
         public override PaymentCompleteResult Complete(string orderRef)

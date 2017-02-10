@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using System;
+using log4net;
 using PayEx.EPi.Commerce.Payment.Contracts;
 using PayEx.EPi.Commerce.Payment.Contracts.Commerce;
 using PayEx.EPi.Commerce.Payment.Models;
@@ -18,7 +19,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             _orderNumberGenerator = orderNumberGenerator;
         }
 
-        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef)
+        public PaymentInitializeResult Initialize(PaymentMethod currentPayment, string orderNumber, string returnUrl, string orderRef, Action<string> redirectAction)
         {
             Log.InfoFormat("Generating order number for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             if (string.IsNullOrWhiteSpace(orderNumber))
@@ -38,7 +39,7 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             }
 
             Log.InfoFormat("Finished generating order number for payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
-            return _initializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef);
+            return _initializer.Initialize(currentPayment, orderNumber, returnUrl, orderRef, redirectAction);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace PayEx.EPi.Commerce.Payment.UnitTests.Decorators.PaymentInitializers
             creditCard.Payment = paymentMock.Object;
             creditCard.OrderGroupId = 1000;
 
-            _orderNumberGenerator.Initialize(creditCard, null, null, null);
+            _orderNumberGenerator.Initialize(creditCard, null, null, null, null);
 
             Assert.IsNotNullOrEmpty(creditCard.Payment.OrderNumber);
         }
@@ -50,7 +50,7 @@ namespace PayEx.EPi.Commerce.Payment.UnitTests.Decorators.PaymentInitializers
             creditCard.Payment.Description = "Order number: {0}";
             creditCard.OrderGroupId = 1000;
 
-            _orderNumberGenerator.Initialize(creditCard, null, null, null);
+            _orderNumberGenerator.Initialize(creditCard, null, null, null, null);
 
             Assert.AreEqual(creditCard.Payment.Description, "Order number: " + creditCard.Payment.OrderNumber);
         }

@@ -72,7 +72,7 @@ namespace PayEx.EPi.Commerce.Payment.Models.PaymentMethods
         public abstract bool RequireAddressUpdate { get; }
         public abstract bool IsDirectModel { get; }
         public abstract PurchaseOperation PurchaseOperation { get; }
-        public abstract PaymentInitializeResult Initialize();
+        public abstract PaymentInitializeResult Initialize(Action<string> redirectAction);
         public abstract PaymentCompleteResult Complete(string orderRef);
         public abstract bool Capture();
         public abstract bool Credit();
