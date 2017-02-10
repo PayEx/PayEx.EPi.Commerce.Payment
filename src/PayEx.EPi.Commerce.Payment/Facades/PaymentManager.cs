@@ -265,5 +265,20 @@ namespace PayEx.EPi.Commerce.Payment.Facades
                 Log.ErrorFormat("Error when calling InvoiceLinkGet for order with transactionNumber:{0}. Result:{1}", transactionNumber, xmlResult);
             return result;
         }
+
+        public PurchaseSwishResult PurchaseSwish(string orderRef, string paymentMethod, CustomerDetails customerDetails)
+        {
+            Log.InfoFormat("Calling PurchaseSwish for order with orderRef:{0}. CustomerDetails:{1}", orderRef, customerDetails);
+
+            string hash = _hasher.Create(_payExSettings.AccountNumber, orderRef, paymentMethod, customerDetails, _payExSettings.EncryptionKey);
+            string xmlResult = _orderFacade.PreparePurchaseSwish(_payExSettings.AccountNumber, orderRef, customerDetails.MobilePhone, customerDetails.IpAddress, hash);
+
+            PurchaseSwishResult result = _resultParser.Deserialize<PurchaseSwishResult>(xmlResult);
+            if (result.Status.Success)
+                Log.InfoFormat("Successfully called PurchaseSwishResult for order with orderRef:{0}. Result:{1}", orderRef, xmlResult);
+            else
+                Log.ErrorFormat("Error when calling PurchaseSwishResult for order with orderRef:{0}. Result:{1}", orderRef, xmlResult);
+            return result;
+        }
     }
 }

@@ -34,6 +34,8 @@ namespace PayEx.EPi.Commerce.Payment.Dectorators.PaymentInitializers
             Log.InfoFormat("Initializing payment with ID:{0} belonging to order with ID: {1}", currentPayment.Payment.Id, currentPayment.OrderGroupId);
             PaymentInformation paymentInformation = CreateModel(currentPayment, orderNumber);
 
+            Log.InfoFormat("Initializing payment with Price:{0}", paymentInformation.Price);
+
             InitializeResult result = _paymentManager.Initialize(currentPayment.Cart, paymentInformation, currentPayment.IsDirectModel, currentPayment.IsDirectModel);
             if (!result.Status.Success)
                 return new PaymentInitializeResult { Success = false, ErrorMessage = result.Status.Description };

@@ -122,6 +122,12 @@ namespace PayEx.EPi.Commerce.Payment
                 public const string Name = "PayEx MasterPass";
             }
 
+            public static class Swish
+            {
+                public const string SystemKeyword = "PayEx_Swish";
+                public const string Name = "PayEx Swish";
+            }
+
         }
 
         public static class Logging

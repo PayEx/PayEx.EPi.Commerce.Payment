@@ -345,6 +345,7 @@
     <Compile Include="Models\PaymentMethods\PartPayment.cs" />
     <Compile Include="Models\PaymentMethods\PaymentMethod.cs" />
     <Compile Include="Models\PaymentMethods\PayPal.cs" />
+    <Compile Include="Models\PaymentMethods\Swish.cs" />
     <Compile Include="Models\PurchaseOperation.cs" />
     <Compile Include="Models\Result\InvoiceLinkResult.cs" />
     <Compile Include="Models\Result\LegalAddressResult.cs" />
@@ -361,6 +362,7 @@
     <Compile Include="Models\Result\InvoiceDetails.cs" />
     <Compile Include="Models\Result\PurchaseInvoiceSaleResult.cs" />
     <Compile Include="Models\Result\PurchasePartPaymentSaleResult.cs" />
+    <Compile Include="Models\Result\PurchaseSwishResult.cs" />
     <Compile Include="Models\Result\Status.cs" />
     <Compile Include="Models\Result\StatusCode.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
